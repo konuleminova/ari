@@ -7,23 +7,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+
 class ProductViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    ValueNotifier<Status> productState = useState<Status>();
+    //ValueNotifier<Status> productState = useState<Status>();
      String   resultText;
-    useEffect(() {
-      ProductRepository repository = new ProductRepository();
-      ApiResponse<Product> fetchProducts = repository.fetchExchangeRates();
-      productState.value = useMemoized(() =>  fetchProducts.status);
-     resultText =
-      useMemoized(() => fetchProducts?.data?.number.toString() ?? '');
-      print('STTAe ');
-print(productState.value);
-      return () {};
-    },[]);
+    ProductRepository repository = new ProductRepository();
+    //ApiResponse<dynamic> fetchProducts = repository.fetchExchangeRates();
+    //productState.value =useMemoized(()=>repository.fetchExchangeRates().status,[]);
+//    resultText =
+//        useMemoized(() => fetchProducts?.data?.number.toString() ?? '');
+
+
+//    ApiResponse<Product> mappedResponse = useMemoized(() {
+//      return repository.fetchExchangeRates().copyWithData((Product res) =>res);
+//    }, []);
+   // print('STTAe ${fetchProducts}');
+    //print(productState.value);
 
     // TODO: implement build
-    return ProductView(productState.value, resultText);
+    ApiResponse<Product> response = repository.useFetchExchangeRates();
+    return ProductView(response.status, resultText);
   }
 }

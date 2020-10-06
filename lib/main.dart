@@ -1,8 +1,6 @@
 import 'package:ari/services/service_localator.dart';
+import 'package:ari/ui/views/home/home.dart';
 import 'package:flutter/material.dart';
-
-import 'ui/home.dart';
-
 void main() {
   setUpServiceLocator();
   runApp(MyApp());
