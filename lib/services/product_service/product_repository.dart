@@ -2,7 +2,6 @@ import 'package:ari/business_logic/models/product.dart';
 import 'package:ari/services/api_helper/api_base_helper.dart';
 import 'package:ari/services/api_config.dart';
 import 'package:ari/services/api_helper/api_response.dart';
-import 'package:ari/services/product_service/product_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -56,28 +55,22 @@ ApiResponse<dynamic> useFetchRates() {
 }
 
 
+ApiBaseHelper _helper = ApiBaseHelper();
+ApiResponse<Product> useFetchExchangeRates() {
+  final ValueNotifier<ApiResponse<Product>> _state =
+  useState<ApiResponse<Product>>(ApiResponse.initial());
 
+  useEffect(() {
+    _state.value = ApiResponse.loading();
+    _helper.get(ApiConfig().BASE_URl).then((value) {
+      _state.value = ApiResponse.completed(Product.fromJson(value));
+      print('Api response ${_state.value}');
+    });
 
-class ProductRepository implements ProductService {
-  ApiBaseHelper _helper = ApiBaseHelper();
-
-  @override
-  ApiResponse<Product> useFetchExchangeRates() {
-    final ValueNotifier<ApiResponse<Product>> _state =
-    useState<ApiResponse<Product>>(ApiResponse.initial());
-
-    useEffect(() {
-      _state.value = ApiResponse.loading();
-      _helper.get(ApiConfig().BASE_URl).then((value) {
-        _state.value = ApiResponse.completed(Product.fromJson(value));
-        print('Api response ${_state.value}');
-      });
-
-      return () {
-        print('DISPOSED');
-      };
-    }, []);
-    print('VALUE ${_state.value}');
-    return _state.value;
-  }
+    return () {
+      print('DISPOSED');
+    };
+  }, []);
+  print('VALUE ${_state.value}');
+  return _state.value;
 }

@@ -1,7 +1,6 @@
 import 'package:ari/business_logic/models/product.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/product_service/product_repository.dart';
-import 'package:ari/services/product_service/product_service.dart';
 import 'package:ari/ui/views/product_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -13,7 +12,7 @@ class ProductViewModel extends HookWidget {
   Widget build(BuildContext context) {
     //ValueNotifier<Status> productState = useState<Status>();
      String   resultText;
-    ProductRepository repository = new ProductRepository();
+  //  ProductRepository repository = new ProductRepository();
     //ApiResponse<dynamic> fetchProducts = repository.fetchExchangeRates();
     //productState.value =useMemoized(()=>repository.fetchExchangeRates().status,[]);
 //    resultText =
@@ -27,7 +26,7 @@ class ProductViewModel extends HookWidget {
     //print(productState.value);
 
     // TODO: implement build
-    ApiResponse<Product> response = repository.useFetchExchangeRates();
+    ApiResponse<Product> response = useFetchExchangeRates();
     return ProductView(response.status, resultText);
   }
 }

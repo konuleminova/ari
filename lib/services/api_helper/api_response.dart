@@ -4,15 +4,7 @@ class ApiResponse<T> {
   T data;
   Status status;
   DioError error;
-
   ApiResponse({this.data, this.status, this.error});
-
-//  ApiResponse.initial() : status = Status.Idle;
-//  ApiResponse.loading() : status = Status.Loading;
-//
-//  ApiResponse.completed(this.data) : status = Status.Done;
-//
-//  ApiResponse.error(this.error) : status = Status.Error;
   factory ApiResponse.initial() {
     return new ApiResponse(status: Status.Idle, data: null, error: null);
   }

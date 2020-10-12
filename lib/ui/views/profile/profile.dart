@@ -1,13 +1,13 @@
-import 'package:ari/utils/size_config.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class HomeView extends HookWidget {
+class ProfileView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Center(
-      child: Text('home'),
+      child: Text('Profile'),
     );
   }
 }

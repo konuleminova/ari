@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'size_config.dart';
-
+import 'package:flutter/material.dart';
+import 'package:ari/utils/size_config.dart';
 class ImageAssetWidget extends StatelessWidget {
   final String path;
   final width;
@@ -18,10 +17,3 @@ class ImageAssetWidget extends StatelessWidget {
     );
   }
 }
-
-const BASE_ASSET = 'assets/images/';
-
-const SEARCH = BASE_ASSET + "search.png";
-const BASKET = BASE_ASSET + "basket.png";
-const PERSON = BASE_ASSET + "person.png";
-const LOGO = BASE_ASSET + 'logo.png';

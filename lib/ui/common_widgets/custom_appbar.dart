@@ -1,7 +1,11 @@
-import 'package:ari/ui/utils/image_asset.dart';
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/ui/views/init/init.dart';
+import 'package:ari/utils/image_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import '../utils/size_config.dart';
+import 'package:ari/utils/size_config.dart';
+
+import 'image_asset.dart';
 
 class CustomAppBar extends HookWidget implements PreferredSizeWidget {
   @override
@@ -27,13 +31,22 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Expanded(
-                      child: _iconItem(onClickIndex, BASKET, 0),
+                      child:
+                          _iconItem(onClickIndex, BASKET_ASSET, 0, onClick: () {
+                        navigationKey.currentState.pushNamed('/');
+                      }),
                     ),
                     Expanded(
-                      child: _iconItem(onClickIndex, SEARCH, 1),
+                      child:
+                          _iconItem(onClickIndex, SEARCH_ASSET, 1, onClick: () {
+                        navigationKey.currentState.pushNamed(ROUTE_SEARCH);
+                      }),
                     ),
                     Expanded(
-                      child: _iconItem(onClickIndex, PERSON, 2),
+                      child:
+                          _iconItem(onClickIndex, PERSON_ASSET, 2, onClick: () {
+                        navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                      }),
                     )
                   ],
                 ),
@@ -49,7 +62,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
               ),
               Expanded(
                   child: ImageAssetWidget(
-                path: LOGO,
+                path: LOGO_ASSET,
                 width: 40.toHeight,
                 height: 40.toHeight,
               ))
@@ -83,7 +96,8 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(85.toHeight);
 
-  _iconItem(ValueNotifier onClickIndex, String imagePath, int index) {
+  _iconItem(ValueNotifier onClickIndex, String imagePath, int index,
+      {Function onClick}) {
     return GestureDetector(
       child: Container(
         height: 54.toHeight,
@@ -101,6 +115,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
       ),
       onTap: () {
         onClickIndex.value = index;
+        onClick();
       },
     );
   }
