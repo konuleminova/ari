@@ -5,8 +5,6 @@ import 'package:ari/services/api_helper/api_response.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:http/http.dart';
 
 
 abstract class Task<T> {
@@ -59,11 +57,11 @@ ApiBaseHelper _helper = ApiBaseHelper();
 ApiResponse<Product> useFetchExchangeRates() {
   final ValueNotifier<ApiResponse<Product>> _state =
   useState<ApiResponse<Product>>(ApiResponse.initial());
-
+  print('VALUE ${_state.value}');
   useEffect(() {
     _state.value = ApiResponse.loading();
     _helper.get(ApiConfig().BASE_URl).then((value) {
-      _state.value = ApiResponse.completed(Product.fromJson(value));
+      _state.value = ApiResponse.completed(Product.fromJson(value.data));
       print('Api response ${_state.value}');
     });
 
@@ -71,6 +69,6 @@ ApiResponse<Product> useFetchExchangeRates() {
       print('DISPOSED');
     };
   }, []);
-  print('VALUE ${_state.value}');
+
   return _state.value;
 }
