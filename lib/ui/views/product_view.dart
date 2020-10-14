@@ -16,7 +16,7 @@ class ProductView extends StatelessWidget {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Container(child: Text(result??"Test result"),),
+          : Container(child:Center(child:  Text(result??"Test result"),)),
     );
   }
 }
