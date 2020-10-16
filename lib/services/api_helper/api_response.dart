@@ -1,10 +1,12 @@
-import 'package:dio/dio.dart';
+enum Status { Loading, Done, Error, Idle }
 
 class ApiResponse<T> {
   T data;
   Status status;
-  DioError error;
+  AppException error;
+
   ApiResponse({this.data, this.status, this.error});
+
   factory ApiResponse.initial() {
     return new ApiResponse(status: Status.Idle, data: null, error: null);
   }
@@ -15,6 +17,11 @@ class ApiResponse<T> {
 
   factory ApiResponse.loading() {
     return new ApiResponse(status: Status.Loading, data: null, error: null);
+  }
+
+  factory ApiResponse.error(AppException appException) {
+    return new ApiResponse(
+        status: Status.Error, data: null, error: appException);
   }
 
   ApiResponse<V> copyWithData<V>(V Function(T) mapper) {
@@ -30,4 +37,8 @@ class ApiResponse<T> {
   }
 }
 
-enum Status { Loading, Done, Error, Idle }
+class AppException implements Exception {
+  String message;
+
+  AppException({this.message});
+}
