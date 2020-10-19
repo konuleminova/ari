@@ -19,20 +19,20 @@ class _ProviderInjector {
     return this._providers.containsKey(key);
   }
 
-  void registerOrUpdateWithValue<T>(T value) {
-    String key = _makeKey(T);
+  void registerOrUpdateWithValue<T>(T value, [String tag]) {
+    String key = _makeKey(T, tag);
     this._providers[key] = value;
   }
 
-  void unRegisterProvider<T>() {
-    String key = _makeKey(T);
+  void unRegisterProvider<T>([String tag]) {
+    String key = _makeKey(T, tag);
     if (this._hasKey(key)) {
       this._providers.remove(key);
     }
   }
 
-  T getProviderValue<T>() {
-    String key = _makeKey(T);
+  T getProviderValue<T>([String tag]) {
+    String key = _makeKey(T, tag);
     if (!_hasKey(key)) {
       throw Exception('Rovider can not find ${key}');
     }

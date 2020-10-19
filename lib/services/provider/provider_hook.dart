@@ -1,19 +1,18 @@
 part of 'provider.dart';
 
-final providerInstanece = useMemoized<_ProviderInjector>(
-    () => _ProviderInjector.getInstance(), const []);
+final providerInstance = _ProviderInjector.getInstance();
 
-T useProvider<T>() {
-  return providerInstanece.getProviderValue();
+T useProvider<T>([String tag]) {
+  return providerInstance.getProviderValue(tag);
 }
 
-void useProviderRegistration<T>(T value) {
+void useProviderRegistration<T>(T value, [String tag]) {
   useEffect(() {
     return () {
-      providerInstanece.unRegisterProvider();
+      providerInstance.unRegisterProvider(tag);
     };
-  }, []);
-  providerInstanece.registerOrUpdateWithValue<T>(value);
+  }, [tag]);
+  providerInstance.registerOrUpdateWithValue<T>(value, tag);
 }
 
 

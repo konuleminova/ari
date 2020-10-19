@@ -11,6 +11,10 @@ class ComponentA extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final Store<CounterState, CounterAction> counterStore = useCounterStore();
+    useProviderRegistration(counterStore);
+    useProviderRegistration(counterStore, 'Store_2');
+
+
 
     // TODO: implement build
     return Center(

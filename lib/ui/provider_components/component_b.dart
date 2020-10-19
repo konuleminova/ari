@@ -18,6 +18,8 @@ class ComponentB extends HookWidget {
 //      store.dispatch(ChangeCounterAction(store.state.counter + 1));
 //    }, []);(bu hisseni izzah olunacaq)
 
+      //final changeCounterAction = () {};
+
     // TODO: implement build
     return Column(
       children: <Widget>[
