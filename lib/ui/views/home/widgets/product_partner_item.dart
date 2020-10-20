@@ -1,5 +1,5 @@
 import 'package:ari/utils/size_config.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PartnerItem extends StatelessWidget {
   final index;
@@ -27,10 +27,16 @@ class PartnerItem extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              child: index % 2 == 0
-                  ? Image.asset('assets/images/green_clipper.png')
-                  : Image.asset('assets/images/green_clipper_right.png'),
-            ),
+              padding: EdgeInsets.all(8.toWidth),
+              width: SizeConfig().screenWidth,
+                alignment: index % 2 == 0?Alignment.centerRight:Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image:index % 2 == 0
+                      ? AssetImage('assets/images/green_clipper.png',)
+                      : AssetImage('assets/images/green_clipper_right.png'),
+                )),
+                child: Text('Cup Cup Coffie',textAlign: TextAlign.center,)),
           )
         ],
       ),
