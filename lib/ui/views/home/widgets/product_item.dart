@@ -27,14 +27,14 @@ class ProductzItem extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.toWidth,vertical: 2.toHeight),
+                padding: EdgeInsets.symmetric(horizontal: 16.toWidth,vertical: 4.toHeight),
                 alignment: Alignment.topLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text('Some text'),
-                    Text("Info some "),
+                    Text('Simple Text'),
+                    Text("Info some ",style: TextStyle(fontFamily: 'Bitter-Light'),),
                   ],
                 )),
           )
