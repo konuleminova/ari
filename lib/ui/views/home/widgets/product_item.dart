@@ -25,19 +25,17 @@ class ProductzItem extends StatelessWidget {
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10)))),
           ),
-          Expanded(
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.toWidth,vertical: 4.toHeight),
-                alignment: Alignment.topLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Simple Text'),
-                    Text("Info some ",style: TextStyle(fontFamily: 'Bitter-Light'),),
-                  ],
-                )),
-          )
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.toWidth,vertical: 4.toHeight),
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('Simple Text'),
+                  Text("Info some ",style: TextStyle(fontFamily: 'Bitter-Light'),),
+                ],
+              )),
         ],
       ),
     );
