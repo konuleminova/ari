@@ -1,3 +1,4 @@
+import 'package:ari/business_logic/view_models/product_viewmodel.dart';
 import 'package:ari/ui/home.dart';
 import 'package:ari/ui/provider_components/component_a.dart';
 import 'package:ari/ui/views/home/home.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Scaffold(body: ComponentA(),)
+        home: InitPage()
     );
   }
 }
