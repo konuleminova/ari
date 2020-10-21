@@ -12,6 +12,7 @@ class RestaurantView extends HookWidget {
       child: Column(
         children: <Widget>[
           Expanded(
+            flex: 2,
               child: Stack(
             children: <Widget>[
               ClipRRect(
@@ -62,11 +63,12 @@ class RestaurantView extends HookWidget {
                 scrollDirection: Axis.horizontal,
               ),
               width: SizeConfig().screenWidth,
-              height: 30.toHeight),
+              height: 25.toHeight),
           Divider(
             color: Colors.grey.withOpacity(0.1),
           ),
           Expanded(
+            flex: 3,
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return FoodItem();
