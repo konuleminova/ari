@@ -1,5 +1,7 @@
+import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/ui/views/home/widgets/product_item.dart';
 import 'package:ari/ui/views/home/widgets/product_partner_item.dart';
+import 'package:ari/ui/views/init/init.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -17,7 +19,12 @@ class HomeView extends HookWidget {
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return ProductzItem();
+              return InkWell(
+                child: ProductzItem(),
+                onTap: () {
+                  navigationKey.currentState.pushNamed(ROUTE_RESTAURANT);
+                },
+              );
             },
             itemCount: 5,
             scrollDirection: Axis.horizontal,
@@ -38,7 +45,7 @@ class HomeView extends HookWidget {
         ),
         Container(
           padding:
-          EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
+              EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
           height: MediaQuery.of(context).size.height * 0.24,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
@@ -51,7 +58,7 @@ class HomeView extends HookWidget {
         ),
         Container(
           padding:
-          EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
+              EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
           height: MediaQuery.of(context).size.height * 0.25,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
