@@ -62,7 +62,7 @@ class RestaurantView extends HookWidget {
                 scrollDirection: Axis.horizontal,
               ),
               width: SizeConfig().screenWidth,
-              height: 140.toHeight),
+              height: 30.toHeight),
           Divider(
             color: Colors.grey.withOpacity(0.1),
           ),
