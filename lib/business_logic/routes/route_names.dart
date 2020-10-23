@@ -1,4 +1,5 @@
 import 'package:ari/business_logic/view_models/food_viewmodel.dart';
+import 'package:ari/business_logic/view_models/restourant_viewmodel.dart';
 import 'package:ari/ui/views/home/home.dart';
 import 'package:ari/ui/views/profile/profile.dart';
 import 'package:ari/ui/views/restaurant/restaurant.dart';
@@ -10,7 +11,7 @@ const ROUTE_RESTAURANT = '/restaurant';
 
 final routeNames = {
 // default rout as '/' is necessary!
-  '/': (context) => HomeView(),
+  '/': (context) => RestourantViewModel(),
   ROUTE_SEARCH: (context) => SearchView(),
   ROUTE_PROFILE: (context) => ProfileView(),
   ROUTE_RESTAURANT: (context) => FoodViewModel()

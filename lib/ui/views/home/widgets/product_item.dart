@@ -1,7 +1,12 @@
+import 'package:ari/business_logic/models/restourant.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
 
-class ProductzItem extends StatelessWidget {
+class RestourantItem extends StatelessWidget {
+  Restourant restourant;
+
+  RestourantItem({this.restourant});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,23 +22,24 @@ class ProductzItem extends StatelessWidget {
             flex: 3,
             child: Container(
                 child: ClipRRect(
-                    child: Image.network(
-                      'https://bees.az/___entcpanel/uploads/d3271c371aae25d4f8c747912391ce93_206431.png',
-                      fit: BoxFit.cover
-                    ),
+                    child: Image.network(restourant.image, fit: BoxFit.cover),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10)))),
           ),
           Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.toWidth,vertical: 4.toHeight),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 16.toWidth, vertical: 4.toHeight),
               alignment: Alignment.topLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text('Simple Text'),
-                  Text("Info some ",style: TextStyle(fontFamily: 'Bitter-Light'),),
+                  Text(restourant.name ?? ''),
+                  Text(
+                  '',
+                    style: TextStyle(fontFamily: 'Bitter-Light'),
+                  ),
                 ],
               )),
         ],
