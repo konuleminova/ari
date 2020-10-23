@@ -1,3 +1,4 @@
+import 'package:ari/business_logic/view_models/food_viewmodel.dart';
 import 'package:ari/ui/views/home/home.dart';
 import 'package:ari/ui/views/profile/profile.dart';
 import 'package:ari/ui/views/restaurant/restaurant.dart';
@@ -12,5 +13,5 @@ final routeNames = {
   '/': (context) => HomeView(),
   ROUTE_SEARCH: (context) => SearchView(),
   ROUTE_PROFILE: (context) => ProfileView(),
-  ROUTE_RESTAURANT: (context) => RestaurantView()
+  ROUTE_RESTAURANT: (context) => FoodViewModel()
 };

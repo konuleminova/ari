@@ -24,6 +24,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
               cancelToken: cancelToken)
           .then((value) {
         if (!isCancel) {
+          print('IsCanceled: $isCancel');
           _state.value = ApiResponse.completed(config.transformResponse(value));
         }
       }).catchError((error) {
@@ -36,6 +37,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       _state.value = ApiResponse.initial();
     }
     return () {
+      print('Dispose -> Cancelled');
       isCancel = true;
       if (cancelToken != null) {
         cancelToken.cancel('Request Cancelled');
@@ -43,6 +45,6 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       }
     };
   }, [config]);
-  print('STATEB VALUE ${_state.value}');
+  //print('STATEB VALUE ${_state.value}');
   return _state.value;
 }
