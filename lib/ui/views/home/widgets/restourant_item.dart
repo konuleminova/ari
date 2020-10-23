@@ -51,7 +51,11 @@ class RestourantItem extends StatelessWidget {
       onTap: () {
         pushRouteWithName(ROUTE_RESTAURANT,
             arguments: RouteArguments<Restourant>(
-                data: Restourant(image: restourant.image, id: restourant.id)));
+                data: Restourant(
+                    image: restourant.image,
+                    id: restourant.id,
+                    name: restourant.name,
+                    information: restourant.information)));
       },
     );
   }

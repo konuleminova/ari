@@ -46,15 +46,16 @@ class FoodView extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Text('Some text'),
-                                SizedBox(
-                                  height: 4.toHeight,
-                                ),
-                                Text('info some')
-                              ],
-                            ),
+                           Expanded(child:  Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: <Widget>[
+                               Text(arguments.data.name),
+                               SizedBox(
+                                 height: 4.toHeight,
+                               ),
+                               Text(arguments.data.information,overflow: TextOverflow.ellipsis,),
+                             ],
+                           ),),
                             Icon(
                               Icons.favorite_border,
                               size: 30,
