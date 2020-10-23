@@ -1,5 +1,5 @@
 import 'package:ari/business_logic/routes/route_names.dart';
-import 'package:ari/ui/views/init/init.dart';
+import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/image_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

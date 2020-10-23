@@ -13,6 +13,9 @@ class ErrorHandler extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (status == Status.Idle) {
+      child = Container();
+    }
     // TODO: implement build
     if (status == Status.Loading) {
       child = Loading();
@@ -24,7 +27,12 @@ class ErrorHandler extends StatelessWidget {
                   errorMessage: error.message ?? "Some Message",
                 ));
       });
-      child=Container();
+      child = Container(
+        child: RefreshIndicator(
+          child: Icon(Icons.refresh),
+          onRefresh: () {},
+        ),
+      );
     }
     return child;
   }

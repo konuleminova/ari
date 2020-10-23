@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
 
-class FoodItem extends StatelessWidget{
+class FoodItem extends StatelessWidget {
   Food item;
 
   FoodItem({this.item});
@@ -59,7 +59,7 @@ class FoodItem extends StatelessWidget{
             flex: 2,
             child: ClipRRect(
               child: Image.network(
-                'https://bees.az/___entcpanel/uploads/d3271c371aae25d4f8c747912391ce93_206431.png',
+                item.image,
                 height: 80.toHeight,
                 width: SizeConfig().screenWidth,
                 fit: BoxFit.cover,

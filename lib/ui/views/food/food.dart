@@ -1,19 +1,24 @@
 import 'package:ari/business_logic/models/food.dart';
+import 'package:ari/business_logic/models/restourant.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
-import 'package:ari/ui/views/restaurant/widgets/food_item.dart';
+import 'package:ari/ui/views/food/widgets/food_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
 
-class RestaurantView extends StatelessWidget {
-  ApiResponse<List<Food>> apiResponse;
+class FoodView extends StatelessWidget {
+  List<Food> foodList;
 
-  RestaurantView({this.apiResponse});
+  FoodView({this.foodList});
+
+  RouteArguments<Restourant> arguments;
 
   @override
   Widget build(BuildContext context) {
+    arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return Container(
       child: Column(
@@ -24,7 +29,7 @@ class RestaurantView extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     child: Image.network(
-                      'https://bees.az/___entcpanel/uploads/d3271c371aae25d4f8c747912391ce93_206431.png',
+                      arguments.data.image,
                       width: SizeConfig().screenWidth,
                       height: SizeConfig().screenHeight,
                       fit: BoxFit.cover,
@@ -82,18 +87,12 @@ class RestaurantView extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: apiResponse?.status == Status.Error
-                ? Center(
-                    child: Text(apiResponse.error.message),
-                  )
-                : apiResponse?.status == Status.Loading
-                    ? Loading()
-                    : ListView.builder(
-                        itemBuilder: (BuildContext context, int index) {
-                          return FoodItem(item: apiResponse.data[index]);
-                        },
-                        itemCount: apiResponse.data.length,
-                      ),
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return FoodItem(item: foodList[index]);
+              },
+              itemCount: foodList.length,
+            ),
           )
         ],
       ),

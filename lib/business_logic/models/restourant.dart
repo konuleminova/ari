@@ -20,6 +20,18 @@ class Restourant {
   String delivery_time;
   String categories;
 
+  Restourant(
+      {this.id,
+      this.name,
+      this.sm_name,
+      this.information,
+      this.image,
+      this.priceRange,
+      this.coords,
+      this.working_time,
+      this.delivery_time,
+      this.categories});
+
   Restourant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
