@@ -1,6 +1,7 @@
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
 import 'package:ari/ui/views/food/widgets/food_item.dart';
@@ -46,16 +47,21 @@ class FoodView extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                           Expanded(child:  Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: <Widget>[
-                               Text(arguments.data.name),
-                               SizedBox(
-                                 height: 4.toHeight,
-                               ),
-                               Text(arguments.data.information,overflow: TextOverflow.ellipsis,),
-                             ],
-                           ),),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(arguments.data.name),
+                                  SizedBox(
+                                    height: 4.toHeight,
+                                  ),
+                                  Text(
+                                    arguments.data.information,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
                             Icon(
                               Icons.favorite_border,
                               size: 30,
@@ -68,18 +74,8 @@ class FoodView extends StatelessWidget {
                 ],
               )),
           Container(
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 40.toHeight,
-                    width: 40.toHeight,
-                    padding: EdgeInsets.all(8.toWidth),
-                    child: Text('Soap'),
-                    margin: EdgeInsets.symmetric(horizontal: 8.toWidth),
-                  );
-                },
-                itemCount: 10,
-                scrollDirection: Axis.horizontal,
+              child: MenuViewModel(
+                id: arguments.data.id,
               ),
               width: SizeConfig().screenWidth,
               height: 25.toHeight),

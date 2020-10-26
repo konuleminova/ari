@@ -15,10 +15,12 @@ class ErrorHandler extends StatelessWidget {
   Widget build(BuildContext context) {
     if (status == Status.Idle) {
       child = Container();
+      return child;
     }
     // TODO: implement build
     if (status == Status.Loading) {
       child = Loading();
+      return child;
     } else if (status == Status.Error) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         showDialog(
@@ -28,13 +30,16 @@ class ErrorHandler extends StatelessWidget {
                 ));
       });
       child = Container(
-        child: RefreshIndicator(
-          child: Icon(Icons.refresh),
-          onRefresh: () {},
-        ),
+//        child: RefreshIndicator(
+//          child: Icon(Icons.refresh),
+//          onRefresh: () {},
+//        ),
       );
+      return child;
+    }else if(status==Status.Done){
+      return child;
     }
-    return child;
+
   }
 }
 
