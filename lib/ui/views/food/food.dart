@@ -19,9 +19,10 @@ class FoodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Foodlist: $foodList');
     arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
-    return Container(
+    return foodList == null ? Container() : Container(
       child: Column(
         children: <Widget>[
           Expanded(

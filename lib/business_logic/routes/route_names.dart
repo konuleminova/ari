@@ -12,7 +12,7 @@ const ROUTE_RESTAURANT = '/restaurant';
 final routeNames = {
 // default rout as '/' is necessary!
   '/': (context) => RestourantViewModel(),
-  ROUTE_SEARCH: (context) => SearchView(),
+  ROUTE_SEARCH: (context) => SearchViewModel(),
   ROUTE_PROFILE: (context) => ProfileView(),
   ROUTE_RESTAURANT: (context) => FoodViewModel()
 };

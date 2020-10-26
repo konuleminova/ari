@@ -13,7 +13,7 @@ class FoodItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
+    return item == null ? Container() : Container(
       padding:
           EdgeInsets.symmetric(vertical: 12.toHeight, horizontal: 8.toWidth),
       decoration: BoxDecoration(
@@ -38,7 +38,7 @@ class FoodItem extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(item.price),
+                        Text(item.price ?? ''),
                         Icon(Icons.shopping_basket)
                       ],
                     ),

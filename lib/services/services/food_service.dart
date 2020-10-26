@@ -11,8 +11,10 @@ ApiResponse<List<Food>> useFetchFoods(String id) {
   final ApiConfig apiConfig = useApiConfig();
   final DioConfig dioConfig = useMemoized(() => DioConfig<List<Food>>(
       path: apiConfig.FOOD_URl(id),
-      transformResponse: (Response response) =>
-          listFoodsFromJson(response.data)));
+      transformResponse: (Response response) {
+        print('FOOD RESPONSE: ${response.data}');
+        return listFoodsFromJson(response.data);
+      }));
   ApiResponse<List<Food>> apiResponse = useDioRequest<List<Food>>(dioConfig);
   return apiResponse;
 }

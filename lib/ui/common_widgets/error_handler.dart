@@ -1,8 +1,50 @@
 import 'package:ari/services/api_helper/api_response.dart';
+import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+
+
+class CustomErrorHandler extends HookWidget {
+  final List<Status> statuses;
+  final List<AppException> errors;
+  final Widget child;
+
+  const CustomErrorHandler({
+    this.statuses,
+    this.child,
+    this.errors,
+});
+
+  @override
+  Widget build(BuildContext context) {
+    print('ERRORS: $errors');
+    print('STATUSES: $statuses');
+    final AppException error = errors.firstWhere((element) => element != null, orElse: () => null);
+    final bool hasError = error != null;
+    final bool isLoading = statuses.firstWhere((element) => element == Status.Loading, orElse: () => null) != null;
+
+    final ctx = useContext();
+
+    useSideEffect(() {
+      if(hasError) {
+        showDialog(
+            context: ctx,
+            builder: (BuildContext context) => ErrorDialog(
+              errorMessage: error.message ?? "Some Message",
+            ));
+      }
+
+      return () {};
+    }, [hasError, error]);
+
+    return hasError ? Container() : isLoading ? Loading() : child;
+  }
+}
+
+
 
 class ErrorHandler extends StatelessWidget {
   Widget child;

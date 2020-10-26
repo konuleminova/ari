@@ -22,9 +22,9 @@ class FoodViewModel extends HookWidget {
       return () {};
     }, [apiResponse]);
 
-    return ErrorHandler(
-      status: apiResponse.status,
-      error: apiResponse.error,
+    return CustomErrorHandler(
+      statuses: [apiResponse.status,],
+      errors: [apiResponse.error],
       child: FoodView(
         foodList: apiResponse.data,
       ),
