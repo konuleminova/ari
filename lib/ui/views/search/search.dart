@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/models/search.dart';
+import 'package:ari/business_logic/view_models/search_viewmodel.dart';
 import 'package:ari/ui/views/home/widgets/restourant_item.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +8,10 @@ import 'package:flutter/material.dart';
 
 class SearchView extends StatelessWidget {
   final Search search;
+  TextEditingController controller1;
+  TextEditingController controller2;
 
-  SearchView({this.search});
+  SearchView({this.search, this.controller1, this.controller2});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +33,14 @@ class SearchView extends StatelessWidget {
                   child: Container(
                       padding: EdgeInsets.only(left: 8.toWidth),
                       child: TextField(
+                        controller: controller1,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
+                        onChanged: (value) {
+                          print('ON CHNAGES ${value}');
+                          setText(value);
+                        },
                       )),
                   flex: 3,
                 ),
@@ -46,9 +54,13 @@ class SearchView extends StatelessWidget {
                 Expanded(
                   child: Container(
                       child: TextField(
+                    controller: controller2,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                     ),
+                    onChanged: (value) {
+                      setNumberText(value);
+                    },
                   )),
                 )
               ],
@@ -73,7 +85,7 @@ class SearchView extends StatelessWidget {
                       crossAxisCount: 2),
                   itemBuilder: (BuildContext context, int index) {
                     return RestourantItem(
-                        restourant: Restourant(
+                        restourant:Restourant(
                             image: search.results[index].image,
                             name: search.results[index].name,
                             information: search.results[index].information));

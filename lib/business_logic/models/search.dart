@@ -5,12 +5,14 @@ class Search extends Restourant {
   //Search.fromJson(Map<String, dynamic> json) : super.fromJson(json);
   int found;
   String type;
-  List<Food> results;
+  List<dynamic> results;
 
   Search.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     found = json['found'];
     type = json['type'];
-    results = listFoodsFromJson(json['results']);
+    results = type == 'food'
+        ? listFoodsFromJson(json['results'])
+        : resourantListFromJson(json['results']);
   }
 
   @override
