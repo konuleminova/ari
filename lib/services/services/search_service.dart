@@ -10,6 +10,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 ApiResponse<Search> useSearchList(String query, String maxNum) {
   ApiConfig apiConfig = useApiConfig();
+  print(apiConfig.SEARCH_URL(query, maxNum));
   DioConfig dioConfig = useMemoized(() => DioConfig<Search>(
       path: apiConfig.SEARCH_URL(query, maxNum),
       transformResponse: (Response response) =>

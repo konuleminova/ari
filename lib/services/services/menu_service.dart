@@ -10,7 +10,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 ApiResponse<List<Menu>> useFetchMenu(String id) {
   final ApiConfig apiConfig = useApiConfig();
   final DioConfig dioConfig = useMemoized(() {
-    print('MENU CONFIG BUILDER WORKS');
+    //print('MENU CONFIG BUILDER WORKS');
     return DioConfig<List<Menu>>(
         path: apiConfig.MENU_URL(id),
         transformResponse: (Response response) =>

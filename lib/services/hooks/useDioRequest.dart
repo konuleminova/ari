@@ -12,7 +12,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
     bool isCancel = false;
     CancelToken cancelToken;
     if (config != null) {
-      print('REQUESTED URL: ${config.path}');
+     // print('REQUESTED URL: ${config.path}');
       _state.value = ApiResponse.loading();
       cancelToken = CancelToken();
       dio

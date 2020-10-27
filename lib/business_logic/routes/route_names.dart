@@ -1,9 +1,7 @@
 import 'package:ari/business_logic/view_models/food_viewmodel.dart';
 import 'package:ari/business_logic/view_models/restourant_viewmodel.dart';
-import 'package:ari/ui/views/home/home.dart';
+import 'package:ari/business_logic/view_models/search_viewmodel.dart';
 import 'package:ari/ui/views/profile/profile.dart';
-import 'package:ari/ui/views/food/food.dart';
-import 'package:ari/ui/views/search/search.dart';
 
 const ROUTE_SEARCH = '/search';
 const ROUTE_PROFILE = '/profile';

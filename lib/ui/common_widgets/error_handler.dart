@@ -20,8 +20,8 @@ class CustomErrorHandler extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('ERRORS: $errors');
-    print('STATUSES: $statuses');
+//    print('ERRORS: $errors');
+//    print('STATUSES: $statuses');
     final AppException error = errors.firstWhere((element) => element != null, orElse: () => null);
     final bool hasError = error != null;
     final bool isLoading = statuses.firstWhere((element) => element == Status.Loading, orElse: () => null) != null;
