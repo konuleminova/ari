@@ -15,7 +15,7 @@ class RestourantItem extends StatelessWidget {
     return InkWell(
       child: Container(
         width: SizeConfig().screenWidth / 2.4,
-        height: SizeConfig().screenWidth/2.4,
+        height: SizeConfig().screenWidth / 2.4,
         margin: EdgeInsets.all(4.toWidth),
         decoration: BoxDecoration(
             color: Color(0xFF707070).withOpacity(0.21),
@@ -23,29 +23,35 @@ class RestourantItem extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(
-              flex: 3,
+              flex: 7,
               child: Container(
+                  width: SizeConfig().screenWidth,
                   child: ClipRRect(
                       child: Image.network(restourant.image, fit: BoxFit.cover),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)))),
+                      borderRadius: BorderRadius.all(Radius.circular(10)))),
             ),
-            Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 16.toWidth, vertical: 4.toHeight),
-                alignment: Alignment.topLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(restourant.name ?? ''),
-                    Text(
-                      '',
-                      style: TextStyle(fontFamily: 'Bitter-Light'),
-                    ),
-                  ],
-                )),
+            Expanded(
+              flex: 3,
+              child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.toWidth, vertical: 8.toWidth),
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        restourant.name ?? '',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        restourant.information,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontFamily: 'Bitter-Light'),
+                      ),
+                    ],
+                  )),
+            )
           ],
         ),
       ),
