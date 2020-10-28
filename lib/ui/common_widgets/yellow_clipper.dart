@@ -17,7 +17,7 @@ class YellowClipper extends StatelessWidget {
         child: Container(
           height: 54.toHeight,
           width: 54.toHeight,
-          padding: EdgeInsets.all(16.toHeight),
+          padding: EdgeInsets.all(18.toHeight),
           child: ImageAssetWidget(
             path: imagePath,
           ),

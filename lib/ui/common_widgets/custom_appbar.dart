@@ -72,7 +72,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 3,
           left: 0,
           right: 0,
           child: Container(
@@ -91,6 +91,15 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                       fontWeight: FontWeight.bold, fontSize: 11.toFont),
                 ),
               )),
+        ),
+        Positioned(
+          child: Container(
+            height: 4,
+            color: ThemeColor().yellowColor
+          ),
+          bottom: 0,
+          left: 0,
+          right: 0,
         )
       ],
     );
