@@ -28,7 +28,7 @@ class RestourantItem extends StatelessWidget {
                   width: SizeConfig().screenWidth,
                   child: ClipRRect(
                       child: Image.network(restourant.image, fit: BoxFit.cover),
-                      borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      borderRadius: BorderRadius.all(Radius.circular(8)))),
             ),
             Expanded(
               flex: 3,
