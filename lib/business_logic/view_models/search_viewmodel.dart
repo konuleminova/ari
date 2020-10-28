@@ -24,16 +24,6 @@ class SearchViewModel extends HookWidget {
         (text1.value==null||text1?.value?.isEmpty)? 'a':text1.value,
         (text2.value==null||text2.value.isEmpty)? '':text2.value);
 
-    // print(apiResponse.data.results);
-//   ApiResponse data = useMemoized(() {
-//      print('Api Response data ${apiResponse.data}');
-//      if (apiResponse.status == Status.Done)
-//        return apiResponse;
-//      else
-//        return null;
-//    }, [text1.value,text2.value, apiResponse.data,apiResponse.status]);
-//    print('DATA VALUE ${data}');
-
     // TODO: implement build
     return CustomErrorHandler(
       child: SearchView(

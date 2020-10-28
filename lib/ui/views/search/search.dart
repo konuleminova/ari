@@ -1,6 +1,5 @@
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/models/search.dart';
-import 'package:ari/business_logic/view_models/search_viewmodel.dart';
 import 'package:ari/ui/views/home/widgets/restourant_item.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
