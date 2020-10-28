@@ -36,7 +36,7 @@ class InitPage extends StatelessWidget {
                   child: Container(
                       height: 44.toHeight,
                       child: Center(
-                        child: Text('© Ari 2020 by Delivery Group'),
+                        child: Text('© Ari 2020 by Delivery Group',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12.toFont),),
                       )),
                   onTap: () {
                     navigationKey.currentState.pushNamed(ROUTE_SEARCH);

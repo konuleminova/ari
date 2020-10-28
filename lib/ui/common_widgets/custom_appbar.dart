@@ -80,10 +80,12 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20))),
               height: 44.toHeight,
+              padding: EdgeInsets.symmetric(horizontal: 4.toWidth),
               child: Center(
                 child: Text(
                   'Доброе утро Ильхам, сегодня в Баку 23 оС, отличная погода...',
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 11.toFont),
                 ),
               )),
         )

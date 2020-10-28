@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 16.toWidth,
           ),
-          child: Text(restourantList1.text),
+          child: Text(restourantList1.text,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
         ),
         Container(
           padding:
@@ -52,7 +52,7 @@ class HomeView extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 16.toWidth,
           ),
-          child: Text(restourantList1.text),
+          child: Text(restourantList1.text,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
         ),
         SizedBox(height: 8.toHeight,),
         Container(
@@ -73,7 +73,7 @@ class HomeView extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 16.toWidth,
           ),
-          child: Text(restourantList2.text),
+          child: Text(restourantList2.text,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
         ),
         Container(
           padding:
@@ -97,7 +97,7 @@ class HomeView extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 16.toWidth,
           ),
-          child: Text(restourantList3.text),
+          child: Text(restourantList3.text,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
         ),
         Container(
           padding:
