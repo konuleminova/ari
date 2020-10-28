@@ -20,14 +20,10 @@ class CustomErrorHandler extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-//    print('ERRORS: $errors');
-//    print('STATUSES: $statuses');
     final AppException error = errors.firstWhere((element) => element != null, orElse: () => null);
     final bool hasError = error != null;
     final bool isLoading = statuses.firstWhere((element) => element == Status.Loading, orElse: () => null) != null;
-
     final ctx = useContext();
-
     useSideEffect(() {
       if(hasError) {
         showDialog(
@@ -44,46 +40,6 @@ class CustomErrorHandler extends HookWidget {
   }
 }
 
-
-
-class ErrorHandler extends StatelessWidget {
-  Widget child;
-  Status status;
-  AppException error;
-
-  ErrorHandler({this.child, this.status, this.error});
-
-  @override
-  Widget build(BuildContext context) {
-    if (status == Status.Idle) {
-      child = Container();
-      return child;
-    }
-    // TODO: implement build
-    if (status == Status.Loading) {
-      child = Loading();
-      return child;
-    } else if (status == Status.Error) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) => ErrorDialog(
-                  errorMessage: error.message ?? "Some Message",
-                ));
-      });
-      child = Container(
-//        child: RefreshIndicator(
-//          child: Icon(Icons.refresh),
-//          onRefresh: () {},
-//        ),
-      );
-      return child;
-    }else if(status==Status.Done){
-      return child;
-    }
-
-  }
-}
 
 class ErrorDialog extends StatelessWidget {
   String errorMessage;

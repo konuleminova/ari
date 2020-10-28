@@ -20,7 +20,7 @@ class MenuViewModel extends HookWidget {
     },[id]);
 
     // TODO: implement build
-    return ErrorHandler(
+    return CustomErrorHandler(
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           return MenuItem(menu: apiResponse.data[index]);
@@ -28,8 +28,8 @@ class MenuViewModel extends HookWidget {
         itemCount: apiResponse.data?.length,
         scrollDirection: Axis.horizontal,
       ),
-      status: apiResponse.status,
-      error: apiResponse.error,
+      statuses: [apiResponse.status],
+      errors: [apiResponse.error],
     );
   }
 }
