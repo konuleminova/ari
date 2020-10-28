@@ -21,6 +21,15 @@ class HomeView extends StatelessWidget {
     // TODO: implement build
     return ListView(
       children: <Widget>[
+        SizedBox(
+          height: 16.toHeight,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.toWidth,
+          ),
+          child: Text(restourantList1.text),
+        ),
         Container(
           padding:
               EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
@@ -36,18 +45,35 @@ class HomeView extends StatelessWidget {
             scrollDirection: Axis.horizontal,
           ),
         ),
+        SizedBox(
+          height: 16.toHeight,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.toWidth,
+          ),
+          child: Text(restourantList1.text),
+        ),
+        SizedBox(height: 8.toHeight,),
         Container(
           padding:
-              EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
-          height: MediaQuery.of(context).size.height * 0.24,
+              EdgeInsets.symmetric(horizontal: 8.toWidth,),
           width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.25,
           child: ListView.builder(
+            padding: EdgeInsets.all(0),
             itemBuilder: (BuildContext context, int index) {
               return PartnerItem(index);
             },
             itemCount: 5,
             scrollDirection: Axis.horizontal,
           ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.toWidth,
+          ),
+          child: Text(restourantList2.text),
         ),
         Container(
           padding:
@@ -63,6 +89,15 @@ class HomeView extends StatelessWidget {
             itemCount: restourantList2.results.length,
             scrollDirection: Axis.horizontal,
           ),
+        ),
+        SizedBox(
+          height: 16.toHeight,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16.toWidth,
+          ),
+          child: Text(restourantList3.text),
         ),
         Container(
           padding:
