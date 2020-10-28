@@ -41,13 +41,13 @@ class RestourantItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        restourant.name ?? '',
+                        restourant.name ?? 'No name',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontFamily: 'Bitter-Light',fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 3.toWidth,),
                       Text(
-                        restourant.information,
+                        restourant.information??'No description',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontFamily: 'Bitter-Light',fontWeight: FontWeight.w400,fontSize: 10.toFont),
                       ),
