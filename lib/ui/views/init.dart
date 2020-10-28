@@ -12,6 +12,8 @@ class InitPage extends StatelessWidget {
     SizeConfig().init(context);
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomPadding: false,
         appBar: CustomAppBar(),
         backgroundColor: Color(0xfffccd13),
         body: Stack(

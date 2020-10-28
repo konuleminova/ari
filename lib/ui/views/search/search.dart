@@ -10,8 +10,10 @@ class SearchView extends StatelessWidget {
   final Search search;
   TextEditingController controller1;
   TextEditingController controller2;
+  Function onChangeValue;
 
-  SearchView({this.search, this.controller1, this.controller2});
+  SearchView(
+      {this.search, this.controller1, this.controller2, this.onChangeValue});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,8 @@ class SearchView extends StatelessWidget {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                         ),
-                        onChanged: (value) {
-                          print('ON CHNAGES ${value}');
-                          setText(value);
+                        onSubmitted: (v) {
+                          onChangeValue();
                         },
                       )),
                   flex: 3,
@@ -58,8 +59,10 @@ class SearchView extends StatelessWidget {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                     ),
-                    onChanged: (value) {
-                      setNumberText(value);
+                    keyboardType: TextInputType.numberWithOptions(
+                        signed: true, decimal: true),
+                    onSubmitted: (v) {
+                      onChangeValue();
                     },
                   )),
                 )
@@ -70,29 +73,41 @@ class SearchView extends StatelessWidget {
           SizedBox(
             height: 16.toHeight,
           ),
-          Text('Найдено ${search.found} ресторанов'),
-          SizedBox(
-            height: 8.toHeight,
-          ),
-          Expanded(
-            child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 8.toWidth, vertical: 8.toHeight),
-                // height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    return RestourantItem(
-                        restourant:Restourant(
-                            image: search.results[index].image,
-                            name: search.results[index].name,
-                            information: search.results[index].information));
-                  },
-                  itemCount: search.results.length,
-                )),
-          )
+          search != null
+              ? Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text('Найдено ${search.found} ресторанов'),
+                      SizedBox(
+                        height: 8.toHeight,
+                      ),
+                      Expanded(
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.toWidth, vertical: 8.toHeight),
+                            // height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                            child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2),
+                              itemBuilder: (BuildContext context, int index) {
+                                return RestourantItem(
+                                    restourant: Restourant(
+                                        image: search.results[index].image,
+                                        name: search.results[index].name,
+                                        information:
+                                            search.results[index].information));
+                              },
+                              itemCount: search.results.length,
+                            )),
+                      )
+                    ],
+                  ),
+                )
+              : Center(
+                  child: Text('No data'),
+                )
         ],
       ),
       height: SizeConfig().screenHeight,

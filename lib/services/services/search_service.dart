@@ -14,7 +14,7 @@ ApiResponse<Search> useSearchList(String query, String maxNum) {
   DioConfig dioConfig = useMemoized(() => DioConfig<Search>(
       path: apiConfig.SEARCH_URL(query, maxNum),
       transformResponse: (Response response) =>
-          Search.fromJson(response.data)));
+          Search.fromJson(response.data)), [query, maxNum]);
   ApiResponse<Search> apiResponse = useDioRequest(dioConfig);
   return apiResponse;
 }
