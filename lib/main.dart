@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Bitter-Light',
           accentColor: ThemeColor().greenColor,
-          primarySwatch: Colors.blue,
+          primarySwatch:Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: InitPage()
