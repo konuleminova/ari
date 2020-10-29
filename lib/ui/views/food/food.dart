@@ -79,9 +79,10 @@ class FoodView extends StatelessWidget {
                 id: arguments.data.id,
               ),
               width: SizeConfig().screenWidth,
-              height: 25.toHeight),
+              height: 34.toHeight),
           Divider(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey,
+            height: 3.toHeight,
           ),
           Expanded(
             flex: 3,

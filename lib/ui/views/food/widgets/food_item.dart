@@ -37,7 +37,7 @@ class FoodItem extends StatelessWidget {
                           height: 4.toHeight,
                         ),
                         Text(
-                          item.information ?? '',
+                          item.information ?? 'No description',
                           style: TextStyle(
                               color: Colors.grey, fontWeight: FontWeight.w600),
                         ),
