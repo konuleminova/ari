@@ -11,4 +11,5 @@ class ThemeColor {
 
   Color yellowColor = Color(0xfffccd13);
   Color greenColor = Color(0xFF5fb640);
+  Color greenLightColor = Color(0xFF6ED34A);
 }
