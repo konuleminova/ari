@@ -14,7 +14,7 @@ class MenuItem extends StatelessWidget {
     return Container(
       height: 40.toHeight,
       padding: EdgeInsets.all(8.toWidth),
-      child: Center(child: Text(menu.name,style: TextStyle(color: ThemeColor().greyColor),),),
+      child: Center(child: Text(menu.name??'no item',style: TextStyle(color: ThemeColor().greyColor),),),
       margin: EdgeInsets.symmetric(horizontal: 8.toWidth),
     );
   }

@@ -82,7 +82,7 @@ class FoodItem extends StatelessWidget {
                   child: ClipRRect(
                     child: FadeInImage(
                       image: NetworkImage(
-                        item.image,
+                        item.image??'https://bees.az/___entcpanel/uploads/ef4534a27895456ef72f5acd7703ec9f_331778.png',
                       ),
                       height: 80.toHeight,
                       width: SizeConfig().screenWidth,
