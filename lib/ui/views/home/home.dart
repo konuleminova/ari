@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
         Container(
           padding:
               EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
-          height: MediaQuery.of(context).size.height * 0.24,
+          height: MediaQuery.of(context).size.height * 0.27,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
@@ -78,7 +78,7 @@ class HomeView extends StatelessWidget {
         Container(
           padding:
               EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
-          height: MediaQuery.of(context).size.height * 0.24,
+          height: MediaQuery.of(context).size.height * 0.27,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
@@ -102,7 +102,7 @@ class HomeView extends StatelessWidget {
         Container(
           padding:
               EdgeInsets.symmetric(horizontal: 8.toWidth, vertical: 8.toHeight),
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.27,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {

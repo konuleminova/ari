@@ -34,7 +34,7 @@ class RestourantItem extends StatelessWidget {
               flex: 3,
               child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: 16.toWidth, vertical: 8.toWidth),
+                      horizontal: 16.toWidth, vertical: 8.toHeight),
                   alignment: Alignment.topLeft,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,12 +45,17 @@ class RestourantItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 3.toWidth,),
-                      Text(
-                        restourant.information??'No description',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.w400,fontSize: 10.toFont),
+                      SizedBox(
+                        height: 3.toHeight,
                       ),
+                      Expanded(
+                        child: Text(
+                          restourant.information ?? 'No description',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 10.toFont),
+                        ),
+                      )
                     ],
                   )),
             )
