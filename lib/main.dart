@@ -1,4 +1,5 @@
 import 'package:ari/ui/views/init.dart';
+import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import 'business_logic/routes/nested_root.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: 'Bitter-Light',
+          accentColor: ThemeColor().greenColor,
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
