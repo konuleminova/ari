@@ -31,8 +31,11 @@ class YellowClipper extends StatelessWidget {
               : BoxDecoration(),
         ),
       onTap: () {
-        onClickIndex.value = index;
-        onClick();
+        if(onClickIndex.value!=index){
+          onClickIndex.value = index;
+          onClick();
+        }
+
       },
     );
   }
