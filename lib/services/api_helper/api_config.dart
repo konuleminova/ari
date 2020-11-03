@@ -4,7 +4,7 @@ class ApiConfig {
   String FOOD_URl(String id) => '${BASE_URl}food&lang=ru&restourant_id=${id}';
 
   String RESTOURANT_URl(String id) =>
-      '${BASE_URl}restourants&lang=ru&text=${id}';
+      '${BASE_URl}';
 
   String MENU_URL(String id) => '${BASE_URl}menu&lang=ru&restourant_id=${id}';
 

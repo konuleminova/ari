@@ -11,8 +11,10 @@ class CustomErrorHandler extends HookWidget {
   final List<Status> statuses;
   final List<AppException> errors;
   final Widget child;
+  final Function onRefresh;
 
-  const CustomErrorHandler({this.statuses, this.child, this.errors});
+  const CustomErrorHandler(
+      {this.statuses, this.child, this.errors, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,22 @@ class CustomErrorHandler extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.refresh),
+                    Icon(
+                      Icons.refresh,
+                      color: ThemeColor().greenColor,
+                      size: 24.toFont,
+                    ),
                     SizedBox(
                       height: 8.toHeight,
                     ),
-                    Text('Tap to refresh')
+                    Text(
+                      'Tap to refresh',
+                      style: TextStyle(
+                          color: ThemeColor().greenColor, fontSize: 16.toFont),
+                    )
                   ],
                 ),
-                onTap: () {}))
+                onTap: onRefresh))
         : isLoading ? Loading() : child;
   }
 }
