@@ -10,6 +10,7 @@ import 'package:ari/utils/size_config.dart';
 
 class FoodView extends StatelessWidget {
   List<Food> foodList;
+  ScrollController scrollController = new ScrollController();
 
   FoodView({this.foodList});
 
@@ -116,7 +117,9 @@ class FoodView extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: MenuViewModel(
+                      foodList: foodList,
                       id: arguments.data.id,
+                      scrollController: scrollController,
                     ),
                     width: SizeConfig().screenWidth,
                     height: 40.toHeight,
@@ -126,6 +129,7 @@ class FoodView extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: ListView.builder(
+                      controller: scrollController,
                       itemBuilder: (BuildContext context, int index) {
                         return FoodItem(item: foodList[index]);
                       },

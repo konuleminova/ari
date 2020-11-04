@@ -17,6 +17,7 @@ class FoodItem extends StatelessWidget {
     return item == null
         ? Container()
         : Container(
+           // height: 120.toHeight,
             padding: EdgeInsets.symmetric(
                 vertical: 12.toHeight, horizontal: 8.toWidth),
             decoration: BoxDecoration(
