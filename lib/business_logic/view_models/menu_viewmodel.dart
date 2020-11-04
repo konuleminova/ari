@@ -36,7 +36,15 @@ class MenuViewModel extends HookWidget {
           return InkWell(
             child: MenuItem(menu: apiResponse.value.data[index]),
             onTap: () {
-              apiResponse.value.data[index].selected = true;
+              for(int i=0;i<apiResponse.value.data.length;i++){
+                if(index==i){
+                  apiResponse.value.data[i].selected = true;
+                }else{
+                  apiResponse.value.data[i].selected = false;
+                }
+
+
+              }
               print('On click');
               print(apiResponse.value.data[0].selected);
               for (int i = 0; i < foodList.length; i++) {
