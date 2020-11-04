@@ -46,14 +46,15 @@ class MenuViewModel extends HookWidget {
               apiResponse.notifyListeners();
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].menu_id == apiResponse.value.data[index].id) {
-                  scrollController.animateTo(i * 120.toHeight,
-                      duration: Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
+//                  scrollController.animateTo(i * 120.toHeight,
+//                      duration: Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
+                scrollController.jumpTo(i*250.00);
                 }
               }
               for (int i = 0; i < apiResponse.value.data.length; i++) {
                 if (i==index) {
                   horizontalScrollController.animateTo(i * 80.toWidth-i*10.toWidth,
-                      duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+                      duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
                 }
               }
             },

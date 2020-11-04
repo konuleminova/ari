@@ -7,10 +7,11 @@ import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ari/utils/size_config.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class FoodView extends StatelessWidget {
   List<Food> foodList;
-  ScrollController scrollController = new ScrollController();
+ScrollController scrollController = ScrollController();
 
   FoodView({this.foodList});
 
@@ -24,6 +25,8 @@ class FoodView extends StatelessWidget {
     return foodList == null
         ? Container()
         : NestedScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
@@ -129,7 +132,9 @@ class FoodView extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: ListView.builder(
-                      controller: scrollController,
+                     controller: scrollController,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return FoodItem(item: foodList[index]);
                       },
