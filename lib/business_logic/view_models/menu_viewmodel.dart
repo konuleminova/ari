@@ -20,6 +20,7 @@ class MenuViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('on chnage');
     //useFetchMenu(id)
     final ValueNotifier<ApiResponse<List<Menu>>> apiResponse =
         useState<ApiResponse<List<Menu>>>();
@@ -28,7 +29,7 @@ class MenuViewModel extends HookWidget {
 
       print('Chnaged');
       return () {};
-    }, [id,]);
+    }, [id]);
     // TODO: implement build
     return CustomErrorHandler(
       child: ListView.builder(
@@ -45,8 +46,7 @@ class MenuViewModel extends HookWidget {
 
 
               }
-              print('On click');
-              print(apiResponse.value.data[0].selected);
+              apiResponse.value.data=apiResponse.value.data;
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].menu_id == apiResponse.value.data[index].id) {
                   scrollController.animateTo(i * 120.toHeight,
