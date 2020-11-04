@@ -20,23 +20,27 @@ class MenuViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ApiResponse<List<Menu>> apiResponse = useFetchMenu(id);
-
+    //useFetchMenu(id)
+    final ValueNotifier<ApiResponse<List<Menu>>> apiResponse =
+        useState<ApiResponse<List<Menu>>>();
+    apiResponse.value=useFetchMenu(id);
     useEffect(() {
+
       print('Chnaged');
       return () {};
-    }, [id]);
+    }, [id,]);
     // TODO: implement build
     return CustomErrorHandler(
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            child: MenuItem(menu: apiResponse.data[index]),
+            child: MenuItem(menu: apiResponse.value.data[index]),
             onTap: () {
-              apiResponse.data[index].selected=true;
+              apiResponse.value.data[index].selected = true;
               print('On click');
+              print(apiResponse.value.data[0].selected);
               for (int i = 0; i < foodList.length; i++) {
-                if (foodList[i].menu_id == apiResponse.data[index].id) {
+                if (foodList[i].menu_id == apiResponse.value.data[index].id) {
                   scrollController.animateTo(i * 120.toHeight,
                       duration: Duration(seconds: 2), curve: Curves.ease);
                 }
@@ -44,11 +48,11 @@ class MenuViewModel extends HookWidget {
             },
           );
         },
-        itemCount: apiResponse.data?.length,
+        itemCount: apiResponse.value.data?.length,
         scrollDirection: Axis.horizontal,
       ),
-      statuses: [apiResponse.status],
-      errors: [apiResponse.error],
+      statuses: [apiResponse.value.status],
+      errors: [apiResponse.value.error],
     );
   }
 }
