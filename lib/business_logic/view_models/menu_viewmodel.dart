@@ -47,13 +47,13 @@ class MenuViewModel extends HookWidget {
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].menu_id == apiResponse.value.data[index].id) {
                   scrollController.animateTo(i * 120.toHeight,
-                      duration: Duration(seconds: 1), curve: Curves.ease);
+                      duration: Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
                 }
               }
               for (int i = 0; i < apiResponse.value.data.length; i++) {
                 if (i==index) {
                   horizontalScrollController.animateTo(i * 80.toWidth-i*10.toWidth,
-                      duration: Duration(seconds: 1), curve: Curves.ease);
+                      duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
                 }
               }
             },
