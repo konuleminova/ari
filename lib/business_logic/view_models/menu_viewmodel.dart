@@ -20,14 +20,10 @@ class MenuViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('on chnage');
-    //useFetchMenu(id)
     final ValueNotifier<ApiResponse<List<Menu>>> apiResponse =
         useState<ApiResponse<List<Menu>>>();
     apiResponse.value=useFetchMenu(id);
     useEffect(() {
-
-      print('Chnaged');
       return () {};
     }, [id]);
     // TODO: implement build
@@ -43,8 +39,6 @@ class MenuViewModel extends HookWidget {
                 }else{
                   apiResponse.value.data[i].selected = false;
                 }
-
-
               }
               apiResponse.value.data=apiResponse.value.data;
               for (int i = 0; i < foodList.length; i++) {
