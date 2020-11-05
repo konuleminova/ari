@@ -5,13 +5,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
 
 class CustomMenuDrawer extends HookWidget {
-  bool isLeft = false;
   Function onClose;
 
   CustomMenuDrawer({this.onClose});
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<bool> isLeft = useState<bool>(false);
     // TODO: implement build
     return Material(
         color: Colors.transparent,
@@ -93,15 +93,24 @@ class CustomMenuDrawer extends HookWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('AZ',style: TextStyle(fontWeight: FontWeight.w600),),
-                          Text('EN',style: TextStyle(fontWeight: FontWeight.w600),),
+                          Text(
+                            'AZ',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            'EN',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
                           Container(
                             padding: EdgeInsets.all(8.toWidth),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color:
                                     ThemeColor().greenColor.withOpacity(0.4)),
-                            child: Text('RU',style: TextStyle(fontWeight: FontWeight.w600),),
+                            child: Text(
+                              'RU',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
                           )
                         ],
                       ),
@@ -128,12 +137,14 @@ class CustomMenuDrawer extends HookWidget {
                                 fontSize: 18.toFont),
                           ),
                           Switch(
-                            value: isLeft,
+                            value: isLeft.value,
                             onChanged: (value) {
-                              isLeft = value;
+                              isLeft.value = value;
                             },
-                            activeTrackColor: Colors.white,
-                            activeColor: ThemeColor().yellowColor,
+                            activeTrackColor: ThemeColor().yellowColor,
+                            activeColor: Colors.white,
+                            inactiveTrackColor: ThemeColor().yellowColor,
+                            inactiveThumbColor: Colors.white,
                           ),
                           Text(
                             'Справа',

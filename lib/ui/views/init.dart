@@ -6,7 +6,6 @@ import 'package:ari/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
-final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class InitPage extends StatelessWidget {
   @override
@@ -14,7 +13,6 @@ class InitPage extends StatelessWidget {
     SizeConfig().init(context);
     // TODO: implement build
     return Scaffold(
-        key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         appBar: CustomAppBar(),
@@ -64,13 +62,6 @@ class InitPage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    //Scaffold.of(context).openEndDrawer();
-                    //_scaffoldKey.currentState.openEndDrawer();
-
-//                    showDialog(
-//                        context: context,
-//                        builder: (BuildContext context) => DrawerWidget());
-
                     showGeneralDialog(
                       barrierLabel: "Label",
                       barrierDismissible: true,
