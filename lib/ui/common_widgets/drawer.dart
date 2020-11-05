@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
 
-class DrawerWidget extends HookWidget {
+class CustomMenuDrawer extends HookWidget {
   bool isLeft = false;
   Function onClose;
 
-  DrawerWidget({this.onClose});
+  CustomMenuDrawer({this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -93,20 +93,20 @@ class DrawerWidget extends HookWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('AZ'),
-                          Text('EN'),
+                          Text('AZ',style: TextStyle(fontWeight: FontWeight.w600),),
+                          Text('EN',style: TextStyle(fontWeight: FontWeight.w600),),
                           Container(
                             padding: EdgeInsets.all(8.toWidth),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color:
                                     ThemeColor().greenColor.withOpacity(0.4)),
-                            child: Text('RU'),
+                            child: Text('RU',style: TextStyle(fontWeight: FontWeight.w600),),
                           )
                         ],
                       ),
                       margin: EdgeInsets.only(
-                          right: 44.toWidth,
+                          right: 50.toWidth,
                           top: 8.toHeight,
                           bottom: 8.toHeight),
                     ),

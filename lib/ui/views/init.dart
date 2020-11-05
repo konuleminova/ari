@@ -84,7 +84,7 @@ class InitPage extends StatelessWidget {
                                 top:CustomAppBar().preferredSize.height+30.toHeight,
                                 left: 0,
                                 right: 0,
-                                child:Align(child: DrawerWidget(onClose: (){
+                                child:Align(child: CustomMenuDrawer(onClose: (){
                                   Navigator.pop(context);
                                 },),alignment: Alignment.bottomRight,)
                             )
