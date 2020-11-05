@@ -21,6 +21,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
     return Stack(
       children: <Widget>[
         AppBar(
+         actions: <Widget>[SizedBox()],
           elevation: 0,
           backgroundColor: ThemeColor().greenColor,
           title: Row(
