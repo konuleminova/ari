@@ -85,7 +85,7 @@ class InitPage extends StatelessWidget {
                       transitionBuilder: (context, anim1, anim2, child) {
                         return SlideTransition(
                           position:
-                              Tween(begin: Offset(1, 0), end: Offset(0.085, 0))
+                              Tween(begin: Offset(1, 0), end: Offset(0, 0))
                                   .animate(anim1),
                           child: child,
                         );
