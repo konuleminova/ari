@@ -7,11 +7,12 @@ import 'package:ari/ui/views/food/widgets/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuViewModel extends HookWidget {
   final String id;
   final ScrollController verticalScrollController;
-  ScrollController horizontalScrollController = new ScrollController();
+  ItemScrollController horizontalScrollController = new ItemScrollController();
   List<Food> foodList;
   int index = 0;
   ApiResponse<List<Menu>> menuList;
@@ -29,8 +30,8 @@ class MenuViewModel extends HookWidget {
 
     // TODO: implement build
     return CustomErrorHandler(
-      child: ListView.builder(
-        controller: horizontalScrollController,
+      child: ScrollablePositionedList.builder(
+        itemScrollController: horizontalScrollController,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             child: MenuItem(menu: apiResponse.value.data[index]),
@@ -48,10 +49,9 @@ class MenuViewModel extends HookWidget {
               //Horizontall Scrolling
               for (int i = 0; i < apiResponse.value.data.length; i++) {
                 if (i == index) {
-                  horizontalScrollController.animateTo(
-                      i * 80.toWidth - i * 10.toWidth,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.fastOutSlowIn);
+                  horizontalScrollController.scrollTo(
+                      index: index == 0 ? 0 : index - 1,
+                      duration: Duration(milliseconds: 400));
                 }
               }
 
@@ -67,7 +67,7 @@ class MenuViewModel extends HookWidget {
             },
           );
         },
-        itemCount: apiResponse.value.data?.length,
+        itemCount: apiResponse.value.data?.length ?? 0,
         scrollDirection: Axis.horizontal,
       ),
       statuses: [apiResponse.value.status],
