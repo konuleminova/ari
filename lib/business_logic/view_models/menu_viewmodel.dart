@@ -50,7 +50,6 @@ class MenuViewModel extends HookWidget {
                   apiResponse.value.data[i].selected = false;
                 }
               }
-              apiResponse.notifyListeners();
 
               //Vertical Scrolling
 
@@ -65,6 +64,7 @@ class MenuViewModel extends HookWidget {
                       duration: Duration(milliseconds: 400));
                 }
               }
+              apiResponse.notifyListeners();
             },
           );
         },
