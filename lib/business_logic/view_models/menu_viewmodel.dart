@@ -20,12 +20,13 @@ class MenuViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<ApiResponse<List<Menu>>> apiResponse =
-        useState<ApiResponse<List<Menu>>>();
+    var apiResponse = useState<ApiResponse<List<Menu>>>();
     apiResponse.value = useFetchMenu(id);
+
     useEffect(() {
       return () {};
     }, [id]);
+
     // TODO: implement build
     return CustomErrorHandler(
       child: ListView.builder(
