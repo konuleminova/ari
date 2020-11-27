@@ -35,6 +35,7 @@ class MenuViewModel extends HookWidget {
           return InkWell(
             child: MenuItem(menu: apiResponse.value.data[index]),
             onTap: () {
+
               //Change Selected Item Status
               for (int i = 0; i < apiResponse.value.data.length; i++) {
                 if (index == i) {
