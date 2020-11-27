@@ -10,13 +10,13 @@ import 'package:ari/utils/size_config.dart';
 
 class MenuViewModel extends HookWidget {
   final String id;
-  final ScrollController scrollController;
+  final ScrollController verticalScrollController;
   ScrollController horizontalScrollController=new ScrollController();
   List<Food> foodList;
   int index = 0;
   ApiResponse<List<Menu>> menuList;
 
-  MenuViewModel({this.id, this.scrollController, this.foodList});
+  MenuViewModel({this.id, this.verticalScrollController, this.foodList});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class MenuViewModel extends HookWidget {
                 if (foodList[i].menu_id == apiResponse.value.data[index].id) {
 //                  scrollController.animateTo(i * 120.toHeight,
 //                      duration: Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
-                scrollController.jumpTo(i*250.00);
+                verticalScrollController.jumpTo(i*250.00);
                 }
               }
               for (int i = 0; i < apiResponse.value.data.length; i++) {

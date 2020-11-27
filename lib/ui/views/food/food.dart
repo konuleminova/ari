@@ -120,7 +120,7 @@ ScrollController scrollController = ScrollController();
                     child: MenuViewModel(
                       foodList: foodList,
                       id: arguments.data.id,
-                      scrollController: scrollController,
+                      verticalScrollController: scrollController,
                     ),
                     width: SizeConfig().screenWidth,
                     height: 40.toHeight,
