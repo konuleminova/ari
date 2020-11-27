@@ -11,7 +11,7 @@ import 'package:ari/utils/size_config.dart';
 class MenuViewModel extends HookWidget {
   final String id;
   final ScrollController verticalScrollController;
-  ScrollController horizontalScrollController=new ScrollController();
+  ScrollController horizontalScrollController = new ScrollController();
   List<Food> foodList;
   int index = 0;
   ApiResponse<List<Menu>> menuList;
@@ -34,6 +34,7 @@ class MenuViewModel extends HookWidget {
           return InkWell(
             child: MenuItem(menu: apiResponse.value.data[index]),
             onTap: () {
+              //Change Selected Item Status
               for (int i = 0; i < apiResponse.value.data.length; i++) {
                 if (index == i) {
                   apiResponse.value.data[i].selected = true;
@@ -42,17 +43,24 @@ class MenuViewModel extends HookWidget {
                 }
               }
               apiResponse.notifyListeners();
-              for (int i = 0; i < foodList.length; i++) {
-                if (foodList[i].menu_id == apiResponse.value.data[index].id) {
-//                  scrollController.animateTo(i * 120.toHeight,
-//                      duration: Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
-                verticalScrollController.jumpTo(i*250.00);
+
+              //Horizontall Scrolling
+              for (int i = 0; i < apiResponse.value.data.length; i++) {
+                if (i == index) {
+                  horizontalScrollController.animateTo(
+                      i * 80.toWidth - i * 10.toWidth,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.fastOutSlowIn);
                 }
               }
-              for (int i = 0; i < apiResponse.value.data.length; i++) {
-                if (i==index) {
-                  horizontalScrollController.animateTo(i * 80.toWidth-i*10.toWidth,
-                      duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+
+              //Vertical Scrolling
+
+              for (int i = 0; i < foodList.length; i++) {
+                if (foodList[i].menu_id == apiResponse.value.data[index].id) {
+                  verticalScrollController.animateTo(i * 120.toHeight,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.fastOutSlowIn);
                 }
               }
             },
