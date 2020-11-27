@@ -12,7 +12,7 @@ class MenuViewModel extends HookWidget {
   final String id;
   final  ItemScrollController verticalScrollController;
   ItemScrollController horizontalScrollController = new ItemScrollController();
-  List<Food> foodList;
+  List<GroupFood> foodList;
   int index = 0;
   ApiResponse<List<Menu>> menuList;
 
@@ -54,15 +54,15 @@ class MenuViewModel extends HookWidget {
               //Vertical Scrolling
 
               for (int i = 0; i < foodList.length; i++) {
-                if (foodList[i].menu_id == apiResponse.value.data[index].id) {
-//                  verticalScrollController.animateTo(i * 120.toHeight,
-//                      duration: Duration(milliseconds: 300),
-//                      curve: Curves.fastOutSlowIn);
-
-                  verticalScrollController.scrollTo(
-                      index: i,
-                      duration: Duration(milliseconds: 400));
-                }
+//                if (foodList[i].menu_id == apiResponse.value.data[index].id) {
+////                  verticalScrollController.animateTo(i * 120.toHeight,
+////                      duration: Duration(milliseconds: 300),
+////                      curve: Curves.fastOutSlowIn);
+//
+//                  verticalScrollController.scrollTo(
+//                      index: i,
+//                      duration: Duration(milliseconds: 400));
+//                }
               }
               apiResponse.notifyListeners();
             },

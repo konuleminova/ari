@@ -7,14 +7,14 @@ import 'package:ari/services/hooks/useDioRequest.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:dio/dio.dart';
 
-ApiResponse<List<Food>> useFetchFoods(String id) {
+ApiResponse<List<GroupFood>> useFetchFoods(String id) {
   final ApiConfig apiConfig = useApiConfig();
-  final DioConfig dioConfig = useMemoized(() => DioConfig<List<Food>>(
+  final DioConfig dioConfig = useMemoized(() => DioConfig<List<GroupFood>>(
       path: apiConfig.FOOD_URl(id),
       transformResponse: (Response response) {
        // print('FOOD RESPONSE: ${response.data}');
-        return listFoodsFromJson(response.data);
+        return listGroupFoodFromJson(response.data);
       }));
-  ApiResponse<List<Food>> apiResponse = useDioRequest<List<Food>>(dioConfig);
+  ApiResponse<List<GroupFood>> apiResponse = useDioRequest<List<GroupFood>>(dioConfig);
   return apiResponse;
 }

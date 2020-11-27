@@ -16,7 +16,7 @@ class FoodViewModel extends HookWidget {
     arguments=ModalRoute.of(context).settings.arguments;
     // TODO: implement build
 
-    ApiResponse<List<Food>> apiResponse = useFetchFoods(arguments.data.id);
+    ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {
       return () {};
     }, [apiResponse]);

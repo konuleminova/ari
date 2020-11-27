@@ -9,8 +9,8 @@ import 'package:ari/utils/size_config.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FoodView extends StatelessWidget {
-  List<Food> foodList;
-  ItemScrollController verticalScrollController =   ItemScrollController();
+  List<GroupFood> foodList;
+  ItemScrollController verticalScrollController = ItemScrollController();
 
   FoodView({this.foodList});
 
@@ -24,7 +24,6 @@ class FoodView extends StatelessWidget {
         ? Container()
         : NestedScrollView(
             physics: AlwaysScrollableScrollPhysics(),
-
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
@@ -130,13 +129,38 @@ class FoodView extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: ScrollablePositionedList.builder(
-                     itemScrollController: verticalScrollController,
-                    //  shrinkWrap: true,
-                     // physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(top: 16.toHeight),
+                      itemScrollController: verticalScrollController,
+                      //  shrinkWrap: true,
+                      // physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
-                        return FoodItem(item: foodList[index]);
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 24.toWidth, bottom: 16.toHeight),
+                              child: Text(
+                                foodList[index].name,
+                                style: TextStyle(
+                                    fontSize: 21.toFont,
+                                    color: ThemeColor().greenColor,),
+                              ),
+                            ),
+                            ListView.builder(
+                              itemBuilder:
+                                  (BuildContext context, int innerIndex) {
+                                return FoodItem(
+                                    item: foodList[index].foods[innerIndex]);
+                              },
+                              itemCount: foodList[index].foods.length,
+                              shrinkWrap: true,
+                            )
+                          ],
+                        );
                       },
-                      itemCount: foodList.length??0,
+                      itemCount: foodList.length ?? 0,
                     ),
                   )
                 ],

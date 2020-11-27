@@ -7,7 +7,7 @@ class Food {
   String menu_id;
   String restourant_id;
   List adds;
-  bool selected=false;
+  bool selected = false;
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -27,3 +27,16 @@ class Food {
 
 List<Food> listFoodsFromJson(List<dynamic> foodlist) =>
     List<Food>.from(foodlist.map((e) => Food.fromJson(e)));
+
+class GroupFood {
+  String name;
+  List<Food> foods;
+
+  GroupFood.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    foods = listFoodsFromJson(json['foods']);
+  }
+}
+
+List<GroupFood> listGroupFoodFromJson(List<dynamic> groupFoods) =>
+    List<GroupFood>.from(groupFoods.map((e) => GroupFood.fromJson(e)));

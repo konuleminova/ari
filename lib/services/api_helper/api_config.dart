@@ -1,7 +1,7 @@
 class ApiConfig {
   final String BASE_URl = 'http://bees.az/api/?action=';
 
-  String FOOD_URl(String id) => '${BASE_URl}food&lang=ru&restourant_id=${id}';
+  String FOOD_URl(String id) => '${BASE_URl}food&lang=ru&restourant_id=${id}&gr=1';
 
   String RESTOURANT_URl(String id) =>
       '${BASE_URl}restourants&lang=ru&text=${id}';
