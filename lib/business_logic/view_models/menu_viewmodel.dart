@@ -10,7 +10,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuViewModel extends HookWidget {
   final String id;
-  final  ItemScrollController verticalScrollController;
+  final ItemScrollController verticalScrollController;
   ItemScrollController horizontalScrollController = new ItemScrollController();
   List<GroupFood> foodList;
   int index = 0;
@@ -37,7 +37,6 @@ class MenuViewModel extends HookWidget {
             onTap: () {
               //Change Selected Item Status
               for (int i = 0; i < apiResponse.value.data.length; i++) {
-
                 if (index == i) {
                   apiResponse.value.data[i].selected = true;
 
@@ -45,7 +44,6 @@ class MenuViewModel extends HookWidget {
                   horizontalScrollController.scrollTo(
                       index: index == 0 ? 0 : index - 1,
                       duration: Duration(milliseconds: 400));
-
                 } else {
                   apiResponse.value.data[i].selected = false;
                 }
@@ -54,15 +52,10 @@ class MenuViewModel extends HookWidget {
               //Vertical Scrolling
 
               for (int i = 0; i < foodList.length; i++) {
-//                if (foodList[i].menu_id == apiResponse.value.data[index].id) {
-////                  verticalScrollController.animateTo(i * 120.toHeight,
-////                      duration: Duration(milliseconds: 300),
-////                      curve: Curves.fastOutSlowIn);
-//
-//                  verticalScrollController.scrollTo(
-//                      index: i,
-//                      duration: Duration(milliseconds: 400));
-//                }
+                if (foodList[i].name == apiResponse.value.data[index].name) {
+                  verticalScrollController.scrollTo(
+                      index: i, duration: Duration(milliseconds: 40));
+                }
               }
               apiResponse.notifyListeners();
             },

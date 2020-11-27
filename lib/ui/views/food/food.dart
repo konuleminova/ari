@@ -129,7 +129,7 @@ class FoodView extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: ScrollablePositionedList.builder(
-                      padding: EdgeInsets.only(top: 16.toHeight),
+                     padding: EdgeInsets.only(top: 8.toHeight),
                       itemScrollController: verticalScrollController,
                       //  shrinkWrap: true,
                       // physics: NeverScrollableScrollPhysics(),
@@ -140,7 +140,7 @@ class FoodView extends StatelessWidget {
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(
-                                  left: 24.toWidth, bottom: 16.toHeight),
+                                  left: 24.toWidth, bottom: 16.toHeight,top: 20.toHeight),
                               child: Text(
                                 foodList[index].name,
                                 style: TextStyle(
@@ -156,6 +156,7 @@ class FoodView extends StatelessWidget {
                               },
                               itemCount: foodList[index].foods.length,
                               shrinkWrap: true,
+                              padding: EdgeInsets.all(0),
                             )
                           ],
                         );
