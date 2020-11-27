@@ -6,12 +6,11 @@ import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/food/widgets/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:ari/utils/size_config.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuViewModel extends HookWidget {
   final String id;
-  final ScrollController verticalScrollController;
+  final  ItemScrollController verticalScrollController;
   ItemScrollController horizontalScrollController = new ItemScrollController();
   List<Food> foodList;
   int index = 0;
@@ -38,30 +37,32 @@ class MenuViewModel extends HookWidget {
             onTap: () {
               //Change Selected Item Status
               for (int i = 0; i < apiResponse.value.data.length; i++) {
+
                 if (index == i) {
                   apiResponse.value.data[i].selected = true;
+
+                  //Horizontall Scrolling
+                  horizontalScrollController.scrollTo(
+                      index: index == 0 ? 0 : index - 1,
+                      duration: Duration(milliseconds: 400));
+
                 } else {
                   apiResponse.value.data[i].selected = false;
                 }
               }
               apiResponse.notifyListeners();
 
-              //Horizontall Scrolling
-              for (int i = 0; i < apiResponse.value.data.length; i++) {
-                if (i == index) {
-                  horizontalScrollController.scrollTo(
-                      index: index == 0 ? 0 : index - 1,
-                      duration: Duration(milliseconds: 400));
-                }
-              }
-
               //Vertical Scrolling
 
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].menu_id == apiResponse.value.data[index].id) {
-                  verticalScrollController.animateTo(i * 120.toHeight,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.fastOutSlowIn);
+//                  verticalScrollController.animateTo(i * 120.toHeight,
+//                      duration: Duration(milliseconds: 300),
+//                      curve: Curves.fastOutSlowIn);
+
+                  verticalScrollController.scrollTo(
+                      index: i,
+                      duration: Duration(milliseconds: 400));
                 }
               }
             },

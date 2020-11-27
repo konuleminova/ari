@@ -6,10 +6,11 @@ import 'package:ari/ui/views/food/widgets/food_item.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FoodView extends StatelessWidget {
   List<Food> foodList;
-ScrollController scrollController = ScrollController();
+  ItemScrollController verticalScrollController =   ItemScrollController();
 
   FoodView({this.foodList});
 
@@ -17,7 +18,6 @@ ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    print('Foodlist: $foodList');
     arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return foodList == null
@@ -120,7 +120,7 @@ ScrollController scrollController = ScrollController();
                     child: MenuViewModel(
                       foodList: foodList,
                       id: arguments.data.id,
-                      verticalScrollController: scrollController,
+                      verticalScrollController: verticalScrollController,
                     ),
                     width: SizeConfig().screenWidth,
                     height: 40.toHeight,
@@ -129,14 +129,14 @@ ScrollController scrollController = ScrollController();
                   Container(color: ThemeColor().grey1, height: 2),
                   Expanded(
                     flex: 3,
-                    child: ListView.builder(
-                     controller: scrollController,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                    child: ScrollablePositionedList.builder(
+                     itemScrollController: verticalScrollController,
+                    //  shrinkWrap: true,
+                     // physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return FoodItem(item: foodList[index]);
                       },
-                      itemCount: foodList.length,
+                      itemCount: foodList.length??0,
                     ),
                   )
                 ],
