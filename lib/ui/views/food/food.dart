@@ -111,62 +111,59 @@ class FoodView extends StatelessWidget {
                 )
               ];
             },
-            body: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: MenuViewModel(
-                      foodList: foodList,
-                      id: arguments.data.id,
-                      verticalScrollController: verticalScrollController,
-                    ),
-                    width: SizeConfig().screenWidth,
-                    height: 40.toHeight,
-                    padding: EdgeInsets.symmetric(horizontal: 8.toWidth),
+            body: Column(
+              children: <Widget>[
+                Container(
+                  child: MenuViewModel(
+                    foodList: foodList,
+                    id: arguments.data.id,
+                    verticalScrollController: verticalScrollController,
                   ),
-                  Container(color: ThemeColor().grey1, height: 2),
-                  Expanded(
-                    flex: 3,
-                    child: ScrollablePositionedList.builder(
-                      physics: ClampingScrollPhysics(),
-                      padding: EdgeInsets.only(top: 8.toHeight),
-                      itemScrollController: verticalScrollController,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 24.toWidth,
-                                  bottom: 16.toHeight,
-                                  top: 20.toHeight),
-                              child: Text(
-                                foodList[index].name,
-                                style: TextStyle(
-                                  fontSize: 21.toFont,
-                                  color: ThemeColor().greenColor,
-                                ),
+                  width: SizeConfig().screenWidth,
+                  height: 40.toHeight,
+                  padding: EdgeInsets.symmetric(horizontal: 8.toWidth),
+                ),
+                Container(color: ThemeColor().grey1, height: 2),
+                Expanded(
+                  child: ScrollablePositionedList.builder(
+                    physics: ClampingScrollPhysics(),
+                    padding: EdgeInsets.only(top: 8.toHeight),
+                    itemScrollController: verticalScrollController,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 24.toWidth,
+                                bottom: 16.toHeight,
+                                top: 20.toHeight),
+                            child: Text(
+                              foodList[index].name,
+                              style: TextStyle(
+                                fontSize: 21.toFont,
+                                color: ThemeColor().greenColor,
                               ),
                             ),
-                            ListView.builder(
-                                itemBuilder:
-                                    (BuildContext context, int innerIndex) {
-                                  return FoodItem(
-                                      item: foodList[index].foods[innerIndex]);
-                                },
-                                itemCount: foodList[index].foods.length,
-                                shrinkWrap: true,
-                                padding: EdgeInsets.all(0),
-                                physics: NeverScrollableScrollPhysics())
-                          ],
-                        );
-                      },
-                      itemCount: foodList.length ?? 0,
-                    ),
-                  )
-                ],
-              ),
+                          ),
+                          ListView.builder(
+                              itemBuilder:
+                                  (BuildContext context, int innerIndex) {
+                                return FoodItem(
+                                    item: foodList[index].foods[innerIndex]);
+                              },
+                              itemCount: foodList[index].foods.length,
+                              shrinkWrap: true,
+                              padding: EdgeInsets.all(0),
+                              physics: NeverScrollableScrollPhysics())
+                        ],
+                      );
+                    },
+                    itemCount: foodList.length ?? 0,
+                  ),
+                )
+              ],
             ),
           );
   }
