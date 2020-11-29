@@ -19,6 +19,9 @@ class FoodViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
     var maxExtent = useState<double>(0.0);
+    arguments = ModalRoute.of(context).settings.arguments;
+
+    //Vertical Scrolling hide sliver Appbar
     useEffect(() {
       itemPositionsListener.itemPositions.addListener(() {
         var isElement = itemPositionsListener.itemPositions.value
@@ -33,8 +36,6 @@ class FoodViewModel extends HookWidget {
       });
       return () {};
     }, [itemPositionsListener]);
-    arguments = ModalRoute.of(context).settings.arguments;
-    // TODO: implement build
 
     ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {

@@ -13,19 +13,58 @@ class MenuViewModel extends HookWidget {
   ItemScrollController verticalScrollController;
   ItemScrollController horizontalScrollController = new ItemScrollController();
   List<GroupFood> foodList;
-  int index = 0;
   ApiResponse<List<Menu>> menuList;
+  ItemPositionsListener itemPositionsListener;
 
-  MenuViewModel({this.id, this.verticalScrollController, this.foodList});
+  MenuViewModel(
+      {this.id,
+      this.verticalScrollController,
+      this.foodList,
+      this.itemPositionsListener});
 
   @override
   Widget build(BuildContext context) {
     var apiResponse = useState<ApiResponse<List<Menu>>>();
     apiResponse.value = useFetchMenu(id);
+    var indexState = useState<int>();
 
     useEffect(() {
       return () {};
     }, [id]);
+
+    //Horizontall Item Selection
+    useEffect(() {
+      if (apiResponse.value.status == Status.Done) {
+        for (int i = 0; i < apiResponse.value.data.length; i++) {
+          if (indexState.value == i) {
+            apiResponse.value.data[i].selected = true;
+            if (horizontalScrollController.isAttached) {
+              horizontalScrollController.scrollTo(
+                  index: indexState.value == 0 ? 0 : indexState.value - 1,
+                  duration: Duration(milliseconds: 400));
+            }
+          } else {
+            apiResponse.value.data[i].selected = false;
+          }
+        }
+        apiResponse.notifyListeners();
+      }
+
+      return () {};
+    }, [indexState.value, apiResponse.value.status]);
+
+    //Vertical Scrolling set horizontal selection
+    useEffect(() {
+      itemPositionsListener.itemPositions.addListener(() {
+        var isElement = itemPositionsListener.itemPositions.value
+            .firstWhere((element) => element != null, orElse: () => null);
+        if (isElement != null) {
+          indexState.value = isElement.index;
+        }
+      });
+      return () {};
+    }, [itemPositionsListener]);
+
 
     // TODO: implement build
     return CustomErrorHandler(
@@ -35,32 +74,20 @@ class MenuViewModel extends HookWidget {
           return InkWell(
             child: MenuItem(menu: apiResponse.value.data[index]),
             onTap: () {
-              //Change Selected Item Status
-              for (int i = 0; i < apiResponse.value.data.length; i++) {
-                if (index == i) {
-                  apiResponse.value.data[i].selected = true;
-
-                  //Horizontall Scrolling
-                  horizontalScrollController.scrollTo(
-                      index: index == 0 ? 0 : index - 1,
-                      duration: Duration(milliseconds: 400));
-                } else {
-                  apiResponse.value.data[i].selected = false;
-                }
-              }
+              //Set selected Item
+              indexState.value = index;
 
               //Vertical Scrolling
-
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].name == apiResponse.value.data[index].name) {
-                  if (verticalScrollController != null) {
+                  if (verticalScrollController.isAttached) {
                     verticalScrollController.scrollTo(
-                        duration: Duration(milliseconds: 40),
-                        index: i,);
+                      duration: Duration(milliseconds: 40),
+                      index: i,
+                    );
                   }
                 }
               }
-              apiResponse.notifyListeners();
             },
           );
         },

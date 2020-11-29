@@ -135,6 +135,7 @@ class FoodView extends StatelessWidget {
                                 id: arguments.data.id,
                                 verticalScrollController:
                                     verticalScrollController,
+                                  itemPositionsListener:itemPositionsListener
                               ),
                               width: SizeConfig().screenWidth,
                               height: 40.toHeight,
