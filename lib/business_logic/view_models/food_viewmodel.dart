@@ -49,19 +49,6 @@ class FoodViewModel extends HookWidget {
 
     final addToCartCallBack = useCallback((Food food) {
       foodState.value = food;
-      print('FOOD ${food}');
-//      if(apiResponse.status==Status.Done){
-//        apiResponse.data.forEach((element) {
-//          element.foods.forEach((element2) {
-//            if (element2.id == food.id) {
-//              element2.selected = true;
-//            } else {
-//              element2.selected = false;
-//            }
-//          });
-//        });
-//      }
-
     }, [foodState.value]);
     return CustomErrorHandler(
         statuses: [
