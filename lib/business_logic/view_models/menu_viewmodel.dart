@@ -39,9 +39,13 @@ class MenuViewModel extends HookWidget {
           if (indexState.value == i) {
             apiResponse.value.data[i].selected = true;
             if (horizontalScrollController.isAttached) {
+            try{
               horizontalScrollController.scrollTo(
                   index: i == 0 ? 0 : i - 1,
                   duration: Duration(milliseconds: 300));
+            }catch(e){
+              print('Horizontal scroll exception ${e}');
+            }
             }
           } else {
             apiResponse.value.data[i].selected = false;
