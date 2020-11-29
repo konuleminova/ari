@@ -47,7 +47,6 @@ class MenuViewModel extends HookWidget {
             apiResponse.value.data[i].selected = false;
           }
         }
-        //apiResponse.notifyListeners();
       }
 
       return () {};
