@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 
 class FoodItemExpanded extends StatelessWidget {
   final Food food;
+  Function(Food food) addtoCartCallBack;
 
-  FoodItemExpanded({this.food});
+  FoodItemExpanded({this.food, this.addtoCartCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class FoodItemExpanded extends StatelessWidget {
             children: <Widget>[
               Container(
                   //   width: 120.toWidth,
-                  padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
+                  padding: EdgeInsets.symmetric(horizontal: 4.toWidth),
                   decoration: BoxDecoration(
                       color: ThemeColor().yellowColor,
                       borderRadius: BorderRadius.circular(4)),
@@ -59,21 +60,30 @@ class FoodItemExpanded extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Icon(
-                        Icons.remove,
-                        size: 18,
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          food.selected = false;
+                          print('CLICKED ${food.selected}');
+                          addtoCartCallBack(food);
+                        },
                       ),
                       SizedBox(
-                        width: 8.toWidth,
+                        width: 4.toWidth,
                       ),
                       Text(food.price ?? ''),
                       SizedBox(
-                        width: 8.toWidth,
+                        width: 4.toWidth,
                       ),
-                      Icon(
-                        Icons.add,
-                        size: 18,
-                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          size: 18,
+                        ),
+                        onPressed: (){
+
+                        },
+                      )
                     ],
                   )),
               Text(

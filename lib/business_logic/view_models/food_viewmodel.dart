@@ -21,6 +21,7 @@ class FoodViewModel extends HookWidget {
   Widget build(BuildContext context) {
     var maxScrollExtent = useState<double>(0.0);
     var foodState = useState<Food>();
+    var apiResponseData = useState<List<GroupFood>>();
     arguments = ModalRoute.of(context).settings.arguments;
 
     //Vertical Scrolling hide sliver Appbar
@@ -42,13 +43,30 @@ class FoodViewModel extends HookWidget {
     //use Fetch food products
     ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {
+      if (apiResponse.status == Status.Done) {
+        apiResponseData.value = apiResponse.data;
+      }
+
+      print('ApiResponse changed');
+      print(apiResponse);
       return () {};
-    }, [apiResponse]);
+    }, [apiResponse, apiResponseData.value]);
 
     //Add to cart callBack
 
     final addToCartCallBack = useCallback((Food food) {
       foodState.value = food;
+      if (apiResponse.status == Status.Done) {
+        apiResponseData.value.forEach((element) {
+          element.foods.forEach((element) {
+            if (element.id == food.id) {
+              element.selected = food.selected;
+            }
+          });
+        });
+        print('FOOD STATE ${food.selected}');
+        apiResponseData.notifyListeners();
+      }
     }, [foodState.value]);
     return CustomErrorHandler(
         statuses: [
@@ -59,7 +77,7 @@ class FoodViewModel extends HookWidget {
         ],
         child: FoodView(
           maxExtentValue: maxScrollExtent.value,
-          foodList: apiResponse.data,
+          foodList: apiResponseData.value,
           itemPositionsListener: itemPositionsListener,
           verticalScrollController: verticalScrollController,
           addtoCartCallback: addToCartCallBack,

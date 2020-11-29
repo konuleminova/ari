@@ -184,6 +184,7 @@ class FoodView extends StatelessWidget {
                                 item: foodList[index].foods[innerIndex],
                               ),
                               secondChild: FoodItemExpanded(
+                                addtoCartCallBack: addtoCartCallback,
                                   food: foodList[index].foods[innerIndex]),
                               crossFadeState:
                                   foodList[index].foods[innerIndex].selected
