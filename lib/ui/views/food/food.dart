@@ -127,7 +127,7 @@ class FoodView extends StatelessWidget {
                 pinned: true,
                 delegate: SliverAppBarDelegate(
                     child: PreferredSize(
-                        preferredSize: Size.fromHeight(44.toHeight),
+                        preferredSize: Size.fromHeight(48.toHeight+6),
                         child: Column(
                           children: <Widget>[
                             Container(
@@ -139,9 +139,9 @@ class FoodView extends StatelessWidget {
                                       verticalScrollController,
                                   itemPositionsListener: itemPositionsListener),
                               width: SizeConfig().screenWidth,
-                              height: 40.toHeight,
+                              height: 48.toHeight,
                               padding:
-                                  EdgeInsets.symmetric(horizontal: 8.toWidth),
+                                  EdgeInsets.symmetric(horizontal: 8.toWidth,vertical: 2),
                             ),
                             Container(color: ThemeColor().grey1, height: 2),
                           ],
@@ -153,7 +153,7 @@ class FoodView extends StatelessWidget {
                 itemScrollController: verticalScrollController,
                 physics: BouncingScrollPhysics(),
                 itemPositionsListener: itemPositionsListener,
-                padding: EdgeInsets.only(top: 8.toHeight),
+                padding: EdgeInsets.only(top: 2.toHeight,bottom: 16.toHeight),
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
