@@ -21,18 +21,15 @@ class FoodViewModel extends HookWidget {
     var maxExtent = useState<double>(0.0);
     useEffect(() {
       itemPositionsListener.itemPositions.addListener(() {
-//        for (var value1 in itemPositionsListener.itemPositions.value) {
-//          print('VALUE ${value1}');
-//        }
-        maxExtent.value = itemPositionsListener
-            ?.itemPositions?.value.first.itemLeadingEdge
-            .toDouble() -
-            itemPositionsListener?.itemPositions?.value.first.index
-                .toDouble();
-        print(
-            'ELEMENT ${itemPositionsListener?.itemPositions?.value.first.itemLeadingEdge.toDouble() - itemPositionsListener?.itemPositions?.value.first.index.toDouble()}');
-
-        //1.042865759773965
+        var isElement = itemPositionsListener.itemPositions.value
+            .firstWhere((element) => element != null, orElse: () => null);
+        if (isElement != null) {
+          maxExtent.value = itemPositionsListener
+                  ?.itemPositions?.value.first.itemLeadingEdge
+                  .toDouble() -
+              itemPositionsListener?.itemPositions?.value.first.index
+                  .toDouble();
+        }
       });
       return () {};
     }, [itemPositionsListener]);
