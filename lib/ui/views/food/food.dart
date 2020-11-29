@@ -2,8 +2,9 @@ import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
-import 'package:ari/ui/views/food/widgets/food_item.dart';
-import 'package:ari/ui/views/food/widgets/sliver_delegate.dart';
+import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
+import 'package:ari/ui/views/food/widgets/menu_item/menu_item_expanded.dart';
+import 'package:ari/utils/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
@@ -174,8 +175,11 @@ class FoodView extends StatelessWidget {
                       ),
                       ListView.builder(
                         itemBuilder: (BuildContext context, int innerIndex) {
-                          return FoodItem(
-                              item: foodList[index].foods[innerIndex]);
+                          return FoodItemExpanded(
+                              food: foodList[index].foods[innerIndex]
+                          );
+                              //FoodItem(
+                          //                              item: foodList[index].foods[innerIndex]);
                         },
                         itemCount: foodList[index].foods.length,
                         padding: EdgeInsets.all(0),
