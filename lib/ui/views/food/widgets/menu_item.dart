@@ -31,7 +31,6 @@ class MenuItem extends StatelessWidget {
                 fontWeight: FontWeight.w400),
           ),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 8.toWidth),
       ),
       padding: EdgeInsets.all(6.toWidth),
     );
