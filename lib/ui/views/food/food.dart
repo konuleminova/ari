@@ -25,7 +25,7 @@ class FoodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // print('FOOD VIEW ${maxExtentValue}');
+    // print('FOOD VIEW ${maxExtentValue}');
     arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return foodList == null
@@ -41,86 +41,88 @@ class FoodView extends StatelessWidget {
                 floating: true,
                 snap: true,
                 backgroundColor: Colors.transparent,
-                expandedHeight: maxExtentValue <0? 0 : 180.toHeight,
-                flexibleSpace: maxExtentValue<0
-                    ? SizedBox()
-                    : Stack(
-                        children: <Widget>[
-                          ClipRRect(
-                            child: Image.network(
-                              arguments.data.image,
-                              width: SizeConfig().screenWidth,
-                              height: SizeConfig().screenHeight,
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                topLeft: Radius.circular(20)),
+                expandedHeight: maxExtentValue < 0 ? 0 : 180.toHeight,
+                flexibleSpace: AnimatedCrossFade(
+                    crossFadeState: maxExtentValue < 0
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                    duration: Duration(milliseconds: 1400),
+                    firstCurve: Curves.fastOutSlowIn,
+                    secondCurve: Curves.fastOutSlowIn,
+                    secondChild: SizedBox(),
+                    firstChild: Stack(
+                      children: <Widget>[
+                        ClipRRect(
+                          child: Image.network(
+                            arguments.data.image,
+                            width: SizeConfig().screenWidth,
+                            height: SizeConfig().screenHeight,
+                            fit: BoxFit.cover,
                           ),
-                          Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            arguments.data.name,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20.toFont,
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                      offset:
-                                                          Offset(10.0, 10.0),
-                                                      blurRadius: 30,
-                                                      color: Colors.grey)
-                                                ]),
-                                          ),
-                                          SizedBox(
-                                            height: 4.toHeight,
-                                          ),
-                                          Text(
-                                            arguments.data.information,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Colors.white
-                                                    .withOpacity(0.55),
-                                                fontSize: 14.toFont,
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                      offset:
-                                                          Offset(10.0, 10.0),
-                                                      blurRadius: 30,
-                                                      color: Colors.grey)
-                                                ]),
-                                          ),
-                                        ],
-                                      ),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                        ),
+                        Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          arguments.data.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.toFont,
+                                              shadows: <Shadow>[
+                                                Shadow(
+                                                    offset: Offset(10.0, 10.0),
+                                                    blurRadius: 30,
+                                                    color: Colors.grey)
+                                              ]),
+                                        ),
+                                        SizedBox(
+                                          height: 4.toHeight,
+                                        ),
+                                        Text(
+                                          arguments.data.information,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.white
+                                                  .withOpacity(0.55),
+                                              fontSize: 14.toFont,
+                                              shadows: <Shadow>[
+                                                Shadow(
+                                                    offset: Offset(10.0, 10.0),
+                                                    blurRadius: 30,
+                                                    color: Colors.grey)
+                                              ]),
+                                        ),
+                                      ],
                                     ),
-                                    Container(
-                                      child: Icon(Icons.favorite_border,
-                                          size: 30,
-                                          color:
-                                              Colors.white.withOpacity(0.54)),
-                                    )
-                                  ],
-                                ),
-                                padding: EdgeInsets.all(8.toWidth),
-                              )),
-                        ],
-                      ),
+                                  ),
+                                  Container(
+                                    child: Icon(Icons.favorite_border,
+                                        size: 30,
+                                        color: Colors.white.withOpacity(0.54)),
+                                  )
+                                ],
+                              ),
+                              padding: EdgeInsets.all(8.toWidth),
+                            )),
+                      ],
+                    )),
               ),
-
               SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverAppBarDelegate(
@@ -131,12 +133,11 @@ class FoodView extends StatelessWidget {
                             Container(
                               color: Colors.white,
                               child: MenuViewModel(
-                                foodList: foodList,
-                                id: arguments.data.id,
-                                verticalScrollController:
-                                    verticalScrollController,
-                                  itemPositionsListener:itemPositionsListener
-                              ),
+                                  foodList: foodList,
+                                  id: arguments.data.id,
+                                  verticalScrollController:
+                                      verticalScrollController,
+                                  itemPositionsListener: itemPositionsListener),
                               width: SizeConfig().screenWidth,
                               height: 40.toHeight,
                               padding:
