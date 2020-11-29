@@ -41,7 +41,7 @@ class MenuViewModel extends HookWidget {
             if (horizontalScrollController.isAttached) {
               horizontalScrollController.scrollTo(
                   index: i == 0 ? 0 : i - 1,
-                  duration: Duration(milliseconds: 400));
+                  duration: Duration(milliseconds: 700));
             }
           } else {
             apiResponse.value.data[i].selected = false;
