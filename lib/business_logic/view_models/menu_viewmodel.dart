@@ -6,11 +6,12 @@ import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/food/widgets/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuViewModel extends HookWidget {
   final String id;
-  final ItemScrollController verticalScrollController;
+  var verticalScrollController;
   ItemScrollController horizontalScrollController = new ItemScrollController();
   List<GroupFood> foodList;
   int index = 0;
@@ -35,7 +36,6 @@ class MenuViewModel extends HookWidget {
           return InkWell(
             child: MenuItem(menu: apiResponse.value.data[index]),
             onTap: () {
-
               //Change Selected Item Status
               for (int i = 0; i < apiResponse.value.data.length; i++) {
                 if (index == i) {
@@ -54,8 +54,12 @@ class MenuViewModel extends HookWidget {
 
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].name == apiResponse.value.data[index].name) {
-                  verticalScrollController.scrollTo(
-                      index: i, duration: Duration(milliseconds: 40));
+                  if (verticalScrollController != null) {
+                    verticalScrollController.scrollTo(
+                        duration: Duration(milliseconds: 40),
+                        index: i,
+                        curve: Curves.easeInOutCubic);
+                  }
                 }
               }
               apiResponse.notifyListeners();
