@@ -151,7 +151,7 @@ class FoodView extends StatelessWidget {
                   child: ScrollablePositionedList.builder(
                 initialScrollIndex: 0,
                 itemScrollController: verticalScrollController,
-                physics: ClampingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 itemPositionsListener: itemPositionsListener,
                 padding: EdgeInsets.only(top: 8.toHeight),
                 itemBuilder: (BuildContext context, int index) {
