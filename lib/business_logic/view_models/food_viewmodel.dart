@@ -20,10 +20,6 @@ class FoodViewModel extends HookWidget {
     var maxExtent = useState<double>(0);
     useEffect(() {
       itemPositionsListener.itemPositions.addListener(() {
-        itemPositionsListener.itemPositions.value.forEach((element) {
-
-        });
-
         maxExtent.value = itemPositionsListener
             ?.itemPositions?.value.first.itemLeadingEdge.toDouble();
         print('ELEMENT ${itemPositionsListener
