@@ -7,7 +7,6 @@ import 'package:ari/ui/views/food/widgets/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FoodView extends StatelessWidget {
