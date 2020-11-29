@@ -162,12 +162,12 @@ class FoodView extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(
                             left: 24.toWidth,
-                            bottom: 16.toHeight,
-                            top: 20.toHeight),
+                            bottom: 4.toHeight,
+                            top: 16.toHeight),
                         child: Text(
                           foodList[index].name,
                           style: TextStyle(
-                            fontSize: 21.toFont,
+                            fontSize: 20.toFont,
                             color: ThemeColor().greenColor,
                           ),
                         ),
