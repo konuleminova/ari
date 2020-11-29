@@ -25,7 +25,7 @@ class FoodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('FOOD VIEW ${maxExtentValue}');
+   // print('FOOD VIEW ${maxExtentValue}');
     arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return foodList == null

@@ -10,7 +10,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuViewModel extends HookWidget {
   final String id;
-  var verticalScrollController;
+  ItemScrollController verticalScrollController;
   ItemScrollController horizontalScrollController = new ItemScrollController();
   List<GroupFood> foodList;
   int index = 0;
@@ -56,8 +56,7 @@ class MenuViewModel extends HookWidget {
                   if (verticalScrollController != null) {
                     verticalScrollController.scrollTo(
                         duration: Duration(milliseconds: 40),
-                        index: i,
-                        curve: Curves.easeInOutCubic);
+                        index: i,);
                   }
                 }
               }

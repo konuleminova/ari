@@ -14,16 +14,24 @@ class FoodViewModel extends HookWidget {
   RouteArguments<Restourant> arguments;
   var verticalScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
+
   @override
   Widget build(BuildContext context) {
-    var maxExtent = useState<double>(0);
+    var maxExtent = useState<double>(0.0);
     useEffect(() {
       itemPositionsListener.itemPositions.addListener(() {
+//        for (var value1 in itemPositionsListener.itemPositions.value) {
+//          print('VALUE ${value1}');
+//        }
         maxExtent.value = itemPositionsListener
-            ?.itemPositions?.value.first.itemLeadingEdge.toDouble();
-        print('ELEMENT ${itemPositionsListener
-            ?.itemPositions?.value.first.itemLeadingEdge.toDouble()}');
+            ?.itemPositions?.value.first.itemLeadingEdge
+            .toDouble() -
+            itemPositionsListener?.itemPositions?.value.first.index
+                .toDouble();
+        print(
+            'ELEMENT ${itemPositionsListener?.itemPositions?.value.first.itemLeadingEdge.toDouble() - itemPositionsListener?.itemPositions?.value.first.index.toDouble()}');
+
         //1.042865759773965
       });
       return () {};
