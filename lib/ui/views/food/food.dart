@@ -3,7 +3,7 @@ import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
-import 'package:ari/ui/views/food/widgets/menu_item/menu_item_expanded.dart';
+import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
 import 'package:ari/utils/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +15,14 @@ class FoodView extends StatelessWidget {
   var verticalScrollController;
   double maxExtentValue;
   var itemPositionsListener;
+  Function(Food food) addtoCartCallback;
 
   FoodView(
       {this.foodList,
       this.verticalScrollController,
       this.maxExtentValue,
-      this.itemPositionsListener});
+      this.itemPositionsListener,
+      this.addtoCartCallback});
 
   RouteArguments<Restourant> arguments;
 
@@ -128,7 +130,7 @@ class FoodView extends StatelessWidget {
                 pinned: true,
                 delegate: SliverAppBarDelegate(
                     child: PreferredSize(
-                        preferredSize: Size.fromHeight(48.toHeight+6),
+                        preferredSize: Size.fromHeight(48.toHeight + 6),
                         child: Column(
                           children: <Widget>[
                             Container(
@@ -141,8 +143,8 @@ class FoodView extends StatelessWidget {
                                   itemPositionsListener: itemPositionsListener),
                               width: SizeConfig().screenWidth,
                               height: 48.toHeight,
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 8.toWidth,vertical: 2),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.toWidth, vertical: 2),
                             ),
                             Container(color: ThemeColor().grey1, height: 2),
                           ],
@@ -154,7 +156,7 @@ class FoodView extends StatelessWidget {
                 itemScrollController: verticalScrollController,
                 physics: BouncingScrollPhysics(),
                 itemPositionsListener: itemPositionsListener,
-                padding: EdgeInsets.only(top: 2.toHeight,bottom: 16.toHeight),
+                padding: EdgeInsets.only(top: 2.toHeight, bottom: 16.toHeight),
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,11 +177,18 @@ class FoodView extends StatelessWidget {
                       ),
                       ListView.builder(
                         itemBuilder: (BuildContext context, int innerIndex) {
-                          return FoodItemExpanded(
-                              food: foodList[index].foods[innerIndex]
-                          );
-                              //FoodItem(
-                          //                              item: foodList[index].foods[innerIndex]);
+                          return AnimatedCrossFade(
+                              duration: Duration(milliseconds: 400),
+                              firstChild: FoodItem(
+                                addtoCartCallBack: addtoCartCallback,
+                                item: foodList[index].foods[innerIndex],
+                              ),
+                              secondChild: FoodItemExpanded(
+                                  food: foodList[index].foods[innerIndex]),
+                              crossFadeState:
+                                  foodList[index].foods[innerIndex].selected
+                                      ? CrossFadeState.showSecond
+                                      : CrossFadeState.showFirst);
                         },
                         itemCount: foodList[index].foods.length,
                         padding: EdgeInsets.all(0),

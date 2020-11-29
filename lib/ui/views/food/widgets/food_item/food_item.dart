@@ -8,8 +8,9 @@ import 'package:ari/utils/size_config.dart';
 
 class FoodItem extends StatelessWidget {
   Food item;
+  Function(Food food) addtoCartCallBack;
 
-  FoodItem({this.item});
+  FoodItem({this.item, this.addtoCartCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class FoodItem extends StatelessWidget {
     return item == null
         ? Container()
         : Container(
-           // height: 120.toHeight,
+            // height: 120.toHeight,
             padding: EdgeInsets.symmetric(
                 vertical: 12.toHeight, horizontal: 8.toWidth),
             decoration: BoxDecoration(
@@ -45,30 +46,37 @@ class FoodItem extends StatelessWidget {
                         SizedBox(
                           height: 16.toHeight,
                         ),
-                        Container(
-                          width: 130.toWidth,
-                          height: 28.toHeight,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 4.toHeight, horizontal: 8.toWidth),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                item.price ?? '',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                        InkWell(
+                            child: Container(
+                              width: 130.toWidth,
+                              height: 28.toHeight,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 4.toHeight, horizontal: 8.toWidth),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    item.price ?? '',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Image.asset(
+                                    'assets/images/shop.png',
+                                    height: 18.toWidth,
+                                    width: 18.toWidth,
+                                    // fit: BoxFit.cover,
+                                  )
+                                ],
                               ),
-                              Image.asset(
-                                'assets/images/shop.png',
-                                height: 18.toWidth,
-                                width: 18.toWidth,
-                                // fit: BoxFit.cover,
-                              )
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                              color: ThemeColor().greenLightColor,
-                              borderRadius: BorderRadius.circular(4)),
-                        ),
+                              decoration: BoxDecoration(
+                                  color: ThemeColor().greenLightColor,
+                                  borderRadius: BorderRadius.circular(4)),
+                            ),
+                            onTap: () {
+                              item.selected = true;
+                              addtoCartCallBack(item);
+                            })
                       ],
                     ),
                     padding: EdgeInsets.only(left: 16.toWidth),

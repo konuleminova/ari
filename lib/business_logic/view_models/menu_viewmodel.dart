@@ -4,7 +4,7 @@ import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/services/menu_service.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/food/widgets/menu_item/menu_item.dart';
-import 'package:ari/ui/views/food/widgets/menu_item/menu_item_expanded.dart';
+import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';

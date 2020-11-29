@@ -14,6 +14,7 @@ class FoodItemExpanded extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
+      margin: EdgeInsets.only(top: 8.toHeight),
       padding:
           EdgeInsets.symmetric(horizontal: 30.toWidth, vertical: 16.toWidth),
       decoration: BoxDecoration(
@@ -54,7 +55,7 @@ class FoodItemExpanded extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: ThemeColor().yellowColor,
                       borderRadius: BorderRadius.circular(4)),
-                  height: 38.toHeight,
+                  height: 34.toHeight,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
