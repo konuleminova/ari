@@ -25,107 +25,105 @@ class FoodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('FOOD VIEW ${maxExtentValue <4.0}');
+    print('FOOD VIEW ${maxExtentValue}');
     arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return foodList == null
         ? Container()
         : CustomScrollView(
             slivers: <Widget>[
-              maxExtentValue <4.0
-                  ? SliverPersistentHeader(
-                      pinned: false,
-                      delegate: SliverAppBarDelegate(
-                          child: PreferredSize(
-                              preferredSize: Size.fromHeight(180.toHeight),
-                              child: Stack(
-                                children: <Widget>[
-                                  ClipRRect(
-                                    child: Image.network(
-                                      arguments.data.image,
-                                      width: SizeConfig().screenWidth,
-                                      height: SizeConfig().screenHeight,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(20),
-                                        topLeft: Radius.circular(20)),
-                                  ),
-                                  Positioned(
-                                      bottom: 0,
-                                      left: 0,
-                                      right: 0,
-                                      child: Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    arguments.data.name,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 20.toFont,
-                                                        shadows: <Shadow>[
-                                                          Shadow(
-                                                              offset: Offset(
-                                                                  10.0, 10.0),
-                                                              blurRadius: 30,
-                                                              color:
-                                                                  Colors.grey)
-                                                        ]),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 4.toHeight,
-                                                  ),
-                                                  Text(
-                                                    arguments.data.information,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        color: Colors.white
-                                                            .withOpacity(0.55),
-                                                        fontSize: 14.toFont,
-                                                        shadows: <Shadow>[
-                                                          Shadow(
-                                                              offset: Offset(
-                                                                  10.0, 10.0),
-                                                              blurRadius: 30,
-                                                              color:
-                                                                  Colors.grey)
-                                                        ]),
-                                                  ),
-                                                ],
+              SliverAppBar(
+                  bottom:
+                      PreferredSize(preferredSize: const Size.fromHeight(0),child: SizedBox(),),
+                  pinned: true,
+                  floating: true,
+                  snap: true,
+                  backgroundColor: Colors.transparent,
+                  expandedHeight:
+                      maxExtentValue >= 0.1 ? 0.toHeight : 180.toHeight,
+                  title: SizedBox(),
+                  flexibleSpace: FlexibleSpaceBar(
+                    titlePadding: EdgeInsets.all(0),
+                    title: SizedBox(),
+                    background: maxExtentValue >= 0.1
+                        ? SizedBox()
+                        : Stack(
+                            children: <Widget>[
+                              ClipRRect(
+                                child: Image.network(
+                                  arguments.data.image,
+                                  width: SizeConfig().screenWidth,
+                                  height: SizeConfig().screenHeight,
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20)),
+                              ),
+                              Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                arguments.data.name,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.toFont,
+                                                    shadows: <Shadow>[
+                                                      Shadow(
+                                                          offset: Offset(
+                                                              10.0, 10.0),
+                                                          blurRadius: 30,
+                                                          color: Colors.grey)
+                                                    ]),
                                               ),
-                                            ),
-                                            Container(
-                                              child: Icon(Icons.favorite_border,
-                                                  size: 30,
-                                                  color: Colors.white
-                                                      .withOpacity(0.54)),
-                                            )
-                                          ],
+                                              SizedBox(
+                                                height: 4.toHeight,
+                                              ),
+                                              Text(
+                                                arguments.data.information,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.55),
+                                                    fontSize: 14.toFont,
+                                                    shadows: <Shadow>[
+                                                      Shadow(
+                                                          offset: Offset(
+                                                              10.0, 10.0),
+                                                          blurRadius: 30,
+                                                          color: Colors.grey)
+                                                    ]),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        padding: EdgeInsets.all(8.toWidth),
-                                      ))
-                                ],
-                              ))),
-                    )
-                  : SliverPersistentHeader(
-                      pinned: false,
-                      delegate: SliverAppBarDelegate(
-                          child: PreferredSize(
-                        preferredSize: Size.fromHeight(0),
-                            child: SizedBox(),
-                      ))),
+                                        Container(
+                                          child: Icon(Icons.favorite_border,
+                                              size: 30,
+                                              color: Colors.white
+                                                  .withOpacity(0.54)),
+                                        )
+                                      ],
+                                    ),
+                                    padding: EdgeInsets.all(8.toWidth),
+                                  )),
+                            ],
+                          ),
+                  )),
+
               SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverAppBarDelegate(
@@ -150,9 +148,129 @@ class FoodView extends StatelessWidget {
                           ],
                         ))),
               ),
+//              maxExtentValue < 4.0
+//                  ? SliverPersistentHeader(
+//                      pinned: false,
+//                      delegate: SliverAppBarDelegate(
+//                          child: PreferredSize(
+//                              preferredSize: Size.fromHeight(180.toHeight),
+//                              child: Stack(
+//                                children: <Widget>[
+//                                  ClipRRect(
+//                                    child: Image.network(
+//                                      arguments.data.image,
+//                                      width: SizeConfig().screenWidth,
+//                                      height: SizeConfig().screenHeight,
+//                                      fit: BoxFit.cover,
+//                                    ),
+//                                    borderRadius: BorderRadius.only(
+//                                        topRight: Radius.circular(20),
+//                                        topLeft: Radius.circular(20)),
+//                                  ),
+//                                  Positioned(
+//                                      bottom: 0,
+//                                      left: 0,
+//                                      right: 0,
+//                                      child: Container(
+//                                        child: Row(
+//                                          mainAxisAlignment:
+//                                              MainAxisAlignment.spaceBetween,
+//                                          children: <Widget>[
+//                                            Expanded(
+//                                              child: Column(
+//                                                crossAxisAlignment:
+//                                                    CrossAxisAlignment.start,
+//                                                children: <Widget>[
+//                                                  Text(
+//                                                    arguments.data.name,
+//                                                    overflow:
+//                                                        TextOverflow.ellipsis,
+//                                                    style: TextStyle(
+//                                                        color: Colors.white,
+//                                                        fontWeight:
+//                                                            FontWeight.bold,
+//                                                        fontSize: 20.toFont,
+//                                                        shadows: <Shadow>[
+//                                                          Shadow(
+//                                                              offset: Offset(
+//                                                                  10.0, 10.0),
+//                                                              blurRadius: 30,
+//                                                              color:
+//                                                                  Colors.grey)
+//                                                        ]),
+//                                                  ),
+//                                                  SizedBox(
+//                                                    height: 4.toHeight,
+//                                                  ),
+//                                                  Text(
+//                                                    arguments.data.information,
+//                                                    overflow:
+//                                                        TextOverflow.ellipsis,
+//                                                    style: TextStyle(
+//                                                        color: Colors.white
+//                                                            .withOpacity(0.55),
+//                                                        fontSize: 14.toFont,
+//                                                        shadows: <Shadow>[
+//                                                          Shadow(
+//                                                              offset: Offset(
+//                                                                  10.0, 10.0),
+//                                                              blurRadius: 30,
+//                                                              color:
+//                                                                  Colors.grey)
+//                                                        ]),
+//                                                  ),
+//                                                ],
+//                                              ),
+//                                            ),
+//                                            Container(
+//                                              child: Icon(Icons.favorite_border,
+//                                                  size: 30,
+//                                                  color: Colors.white
+//                                                      .withOpacity(0.54)),
+//                                            )
+//                                          ],
+//                                        ),
+//                                        padding: EdgeInsets.all(8.toWidth),
+//                                      ))
+//                                ],
+//                              )
+//                          )),
+//                    )
+//                  : SliverPersistentHeader(
+//                      pinned: false,
+//                      delegate: SliverAppBarDelegate(
+//                          child: PreferredSize(
+//                        preferredSize: Size.fromHeight(0),
+//                        child: SizedBox(),
+//                      ))),
+//              SliverPersistentHeader(
+//                pinned: true,
+//                delegate: SliverAppBarDelegate(
+//                    child: PreferredSize(
+//                        preferredSize: Size.fromHeight(44.toHeight),
+//                        child: Column(
+//                          children: <Widget>[
+//                            Container(
+//                              color: Colors.white,
+//                              child: MenuViewModel(
+//                                foodList: foodList,
+//                                id: arguments.data.id,
+//                                verticalScrollController:
+//                                    verticalScrollController,
+//                              ),
+//                              width: SizeConfig().screenWidth,
+//                              height: 40.toHeight,
+//                              padding:
+//                                  EdgeInsets.symmetric(horizontal: 8.toWidth),
+//                            ),
+//                            Container(color: ThemeColor().grey1, height: 2),
+//                          ],
+//                        )
+//                    )),
+//              ),
               SliverFillRemaining(
                   child: ScrollablePositionedList.builder(
-                    initialScrollIndex: 0,
+                initialScrollIndex: 0,
                 itemScrollController: verticalScrollController,
                 physics: ClampingScrollPhysics(),
                 itemPositionsListener: itemPositionsListener,

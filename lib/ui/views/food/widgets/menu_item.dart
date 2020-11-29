@@ -27,6 +27,7 @@ class MenuItem extends StatelessWidget {
                 color: menu.selected
                     ? Colors.black87.withOpacity(0.8)
                     : Colors.black45,
+                fontSize: 14.toFont,
                 fontWeight: FontWeight.w400),
           ),
         ),
