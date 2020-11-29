@@ -40,14 +40,14 @@ class MenuViewModel extends HookWidget {
             apiResponse.value.data[i].selected = true;
             if (horizontalScrollController.isAttached) {
               horizontalScrollController.scrollTo(
-                  index: i == 0 ? 0 : i-1,
-                  duration: Duration(milliseconds: 400));
+                  index: i == 0 ? 0 : i - 1,
+                  duration: Duration(milliseconds: 300));
             }
           } else {
             apiResponse.value.data[i].selected = false;
           }
         }
-        apiResponse.notifyListeners();
+        //apiResponse.notifyListeners();
       }
 
       return () {};
@@ -65,7 +65,6 @@ class MenuViewModel extends HookWidget {
       return () {};
     }, [itemPositionsListener]);
 
-
     // TODO: implement build
     return CustomErrorHandler(
       child: ScrollablePositionedList.builder(
@@ -76,8 +75,6 @@ class MenuViewModel extends HookWidget {
             onTap: () {
               //Set selected Item
               indexState.value = index;
-
-              //Vertical Scrolling
               for (int i = 0; i < foodList.length; i++) {
                 if (foodList[i].name == apiResponse.value.data[index].name) {
                   if (verticalScrollController.isAttached) {
