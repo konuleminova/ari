@@ -41,8 +41,8 @@ class FoodView extends StatelessWidget {
                 floating: true,
                 snap: true,
                 backgroundColor: Colors.transparent,
-                expandedHeight: maxExtentValue >= 0.1 ? 0 : 180.toHeight,
-                flexibleSpace: maxExtentValue >= 0.1
+                expandedHeight: maxExtentValue <0? 0 : 180.toHeight,
+                flexibleSpace: maxExtentValue<0
                     ? SizedBox()
                     : Stack(
                         children: <Widget>[
