@@ -40,7 +40,7 @@ class MenuViewModel extends HookWidget {
             apiResponse.value.data[i].selected = true;
             if (horizontalScrollController.isAttached) {
               horizontalScrollController.scrollTo(
-                  index: indexState.value == 0 ? 0 : indexState.value - 1,
+                  index: i == 0 ? 0 : i - 1,
                   duration: Duration(milliseconds: 400));
             }
           } else {
