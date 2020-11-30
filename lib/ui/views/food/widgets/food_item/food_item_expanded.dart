@@ -63,15 +63,19 @@ class FoodItemExpanded extends StatelessWidget {
                       IconButton(
                         icon: Icon(Icons.remove),
                         onPressed: () {
-                          food.selected = false;
-                          print('CLICKED ${food.selected}');
+                          if (food.count == 1) {
+                            food.selected = false;
+                          } else {
+                            food.count = food.count - 1;
+                            print('CLICKED ${food.selected}');
+                          }
                           addtoCartCallBack(food);
                         },
                       ),
                       SizedBox(
                         width: 4.toWidth,
                       ),
-                      Text(food.price ?? ''),
+                      Text(food.count.toString() ?? '0'),
                       SizedBox(
                         width: 4.toWidth,
                       ),
@@ -80,14 +84,15 @@ class FoodItemExpanded extends StatelessWidget {
                           Icons.add,
                           size: 18,
                         ),
-                        onPressed: (){
-
+                        onPressed: () {
+                          food.count = food.count + 1;
+                          addtoCartCallBack(food);
                         },
                       )
                     ],
                   )),
               Text(
-                food.price,
+                (food.count * double.parse(food.price)).toStringAsFixed(2),
                 style:
                     TextStyle(fontSize: 20.toFont, fontWeight: FontWeight.w500),
               )

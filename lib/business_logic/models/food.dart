@@ -8,6 +8,7 @@ class Food {
   String restourant_id;
   List adds;
   bool selected = false;
+  int count=1;
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];

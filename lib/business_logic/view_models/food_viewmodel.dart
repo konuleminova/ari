@@ -64,6 +64,11 @@ class FoodViewModel extends HookWidget {
         apiResponseData.notifyListeners();
       }
     }, [foodState.value]);
+
+//    final incerementCountCallBAck = useCallback((Food food) {
+//
+//
+//    },[]);
     return CustomErrorHandler(
         statuses: [
           apiResponse.status,
