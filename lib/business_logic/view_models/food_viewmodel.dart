@@ -19,6 +19,7 @@ class FoodViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    var atLeastOneItemSelected = useState<int>(0);
     var maxScrollExtent = useState<double>(0.0);
     var foodState = useState<Food>();
     var apiResponseData = useState<List<GroupFood>>();
@@ -65,10 +66,6 @@ class FoodViewModel extends HookWidget {
       }
     }, [foodState.value]);
 
-//    final incerementCountCallBAck = useCallback((Food food) {
-//
-//
-//    },[]);
     return CustomErrorHandler(
         statuses: [
           apiResponse.status,
@@ -77,11 +74,11 @@ class FoodViewModel extends HookWidget {
           apiResponse.error
         ],
         child: FoodView(
-          maxExtentValue: maxScrollExtent.value,
-          foodList: apiResponseData.value,
-          itemPositionsListener: itemPositionsListener,
-          verticalScrollController: verticalScrollController,
-          addtoCartCallback: addToCartCallBack,
-        ));
+            maxExtentValue: maxScrollExtent.value,
+            foodList: apiResponseData.value,
+            itemPositionsListener: itemPositionsListener,
+            verticalScrollController: verticalScrollController,
+            addtoCartCallback: addToCartCallBack,
+            atLeastOneItemSelected: atLeastOneItemSelected.value));
   }
 }

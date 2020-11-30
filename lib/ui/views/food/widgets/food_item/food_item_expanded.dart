@@ -75,7 +75,7 @@ class FoodItemExpanded extends StatelessWidget {
                       SizedBox(
                         width: 4.toWidth,
                       ),
-                      Text(food.count.toString() ?? '0'),
+                      Text((food.count).toString() ?? '0'),
                       SizedBox(
                         width: 4.toWidth,
                       ),

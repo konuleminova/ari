@@ -16,13 +16,14 @@ class FoodView extends StatelessWidget {
   double maxExtentValue;
   var itemPositionsListener;
   Function(Food food) addtoCartCallback;
+  var atLeastOneItemSelected;
 
   FoodView(
       {this.foodList,
       this.verticalScrollController,
       this.maxExtentValue,
       this.itemPositionsListener,
-      this.addtoCartCallback});
+      this.addtoCartCallback,this.atLeastOneItemSelected});
 
   RouteArguments<Restourant> arguments;
 
@@ -151,55 +152,76 @@ class FoodView extends StatelessWidget {
                         ))),
               ),
               SliverFillRemaining(
-                  child: ScrollablePositionedList.builder(
-                initialScrollIndex: 0,
-                itemScrollController: verticalScrollController,
-                physics: BouncingScrollPhysics(),
-                itemPositionsListener: itemPositionsListener,
-                padding: EdgeInsets.only(top: 2.toHeight, bottom: 16.toHeight),
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 24.toWidth,
-                            bottom: 4.toHeight,
-                            top: 16.toHeight),
-                        child: Text(
-                          foodList[index].name,
-                          style: TextStyle(
-                            fontSize: 20.toFont,
-                            color: ThemeColor().greenColor,
-                          ),
-                        ),
-                      ),
-                      ListView.builder(
-                        itemBuilder: (BuildContext context, int innerIndex) {
-                          return AnimatedCrossFade(
-                              duration: Duration(milliseconds: 400),
-                              firstChild: FoodItem(
-                                addtoCartCallBack: addtoCartCallback,
-                                item: foodList[index].foods[innerIndex],
+                  child: Stack(
+                children: <Widget>[
+                  ScrollablePositionedList.builder(
+                    initialScrollIndex: 0,
+                    itemScrollController: verticalScrollController,
+                    physics: BouncingScrollPhysics(),
+                    itemPositionsListener: itemPositionsListener,
+                    padding:
+                        EdgeInsets.only(top: 2.toHeight, bottom: 16.toHeight),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 24.toWidth,
+                                bottom: 4.toHeight,
+                                top: 16.toHeight),
+                            child: Text(
+                              foodList[index].name,
+                              style: TextStyle(
+                                fontSize: 20.toFont,
+                                color: ThemeColor().greenColor,
                               ),
-                              secondChild: FoodItemExpanded(
-                                addtoCartCallBack: addtoCartCallback,
-                                  food: foodList[index].foods[innerIndex]),
-                              crossFadeState:
-                                  foodList[index].foods[innerIndex].selected
-                                      ? CrossFadeState.showSecond
-                                      : CrossFadeState.showFirst);
-                        },
-                        itemCount: foodList[index].foods.length,
-                        padding: EdgeInsets.all(0),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                      )
-                    ],
-                  );
-                },
-                itemCount: foodList.length ?? 0,
+                            ),
+                          ),
+                          ListView.builder(
+                            itemBuilder:
+                                (BuildContext context, int innerIndex) {
+                              return AnimatedCrossFade(
+                                  duration: Duration(milliseconds: 400),
+                                  firstChild: FoodItem(
+                                    addtoCartCallBack: addtoCartCallback,
+                                    item: foodList[index].foods[innerIndex],
+                                  ),
+                                  secondChild: FoodItemExpanded(
+                                      addtoCartCallBack: addtoCartCallback,
+                                      food: foodList[index].foods[innerIndex]),
+                                  crossFadeState:
+                                      foodList[index].foods[innerIndex].selected
+                                          ? CrossFadeState.showSecond
+                                          : CrossFadeState.showFirst);
+                            },
+                            itemCount: foodList[index].foods.length,
+                            padding: EdgeInsets.all(0),
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                          )
+                        ],
+                      );
+                    },
+                    itemCount: foodList.length ?? 0,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: atLeastOneItemSelected>1?Container(
+                      height: 54.toHeight,
+                      color: ThemeColor().yellowColor,
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Go to checkout',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 19.toFont),
+                      ),
+                    ):SizedBox(),
+                  )
+                ],
               ))
             ],
           );
