@@ -23,7 +23,8 @@ class FoodView extends StatelessWidget {
       this.verticalScrollController,
       this.maxExtentValue,
       this.itemPositionsListener,
-      this.addtoCartCallback,this.atLeastOneItemSelected});
+      this.addtoCartCallback,
+      this.atLeastOneItemSelected});
 
   RouteArguments<Restourant> arguments;
 
@@ -210,16 +211,22 @@ class FoodView extends StatelessWidget {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: atLeastOneItemSelected?Container(
-                      height: 54.toHeight,
-                      color: ThemeColor().yellowColor,
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Go to checkout',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 19.toFont),
-                      ),
-                    ):SizedBox(),
+                    child: atLeastOneItemSelected
+                        ? Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ThemeColor().grey1),
+                              color: ThemeColor().yellowColor,
+                            ),
+                            height: 54.toHeight,
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Go to checkout',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 19.toFont),
+                            ),
+                          )
+                        : SizedBox(),
                   )
                 ],
               ))
