@@ -46,9 +46,6 @@ class FoodViewModel extends HookWidget {
       if (apiResponse.status == Status.Done) {
         apiResponseData.value = apiResponse.data;
       }
-
-      print('ApiResponse changed');
-      print(apiResponse);
       return () {};
     }, [apiResponse, apiResponseData.value]);
 
@@ -64,7 +61,6 @@ class FoodViewModel extends HookWidget {
             }
           });
         });
-        print('FOOD STATE ${food.selected}');
         apiResponseData.notifyListeners();
       }
     }, [foodState.value]);
