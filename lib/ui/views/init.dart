@@ -16,7 +16,7 @@ class InitPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         appBar: CustomAppBar(),
-        backgroundColor: Color(0xfffccd13),
+       // backgroundColor: Color(0xfffccd13),
         body: Stack(
           children: <Widget>[
             Column(
@@ -33,15 +33,15 @@ class InitPage extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                 )),
-                Container(
-                    height: 44.toHeight,
-                    child: Center(
-                      child: Text(
-                        '© Ari 2020 by Delivery Group',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12.toFont),
-                      ),
-                    )),
+//               Container(
+//                    height: 44.toHeight,
+//                    child: Center(
+//                      child: Text(
+//                        '© Ari 2020 by Delivery Group',
+//                        style: TextStyle(
+//                            fontWeight: FontWeight.bold, fontSize: 12.toFont),
+//                      ),
+//                    )),
               ],
             ),
             Positioned(
