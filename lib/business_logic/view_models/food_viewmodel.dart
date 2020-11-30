@@ -19,7 +19,7 @@ class FoodViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var atLeastOneItemSelected = useState<int>(0);
+    var atLeastOneItemSelected = useState<bool>(false);
     var maxScrollExtent = useState<double>(0.0);
     var foodState = useState<Food>();
     var apiResponseData = useState<List<GroupFood>>();
@@ -46,6 +46,7 @@ class FoodViewModel extends HookWidget {
     useSideEffect(() {
       if (apiResponse.status == Status.Done) {
         apiResponseData.value = apiResponse.data;
+
       }
       return () {};
     }, [apiResponse, apiResponseData.value]);
@@ -54,6 +55,7 @@ class FoodViewModel extends HookWidget {
 
     final addToCartCallBack = useCallback((Food food) {
       foodState.value = food;
+      atLeastOneItemSelected.value = false;
       if (apiResponse.status == Status.Done) {
         apiResponseData.value.forEach((element) {
           element.foods.forEach((element) {
@@ -63,8 +65,16 @@ class FoodViewModel extends HookWidget {
           });
         });
         apiResponseData.notifyListeners();
+        apiResponseData.value.forEach((element) {
+          if ((element.foods.firstWhere((it) => it.selected == true,
+              orElse: () => null)) !=
+              null) {
+
+            atLeastOneItemSelected.value = true;
+          }
+        });
       }
-    }, [foodState.value]);
+    }, [foodState.value,apiResponseData.value]);
 
     return CustomErrorHandler(
         statuses: [

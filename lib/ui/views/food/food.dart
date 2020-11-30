@@ -210,7 +210,7 @@ class FoodView extends StatelessWidget {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: atLeastOneItemSelected>1?Container(
+                    child: atLeastOneItemSelected?Container(
                       height: 54.toHeight,
                       color: ThemeColor().yellowColor,
                       alignment: Alignment.center,
