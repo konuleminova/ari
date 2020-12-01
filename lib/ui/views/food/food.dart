@@ -217,20 +217,44 @@ class FoodView extends StatelessWidget {
                               border: Border.all(color: ThemeColor().grey1),
                               color: ThemeColor().yellowColor,
                             ),
-                            height: 54.toHeight,
+                            padding:
+                                EdgeInsets.symmetric(horizontal: 16.toWidth),
+                            height: 56.toHeight,
                             alignment: Alignment.center,
-                            child: Text(
-                              'Go to checkout',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 19.toFont),
-                            ),
-                          )
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Go to checkout',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 19.toFont),
+                                ),
+                                Text(
+                                  '${getTotalPrice()} ₼',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 19.toFont),
+                                )
+                              ],
+                            ))
                         : SizedBox(),
                   )
                 ],
               ))
             ],
           );
+  }
+
+  String getTotalPrice() {
+    double total = 0;
+    foodList.forEach((element) {
+      element.foods.forEach((element) {
+        if (element.selected) {
+          total = total + (element.count * double.parse(element.price));
+        }
+      });
+    });
+    return total.toStringAsFixed(2);
   }
 }

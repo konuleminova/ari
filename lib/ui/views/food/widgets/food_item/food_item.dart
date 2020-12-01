@@ -57,7 +57,7 @@ class FoodItem extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    item.price ?? '',
+                                    '${item.price}   ₼' ?? '',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),

@@ -92,7 +92,7 @@ class FoodItemExpanded extends StatelessWidget {
                     ],
                   )),
               Text(
-                (food.count * double.parse(food.price)).toStringAsFixed(2),
+                '${(food.count * double.parse(food.price)).toStringAsFixed(2)}  ₼',
                 style:
                     TextStyle(fontSize: 20.toFont, fontWeight: FontWeight.w500),
               )
