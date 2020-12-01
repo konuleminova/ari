@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapView extends StatefulWidget {
+  final List<LatLng> points;
+
+  const MapView({Key key, this.points}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -17,7 +21,6 @@ class _MapViewState extends State<MapView> {
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
   LatLng _lastMapPosition;
-
 
   @override
   void dispose() {
@@ -41,7 +44,7 @@ class _MapViewState extends State<MapView> {
       alignment: AlignmentDirectional.topCenter,
       color: Colors.white,
       child: FutureBuilder(
-          future: _setPinnedAddress(),
+          future: _setSelectedAddress(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return GoogleMap(
               gestureRecognizers: Set()
@@ -53,7 +56,7 @@ class _MapViewState extends State<MapView> {
                 //MapDemoPage mp = new MapDemoPage();
                 // mp.showMap();
               },
-              polygons: setPolygon(),
+              polygons: setPolygon(widget.points),
               tiltGesturesEnabled: true,
               scrollGesturesEnabled: true,
               zoomGesturesEnabled: true,
@@ -73,7 +76,7 @@ class _MapViewState extends State<MapView> {
   }
 
   //Set search result address and animate camera to there
-  _setPinnedAddress() async {
+  _setSelectedAddress() async {
     SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
     String address = await sharedPrefUtil.getString(SharedPrefUtil.address);
     _lastMapPosition = new LatLng(

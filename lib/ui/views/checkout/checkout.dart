@@ -3,8 +3,13 @@ import 'package:ari/ui/views/map/searchplace.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CheckoutView extends StatelessWidget {
+  final List<LatLng> mapPoints;
+
+  const CheckoutView({Key key, this.mapPoints}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -34,7 +39,11 @@ class CheckoutView extends StatelessWidget {
               elevation: 2,
             ),
             margin: EdgeInsets.only(left: 12, right: 12, bottom: 8)),
-        Expanded(child: MapView(),)
+        Expanded(
+          child: MapView(
+            points: mapPoints,
+          ),
+        )
       ],
     );
   }

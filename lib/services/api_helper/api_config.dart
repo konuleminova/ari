@@ -1,7 +1,8 @@
 class ApiConfig {
   final String BASE_URl = 'http://bees.az/api/?action=';
 
-  String FOOD_URl(String id) => '${BASE_URl}food&lang=ru&restourant_id=${id}&gr=1';
+  String FOOD_URl(String id) =>
+      '${BASE_URl}food&lang=ru&restourant_id=${id}&gr=1';
 
   String RESTOURANT_URl(String id) =>
       '${BASE_URl}restourants&lang=ru&text=${id}';
@@ -10,4 +11,6 @@ class ApiConfig {
 
   String SEARCH_URL(String query, String maxNum) =>
       '${BASE_URl}search&lang=ru&q=${query}&num=${maxNum}';
+
+  String FETCH_MAP_ZONE() => BASE_URl + 'zone&lang=ru';
 }
