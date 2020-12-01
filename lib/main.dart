@@ -1,11 +1,16 @@
 import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'business_logic/routes/nested_root.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(new MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -16,10 +21,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Bitter-Light',
           accentColor: ThemeColor().greenColor,
-          primarySwatch:Colors.green,
+          primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: InitPage()
-    );
+        home: InitPage());
   }
 }

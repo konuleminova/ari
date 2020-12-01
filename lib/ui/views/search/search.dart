@@ -76,7 +76,8 @@ class SearchView extends StatelessWidget {
               ? Expanded(
                   child: Column(
                     children: <Widget>[
-                      Text('Найдено ${search.found} ресторанов'),
+                      Text(
+                          'Найдено ${search.found > 0 ? '${search.found}' : ''} ресторанов'),
                       SizedBox(
                         height: 8.toHeight,
                       ),
