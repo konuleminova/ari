@@ -70,6 +70,7 @@ class FoodViewModel extends HookWidget {
               null) {
             atLeastOneItemSelected.value = true;
           }
+          //get Total Price formula
           apiResponse.data.forEach((element1) {
             element1.foods.forEach((element2) {
               element2.totalPrice = 0;

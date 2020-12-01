@@ -68,6 +68,10 @@ class FoodItemExpanded extends StatelessWidget {
                             food.selected = false;
                           } else {
                             food.count = food.count - 1;
+                            if (food.adds[1].type == 1 &&
+                                food.adds[1].count > food.count) {
+                              food.adds[1].count = food.count;
+                            }
                             print('CLICKED ${food.selected}');
                           }
                           addtoCartCallBack(food);
@@ -183,12 +187,12 @@ class FoodItemExpanded extends StatelessWidget {
                                               if (food.adds[index].count > 0) {
                                                 food.adds[index].count =
                                                     food.adds[index].count - 1;
-                                                food.totalPrice = food
-                                                    .totalPrice -
-                                                    food.adds[index].count *
-                                                        double.parse(food
-                                                            .adds[index]
-                                                            .price);
+                                                food.totalPrice =
+                                                    food.totalPrice -
+                                                        food.adds[index].count *
+                                                            double.parse(food
+                                                                .adds[index]
+                                                                .price);
                                                 addtoCartCallBack(food);
                                               }
                                             },
@@ -205,12 +209,18 @@ class FoodItemExpanded extends StatelessWidget {
                                             onPressed: () {
                                               food.adds[index].count =
                                                   food.adds[index].count + 1;
-                                              food.totalPrice = food
-                                                      .totalPrice +
-                                                  food.adds[index].count *
-                                                      double.parse(food
-                                                          .adds[index]
-                                                          .price);
+                                              food.totalPrice =
+                                                  food.totalPrice +
+                                                      food.adds[index].count *
+                                                          double.parse(food
+                                                              .adds[index]
+                                                              .price);
+                                              if (food.adds[index].type == 1 &&
+                                                  food.adds[index].count >
+                                                      food.count) {
+                                                food.count =
+                                                    food.adds[index].count;
+                                              }
                                               addtoCartCallBack(food);
                                             },
                                           ),
@@ -276,10 +286,11 @@ class FoodItemExpanded extends StatelessWidget {
                                 onPressed: () {
                                   if (food.addsType2[0].count > 0) {
                                     food.addsType2[0].count =
-                                        food.addsType2[0].count-1;
+                                        food.addsType2[0].count - 1;
                                     food.totalPrice = food.totalPrice -
                                         food.addsType2[0].count *
-                                            double.parse(food.addsType2[0].price);
+                                            double.parse(
+                                                food.addsType2[0].price);
                                   }
 
                                   addtoCartCallBack(food);
