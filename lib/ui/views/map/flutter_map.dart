@@ -5,15 +5,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapPage1 extends StatefulWidget {
+class MapView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _MapPage1State();
+    return _MapViewState();
   }
 }
 
-class _MapPage1State extends State<MapPage1> {
+class _MapViewState extends State<MapView> {
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
   LatLng _lastMapPosition;

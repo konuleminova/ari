@@ -34,7 +34,7 @@ class CheckoutView extends StatelessWidget {
               elevation: 2,
             ),
             margin: EdgeInsets.only(left: 12, right: 12, bottom: 8)),
-        Expanded(child: MapPage1(),)
+        Expanded(child: MapView(),)
       ],
     );
   }
