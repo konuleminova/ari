@@ -19,7 +19,7 @@ class CustomMenuDrawer extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            InkWell(
+            GestureDetector(
               child: Container(
                 alignment: Alignment.bottomRight,
                 margin: EdgeInsets.only(bottom: 70.toHeight),
@@ -31,6 +31,9 @@ class CustomMenuDrawer extends HookWidget {
                 ),
               ),
               onTap: () {
+                onClose();
+              },
+              onHorizontalDragStart: (v) {
                 onClose();
               },
             ),
