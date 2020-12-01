@@ -10,6 +10,7 @@ class Food {
   int count = 1;
   List<Adds> adds;
   List<Adds> addsType2=[];
+  double totalPrice=0;
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -48,11 +49,12 @@ class Adds {
   String name;
   int type;
   String price;
+  int count=0;
 
   Adds.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     type = json['type'];
-    price = json['price'];
+    price = json['price'].toString().replaceAll(',', '.');
   }
 }
 

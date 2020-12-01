@@ -93,7 +93,7 @@ class FoodItemExpanded extends StatelessWidget {
                     ],
                   )),
               Text(
-                '${(food.count * double.parse(food.price)).toStringAsFixed(2)}  ₼',
+                '${food.totalPrice.toStringAsFixed(2)}  ₼',
                 style:
                     TextStyle(fontSize: 20.toFont, fontWeight: FontWeight.w500),
               )
@@ -125,19 +125,107 @@ class FoodItemExpanded extends StatelessWidget {
                   ? Container(
                       margin: EdgeInsets.only(bottom: 8.toWidth),
                       width: SizeConfig().screenWidth,
-                      padding: EdgeInsets.symmetric(vertical: 8.toWidth),
+                      // padding: EdgeInsets.symmetric(vertical: 8.toWidth),
                       decoration: BoxDecoration(
-                          color: ThemeColor().yellowColor,
+                          color: food.adds[index].type == 0
+                              ? ThemeColor().yellowColor
+                              : ThemeColor().grey1,
                           borderRadius: BorderRadius.circular(2)),
                       height: 44.toHeight,
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        child: Text(
-                          food.adds[index].name.toString() ?? '',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
-                      ))
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
+                                  food.adds[index].name.toString() ?? '',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                                flex: 5,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  ((food.adds[index].count == 0
+                                                      ? 1
+                                                      : (food
+                                                          .adds[index].count)) *
+                                                  double.tryParse(
+                                                      food.adds[index].price))
+                                              .toString() +
+                                          '  ₼' ??
+                                      '0',
+                                  style: TextStyle(
+                                      fontSize: 11.toFont,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                flex: 2,
+                              ),
+                              SizedBox(
+                                width: 4.toWidth,
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                    color: food.adds[index].type == 0
+                                        ? ThemeColor().yellowColor
+                                        : ThemeColor().greenLightColor,
+                                    height: 44.toHeight,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.remove,
+                                              size: 13,
+                                            ),
+                                            onPressed: () {
+                                              if (food.adds[index].count > 0) {
+                                                food.adds[index].count =
+                                                    food.adds[index].count - 1;
+                                                food.totalPrice = food
+                                                    .totalPrice -
+                                                    food.adds[index].count *
+                                                        double.parse(food
+                                                            .adds[index]
+                                                            .price);
+                                                addtoCartCallBack(food);
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        Text(
+                                          food.adds[index].count.toString() ??
+                                              '0',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Expanded(
+                                          child: IconButton(
+                                            icon: Icon(Icons.add, size: 13),
+                                            onPressed: () {
+                                              food.adds[index].count =
+                                                  food.adds[index].count + 1;
+                                              food.totalPrice = food
+                                                      .totalPrice +
+                                                  food.adds[index].count *
+                                                      double.parse(food
+                                                          .adds[index]
+                                                          .price);
+                                              addtoCartCallBack(food);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 4.toWidth,
+                                        )
+                                      ],
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                    )),
+                              )
+                            ],
+                          ),
+                          padding: EdgeInsets.only(left: 16.toWidth)))
                   : SizedBox();
             },
             itemCount: food.adds.length,
@@ -146,15 +234,83 @@ class FoodItemExpanded extends StatelessWidget {
               ? Container(
                   margin: EdgeInsets.only(bottom: 8.toWidth),
                   width: SizeConfig().screenWidth,
-                  padding: EdgeInsets.symmetric(
-                      vertical: 4.toHeight, horizontal: 8.toWidth),
+                  padding: EdgeInsets.only(
+                      left: 16.toWidth, top: 4.toHeight, bottom: 4.toHeight),
                   decoration: BoxDecoration(
                       color: ThemeColor().yellowColor,
                       borderRadius: BorderRadius.circular(2)),
                   alignment: Alignment.centerLeft,
-                  child: CustomDropDown(
-                    items: food.addsType2,
-                    initialItemText: food.addsType2[0].name,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: CustomDropDown(
+                          items: food.addsType2,
+                          initialItemText: food.addsType2[0].name,
+                        ),
+                        flex: 5,
+                      ),
+                      SizedBox(
+                        width: 16.toWidth,
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${((food.addsType2[0].count == 0 ? 1 : food.addsType2[0].count) * double.tryParse(food.addsType2[0].price)).toStringAsFixed(2)}  ₼',
+                          style: TextStyle(
+                              fontSize: 11.toFont, fontWeight: FontWeight.w500),
+                        ),
+                        flex: 2,
+                      ),
+                      SizedBox(
+                        width: 4.toWidth,
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  size: 13,
+                                ),
+                                onPressed: () {
+                                  if (food.addsType2[0].count > 0) {
+                                    food.addsType2[0].count =
+                                        food.addsType2[0].count-1;
+                                    food.totalPrice = food.totalPrice -
+                                        food.addsType2[0].count *
+                                            double.parse(food.addsType2[0].price);
+                                  }
+
+                                  addtoCartCallBack(food);
+                                },
+                              ),
+                            ),
+                            Text(
+                              (food.addsType2[0].count).toString() ?? '0',
+                              textAlign: TextAlign.center,
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                icon: Icon(Icons.add, size: 13),
+                                onPressed: () {
+                                  food.addsType2[0].count =
+                                      food.addsType2[0].count + 1;
+                                  food.totalPrice = food.totalPrice +
+                                      food.addsType2[0].count *
+                                          double.parse(food.addsType2[0].price);
+                                  addtoCartCallBack(food);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4.toWidth,
+                            )
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                      )
+                    ],
                   ))
               : SizedBox()
         ],

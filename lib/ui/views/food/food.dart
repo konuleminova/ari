@@ -251,7 +251,7 @@ class FoodView extends StatelessWidget {
     foodList.forEach((element) {
       element.foods.forEach((element) {
         if (element.selected) {
-          total = total + (element.count * double.parse(element.price));
+          total = total + element.totalPrice;
         }
       });
     });

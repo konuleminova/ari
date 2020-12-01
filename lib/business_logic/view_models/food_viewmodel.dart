@@ -45,15 +45,6 @@ class FoodViewModel extends HookWidget {
     ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {
       if (apiResponse.status == Status.Done) {
-        apiResponse.data.forEach((element1) {
-          element1.foods.forEach((element2) {
-            element2.adds.forEach((element3) {
-              if (element3.type == 2) {
-                element2.addsType2.add(element3);
-              }
-            });
-          });
-        });
         apiResponseData.value = apiResponse.data;
       }
       return () {};
@@ -79,6 +70,31 @@ class FoodViewModel extends HookWidget {
               null) {
             atLeastOneItemSelected.value = true;
           }
+          apiResponse.data.forEach((element1) {
+            element1.foods.forEach((element2) {
+              element2.totalPrice = 0;
+              element2.totalPrice = element2.totalPrice +
+                  element2.count * double.parse(element2.price);
+              for (int i = 0; i < element2.adds.length; i++) {
+                if (element2.adds[i].type == 2) {
+                  element2.addsType2.add(element2.adds[i]);
+                } else {
+                  element2.totalPrice = element2.totalPrice +
+                      element2.adds[i].count *
+                          double.parse(element2.adds[i].price);
+                }
+              }
+              if (element2.addsType2.length > 0) {
+                for (int i = 0; i < element2.addsType2.length; i++) {
+                  if (i == 0) {
+                    element2.totalPrice = element2.totalPrice +
+                        element2.addsType2[0].count *
+                            double.parse(element2.addsType2[0].price);
+                  }
+                }
+              }
+            });
+          });
         });
       }
     }, [foodState.value, apiResponseData.value]);
