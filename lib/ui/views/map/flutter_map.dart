@@ -14,16 +14,21 @@ class MapPage1 extends StatefulWidget {
 }
 
 class _MapPage1State extends State<MapPage1> {
-  static const LatLng _bakuLatLng = const LatLng(40.3716222, 49.8555191);
   GoogleMapController _mapController;
   final Set<Marker> _markers = {};
   LatLng _lastMapPosition;
-  String p;
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    _mapController.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
-    _lastMapPosition = _bakuLatLng;
+    _lastMapPosition = const LatLng(40.3716222, 49.8555191);
   }
 
   @override
@@ -36,7 +41,7 @@ class _MapPage1State extends State<MapPage1> {
       alignment: AlignmentDirectional.topCenter,
       color: Colors.white,
       child: FutureBuilder(
-          future: _getAddress(),
+          future: _setPinnedAddress(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return GoogleMap(
               gestureRecognizers: Set()
@@ -67,7 +72,8 @@ class _MapPage1State extends State<MapPage1> {
     _mapController = controller;
   }
 
-  _getAddress() async {
+  //Set search result address and animate camera to there
+  _setPinnedAddress() async {
     SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
     String address = await sharedPrefUtil.getString(SharedPrefUtil.address);
     _lastMapPosition = new LatLng(
