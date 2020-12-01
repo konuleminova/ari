@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/menu.dart';
+import 'package:ari/ui/common_widgets/custom_dropdown.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ari/utils/size_config.dart';
@@ -111,7 +112,51 @@ class FoodItemExpanded extends StatelessWidget {
           Text(
             food.information ?? 'No description',
             style: TextStyle(color: ThemeColor().greyColor),
-          )
+          ),
+          SizedBox(
+            height: 16.toHeight,
+          ),
+          ListView.builder(
+            padding: EdgeInsets.all(0),
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return food.adds[index].type != 2
+                  ? Container(
+                      margin: EdgeInsets.only(bottom: 8.toWidth),
+                      width: SizeConfig().screenWidth,
+                      padding: EdgeInsets.symmetric(vertical: 8.toWidth),
+                      decoration: BoxDecoration(
+                          color: ThemeColor().yellowColor,
+                          borderRadius: BorderRadius.circular(2)),
+                      height: 44.toHeight,
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        child: Text(
+                          food.adds[index].name.toString() ?? '',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
+                      ))
+                  : SizedBox();
+            },
+            itemCount: food.adds.length,
+          ),
+          food.addsType2.length > 0
+              ? Container(
+                  margin: EdgeInsets.only(bottom: 8.toWidth),
+                  width: SizeConfig().screenWidth,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 4.toHeight, horizontal: 8.toWidth),
+                  decoration: BoxDecoration(
+                      color: ThemeColor().yellowColor,
+                      borderRadius: BorderRadius.circular(2)),
+                  alignment: Alignment.centerLeft,
+                  child: CustomDropDown(
+                    items: food.addsType2,
+                    initialItemText: food.addsType2[0].name,
+                  ))
+              : SizedBox()
         ],
       ),
     );

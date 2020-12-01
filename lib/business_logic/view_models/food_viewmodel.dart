@@ -45,8 +45,16 @@ class FoodViewModel extends HookWidget {
     ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {
       if (apiResponse.status == Status.Done) {
+        apiResponse.data.forEach((element1) {
+          element1.foods.forEach((element2) {
+            element2.adds.forEach((element3) {
+              if (element3.type == 2) {
+                element2.addsType2.add(element3);
+              }
+            });
+          });
+        });
         apiResponseData.value = apiResponse.data;
-
       }
       return () {};
     }, [apiResponse, apiResponseData.value]);
@@ -67,14 +75,13 @@ class FoodViewModel extends HookWidget {
         apiResponseData.notifyListeners();
         apiResponseData.value.forEach((element) {
           if ((element.foods.firstWhere((it) => it.selected == true,
-              orElse: () => null)) !=
+                  orElse: () => null)) !=
               null) {
-
             atLeastOneItemSelected.value = true;
           }
         });
       }
-    }, [foodState.value,apiResponseData.value]);
+    }, [foodState.value, apiResponseData.value]);
 
     return CustomErrorHandler(
         statuses: [

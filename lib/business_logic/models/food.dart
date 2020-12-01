@@ -6,9 +6,10 @@ class Food {
   String image;
   String menu_id;
   String restourant_id;
-  List adds;
   bool selected = false;
-  int count=1;
+  int count = 1;
+  List<Adds> adds;
+  List<Adds> addsType2=[];
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -18,6 +19,7 @@ class Food {
     image = json['image'];
     menu_id = json['menu_id'];
     restourant_id = json['restourant_id'];
+    adds = listAddsFromJsom(json['adds']);
   }
 
   @override
@@ -41,3 +43,18 @@ class GroupFood {
 
 List<GroupFood> listGroupFoodFromJson(List<dynamic> groupFoods) =>
     List<GroupFood>.from(groupFoods.map((e) => GroupFood.fromJson(e)));
+
+class Adds {
+  String name;
+  int type;
+  String price;
+
+  Adds.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    type = json['type'];
+    price = json['price'];
+  }
+}
+
+listAddsFromJsom(List<dynamic> listAdds) =>
+    List<Adds>.from(listAdds.map((e) => Adds.fromJson(e)));
