@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/restourant.dart';
+import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
@@ -212,32 +213,37 @@ class FoodView extends StatelessWidget {
                     left: 0,
                     right: 0,
                     child: atLeastOneItemSelected
-                        ? Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: ThemeColor().grey1),
-                              color: ThemeColor().yellowColor,
-                            ),
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16.toWidth),
-                            height: 56.toHeight,
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'Go to checkout',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 19.toFont),
+                        ? InkWell(
+                      onTap: (){
+                        pushRouteWithName(ROUTE_MAP);
+                      },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: ThemeColor().grey1),
+                                  color: ThemeColor().yellowColor,
                                 ),
-                                Text(
-                                  '${getTotalPrice()} ₼',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 19.toFont),
-                                )
-                              ],
-                            ))
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16.toWidth),
+                                height: 56.toHeight,
+                                alignment: Alignment.center,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      'Go to checkout',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 19.toFont),
+                                    ),
+                                    Text(
+                                      '${getTotalPrice()} ₼',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 19.toFont),
+                                    )
+                                  ],
+                                )))
                         : SizedBox(),
                   )
                 ],
