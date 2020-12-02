@@ -20,9 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
             _controller.play().then((value) {
               _controller.addListener(() {
                 if (!_controller.value.isPlaying) {
-                  _controller.dispose();
                   if (context != null) {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) => InitPage()));
