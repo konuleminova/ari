@@ -67,12 +67,16 @@ class FoodItemExpanded extends StatelessWidget {
                           if (food.count == 1) {
                             food.selected = false;
                           } else {
+                            food.selected=true;
                             food.count = food.count - 1;
-                            if (food.adds[1].type == 1 &&
-                                food.adds[1].count > food.count) {
-                              food.adds[1].count = food.count;
+                            if(food.adds.length>0){
+                              if (food.adds[1].type == 1 &&
+                                  food.adds[1].count > food.count) {
+                                food.adds[1].count = food.count;
+                              }
                             }
-                            print('CLICKED ${food.selected}');
+
+                            print('CLICKED ${food.count}');
                           }
                           addtoCartCallBack(food);
                         },

@@ -25,7 +25,7 @@ class HomeView extends StatelessWidget {
             color: ThemeColor().yellowColor,
             borderRadius: BorderRadius.all(Radius.circular(0))),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: ClampingScrollPhysics(),
             child: Column(
           children: <Widget>[
             Container(

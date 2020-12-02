@@ -48,6 +48,12 @@ class GroupFood {
     name = json['name'];
     foods = listFoodsFromJson(json['foods']);
   }
+
+  @override
+  String toString() {
+    return 'GroupFood{name: $name, foods: $foods}';
+  }
+
 }
 
 List<GroupFood> listGroupFoodFromJson(List<dynamic> groupFoods) =>
@@ -65,6 +71,12 @@ class Adds {
     type = json['type'];
     price = json['price'].toString().replaceAll(',', '.');
   }
+
+  @override
+  String toString() {
+    return 'Adds{name: $name, type: $type, price: $price, count: $count, selected: $selected}';
+  }
+
 }
 
 listAddsFromJsom(List<dynamic> listAdds) =>

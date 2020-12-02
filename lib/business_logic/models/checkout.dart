@@ -7,5 +7,15 @@ class Checkout {
   Restourant restourant;
   String totalPrice;
 
+
+  @override
+  String toString() {
+    return 'Checkout{foodList: $foodList, restourant: $restourant, totalPrice: $totalPrice}';
+  }
+
   Checkout({this.foodList, this.restourant,this.totalPrice});
+
+
+
+
 }

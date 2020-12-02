@@ -110,12 +110,14 @@ class CheckoutView extends StatelessWidget {
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return ListView.builder(
-                                            physics: NeverScrollableScrollPhysics(),
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
                                             itemBuilder: (BuildContext contex,
                                                 int innerIndex) {
                                               return Container(
                                                 margin: EdgeInsets.only(
-                                                    left: 8.toWidth,bottom: 4.toHeight),
+                                                    left: 8.toWidth,
+                                                    bottom: 4.toHeight),
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -141,8 +143,7 @@ class CheckoutView extends StatelessWidget {
                                                           flex: 2,
                                                         ),
                                                         SizedBox(
-                                                          width:
-                                                          4.toWidth,
+                                                          width: 4.toWidth,
                                                         ),
                                                         Expanded(
                                                           child: Text(
@@ -155,7 +156,6 @@ class CheckoutView extends StatelessWidget {
                                                                         .w500),
                                                           ),
                                                         ),
-
                                                       ],
                                                     ),
                                                     checkout
@@ -167,7 +167,8 @@ class CheckoutView extends StatelessWidget {
                                                                 .length >
                                                             0
                                                         ? ListView.builder(
-                                                      physics: NeverScrollableScrollPhysics(),
+                                                            physics:
+                                                                NeverScrollableScrollPhysics(),
                                                             padding:
                                                                 EdgeInsets.only(
                                                                     left: 12
@@ -314,29 +315,35 @@ class CheckoutView extends StatelessWidget {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ThemeColor().grey1),
-                    color: ThemeColor().yellowColor,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
-                  height: 56.toHeight,
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Go to payment',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 19.toFont),
+              child: InkWell(
+                onTap: (){
+                  print('CHECKOUT ${checkout.data.toString()}');
+                },
+                  child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: ThemeColor().grey1),
+                        color: ThemeColor().yellowColor,
                       ),
-                      Text(
-                        '${checkout.data.totalPrice} ₼',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 19.toFont),
-                      )
-                    ],
-                  )),
+                      padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
+                      height: 56.toHeight,
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Go to payment',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19.toFont),
+                          ),
+                          Text(
+                            '${checkout.data.totalPrice} ₼',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 19.toFont),
+                          )
+                        ],
+                      ))),
             )
           ],
         ));
