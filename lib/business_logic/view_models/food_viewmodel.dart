@@ -23,6 +23,8 @@ class FoodViewModel extends HookWidget {
     var maxScrollExtent = useState<double>(0.0);
     var foodState = useState<Food>();
     var apiResponseData = useState<List<GroupFood>>();
+    ValueNotifier<List<GroupFood>> addedFoodList =
+        useState<List<GroupFood>>([]);
     arguments = ModalRoute.of(context).settings.arguments;
 
     //Vertical Scrolling hide sliver Appbar
@@ -64,6 +66,8 @@ class FoodViewModel extends HookWidget {
           });
         });
         apiResponseData.notifyListeners();
+
+        //Add items Status Calculation
         apiResponseData.value.forEach((element) {
           if ((element.foods.firstWhere((it) => it.selected == true,
                   orElse: () => null)) !=
@@ -97,6 +101,15 @@ class FoodViewModel extends HookWidget {
             });
           });
         });
+        //Final selected items add to bag
+
+        apiResponseData.value.forEach((element) {
+          element.foods.forEach((element1) {
+            if (element1.selected) {
+             addedFoodList.value.add(element);
+            }
+          });
+        });
       }
     }, [foodState.value, apiResponseData.value]);
 
@@ -108,6 +121,7 @@ class FoodViewModel extends HookWidget {
           apiResponse.error
         ],
         child: FoodView(
+            addedFoodList:addedFoodList.value,
             maxExtentValue: maxScrollExtent.value,
             foodList: apiResponseData.value,
             itemPositionsListener: itemPositionsListener,

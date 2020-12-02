@@ -19,6 +19,7 @@ class FoodView extends StatelessWidget {
   var itemPositionsListener;
   Function(Food food) addtoCartCallback;
   var atLeastOneItemSelected;
+  var addedFoodList;
 
   FoodView(
       {this.foodList,
@@ -26,7 +27,7 @@ class FoodView extends StatelessWidget {
       this.maxExtentValue,
       this.itemPositionsListener,
       this.addtoCartCallback,
-      this.atLeastOneItemSelected});
+      this.atLeastOneItemSelected,this.addedFoodList});
 
   RouteArguments<Restourant> arguments;
 
@@ -220,7 +221,7 @@ class FoodView extends StatelessWidget {
                                   arguments: RouteArguments<Checkout>(
                                       data: Checkout(
                                         totalPrice: getTotalPrice(),
-                                          foodList: foodList,
+                                          foodList: addedFoodList,
                                           restourant: Restourant(
                                               image: arguments.data.image,
                                               name: arguments.data.name))));
