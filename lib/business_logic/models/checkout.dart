@@ -5,6 +5,7 @@ class Checkout {
   List<GroupFood> foodList;
 
   Restourant restourant;
+  String totalPrice;
 
-  Checkout({this.foodList, this.restourant});
+  Checkout({this.foodList, this.restourant,this.totalPrice});
 }

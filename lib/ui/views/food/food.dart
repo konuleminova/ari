@@ -219,6 +219,7 @@ class FoodView extends StatelessWidget {
                               pushRouteWithName(ROUTE_MAP,
                                   arguments: RouteArguments<Checkout>(
                                       data: Checkout(
+                                        totalPrice: getTotalPrice(),
                                           foodList: foodList,
                                           restourant: Restourant(
                                               image: arguments.data.image,

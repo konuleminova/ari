@@ -83,8 +83,11 @@ class CheckoutView extends StatelessWidget {
                                     SizedBox(
                                       width: 8.toWidth,
                                     ),
-                                    Text(checkout
-                                        .data.restourant.name??'',style: TextStyle(fontWeight: FontWeight.w500),)
+                                    Text(
+                                      checkout.data.restourant.name ?? '',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    )
                                   ],
                                 ),
                                 SizedBox(
@@ -97,7 +100,8 @@ class CheckoutView extends StatelessWidget {
                                         color: ThemeColor().grey1),
                                     child: ListView.builder(
                                         physics: NeverScrollableScrollPhysics(),
-                                        itemCount: checkout.data.foodList.length,
+                                        itemCount:
+                                            checkout.data.foodList.length,
                                         padding:
                                             EdgeInsets.only(top: 8.toHeight),
                                         shrinkWrap: true,
@@ -107,7 +111,7 @@ class CheckoutView extends StatelessWidget {
                                             margin: EdgeInsets.only(
                                                 left: 8.toWidth),
                                             child: Text(
-                                              '${index} ${ checkout.data.foodList[index].foods[0].name}',
+                                              '${index} ${checkout.data.foodList[index].foods[0].name}',
                                               style: TextStyle(
                                                   fontSize: 12.toFont),
                                             ),
@@ -139,7 +143,7 @@ class CheckoutView extends StatelessWidget {
                             fontWeight: FontWeight.w500, fontSize: 19.toFont),
                       ),
                       Text(
-                        '${'23'} ₼',
+                        '${checkout.data.totalPrice} ₼',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 19.toFont),
                       )
