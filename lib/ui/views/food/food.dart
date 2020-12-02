@@ -1,3 +1,4 @@
+import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
@@ -214,9 +215,15 @@ class FoodView extends StatelessWidget {
                     right: 0,
                     child: atLeastOneItemSelected
                         ? InkWell(
-                      onTap: (){
-                        pushRouteWithName(ROUTE_MAP);
-                      },
+                            onTap: () {
+                              pushRouteWithName(ROUTE_MAP,
+                                  arguments: RouteArguments<Checkout>(
+                                      data: Checkout(
+                                          foodList: foodList,
+                                          restourant: Restourant(
+                                              image: arguments.data.image,
+                                              name: arguments.data.name))));
+                            },
                             child: Container(
                                 decoration: BoxDecoration(
                                   border: Border.all(color: ThemeColor().grey1),
