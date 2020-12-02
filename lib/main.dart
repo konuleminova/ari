@@ -1,4 +1,5 @@
 import 'package:ari/ui/views/init.dart';
+import 'package:ari/ui/views/splash.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(new MyApp());
+    runApp(MyApp());
   });
 }
 
@@ -24,6 +25,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: InitPage());
+        home: SplashScreen());
   }
 }
