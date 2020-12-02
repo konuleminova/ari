@@ -17,6 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
     _controller =
         VideoPlayerController.asset('assets/videos/splash_animation.mp4')
           ..initialize().then((_) {
+            setState(() {
+
+            });
             _controller.play().then((value) {
               _controller.addListener(() {
                 if (!_controller.value.isPlaying) {
