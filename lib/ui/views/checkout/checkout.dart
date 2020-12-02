@@ -25,7 +25,7 @@ class CheckoutView extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-                margin: EdgeInsets.only(bottom: 70.toHeight),
+                margin: EdgeInsets.only(bottom: 57.toHeight),
                 child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: Column(
@@ -110,21 +110,53 @@ class CheckoutView extends StatelessWidget {
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return ListView.builder(
+                                            physics: NeverScrollableScrollPhysics(),
                                             itemBuilder: (BuildContext contex,
                                                 int innerIndex) {
                                               return Container(
                                                 margin: EdgeInsets.only(
-                                                    left: 8.toWidth),
+                                                    left: 8.toWidth,bottom: 4.toHeight),
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: <Widget>[
-                                                    Text(
-                                                      '${index + 1}.  ${checkout.data.foodList[index].foods[innerIndex].name}',
-                                                      style: TextStyle(
-                                                          fontSize: 11.toFont,
-                                                          fontWeight:
-                                                              FontWeight.w500),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          child: Text(
+                                                            '${checkout.data.foodList[index].foods[innerIndex].name}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    11.toFont,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                          flex: 2,
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                          4.toWidth,
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            '${checkout.data.foodList[index].foods[innerIndex].count}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    11.toFont,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+
+                                                      ],
                                                     ),
                                                     checkout
                                                                 .data
@@ -135,6 +167,7 @@ class CheckoutView extends StatelessWidget {
                                                                 .length >
                                                             0
                                                         ? ListView.builder(
+                                                      physics: NeverScrollableScrollPhysics(),
                                                             padding:
                                                                 EdgeInsets.only(
                                                                     left: 12
@@ -272,6 +305,9 @@ class CheckoutView extends StatelessWidget {
                                         })),
                               ],
                             )),
+                        SizedBox(
+                          height: 8.toHeight,
+                        ),
                       ],
                     ))),
             Positioned(

@@ -108,13 +108,11 @@ class FoodViewModel extends HookWidget {
     //Go to payment callback
 
     final goToPaymentCallBack = useCallback(() {
-      List<GroupFood> groupFoods = [];
-      List<Food> foods=[];
-      groupFoods.addAll(apiResponseData.value);
+
       addedFoodList.value.clear();
       print('HERE GROUP LIST');
       //Final selected items add to bag
-      groupFoods.forEach((element) {
+     apiResponseData.value.forEach((element) {
         element.foods.forEach((element1) {
           if (element1.selected) {
 //            if (element1.adds.length > 0) {
@@ -132,11 +130,11 @@ class FoodViewModel extends HookWidget {
 //              }
 //            }
             addedFoodList.value
-                .add(GroupFood(foods: foods..add(element1)));
+                .add(GroupFood(foods: List<Food>()..add(element1)));
           }
         });
       });
-      addedFoodList.value=groupFoods;
+     // addedFoodList.value=groupFoods;
     },[]);
 
     final dropDownCallBack =useCallback((Food food){

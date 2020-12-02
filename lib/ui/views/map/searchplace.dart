@@ -58,11 +58,11 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   @override
   void onResponse(PlacesAutocompleteResponse response) {
     super.onResponse(response);
-    if (response != null && response.predictions.isNotEmpty) {
-      searchScaffoldKey.currentState.showSnackBar(
-        SnackBar(content: Text("Got answer")),
-      );
-    }
+//    if (response != null && response.predictions.isNotEmpty) {
+//      searchScaffoldKey.currentState.showSnackBar(
+//        SnackBar(content: Text("Got answer")),
+//      );
+//    }
   }
 
 //Display Search Prediction and write address to SharedPreference
