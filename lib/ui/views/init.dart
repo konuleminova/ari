@@ -16,7 +16,7 @@ class InitPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         appBar: CustomAppBar(),
-        // backgroundColor: Color(0xfffccd13),
+         backgroundColor: Color(0xfffccd13),
         body: Stack(
           children: <Widget>[
             Column(
@@ -31,7 +31,7 @@ class InitPage extends StatelessWidget {
                       routes: routeNames),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))),
                 )),
               ],
             ),
