@@ -3,8 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CustomDropDown extends HookWidget {
   final List<dynamic> items;
+  final Function(String value) selectedFunction;
 
-  CustomDropDown({this.items, this.initialItemText});
+  CustomDropDown({this.items, this.initialItemText,this.selectedFunction});
 
   final initialItemText;
 
@@ -23,7 +24,10 @@ class CustomDropDown extends HookWidget {
       hint: Text(selectedValue.value ?? ''),
       onChanged: (value) {
         selectedValue.value = value;
+        selectedFunction(selectedValue.value);
+
       },
+
     ));
   }
 }

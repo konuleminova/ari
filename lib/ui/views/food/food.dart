@@ -18,16 +18,17 @@ class FoodView extends StatelessWidget {
   double maxExtentValue;
   var itemPositionsListener;
   Function(Food food) addtoCartCallback;
+  Function(Food food)  dropDownCallBack;
   var atLeastOneItemSelected;
   var addedFoodList;
-
+var goToPaymentCallBack;
   FoodView(
       {this.foodList,
       this.verticalScrollController,
       this.maxExtentValue,
       this.itemPositionsListener,
       this.addtoCartCallback,
-      this.atLeastOneItemSelected,this.addedFoodList});
+      this.atLeastOneItemSelected,this.addedFoodList,this.goToPaymentCallBack,this.dropDownCallBack});
 
   RouteArguments<Restourant> arguments;
 
@@ -194,11 +195,11 @@ class FoodView extends StatelessWidget {
                                   ),
                                   secondChild: FoodItemExpanded(
                                       addtoCartCallBack: addtoCartCallback,
-                                      food: foodList[index].foods[innerIndex]),
+                                      food: foodList[index].foods[innerIndex],dropDownCallBack: dropDownCallBack,),
                                   crossFadeState:
                                       foodList[index].foods[innerIndex].selected
                                           ? CrossFadeState.showSecond
-                                          : CrossFadeState.showFirst);
+                                          : CrossFadeState.showFirst,);
                             },
                             itemCount: foodList[index].foods.length,
                             padding: EdgeInsets.all(0),
@@ -217,6 +218,7 @@ class FoodView extends StatelessWidget {
                     child: atLeastOneItemSelected
                         ? InkWell(
                             onTap: () {
+                              goToPaymentCallBack();
                               pushRouteWithName(ROUTE_MAP,
                                   arguments: RouteArguments<Checkout>(
                                       data: Checkout(

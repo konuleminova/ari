@@ -102,20 +102,111 @@ class CheckoutView extends StatelessWidget {
                                         physics: NeverScrollableScrollPhysics(),
                                         itemCount:
                                             checkout.data.foodList.length,
-                                        padding:
-                                            EdgeInsets.only(top: 8.toHeight),
+                                        padding: EdgeInsets.only(
+                                            top: 16.toHeight, left: 8.toWidth),
                                         shrinkWrap: true,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return Container(
-                                            margin: EdgeInsets.only(
-                                                left: 8.toWidth),
-                                            child: Text(
-                                              '${index} ${checkout.data.foodList[index].foods[0].name}',
-                                              style: TextStyle(
-                                                  fontSize: 12.toFont),
-                                            ),
-                                            height: 30.toHeight,
+                                          return ListView.builder(
+                                            itemBuilder: (BuildContext contex,
+                                                int innerIndex) {
+                                              return Container(
+                                                margin: EdgeInsets.only(
+                                                    left: 8.toWidth),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      '${index + 1}.  ${checkout.data.foodList[index].foods[innerIndex].name}',
+                                                      style: TextStyle(
+                                                          fontSize: 11.toFont),
+                                                    ),
+                                                    checkout
+                                                                .data
+                                                                .foodList[index]
+                                                                .foods[
+                                                                    innerIndex]
+                                                                .adds
+                                                                .length >
+                                                            0
+                                                        ? ListView.builder(
+                                                            shrinkWrap: true,
+                                                            itemCount: checkout
+                                                                .data
+                                                                .foodList[index]
+                                                                .foods[
+                                                                    innerIndex]
+                                                                .adds
+                                                                .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int i) {
+                                                              return checkout
+                                                                          .data
+                                                                          .foodList[
+                                                                              index]
+                                                                          .foods[
+                                                                              innerIndex]
+                                                                          .adds[
+                                                                              i]
+                                                                          .selected &&
+                                                                      checkout
+                                                                              .data
+                                                                              .foodList[index]
+                                                                              .foods[innerIndex]
+                                                                              .adds[i]
+                                                                              .type !=
+                                                                          2
+                                                                  ? Container(
+                                                                      child:
+                                                                          Text(
+                                                                        '${checkout.data.foodList[index].foods[innerIndex].adds[i].name}',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                11.toFont),
+                                                                      ),
+                                                                      height: 20
+                                                                          .toHeight,
+                                                                    )
+                                                                  : SizedBox();
+                                                            },
+                                                          )
+                                                        : SizedBox(),
+                                                    checkout
+                                                                    .data
+                                                                    .foodList[
+                                                                        index]
+                                                                    .foods[
+                                                                        innerIndex]
+                                                                    .addsType2
+                                                                    .length >
+                                                                0 &&
+                                                            checkout
+                                                                .data
+                                                                .foodList[index]
+                                                                .foods[
+                                                                    innerIndex]
+                                                                .addsType2[0]
+                                                                .selected
+                                                        ? Container(
+                                                            child: Text(
+                                                              '${checkout.data.foodList[index].foods[innerIndex].addsType2[0].name}',
+                                                              style: TextStyle(
+                                                                  fontSize: 11
+                                                                      .toFont),
+                                                            ),
+                                                            height: 20.toHeight,
+                                                          )
+                                                        : SizedBox()
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            shrinkWrap: true,
+                                            itemCount: checkout.data
+                                                .foodList[index].foods.length,
                                           );
                                         })),
                               ],

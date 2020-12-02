@@ -56,6 +56,7 @@ class FoodViewModel extends HookWidget {
 
     final addToCartCallBack = useCallback((Food food) {
       foodState.value = food;
+      addedFoodList.value = [];
       atLeastOneItemSelected.value = false;
       if (apiResponse.status == Status.Done) {
         apiResponseData.value.forEach((element) {
@@ -101,17 +102,46 @@ class FoodViewModel extends HookWidget {
             });
           });
         });
-        //Final selected items add to bag
-
-        apiResponseData.value.forEach((element) {
-          element.foods.forEach((element1) {
-            if (element1.selected) {
-             addedFoodList.value.add(element);
-            }
-          });
-        });
       }
     }, [foodState.value, apiResponseData.value]);
+
+    //Go to payment callback
+
+    final goToPaymentCallBack = useCallback(() {
+      List<GroupFood> groupFoods = [];
+      List<Food> foods=[];
+      groupFoods.addAll(apiResponseData.value);
+      addedFoodList.value.clear();
+      print('HERE GROUP LIST');
+      //Final selected items add to bag
+      groupFoods.forEach((element) {
+        element.foods.forEach((element1) {
+          if (element1.selected) {
+//            if (element1.adds.length > 0) {
+//              element1.adds.forEach((element3) {
+//                if (element3.selected) {
+//                  if (element3.type != 2) {
+//                    element1.adds.add(element3);
+//                  }
+//                }
+//              });
+//              if (element1.addsType2.length > 0) {
+//                if (element1.addsType2[0].selected) {
+//                  element1.adds.add(element1.addsType2[0]);
+//                }
+//              }
+//            }
+            addedFoodList.value
+                .add(GroupFood(foods: foods..add(element1)));
+          }
+        });
+      });
+      addedFoodList.value=groupFoods;
+    },[]);
+
+    final dropDownCallBack =useCallback((Food food){
+      foodState.value=food;
+    });
 
     return CustomErrorHandler(
         statuses: [
@@ -121,9 +151,11 @@ class FoodViewModel extends HookWidget {
           apiResponse.error
         ],
         child: FoodView(
-            addedFoodList:addedFoodList.value,
+            goToPaymentCallBack:goToPaymentCallBack,
+            addedFoodList: addedFoodList.value,
             maxExtentValue: maxScrollExtent.value,
             foodList: apiResponseData.value,
+            dropDownCallBack:dropDownCallBack ,
             itemPositionsListener: itemPositionsListener,
             verticalScrollController: verticalScrollController,
             addtoCartCallback: addToCartCallBack,
