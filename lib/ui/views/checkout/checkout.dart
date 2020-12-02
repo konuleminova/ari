@@ -103,7 +103,9 @@ class CheckoutView extends StatelessWidget {
                                         itemCount:
                                             checkout.data.foodList.length,
                                         padding: EdgeInsets.only(
-                                            top: 16.toHeight, left: 8.toWidth),
+                                            top: 16.toHeight,
+                                            left: 8.toWidth,
+                                            bottom: 16.toHeight),
                                         shrinkWrap: true,
                                         itemBuilder:
                                             (BuildContext context, int index) {
@@ -120,7 +122,9 @@ class CheckoutView extends StatelessWidget {
                                                     Text(
                                                       '${index + 1}.  ${checkout.data.foodList[index].foods[innerIndex].name}',
                                                       style: TextStyle(
-                                                          fontSize: 11.toFont),
+                                                          fontSize: 11.toFont,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                     checkout
                                                                 .data
@@ -131,6 +135,12 @@ class CheckoutView extends StatelessWidget {
                                                                 .length >
                                                             0
                                                         ? ListView.builder(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 12
+                                                                        .toWidth,
+                                                                    top: 4
+                                                                        .toHeight),
                                                             shrinkWrap: true,
                                                             itemCount: checkout
                                                                 .data
@@ -159,16 +169,40 @@ class CheckoutView extends StatelessWidget {
                                                                               .adds[i]
                                                                               .type !=
                                                                           2
-                                                                  ? Container(
+                                                                  ? Padding(
                                                                       child:
-                                                                          Text(
-                                                                        '${checkout.data.foodList[index].foods[innerIndex].adds[i].name}',
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                11.toFont),
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Text(
+                                                                              '${checkout.data.foodList[index].foods[innerIndex].adds[i].name}',
+                                                                              style: TextStyle(fontSize: 11.toFont),
+                                                                            ),
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              '${checkout.data.foodList[index].foods[innerIndex].adds[i].count}',
+                                                                              style: TextStyle(fontSize: 11.toFont),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                4.toWidth,
+                                                                          )
+                                                                        ],
                                                                       ),
-                                                                      height: 20
-                                                                          .toHeight,
+                                                                      padding: EdgeInsets.only(
+                                                                          bottom:
+                                                                              4.toHeight),
                                                                     )
                                                                   : SizedBox();
                                                             },
@@ -191,14 +225,41 @@ class CheckoutView extends StatelessWidget {
                                                                 .addsType2[0]
                                                                 .selected
                                                         ? Container(
-                                                            child: Text(
-                                                              '${checkout.data.foodList[index].foods[innerIndex].addsType2[0].name}',
-                                                              style: TextStyle(
-                                                                  fontSize: 11
-                                                                      .toFont),
-                                                            ),
-                                                            height: 20.toHeight,
-                                                          )
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 12
+                                                                        .toWidth),
+                                                            child: Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: <
+                                                                  Widget>[
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Text(
+                                                                    '${checkout.data.foodList[index].foods[innerIndex].addsType2[0].name}',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            11.toFont),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                      '${checkout.data.foodList[index].foods[innerIndex].addsType2[0].count}',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              11.toFont)),
+                                                                ),
+                                                                SizedBox(
+                                                                  width:
+                                                                      3.toWidth,
+                                                                )
+                                                              ],
+                                                            ))
                                                         : SizedBox()
                                                   ],
                                                 ),
