@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/business_logic/view_models/payment_viewmodel.dart';
 import 'package:ari/ui/views/map/flutter_map.dart';
 import 'package:ari/ui/views/map/searchplace.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -61,9 +62,10 @@ class CheckoutView extends StatelessWidget {
                         ),
                         Container(
                             height: SizeConfig().screenHeight / 2.4,
-                            child: MapView(
-                              points: mapPoints,
-                            )),
+//                            child: MapView(
+//                              points: mapPoints,
+//                            )
+                        ),
                         Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: 16.toWidth),
@@ -312,45 +314,23 @@ class CheckoutView extends StatelessWidget {
                       ],
                     ))),
             Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: InkWell(
-                onTap: (){
-                  print('CHECKOUT ${checkout.data.toString()}');
-                },
-                  child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: ThemeColor().grey1),
-                        color: ThemeColor().yellowColor,
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
-                      height: 56.toHeight,
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Go to payment',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 19.toFont),
-                          ),
-                          Text(
-                            '${checkout.data.totalPrice} ₼',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 19.toFont),
-                          )
-                        ],
-                      ))),
-            )
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: PaymentViewModel(
+                  checkout: checkout.data,
+                ))
           ],
         ));
   }
 
   _getAddress() async {
-    SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
-    return await sharedPrefUtil.getString(SharedPrefUtil.address);
+    checkout.data.address = SharedPrefUtil.getString(SharedPrefUtil.address);
+    var lat = SharedPrefUtil.getString(SharedPrefUtil.lat);
+    var lng = SharedPrefUtil.getString(SharedPrefUtil.lng);
+    checkout.data.coords = '${lat},${lng}';
+   await SharedPrefUtil.putString(SharedPrefUtil.token,
+        'a8b41d92295d337bd690d1cb8c92b5e23020026_1a71c78a35b74b825148167b4783efca');
+    return checkout.data.address;
   }
 }

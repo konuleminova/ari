@@ -26,6 +26,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
           .then((value) {
         if (!isCancel) {
           print('IsCanceled: $isCancel');
+          print('REQUESTED REsponse: ${value}');
           _state.value = ApiResponse.completed(config.transformResponse(value));
         }
       }).catchError((error) {

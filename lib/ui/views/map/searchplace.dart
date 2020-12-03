@@ -75,12 +75,11 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           await _places.getDetailsByPlaceId(p.placeId);
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
-      SharedPrefUtil sharedPrefUtil = new SharedPrefUtil();
       if (p != null) {
-        await sharedPrefUtil.setString(SharedPrefUtil.address, p.description);
+        SharedPrefUtil.putString(SharedPrefUtil.address, p.description);
       }
-      await sharedPrefUtil.setString(SharedPrefUtil.lat, lat.toString());
-      await sharedPrefUtil.setString(SharedPrefUtil.lng, lng.toString());
+      SharedPrefUtil.putString(SharedPrefUtil.lat, lat.toString());
+      SharedPrefUtil.putString(SharedPrefUtil.lng, lng.toString());
       Navigator.pop(context);
     }
   }

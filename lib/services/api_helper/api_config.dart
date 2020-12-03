@@ -13,4 +13,8 @@ class ApiConfig {
       '${BASE_URl}search&lang=ru&q=${query}&num=${maxNum}';
 
   String FETCH_MAP_ZONE() => BASE_URl + 'zone&lang=ru';
+
+  String ADD_TO_BAG(String address, String coords, String jsonString,
+          String restId, String token) =>
+      '${BASE_URl}addtobag&&lang=ru&token=${token}&address=${address}&coords=${coords}&jsonString=${jsonString}&restid=${restId}';
 }

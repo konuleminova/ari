@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:ari/ui/views/init.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -24,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
               _controller.addListener(() {
                 if (!_controller.value.isPlaying) {
                   if (context != null) {
+                    setInstance();
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -53,5 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+  void setInstance() async {
+    await SharedPrefUtil.getInstance();
   }
 }
