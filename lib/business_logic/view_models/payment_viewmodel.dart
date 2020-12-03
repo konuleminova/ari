@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/models/payment_request.dart';
 import 'package:ari/business_logic/models/payment_response.dart';
@@ -115,12 +115,15 @@ class PaymentViewModel extends HookWidget {
                             color: ThemeColor().greenColor,
                           ),
                           onPressed: () {
+                           // apiResponse.status=Status.Idle;
                             navigationKey.currentState.pop(context);
                           },
                         ),
                         Expanded(
                             child: Center(
-                          child: Text(apiResponse.data.urltogo ?? ''),
+                          child: WebView(
+                            initialUrl: apiResponse.data.urltogo??'',
+                          )
                         ))
                       ],
                     )),

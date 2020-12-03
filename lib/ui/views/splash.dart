@@ -1,4 +1,6 @@
-import 'dart:convert';
+import 'dart:io';
+
+import 'package:webview_flutter/webview_flutter.dart';
 
 import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -17,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     _controller =
         VideoPlayerController.asset('assets/videos/splash_animation.mp4')
           ..initialize().then((_) {
