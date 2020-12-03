@@ -62,9 +62,9 @@ class CheckoutView extends StatelessWidget {
                         ),
                         Container(
                             height: SizeConfig().screenHeight / 2.4,
-//                            child: MapView(
-//                              points: mapPoints,
-//                            )
+                            child: MapView(
+                              points: mapPoints,
+                            )
                         ),
                         Container(
                             margin:
