@@ -34,38 +34,17 @@ class CheckoutView extends StatelessWidget {
                         SizedBox(
                           height: 8.toHeight,
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 16.toWidth, vertical: 6.toHeight),
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(4)),
-                          child: ListTile(
-                            title: FutureBuilder(
-                                future: _getAddress(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  return Text(
-                                    snapshot.hasData && snapshot.data != ""
-                                        ? snapshot.data
-                                        : "Please add new address",
-                                    style: TextStyle(fontSize: 13.toFont),
-                                  );
-                                }),
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      Dialog(child: CustomSearchScaffold()));
-                            },
-                          ),
-                        ),
-                        Container(
-                            height: SizeConfig().screenHeight / 2.4,
-                            child: MapView(
-                              points: mapPoints,
-                            )
-                        ),
+                        CustomSearchScaffold(mapPoints),
+//                        Positioned(
+//                          child: Container(
+//                            color: Colors.white,
+//                            child:
+//                            //height: 240.toHeight,
+//                          ),
+//                          top: 0,
+//                          left: 0,
+//                          right: 0,
+//                        ),
                         Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: 16.toWidth),
@@ -322,15 +301,5 @@ class CheckoutView extends StatelessWidget {
                 ))
           ],
         ));
-  }
-
-  _getAddress() async {
-    checkout.data.address = SharedPrefUtil.getString(SharedPrefUtil.address);
-    var lat = SharedPrefUtil.getString(SharedPrefUtil.lat);
-    var lng = SharedPrefUtil.getString(SharedPrefUtil.lng);
-    checkout.data.coords = '${lat},${lng}';
-   await SharedPrefUtil.putString(SharedPrefUtil.token,
-        'a8b41d92295d337bd690d1cb8c92b5e23020026_1a71c78a35b74b825148167b4783efca');
-    return checkout.data.address;
   }
 }
