@@ -48,10 +48,9 @@ class _MapViewState extends State<MapView> {
         borderRadius: BorderRadius.circular(10),
         child: GoogleMap(
           gestureRecognizers: Set()
-            ..add(Factory<PanGestureRecognizer>(
-                    () => PanGestureRecognizer()))
+            ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
             ..add(Factory<VerticalDragGestureRecognizer>(
-                    () => VerticalDragGestureRecognizer())),
+                () => VerticalDragGestureRecognizer())),
           onTap: (LatLng location) {
             //MapDemoPage mp = new MapDemoPage();
             // mp.showMap();
@@ -64,7 +63,7 @@ class _MapViewState extends State<MapView> {
           onCameraMove: _onCameraMove,
           onMapCreated: _onMapCreated,
           initialCameraPosition:
-          CameraPosition(target: _lastMapPosition, zoom: 11.00),
+              CameraPosition(target: _lastMapPosition, zoom: 11.00),
         ),
       ),
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 5),
@@ -76,11 +75,14 @@ class _MapViewState extends State<MapView> {
   }
 
   //Set search result address and animate camera to there
-  _setSelectedAddress() async{
+  _setSelectedAddress() async {
     String address = SharedPrefUtil.getString(SharedPrefUtil.address);
-    _lastMapPosition = new LatLng(
-        double.parse( SharedPrefUtil.getString(SharedPrefUtil.lat)),
-        double.parse( SharedPrefUtil.getString(SharedPrefUtil.lng)));
+    if (SharedPrefUtil.getString(SharedPrefUtil.lat).isNotEmpty &&
+        SharedPrefUtil.getString(SharedPrefUtil.lng).isNotEmpty) {
+      _lastMapPosition = new LatLng(
+          double.parse(SharedPrefUtil.getString(SharedPrefUtil.lat)),
+          double.parse(SharedPrefUtil.getString(SharedPrefUtil.lng)));
+    }
     _markers.clear();
     _markers.add(Marker(
         draggable: true,
@@ -92,7 +94,8 @@ class _MapViewState extends State<MapView> {
       _mapController.animateCamera(CameraUpdate.newCameraPosition(
           new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
     }
-    return address;;
+    return address;
+    ;
   }
 
   void _onCameraMove(CameraPosition position) {}
