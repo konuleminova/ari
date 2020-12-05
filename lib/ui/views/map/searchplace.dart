@@ -3,6 +3,7 @@ import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
 import 'package:ari/utils/map_utils/flutter_google_places.dart';
 import 'package:ari/utils/map_utils/point_inpolygon.dart';
 import 'package:ari/utils/map_utils/ui_id.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -23,6 +24,9 @@ class CustomSearchScaffold extends PlacesAutocompleteWidget {
           apiKey: kGoogleApiKey,
           sessionToken: Uuid().generateV4(),
           language: "en",
+          startText: SpUtil.getString(SpUtil.address).isNotEmpty
+              ? SpUtil.getString(SpUtil.address)
+              : 'Please add new Address',
           components: [Component(Component.country, "az")],
         );
 
@@ -183,6 +187,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
       // get detail (lat/lng)
       PlacesDetailsResponse detail =
           await _places.getDetailsByPlaceId(p.placeId);
+      await SpUtil.putString(SpUtil.address, p.description);
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
       _lastMapPosition = new LatLng(lat, lng);
@@ -206,7 +211,8 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
       } else {
         store.dispatch(CheckoutAction('', '', false));
         print('It is not in polygon');
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Seçdiyiniz əraziyə çcatdırılma mövcud deyil.')));
+        Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('Seçdiyiniz əraziyə çcatdırılma mövcud deyil.')));
       }
 
       setState(() {
