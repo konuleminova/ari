@@ -74,68 +74,73 @@ class PaymentViewModel extends HookWidget {
     final paymentCallBack = useCallback(() {
       uniqueKey.value = new UniqueKey();
     }, [uniqueKey.value]);
-    if (apiResponse.status == Status.Done) {
-      print(apiResponse.data.urltogo);
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        showGeneralDialog(
-          barrierLabel: "Label",
-          barrierDismissible: false,
-          barrierColor: Colors.black.withOpacity(0.5),
-          transitionDuration: Duration(milliseconds: 700),
-          context: context,
-          pageBuilder: (context, anim1, anim2) {
-            return Material(
-                color: Colors.transparent,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: SizeConfig().screenHeight-180.toHeight,
+    useEffect(() {
+      if (apiResponse.status == Status.Done) {
+        print(apiResponse.data.urltogo);
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          showGeneralDialog(
+            barrierLabel: "Label",
+            barrierDismissible: false,
+            barrierColor: Colors.black.withOpacity(0.5),
+            transitionDuration: Duration(milliseconds: 700),
+            context: context,
+            pageBuilder: (context, anim1, anim2) {
+              return Material(
+                  color: Colors.transparent,
+                  child: Align(
                     alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.only(bottom: 0, left: 12, right: 12),
-                    // color: Colors.white,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Color(0xffffffff)),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              child: Padding(
-                                child: CircleAvatar(
-                                  radius: 18,
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: ThemeColor().grey1,
-                                  child: Icon(Icons.clear),
+                    child: Container(
+                      height: SizeConfig().screenHeight - 180.toHeight,
+                      alignment: Alignment.bottomCenter,
+                      margin: EdgeInsets.only(bottom: 0, left: 12, right: 12),
+                      // color: Colors.white,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Color(0xffffffff)),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                child: Padding(
+                                  child: CircleAvatar(
+                                    radius: 18,
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: ThemeColor().grey1,
+                                    child: Icon(Icons.clear),
+                                  ),
+                                  padding: EdgeInsets.only(
+                                      top: 10, right: 10, bottom: 10),
                                 ),
-                                padding: EdgeInsets.only(top: 10, right: 10,bottom: 10),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  // navigationKey.currentState.pop();
+                                },
                               ),
-                              onTap: () {
-                                Navigator.pop(context);
-                               navigationKey.currentState.pop();
-                              },
-                            ),
-                            Expanded(
-                              child: WebView(
-                                initialUrl: apiResponse.data.urltogo ?? 'https://bees.az//payment//',
-                              ),
-                            )
-                          ],
-                        )),
-                  ),
-                ));
-          },
-          transitionBuilder: (context, anim1, anim2, child) {
-            return SlideTransition(
-              position:
-                  Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim1),
-              child: child,
-            );
-          },
-        );
-      });
-    }
+                              Expanded(
+                                child: WebView(
+                                  initialUrl: apiResponse.data.urltogo ??
+                                      'https://bees.az//payment//',
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
+                  ));
+            },
+            transitionBuilder: (context, anim1, anim2, child) {
+              return SlideTransition(
+                position: Tween(begin: Offset(0, 1), end: Offset(0, 0))
+                    .animate(anim1),
+                child: child,
+              );
+            },
+          );
+        });
+      }
+      return () {};
+    }, [apiResponse.status]);
     // TODO: implement build
     return apiResponse.status != Status.Loading
         ? InkWell(
