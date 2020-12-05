@@ -128,7 +128,9 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     isOpen = false;
     _lastMapPosition = const LatLng(40.3716222, 49.8555191);
     controller = new TextEditingController();
-    displayPrediction(null, context);
+    if (SpUtil.getString(SpUtil.address).isNotEmpty) {
+      displayPrediction(null, context);
+    }
   }
 
   @override
@@ -194,16 +196,16 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           await _places.getDetailsByPlaceId(SpUtil.getString(SpUtil.placeId));
       lat = double.parse(SpUtil.getString(SpUtil.lat));
       lng = double.parse(SpUtil.getString(SpUtil.lng));
-      placeId=SpUtil.getString(SpUtil.placeId);
-      description=SpUtil.getString(SpUtil.address);
+      placeId = SpUtil.getString(SpUtil.placeId);
+      description = SpUtil.getString(SpUtil.address);
     }
     // get detail (lat/lng)
     else {
       detail = await _places.getDetailsByPlaceId(p.placeId);
       lat = detail.result.geometry.location.lat;
       lng = detail.result.geometry.location.lng;
-      placeId=p.placeId;
-      description=p.description;
+      placeId = p.placeId;
+      description = p.description;
     }
     await SpUtil.putString(SpUtil.address, description);
     await SpUtil.putString(SpUtil.lat, lat.toString());
@@ -224,8 +226,8 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     if (isPointInPolygon(LatLng(lat, lng), points)) {
       print('It is in polygon');
       if (store != null) {
-        store.dispatch(
-            CheckoutAction(description ?? '', '${lat},${lng}', true));
+        store
+            .dispatch(CheckoutAction(description ?? '', '${lat},${lng}', true));
       }
       await SpUtil.putBool(SpUtil.isPointInPolygon, true);
     } else {
