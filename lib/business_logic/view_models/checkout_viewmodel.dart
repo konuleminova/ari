@@ -3,8 +3,12 @@ import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useDioRequest.dart';
 import 'package:ari/services/hooks/use_callback.dart';
+import 'package:ari/services/provider/provider.dart';
 import 'package:ari/services/services/map_service.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
+import 'package:ari/ui/provider_components/checkout_action.dart';
+import 'package:ari/ui/provider_components/checkout_state.dart';
+import 'package:ari/ui/provider_components/counter_state.dart';
 import 'package:ari/ui/views/checkout/checkout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,12 +20,14 @@ RouteArguments<Checkout> checkout;
   Widget build(BuildContext context) {
     ApiResponse<List<LatLng>> apiResponse = useZoneService();
     checkout=ModalRoute.of(context).settings.arguments;
+    final store = useCheckoutStore();
+    useProviderRegistration(store);
     return CustomErrorHandler(
       statuses: [apiResponse.status],
       errors: [apiResponse.error],
-      child: CheckoutView(
-          mapPoints: apiResponse.data,
-          checkout:checkout.data,),
+      child: Provider<Store<CheckoutState,CheckoutAction>>(value: store,child: CheckoutView(
+        mapPoints: apiResponse.data,
+        checkout:checkout.data,store: store,),),
     );
   }
 }

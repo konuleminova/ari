@@ -1,24 +1,26 @@
 import 'package:ari/business_logic/models/checkout.dart';
-import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/payment_viewmodel.dart';
-import 'package:ari/ui/views/map/flutter_map.dart';
+import 'package:ari/services/provider/provider.dart';
+import 'package:ari/ui/provider_components/checkout_action.dart';
+import 'package:ari/ui/provider_components/checkout_state.dart';
 import 'package:ari/ui/views/map/searchplace.dart';
-import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ari/utils/size_config.dart';
 
 class CheckoutView extends StatelessWidget {
   final List<LatLng> mapPoints;
   Checkout checkout;
+  var store;
 
-  CheckoutView(
-      {this.mapPoints, this.checkout,});
+  CheckoutView({this.mapPoints, this.checkout, this.store});
 
   @override
   Widget build(BuildContext context) {
+    print('STORE ! ${store}');
     // TODO: implement build
     return Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -33,7 +35,7 @@ class CheckoutView extends StatelessWidget {
                         SizedBox(
                           height: 8.toHeight,
                         ),
-                        CustomSearchScaffold(mapPoints),
+                        CustomSearchScaffold(mapPoints, store),
                         Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: 16.toWidth),

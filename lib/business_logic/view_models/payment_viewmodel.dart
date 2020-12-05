@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:ari/services/provider/provider.dart';
+import 'package:ari/ui/provider_components/checkout_action.dart';
+import 'package:ari/ui/provider_components/checkout_state.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/models/payment_request.dart';
@@ -20,6 +23,8 @@ class PaymentViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+   final store = useProvider<Store<CheckoutState, CheckoutAction>>();
+   print('Payment Store ${store.state?.address}');
     var uniqueKey = useState<UniqueKey>();
     var address = useState<String>();
     var coords = useState<String>();
@@ -29,8 +34,8 @@ class PaymentViewModel extends HookWidget {
     ValueNotifier<List<Add>> adds = useState<List<Add>>();
     useEffect(() {
       print('USE EFFECt ${checkout.foodList}');
-      address.value = checkout.address ?? 'Yeni yasamal';
-      coords.value = checkout.coords ?? '40.3923,49.7950';
+        address.value = store.state?.address ?? '';
+      coords.value = store.state.coords ?? '';
       restId.value = checkout.restourant.id;
       checkout.foodList.forEach((foodParent) {
         foodParent.foods.forEach((food) {
@@ -54,7 +59,7 @@ class PaymentViewModel extends HookWidget {
       });
 
       return () {};
-    }, [checkout]);
+    }, [checkout,store.state]);
 
     ApiResponse<PaymentResponse> apiResponse = useAddtoBag(
         restId: restId.value,
@@ -115,16 +120,15 @@ class PaymentViewModel extends HookWidget {
                             color: ThemeColor().greenColor,
                           ),
                           onPressed: () {
-                           // apiResponse.status=Status.Idle;
+                            // apiResponse.status=Status.Idle;
                             navigationKey.currentState.pop(context);
                           },
                         ),
                         Expanded(
                             child: Center(
-                          child: WebView(
-                            initialUrl: apiResponse.data.urltogo??'',
-                          )
-                        ))
+                                child: WebView(
+                          initialUrl: apiResponse.data.urltogo ?? '',
+                        )))
                       ],
                     )),
               );
