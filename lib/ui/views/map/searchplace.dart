@@ -128,6 +128,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     isOpen = false;
     _lastMapPosition = const LatLng(40.3716222, 49.8555191);
     controller = new TextEditingController();
+    displayPrediction(null, context);
   }
 
   @override
@@ -183,44 +184,61 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   //Display Search Prediction and write address to SharedPreference
   Future<Null> displayPrediction(Prediction p, BuildContext context) async {
     GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
-    if (p != null) {
-      // get detail (lat/lng)
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId);
-      await SpUtil.putString(SpUtil.address, p.description);
-      final lat = detail.result.geometry.location.lat;
-      final lng = detail.result.geometry.location.lng;
-      _lastMapPosition = new LatLng(lat, lng);
-      _markers.clear();
-      _markers.add(Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPosition.toString()),
-          position: _lastMapPosition,
-          infoWindow: InfoWindow(title: p.description, snippet: ""),
-          icon: BitmapDescriptor.defaultMarker));
-      if (_mapController != null) {
-        _mapController.animateCamera(CameraUpdate.newCameraPosition(
-            new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
-      }
-      if (isPointInPolygon(LatLng(lat, lng), points)) {
-        print('It is in polygon');
-        if (store != null) {
-          store.dispatch(
-              CheckoutAction(p.description ?? '', '${lat},${lng}', true));
-        }
-        await SpUtil.putBool(SpUtil.isPointInPolygon,true);
-      } else {
-        store.dispatch(CheckoutAction('', '', false));
-        print('It is not in polygon');
-        Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('Seçdiyiniz əraziyə çcatdırılma mövcud deyil.')));
-        await SpUtil.putBool(SpUtil.isPointInPolygon,false);
-      }
-
-      setState(() {
-        isOpen = false;
-        FocusScope.of(context).unfocus();
-      });
+    PlacesDetailsResponse detail;
+    var lat;
+    var lng;
+    var placeId;
+    var description;
+    if (p == null) {
+      detail =
+          await _places.getDetailsByPlaceId(SpUtil.getString(SpUtil.placeId));
+      lat = double.parse(SpUtil.getString(SpUtil.lat));
+      lng = double.parse(SpUtil.getString(SpUtil.lng));
+      placeId=SpUtil.getString(SpUtil.placeId);
+      description=SpUtil.getString(SpUtil.address);
     }
+    // get detail (lat/lng)
+    else {
+      detail = await _places.getDetailsByPlaceId(p.placeId);
+      lat = detail.result.geometry.location.lat;
+      lng = detail.result.geometry.location.lng;
+      placeId=p.placeId;
+      description=p.description;
+    }
+    await SpUtil.putString(SpUtil.address, description);
+    await SpUtil.putString(SpUtil.lat, lat.toString());
+    await SpUtil.putString(SpUtil.lng, lng.toString());
+    await SpUtil.putString(SpUtil.placeId, placeId);
+    _lastMapPosition = new LatLng(lat, lng);
+    _markers.clear();
+    _markers.add(Marker(
+        draggable: true,
+        markerId: MarkerId(_lastMapPosition.toString()),
+        position: _lastMapPosition,
+        infoWindow: InfoWindow(title: description, snippet: ""),
+        icon: BitmapDescriptor.defaultMarker));
+    if (_mapController != null) {
+      _mapController.animateCamera(CameraUpdate.newCameraPosition(
+          new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
+    }
+    if (isPointInPolygon(LatLng(lat, lng), points)) {
+      print('It is in polygon');
+      if (store != null) {
+        store.dispatch(
+            CheckoutAction(description ?? '', '${lat},${lng}', true));
+      }
+      await SpUtil.putBool(SpUtil.isPointInPolygon, true);
+    } else {
+      store.dispatch(CheckoutAction('', '', false));
+      print('It is not in polygon');
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Seçdiyiniz əraziyə çcatdırılma mövcud deyil.')));
+      await SpUtil.putBool(SpUtil.isPointInPolygon, false);
+    }
+
+    setState(() {
+      isOpen = false;
+      FocusScope.of(context).unfocus();
+    });
   }
 }

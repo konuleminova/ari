@@ -15,6 +15,7 @@ class SpUtil {
   static String coordinates = "Coordinates";
   static String lat = "lat";
   static String lng = "lng";
+  static String placeId='place Id';
   static String token='login token';
   static SpUtil _singleton;
   static SharedPreferences _prefs;
