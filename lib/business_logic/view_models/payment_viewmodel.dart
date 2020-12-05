@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:ari/services/provider/provider.dart';
 import 'package:ari/ui/provider_components/checkout_action.dart';
 import 'package:ari/ui/provider_components/checkout_state.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/models/payment_request.dart';
@@ -23,7 +24,10 @@ class PaymentViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = useProvider<Store<CheckoutState, CheckoutAction>>();
+    var store = useProvider<Store<CheckoutState, CheckoutAction>>();
+    if(SpUtil.getBool(SpUtil.isPointInPolygon)){
+      store.state.isInPolygon=true;
+    }
     var uniqueKey = useState<UniqueKey>();
     var address = useState<String>();
     var coords = useState<String>();

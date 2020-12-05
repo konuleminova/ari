@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class CheckoutState {
   final String address;
   final String coords;
-  final isInPolygon;
+  var  isInPolygon;
 
   CheckoutState({this.address, this.coords, this.isInPolygon});
 

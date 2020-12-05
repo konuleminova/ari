@@ -18,6 +18,7 @@ class SpUtil {
   static String token='login token';
   static SpUtil _singleton;
   static SharedPreferences _prefs;
+  static String isPointInPolygon='is in polygon';
   static Lock _lock = Lock();
 
   static Future<SpUtil> getInstance() async {
