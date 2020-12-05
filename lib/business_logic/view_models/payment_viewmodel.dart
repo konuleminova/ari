@@ -25,8 +25,8 @@ class PaymentViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
     var store = useProvider<Store<CheckoutState, CheckoutAction>>();
-    if(SpUtil.getBool(SpUtil.isPointInPolygon)){
-      store.state.isInPolygon=true;
+    if (SpUtil.getBool(SpUtil.isPointInPolygon)) {
+      store.state.isInPolygon = true;
     }
     var uniqueKey = useState<UniqueKey>();
     var address = useState<String>();
@@ -74,8 +74,70 @@ class PaymentViewModel extends HookWidget {
     final paymentCallBack = useCallback(() {
       uniqueKey.value = new UniqueKey();
     }, [uniqueKey.value]);
+    if (apiResponse.status == Status.Done) {
+      print(apiResponse.data.urltogo);
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        showGeneralDialog(
+          barrierLabel: "Label",
+          barrierDismissible: false,
+          barrierColor: Colors.black.withOpacity(0.5),
+          transitionDuration: Duration(milliseconds: 700),
+          context: context,
+          pageBuilder: (context, anim1, anim2) {
+            return Material(
+                color: Colors.transparent,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: SizeConfig().screenHeight-180.toHeight,
+                    alignment: Alignment.bottomCenter,
+                    margin: EdgeInsets.only(bottom: 0, left: 12, right: 12),
+                    // color: Colors.white,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Color(0xffffffff)),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              child: Padding(
+                                child: CircleAvatar(
+                                  radius: 18,
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: ThemeColor().grey1,
+                                  child: Icon(Icons.clear),
+                                ),
+                                padding: EdgeInsets.only(top: 10, right: 10,bottom: 10),
+                              ),
+                              onTap: () {
+                                Navigator.pop(context);
+                               navigationKey.currentState.pop();
+                              },
+                            ),
+                            Expanded(
+                              child: WebView(
+                                initialUrl: apiResponse.data.urltogo ?? 'https://bees.az//payment//',
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                ));
+          },
+          transitionBuilder: (context, anim1, anim2, child) {
+            return SlideTransition(
+              position:
+                  Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim1),
+              child: child,
+            );
+          },
+        );
+      });
+    }
     // TODO: implement build
-    return apiResponse.status == Status.Idle
+    return apiResponse.status != Status.Loading
         ? InkWell(
             onTap: () {
               print('here callback');
@@ -108,36 +170,9 @@ class PaymentViewModel extends HookWidget {
                     )
                   ],
                 )))
-        : apiResponse.status == Status.Loading
-            ? Container(
-                child: Loading(),
-                margin: EdgeInsets.only(bottom: 8.toHeight),
-              )
-            : Dialog(
-                child: Container(
-                    height: SizeConfig().screenHeight / 1.4,
-                    width: SizeConfig().screenWidth,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          iconSize: 24.toHeight,
-                          icon: Icon(
-                            Icons.clear,
-                            color: ThemeColor().greenColor,
-                          ),
-                          onPressed: () {
-                            // apiResponse.status=Status.Idle;
-                            navigationKey.currentState.pop(context);
-                          },
-                        ),
-                        Expanded(
-                            child: Center(
-                                child: WebView(
-                          initialUrl: apiResponse.data.urltogo ?? '',
-                        )))
-                      ],
-                    )),
-              );
+        : Container(
+            child: Loading(),
+            margin: EdgeInsets.only(bottom: 8.toHeight),
+          );
   }
 }
