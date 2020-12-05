@@ -23,7 +23,7 @@ class PaymentViewModel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-   final store = useProvider<Store<CheckoutState, CheckoutAction>>();
+    final store = useProvider<Store<CheckoutState, CheckoutAction>>();
     var uniqueKey = useState<UniqueKey>();
     var address = useState<String>();
     var coords = useState<String>();
@@ -33,7 +33,7 @@ class PaymentViewModel extends HookWidget {
     ValueNotifier<List<Add>> adds = useState<List<Add>>();
     useEffect(() {
       print('USE EFFECt ${checkout.foodList}');
-        address.value = store.state?.address ?? '';
+      address.value = store.state?.address ?? '';
       coords.value = store.state.coords ?? '';
       restId.value = checkout.restourant.id;
       checkout.foodList.forEach((foodParent) {
@@ -58,7 +58,7 @@ class PaymentViewModel extends HookWidget {
       });
 
       return () {};
-    }, [checkout,store.state]);
+    }, [checkout, store.state]);
 
     ApiResponse<PaymentResponse> apiResponse = useAddtoBag(
         restId: restId.value,
@@ -75,12 +75,16 @@ class PaymentViewModel extends HookWidget {
         ? InkWell(
             onTap: () {
               print('here callback');
-              paymentCallBack.call();
+              if (store.state.isInPolygon) {
+                paymentCallBack.call();
+              }
             },
             child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: ThemeColor().grey1),
-                  color: ThemeColor().yellowColor,
+                  color: store.state.isInPolygon
+                      ? ThemeColor().yellowColor
+                      : ThemeColor().grey1,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
                 height: 56.toHeight,

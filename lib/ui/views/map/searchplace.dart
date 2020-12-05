@@ -1,6 +1,7 @@
 import 'package:ari/ui/provider_components/checkout_action.dart';
 import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
 import 'package:ari/utils/map_utils/flutter_google_places.dart';
+import 'package:ari/utils/map_utils/point_inpolygon.dart';
 import 'package:ari/utils/map_utils/ui_id.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -196,8 +197,15 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
         _mapController.animateCamera(CameraUpdate.newCameraPosition(
             new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
       }
-      if (store != null) {
-        store.dispatch(CheckoutAction(p.description ?? '', '${lat},${lng}'));
+      if (isPointInPolygon(LatLng(lat, lng), points)) {
+        print('It is in polygon');
+        if (store != null) {
+          store.dispatch(
+              CheckoutAction(p.description ?? '', '${lat},${lng}', true));
+        }
+      } else {
+        store.dispatch(CheckoutAction('', '', false));
+        print('It is not in polygon');
       }
 
       setState(() {
