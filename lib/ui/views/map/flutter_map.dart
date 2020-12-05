@@ -76,12 +76,12 @@ class _MapViewState extends State<MapView> {
 
   //Set search result address and animate camera to there
   _setSelectedAddress() async {
-    String address = SharedPrefUtil.getString(SharedPrefUtil.address);
-    if (SharedPrefUtil.getString(SharedPrefUtil.lat).isNotEmpty &&
-        SharedPrefUtil.getString(SharedPrefUtil.lng).isNotEmpty) {
+    String address = SpUtil.getString(SpUtil.address);
+    if (SpUtil.getString(SpUtil.lat).isNotEmpty &&
+        SpUtil.getString(SpUtil.lng).isNotEmpty) {
       _lastMapPosition = new LatLng(
-          double.parse(SharedPrefUtil.getString(SharedPrefUtil.lat)),
-          double.parse(SharedPrefUtil.getString(SharedPrefUtil.lng)));
+          double.parse(SpUtil.getString(SpUtil.lat)),
+          double.parse(SpUtil.getString(SpUtil.lng)));
     }
     _markers.clear();
     _markers.add(Marker(

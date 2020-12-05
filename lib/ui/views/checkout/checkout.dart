@@ -12,14 +12,13 @@ import 'package:ari/utils/size_config.dart';
 
 class CheckoutView extends StatelessWidget {
   final List<LatLng> mapPoints;
+  Checkout checkout;
 
-  CheckoutView({this.mapPoints});
-
-  RouteArguments<Checkout> checkout;
+  CheckoutView(
+      {this.mapPoints, this.checkout,});
 
   @override
   Widget build(BuildContext context) {
-    checkout = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -35,16 +34,6 @@ class CheckoutView extends StatelessWidget {
                           height: 8.toHeight,
                         ),
                         CustomSearchScaffold(mapPoints),
-//                        Positioned(
-//                          child: Container(
-//                            color: Colors.white,
-//                            child:
-//                            //height: 240.toHeight,
-//                          ),
-//                          top: 0,
-//                          left: 0,
-//                          right: 0,
-//                        ),
                         Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: 16.toWidth),
@@ -60,12 +49,12 @@ class CheckoutView extends StatelessWidget {
                                             image: new DecorationImage(
                                                 fit: BoxFit.fill,
                                                 image: new NetworkImage(checkout
-                                                    .data.restourant.image)))),
+                                                    .restourant.image)))),
                                     SizedBox(
                                       width: 8.toWidth,
                                     ),
                                     Text(
-                                      checkout.data.restourant.name ?? '',
+                                      checkout.restourant.name ?? '',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500),
                                     )
@@ -81,8 +70,7 @@ class CheckoutView extends StatelessWidget {
                                         color: ThemeColor().grey1),
                                     child: ListView.builder(
                                         physics: NeverScrollableScrollPhysics(),
-                                        itemCount:
-                                            checkout.data.foodList.length,
+                                        itemCount: checkout.foodList.length,
                                         padding: EdgeInsets.only(
                                             top: 16.toHeight,
                                             left: 8.toWidth,
@@ -113,7 +101,7 @@ class CheckoutView extends StatelessWidget {
                                                       children: <Widget>[
                                                         Expanded(
                                                           child: Text(
-                                                            '${checkout.data.foodList[index].foods[innerIndex].name}',
+                                                            '${checkout.foodList[index].foods[innerIndex].name}',
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     11.toFont,
@@ -128,7 +116,7 @@ class CheckoutView extends StatelessWidget {
                                                         ),
                                                         Expanded(
                                                           child: Text(
-                                                            '${checkout.data.foodList[index].foods[innerIndex].count}',
+                                                            '${checkout.foodList[index].foods[innerIndex].count}',
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     11.toFont,
@@ -140,7 +128,6 @@ class CheckoutView extends StatelessWidget {
                                                       ],
                                                     ),
                                                     checkout
-                                                                .data
                                                                 .foodList[index]
                                                                 .foods[
                                                                     innerIndex]
@@ -158,7 +145,6 @@ class CheckoutView extends StatelessWidget {
                                                                         .toHeight),
                                                             shrinkWrap: true,
                                                             itemCount: checkout
-                                                                .data
                                                                 .foodList[index]
                                                                 .foods[
                                                                     innerIndex]
@@ -169,7 +155,6 @@ class CheckoutView extends StatelessWidget {
                                                                         context,
                                                                     int i) {
                                                               return checkout
-                                                                          .data
                                                                           .foodList[
                                                                               index]
                                                                           .foods[
@@ -178,7 +163,6 @@ class CheckoutView extends StatelessWidget {
                                                                               i]
                                                                           .selected &&
                                                                       checkout
-                                                                              .data
                                                                               .foodList[index]
                                                                               .foods[innerIndex]
                                                                               .adds[i]
@@ -198,14 +182,14 @@ class CheckoutView extends StatelessWidget {
                                                                                 2,
                                                                             child:
                                                                                 Text(
-                                                                              '${checkout.data.foodList[index].foods[innerIndex].adds[i].name}',
+                                                                              '${checkout.foodList[index].foods[innerIndex].adds[i].name}',
                                                                               style: TextStyle(fontSize: 11.toFont),
                                                                             ),
                                                                           ),
                                                                           Expanded(
                                                                             child:
                                                                                 Text(
-                                                                              '${checkout.data.foodList[index].foods[innerIndex].adds[i].count}',
+                                                                              '${checkout.foodList[index].foods[innerIndex].adds[i].count}',
                                                                               style: TextStyle(fontSize: 11.toFont),
                                                                             ),
                                                                           ),
@@ -224,7 +208,6 @@ class CheckoutView extends StatelessWidget {
                                                           )
                                                         : SizedBox(),
                                                     checkout
-                                                                    .data
                                                                     .foodList[
                                                                         index]
                                                                     .foods[
@@ -233,7 +216,6 @@ class CheckoutView extends StatelessWidget {
                                                                     .length >
                                                                 0 &&
                                                             checkout
-                                                                .data
                                                                 .foodList[index]
                                                                 .foods[
                                                                     innerIndex]
@@ -256,7 +238,7 @@ class CheckoutView extends StatelessWidget {
                                                                 Expanded(
                                                                   flex: 2,
                                                                   child: Text(
-                                                                    '${checkout.data.foodList[index].foods[innerIndex].addsType2[0].name}',
+                                                                    '${checkout.foodList[index].foods[innerIndex].addsType2[0].name}',
                                                                     style: TextStyle(
                                                                         fontSize:
                                                                             11.toFont),
@@ -264,7 +246,7 @@ class CheckoutView extends StatelessWidget {
                                                                 ),
                                                                 Expanded(
                                                                   child: Text(
-                                                                      '${checkout.data.foodList[index].foods[innerIndex].addsType2[0].count}',
+                                                                      '${checkout.foodList[index].foods[innerIndex].addsType2[0].count}',
                                                                       style: TextStyle(
                                                                           fontSize:
                                                                               11.toFont)),
@@ -281,7 +263,7 @@ class CheckoutView extends StatelessWidget {
                                               );
                                             },
                                             shrinkWrap: true,
-                                            itemCount: checkout.data
+                                            itemCount: checkout
                                                 .foodList[index].foods.length,
                                           );
                                         })),
@@ -297,7 +279,7 @@ class CheckoutView extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: PaymentViewModel(
-                  checkout: checkout.data,
+                  checkout: checkout,
                 ))
           ],
         ));

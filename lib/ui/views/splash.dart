@@ -62,6 +62,6 @@ class _SplashScreenState extends State<SplashScreen> {
     _controller.dispose();
   }
   void setInstance() async {
-    await SharedPrefUtil.getInstance();
+    await SpUtil.getInstance();
   }
 }

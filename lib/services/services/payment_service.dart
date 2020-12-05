@@ -22,7 +22,7 @@ ApiResponse<PaymentResponse> useAddtoBag(
     if (uniqueKey != null) {
       return DioConfig<PaymentResponse>(
         path: apiConfig.ADD_TO_BAG(
-            address, coords, jsonString, restId, SharedPrefUtil.getString(SharedPrefUtil.token)),
+            address, coords, jsonString, restId, SpUtil.getString(SpUtil.token)),
         transformResponse: (Response response) {
           return PaymentResponse.fromJsom(response.data);
         },);

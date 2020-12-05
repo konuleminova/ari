@@ -5,7 +5,7 @@ import 'package:synchronized/synchronized.dart';
 
 
 // SharedPreferences
-class SharedPrefUtil {
+class SpUtil {
   static String isLoginKey = "User has login";
   static String name = "name";
   static String surname = "surname";
@@ -16,16 +16,16 @@ class SharedPrefUtil {
   static String lat = "lat";
   static String lng = "lng";
   static String token='login token';
-  static SharedPrefUtil _singleton;
+  static SpUtil _singleton;
   static SharedPreferences _prefs;
   static Lock _lock = Lock();
 
-  static Future<SharedPrefUtil> getInstance() async {
+  static Future<SpUtil> getInstance() async {
     if (_singleton == null) {
       await _lock.synchronized(() async {
         if (_singleton == null) {
           // keep local instance till it is fully initialized.
-          var singleton = SharedPrefUtil._();
+          var singleton = SpUtil._();
           await singleton._init();
           _singleton = singleton;
         }
@@ -34,7 +34,7 @@ class SharedPrefUtil {
     return _singleton;
   }
 
-  SharedPrefUtil._();
+  SpUtil._();
 
   Future _init() async {
     _prefs = await SharedPreferences.getInstance();

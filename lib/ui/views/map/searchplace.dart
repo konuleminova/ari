@@ -1,11 +1,11 @@
+import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
+import 'package:ari/utils/map_utils/flutter_google_places.dart';
 import 'package:ari/utils/map_utils/ui_id.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,10 +13,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 const kGoogleApiKey = "AIzaSyBESIdxnZrr-OvAY2-Ikes_rVuP-AXpKP8";
 final searchScaffoldKey = GlobalKey<ScaffoldState>();
 bool isOpen;
+
 class CustomSearchScaffold extends PlacesAutocompleteWidget {
   final List<LatLng> points;
 
-  CustomSearchScaffold(this.points)
+  CustomSearchScaffold(this.points,)
       : super(
           apiKey: kGoogleApiKey,
           sessionToken: Uuid().generateV4(),
@@ -37,7 +38,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   TextEditingController controller;
   String searchValue;
 
-  _CustomSearchScaffoldState(this.points);
+  _CustomSearchScaffoldState(this.points,);
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +95,12 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           Column(
             children: [
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: 16.toWidth, vertical: 6.toHeight),
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(4)),
-                  child: AppBarPlacesAutoCompleteTextField(),
+                margin: EdgeInsets.symmetric(
+                    horizontal: 16.toWidth, vertical: 6.toHeight),
+                decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(4)),
+                child: AppBarPlacesAutoCompleteTextField(),
               ),
               isOpen
                   ? Card(
@@ -118,17 +119,9 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   @override
   void initState() {
     super.initState();
-    isOpen=false;
+    isOpen = false;
     _lastMapPosition = const LatLng(40.3716222, 49.8555191);
     controller = new TextEditingController();
-  }
-
-  @override
-  void didUpdateWidget(PlacesAutocompleteWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print('SEARCH VALUE ${oldWidget.startText}');
-    print('SEARCH VALUE ${searchValue}');
-    if (oldWidget.startText == searchValue) {}
   }
 
   @override
@@ -191,11 +184,8 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           await _places.getDetailsByPlaceId(p.placeId);
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
-//      if (p != null) {
-//        SharedPrefUtil.putString(SharedPrefUtil.address, p.description);
-//      }
-//      SharedPrefUtil.putString(SharedPrefUtil.lat, lat.toString());
-//      SharedPrefUtil.putString(SharedPrefUtil.lng, lng.toString());
+//      usePredictionValueCallBack(
+//          Checkout(address: p.description, coords: '${lat},${lng}'));
       _lastMapPosition = new LatLng(lat, lng);
       _markers.clear();
       _markers.add(Marker(
@@ -211,7 +201,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
       setState(() {
         isOpen = false;
         //searchValue=p.description;
-        //FocusScope.of(context).unfocus();
+        FocusScope.of(context).unfocus();
       });
     }
   }
