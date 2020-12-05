@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Bitter-Light',
           accentColor: ThemeColor().greenColor,
           primarySwatch: Colors.green,
+          cursorColor: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: SplashScreen());
