@@ -24,7 +24,6 @@ class PaymentViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
    final store = useProvider<Store<CheckoutState, CheckoutAction>>();
-   print('Payment Store ${store.state?.address}');
     var uniqueKey = useState<UniqueKey>();
     var address = useState<String>();
     var coords = useState<String>();

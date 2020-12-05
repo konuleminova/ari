@@ -1,15 +1,9 @@
-import 'package:ari/business_logic/models/checkout.dart';
-import 'package:ari/services/provider/provider.dart';
 import 'package:ari/ui/provider_components/checkout_action.dart';
-import 'package:ari/ui/provider_components/checkout_state.dart';
-import 'package:ari/ui/provider_components/counter_state.dart';
 import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
 import 'package:ari/utils/map_utils/flutter_google_places.dart';
 import 'package:ari/utils/map_utils/ui_id.dart';
-import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
@@ -49,7 +43,6 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
 
   @override
   Widget build(BuildContext context) {
-    print('STOREEE ${store}');
     final bodyMap = Container(
       padding: EdgeInsets.all(1),
       width: MediaQuery.of(context).size.width,
@@ -174,7 +167,6 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
         isOpen = false;
       });
     }
-    print('RESPONSE ${response}');
   }
 
   _onMapCreated(GoogleMapController controller) {
@@ -192,8 +184,6 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           await _places.getDetailsByPlaceId(p.placeId);
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
-//      usePredictionValueCallBack(
-//          Checkout(address: p.description, coords: '${lat},${lng}'));
       _lastMapPosition = new LatLng(lat, lng);
       _markers.clear();
       _markers.add(Marker(
@@ -206,15 +196,12 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
         _mapController.animateCamera(CameraUpdate.newCameraPosition(
             new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
       }
-      //final store = useProvider<Store<CheckoutState, CheckoutAction>>();
-      print('STORE VALUE ${store}');
       if (store != null) {
         store.dispatch(CheckoutAction(p.description ?? '', '${lat},${lng}'));
       }
 
       setState(() {
         isOpen = false;
-        //searchValue=p.description;
         FocusScope.of(context).unfocus();
       });
     }
