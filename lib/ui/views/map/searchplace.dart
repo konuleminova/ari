@@ -206,6 +206,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
       } else {
         store.dispatch(CheckoutAction('', '', false));
         print('It is not in polygon');
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Seçdiyiniz əraziyə çcatdırılma mövcud deyil.')));
       }
 
       setState(() {
