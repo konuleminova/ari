@@ -198,7 +198,7 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
 
   Widget _textField(BuildContext context) => TextField(
     controller: _queryTextController,
-    autofocus: true,
+    autofocus: false,
     style: TextStyle(
         color: Theme.of(context).brightness == Brightness.light
             ? Colors.black87
@@ -283,7 +283,7 @@ class _AppBarPlacesAutoCompleteTextFieldState
         margin: EdgeInsets.only(top: 4.0),
         child: TextField(
           controller: _queryTextController,
-          autofocus: true,
+          autofocus: false,
           onTap: (){
             _queryTextController.text='';
           },
