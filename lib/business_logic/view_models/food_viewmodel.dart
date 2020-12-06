@@ -53,7 +53,6 @@ class FoodViewModel extends HookWidget {
     }, [apiResponse, apiResponseData.value]);
 
     //Add to cart callBack
-
     final addToCartCallBack = useCallback((Food food) {
       foodState.value = food;
       addedFoodList.value = [];
@@ -68,14 +67,15 @@ class FoodViewModel extends HookWidget {
         });
         apiResponseData.notifyListeners();
 
-        //Add items Status Calculation
+        //At least one  item selected Calculation
         apiResponseData.value.forEach((element) {
           if ((element.foods.firstWhere((it) => it.selected == true,
                   orElse: () => null)) !=
               null) {
             atLeastOneItemSelected.value = true;
           }
-          //get Total Price formula
+
+          //geet Total Price formula
           apiResponse.data.forEach((element1) {
             element1.foods.forEach((element2) {
               element2.totalPrice = 0;
@@ -106,13 +106,9 @@ class FoodViewModel extends HookWidget {
     }, [foodState.value, apiResponseData.value]);
 
     //Go to payment callback
-
     final goToPaymentCallBack = useCallback(() {
-
       addedFoodList.value.clear();
-      print('HERE GROUP LIST');
-      //Final selected items add to bag
-     apiResponseData.value.forEach((element) {
+      apiResponseData.value.forEach((element) {
         element.foods.forEach((element1) {
           if (element1.selected) {
             addedFoodList.value
@@ -120,10 +116,11 @@ class FoodViewModel extends HookWidget {
           }
         });
       });
-    },[]);
+    }, []);
 
-    final dropDownCallBack =useCallback((Food food){
-      foodState.value=food;
+    //DropDown select item callback
+    final dropDownCallBack = useCallback((Food food) {
+      foodState.value = food;
     });
 
     return CustomErrorHandler(
@@ -134,11 +131,11 @@ class FoodViewModel extends HookWidget {
           apiResponse.error
         ],
         child: FoodView(
-            goToPaymentCallBack:goToPaymentCallBack,
+            goToPaymentCallBack: goToPaymentCallBack,
             addedFoodList: addedFoodList.value,
             maxExtentValue: maxScrollExtent.value,
             foodList: apiResponseData.value,
-            dropDownCallBack:dropDownCallBack ,
+            dropDownCallBack: dropDownCallBack,
             itemPositionsListener: itemPositionsListener,
             verticalScrollController: verticalScrollController,
             addtoCartCallback: addToCartCallBack,
