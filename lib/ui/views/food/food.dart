@@ -18,29 +18,34 @@ class FoodView extends StatelessWidget {
   double maxExtentValue;
   var itemPositionsListener;
   Function(Food food) addtoCartCallback;
-  Function(Food food)  dropDownCallBack;
+  Function(Food food) dropDownCallBack;
   var atLeastOneItemSelected;
   var addedFoodList;
-var goToPaymentCallBack;
+  var goToPaymentCallBack;
+
   FoodView(
       {this.foodList,
       this.verticalScrollController,
       this.maxExtentValue,
       this.itemPositionsListener,
       this.addtoCartCallback,
-      this.atLeastOneItemSelected,this.addedFoodList,this.goToPaymentCallBack,this.dropDownCallBack});
+      this.atLeastOneItemSelected,
+      this.addedFoodList,
+      this.goToPaymentCallBack,
+      this.dropDownCallBack});
 
   RouteArguments<Restourant> arguments;
 
   @override
   Widget build(BuildContext context) {
-    // print('FOOD VIEW ${maxExtentValue}');
     arguments = ModalRoute.of(context).settings.arguments;
     // TODO: implement build
     return foodList == null
         ? Container()
         : CustomScrollView(
             slivers: <Widget>[
+
+              //Food Item Sliver AppBar
               SliverAppBar(
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(0),
@@ -132,6 +137,8 @@ var goToPaymentCallBack;
                       ],
                     )),
               ),
+
+              //Menu Items Persistent Header
               SliverPersistentHeader(
                 pinned: true,
                 delegate: SliverAppBarDelegate(
@@ -156,6 +163,8 @@ var goToPaymentCallBack;
                           ],
                         ))),
               ),
+
+              //Food Items List View
               SliverFillRemaining(
                   child: Stack(
                 children: <Widget>[
@@ -188,18 +197,21 @@ var goToPaymentCallBack;
                             itemBuilder:
                                 (BuildContext context, int innerIndex) {
                               return AnimatedCrossFade(
-                                  duration: Duration(milliseconds: 400),
-                                  firstChild: FoodItem(
-                                    addtoCartCallBack: addtoCartCallback,
-                                    item: foodList[index].foods[innerIndex],
-                                  ),
-                                  secondChild: FoodItemExpanded(
-                                      addtoCartCallBack: addtoCartCallback,
-                                      food: foodList[index].foods[innerIndex],dropDownCallBack: dropDownCallBack,),
-                                  crossFadeState:
-                                      foodList[index].foods[innerIndex].selected
-                                          ? CrossFadeState.showSecond
-                                          : CrossFadeState.showFirst,);
+                                duration: Duration(milliseconds: 400),
+                                firstChild: FoodItem(
+                                  addtoCartCallBack: addtoCartCallback,
+                                  item: foodList[index].foods[innerIndex],
+                                ),
+                                secondChild: FoodItemExpanded(
+                                  addtoCartCallBack: addtoCartCallback,
+                                  food: foodList[index].foods[innerIndex],
+                                  dropDownCallBack: dropDownCallBack,
+                                ),
+                                crossFadeState:
+                                    foodList[index].foods[innerIndex].selected
+                                        ? CrossFadeState.showSecond
+                                        : CrossFadeState.showFirst,
+                              );
                             },
                             itemCount: foodList[index].foods.length,
                             padding: EdgeInsets.all(0),
@@ -222,11 +234,12 @@ var goToPaymentCallBack;
                               pushRouteWithName(ROUTE_MAP,
                                   arguments: RouteArguments<Checkout>(
                                       data: Checkout(
-                                        totalPrice: getTotalPrice(),
+                                          totalPrice: getTotalPrice(),
                                           foodList: addedFoodList,
                                           restourant: Restourant(
                                               image: arguments.data.image,
-                                              name: arguments.data.name,id: arguments.data.id))));
+                                              name: arguments.data.name,
+                                              id: arguments.data.id))));
                             },
                             child: Container(
                                 decoration: BoxDecoration(
