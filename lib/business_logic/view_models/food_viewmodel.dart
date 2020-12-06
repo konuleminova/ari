@@ -115,20 +115,6 @@ class FoodViewModel extends HookWidget {
      apiResponseData.value.forEach((element) {
         element.foods.forEach((element1) {
           if (element1.selected) {
-//            if (element1.adds.length > 0) {
-//              element1.adds.forEach((element3) {
-//                if (element3.selected) {
-//                  if (element3.type != 2) {
-//                    element1.adds.add(element3);
-//                  }
-//                }
-//              });
-//              if (element1.addsType2.length > 0) {
-//                if (element1.addsType2[0].selected) {
-//                  element1.adds.add(element1.addsType2[0]);
-//                }
-//              }
-//            }
             addedFoodList.value
                 .add(GroupFood(foods: List<Food>()..add(element1)));
           }
