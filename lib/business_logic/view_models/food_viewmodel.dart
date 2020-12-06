@@ -120,7 +120,6 @@ class FoodViewModel extends HookWidget {
           }
         });
       });
-     // addedFoodList.value=groupFoods;
     },[]);
 
     final dropDownCallBack =useCallback((Food food){
