@@ -16,7 +16,7 @@ class InitPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         appBar: CustomAppBar(),
-         backgroundColor: Color(0xfffccd13),
+        backgroundColor: Color(0xfffccd13),
         body: Stack(
           children: <Widget>[
             Column(
@@ -31,65 +31,14 @@ class InitPage extends StatelessWidget {
                       routes: routeNames),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
                 )),
               ],
             ),
-            Positioned(
-                right: 0,
-                bottom: 140.toHeight,
-                child: GestureDetector(
-                  child: Container(
-                    child: Image.asset(
-                      'assets/images/menu.png',
-                      height: 80.toWidth,
-                      width: 80.toWidth,
-                      alignment: Alignment.centerRight,
-                    ),
-                  ),
-                  onHorizontalDragStart: (v) {
-                    showMenu(context);
-                  },
-                  onTap: () {
-                    showMenu(context);
-                  },
-                ))
+            MenuView()
           ],
         ));
-  }
-
-  void showMenu(BuildContext context) {
-    showGeneralDialog(
-      barrierLabel: "Label",
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.4),
-      transitionDuration: Duration(milliseconds: 700),
-      context: context,
-      pageBuilder: (context, anim1, anim2) {
-        return Stack(
-          children: <Widget>[
-            Positioned(
-                top: CustomAppBar().preferredSize.height + 30.toHeight,
-                left: 0,
-                right: 0,
-                child: Align(
-                  child: CustomMenuDrawer(
-                    onClose: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  alignment: Alignment.bottomRight,
-                ))
-          ],
-        );
-      },
-      transitionBuilder: (context, anim1, anim2, child) {
-        return SlideTransition(
-          position:
-              Tween(begin: Offset(1, 0), end: Offset(0, 0)).animate(anim1),
-          child: child,
-        );
-      },
-    );
   }
 }
