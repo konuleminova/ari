@@ -44,7 +44,6 @@ class FoodView extends StatelessWidget {
         ? Container()
         : CustomScrollView(
             slivers: <Widget>[
-
               //Food Item Sliver AppBar
               SliverAppBar(
                 bottom: PreferredSize(
