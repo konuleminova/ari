@@ -29,10 +29,6 @@ class MenuViewModel extends HookWidget {
     apiResponse.value = useFetchMenu(id);
     var indexState = useState<int>();
 
-    useEffect(() {
-      return () {};
-    }, [id]);
-
     //Horizontall Item Selection
     useEffect(() {
       if (apiResponse.value.status == Status.Done) {
