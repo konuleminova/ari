@@ -222,6 +222,8 @@ class FoodView extends StatelessWidget {
                     },
                     itemCount: foodList.length ?? 0,
                   ),
+
+                  //Go to payment View
                   Positioned(
                     bottom: 0,
                     left: 0,
