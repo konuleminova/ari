@@ -68,7 +68,13 @@ class RegisterView extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
                       controller: loginController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
