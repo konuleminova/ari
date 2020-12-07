@@ -2,6 +2,7 @@ import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/ui/common_widgets/yellow_clipper.dart';
 import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/image_config.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -48,7 +49,10 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                     Expanded(
                       child: YellowClipper(onClickIndex, PERSON_ASSET, 2,
                           onClick: () {
-                        navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                            SpUtil.putString(SpUtil.IsFromMap, '').then((value){
+                              navigationKey.currentState.pushNamed(ROUTE_LOGIN);
+                            });
+
                       }),
                     )
                   ],

@@ -20,6 +20,7 @@ class SpUtil {
   static SpUtil _singleton;
   static SharedPreferences _prefs;
   static String isPointInPolygon='is in polygon';
+  static String IsFromMap='IsFromMap';
   static Lock _lock = Lock();
 
   static Future<SpUtil> getInstance() async {
