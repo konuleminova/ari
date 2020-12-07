@@ -11,6 +11,8 @@ class Food {
   List<Adds> adds;
   List<Adds> addsType2=[];
   double totalPrice=0;
+  String groupName;
+  bool expanded=false;
 
 
   Food({this.id, this.name, this.price, this.information, this.image,

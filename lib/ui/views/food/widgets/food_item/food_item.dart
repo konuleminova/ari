@@ -75,6 +75,7 @@ class FoodItem extends StatelessWidget {
                             ),
                             onTap: () {
                               item.selected = true;
+                              item.expanded=true;
                               addtoCartCallBack(item);
                             })
                       ],

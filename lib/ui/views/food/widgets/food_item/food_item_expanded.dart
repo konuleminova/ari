@@ -67,6 +67,7 @@ class FoodItemExpanded extends StatelessWidget {
                         onPressed: () {
                           if (food.count == 1) {
                             food.selected = false;
+                            food.expanded=false;
                           } else {
                             food.selected = true;
                             food.count = food.count - 1;

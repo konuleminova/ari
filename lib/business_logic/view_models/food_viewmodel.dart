@@ -1,10 +1,12 @@
 import 'package:ari/business_logic/models/food.dart';
+import 'package:ari/business_logic/models/menu.dart';
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/hooks/use_callback.dart';
 import 'package:ari/services/services/food_service.dart';
+import 'package:ari/services/services/menu_service.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/food/food.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,10 @@ class FoodViewModel extends HookWidget {
     var apiResponseData = useState<List<GroupFood>>();
     ValueNotifier<List<GroupFood>> addedFoodList =
         useState<List<GroupFood>>([]);
+    ValueNotifier<List<Food>> foods = useState<List<Food>>([]);
     arguments = ModalRoute.of(context).settings.arguments;
+    var apiResponseMenu = useState<ApiResponse<List<Menu>>>();
+    apiResponseMenu.value = useFetchMenu(arguments.data.id);
 
     //Vertical Scrolling hide sliver Appbar
     useEffect(() {
@@ -33,11 +38,16 @@ class FoodViewModel extends HookWidget {
         var isElement = itemPositionsListener.itemPositions.value
             .firstWhere((element) => element != null, orElse: () => null);
         if (isElement != null) {
-          maxScrollExtent.value = itemPositionsListener
-                  ?.itemPositions?.value.first.itemLeadingEdge
-                  .toDouble() -
-              itemPositionsListener?.itemPositions?.value.first.index
-                  .toDouble();
+          if(foods.value[0].expanded){
+            maxScrollExtent.value=-1;
+          }else{
+            maxScrollExtent.value = itemPositionsListener
+                ?.itemPositions?.value.first.itemLeadingEdge
+                .toDouble() -
+                itemPositionsListener?.itemPositions?.value.first.index
+                    .toDouble();
+          }
+
         }
       });
       return () {};
@@ -47,13 +57,35 @@ class FoodViewModel extends HookWidget {
     ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {
       if (apiResponse.status == Status.Done) {
+        foods.value.clear();
+        apiResponse.data.forEach((element) {
+          foods.value.addAll(element.foods);
+        });
         apiResponseData.value = apiResponse.data;
+        if (apiResponseMenu.value.status == Status.Done) {
+          for (int j = 0; j < apiResponseMenu.value.data.length; j++) {
+            for (int i = 0; i < foods.value.length; i++) {
+              if (apiResponseMenu.value.data[j].id == foods.value[i].menu_id) {
+                foods.value[i].groupName = apiResponseMenu.value.data[j].name;
+                break;
+              }
+            }
+            continue;
+          }
+        }
       }
       return () {};
-    }, [apiResponse, apiResponseData.value]);
+    }, [apiResponse, apiResponseData.value, apiResponseMenu.value]);
 
     //Add to cart callBack
     final addToCartCallBack = useCallback((Food food) {
+      if(food.expanded){
+        maxScrollExtent.value=-1;
+        verticalScrollController.jumpTo(
+          index: foods.value.indexOf(food),
+        );
+
+      }
       foodState.value = food;
       addedFoodList.value = [];
       atLeastOneItemSelected.value = false;
@@ -134,7 +166,7 @@ class FoodViewModel extends HookWidget {
             goToPaymentCallBack: goToPaymentCallBack,
             addedFoodList: addedFoodList.value,
             maxExtentValue: maxScrollExtent.value,
-            foodList: apiResponseData.value,
+            foods: foods.value,
             dropDownCallBack: dropDownCallBack,
             itemPositionsListener: itemPositionsListener,
             verticalScrollController: verticalScrollController,
