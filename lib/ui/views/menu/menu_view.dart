@@ -1,10 +1,11 @@
 import 'package:ari/services/hooks/use_callback.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
-import 'file:///C:/Users/John%20Doe/Desktop/Ilham/ari/lib/ui/views/menu/custom_drawer.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
+
+import 'custom_drawer.dart';
 
 class MenuView extends HookWidget {
   @override
