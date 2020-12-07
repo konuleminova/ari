@@ -37,6 +37,7 @@ class PaymentViewModel extends HookWidget {
     ValueNotifier<List<Add>> adds = useState<List<Add>>();
     useEffect(() {
       print('USE EFFECt ${checkout.foodList}');
+      paymentItems.value.clear();
       address.value = store.state?.address ?? '';
       coords.value = store.state.coords ?? '';
       restId.value = checkout.restourant.id;
