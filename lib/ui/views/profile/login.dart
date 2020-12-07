@@ -1,3 +1,5 @@
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +23,8 @@ class LoginView extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Text(
               'Войти в систему',
-              style: TextStyle(fontSize: 14.toFont,fontWeight: FontWeight.w500),
+              style:
+                  TextStyle(fontSize: 14.toFont, fontWeight: FontWeight.w500),
             ),
           ),
           SizedBox(
@@ -31,7 +34,7 @@ class LoginView extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 44.toWidth),
             elevation: 16,
             child: Container(
-             // height: 200.toWidth,
+              // height: 200.toWidth,
               width: SizeConfig().screenWidth,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
               padding: EdgeInsets.all(28.toWidth),
@@ -42,7 +45,9 @@ class LoginView extends StatelessWidget {
                     'Логин',
                     style: TextStyle(fontSize: 14.toFont),
                   ),
-                  SizedBox(height: 4.toHeight,),
+                  SizedBox(
+                    height: 4.toHeight,
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.toWidth),
                     decoration: BoxDecoration(
@@ -61,7 +66,9 @@ class LoginView extends StatelessWidget {
                     'Пароль',
                     style: TextStyle(fontSize: 14.toFont),
                   ),
-                  SizedBox(height: 4.toHeight,),
+                  SizedBox(
+                    height: 4.toHeight,
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.toWidth),
                     decoration: BoxDecoration(
@@ -84,14 +91,16 @@ class LoginView extends StatelessWidget {
                       child: Text('Войти в систему'),
                     ),
                   ),
-                  SizedBox(
-                    height: 16.toHeight,
-                  ),
-                  Center(
-                    child: Text(
-                      'Зарегистрироватся',
-                      style: TextStyle(color: Color(0xFF6ED34A)),
+                  InkWell(
+                    child: Center(
+                      child:Padding(child:  Text(
+                        'Зарегистрироватся',
+                        style: TextStyle(color: Color(0xFF6ED34A)),
+                      ),padding: EdgeInsets.only(top: 16.toHeight),)
                     ),
+                    onTap: () {
+                      pushRouteWithName(ROUTE_REGISTER);
+                    },
                   )
                 ],
               ),
