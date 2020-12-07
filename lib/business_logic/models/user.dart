@@ -22,14 +22,14 @@ class User {
       this.number});
 
   User.fromJson(Map<String, dynamic> json) {
-//    id = json['id'];
-//    name = json['name'];
-//    login = json['login'];
-//    mobile = json['mobile'];
-//    coords = json['coords'];
-//    email = json['email'];
-//    image = json['image'];
-//    token = json['token'];
-//    device_token = json['device_token'];
+    id = json['id'];
+    name = json['name'];
+    login = json['login'];
+    mobile = json['mobile'];
+    coords = json['coords'];
+    email = json['email'];
+    image = json['image'];
+    token = json['token'];
+    device_token = json['device_token'];
   }
 }

@@ -1,4 +1,6 @@
 import 'package:ari/business_logic/models/user.dart';
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/hooks/use_callback.dart';
@@ -24,7 +26,9 @@ class LoginViewModel extends HookWidget {
     //GET TOKEN STATUS
     useSideEffect(() {
       if (apiResponse?.data?.token != null) {
-        SpUtil.putString(SpUtil.name, apiResponse?.data?.name);
+        SpUtil.putString(SpUtil.token, apiResponse?.data?.token);
+        pushReplaceRouteWithName(ROUTE_PROFILE);
+
       }
       return () {};
     }, [apiResponse]);

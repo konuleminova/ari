@@ -19,7 +19,7 @@ final routeNames = {
 // default rout as '/' is necessary!
   '/': (context) => RestourantViewModel(),
   ROUTE_SEARCH: (context) => SearchViewModel(),
-  ROUTE_PROFILE: (context) => LoginViewModel(),
+  ROUTE_PROFILE: (context) => ProfileView(),
   ROUTE_RESTAURANT: (context) => FoodViewModel(),
   ROUTE_MAP:(context)=>CheckoutViewModel(),
   ROUTE_INIT:(context)=>InitPage(),

@@ -48,7 +48,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                     Expanded(
                       child: YellowClipper(onClickIndex, PERSON_ASSET, 2,
                           onClick: () {
-                        navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                        navigationKey.currentState.pushNamed(ROUTE_LOGIN);
                       }),
                     )
                   ],
