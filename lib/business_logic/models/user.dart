@@ -11,6 +11,7 @@ class User {
   String pass;
   String surname;
   String number;
+  bool isFromMap;
 
   User(
       {this.name,
@@ -19,7 +20,9 @@ class User {
       this.device_token,
       this.pass,
       this.surname,
-      this.number});
+      this.number,
+      this.token,
+      this.isFromMap=false});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];

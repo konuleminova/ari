@@ -1,11 +1,13 @@
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/restourant.dart';
+import 'package:ari/business_logic/models/user.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -18,17 +20,21 @@ class FoodView extends StatelessWidget {
   double maxExtentValue;
   var itemPositionsListener;
   Function(Food food) addtoCartCallback;
-  Function(Food food)  dropDownCallBack;
+  Function(Food food) dropDownCallBack;
   var atLeastOneItemSelected;
   var addedFoodList;
-var goToPaymentCallBack;
+  var goToPaymentCallBack;
+
   FoodView(
       {this.foodList,
       this.verticalScrollController,
       this.maxExtentValue,
       this.itemPositionsListener,
       this.addtoCartCallback,
-      this.atLeastOneItemSelected,this.addedFoodList,this.goToPaymentCallBack,this.dropDownCallBack});
+      this.atLeastOneItemSelected,
+      this.addedFoodList,
+      this.goToPaymentCallBack,
+      this.dropDownCallBack});
 
   RouteArguments<Restourant> arguments;
 
@@ -188,18 +194,21 @@ var goToPaymentCallBack;
                             itemBuilder:
                                 (BuildContext context, int innerIndex) {
                               return AnimatedCrossFade(
-                                  duration: Duration(milliseconds: 400),
-                                  firstChild: FoodItem(
-                                    addtoCartCallBack: addtoCartCallback,
-                                    item: foodList[index].foods[innerIndex],
-                                  ),
-                                  secondChild: FoodItemExpanded(
-                                      addtoCartCallBack: addtoCartCallback,
-                                      food: foodList[index].foods[innerIndex],dropDownCallBack: dropDownCallBack,),
-                                  crossFadeState:
-                                      foodList[index].foods[innerIndex].selected
-                                          ? CrossFadeState.showSecond
-                                          : CrossFadeState.showFirst,);
+                                duration: Duration(milliseconds: 400),
+                                firstChild: FoodItem(
+                                  addtoCartCallBack: addtoCartCallback,
+                                  item: foodList[index].foods[innerIndex],
+                                ),
+                                secondChild: FoodItemExpanded(
+                                  addtoCartCallBack: addtoCartCallback,
+                                  food: foodList[index].foods[innerIndex],
+                                  dropDownCallBack: dropDownCallBack,
+                                ),
+                                crossFadeState:
+                                    foodList[index].foods[innerIndex].selected
+                                        ? CrossFadeState.showSecond
+                                        : CrossFadeState.showFirst,
+                              );
                             },
                             itemCount: foodList[index].foods.length,
                             padding: EdgeInsets.all(0),
@@ -219,14 +228,30 @@ var goToPaymentCallBack;
                         ? InkWell(
                             onTap: () {
                               goToPaymentCallBack();
-                              pushRouteWithName(ROUTE_MAP,
-                                  arguments: RouteArguments<Checkout>(
-                                      data: Checkout(
-                                        totalPrice: getTotalPrice(),
-                                          foodList: addedFoodList,
-                                          restourant: Restourant(
-                                              image: arguments.data.image,
-                                              name: arguments.data.name,id: arguments.data.id))));
+                              if (SpUtil.getString(SpUtil.token).isNotEmpty) {
+                                pushRouteWithName(ROUTE_MAP,
+                                    arguments: RouteArguments<Checkout>(
+                                        data: Checkout(
+                                            totalPrice: getTotalPrice(),
+                                            foodList: addedFoodList,
+                                            restourant: Restourant(
+                                                image: arguments.data.image,
+                                                name: arguments.data.name,
+                                                id: arguments.data.id))));
+                              } else {
+                                SpUtil.putString(SpUtil.IsFromMap, 'IsFromMap')
+                                    .then((value) {
+                                  pushReplaceRouteWithName(ROUTE_LOGIN,
+                                      arguments: RouteArguments<Checkout>(
+                                          data: Checkout(
+                                              totalPrice: getTotalPrice(),
+                                              foodList: addedFoodList,
+                                              restourant: Restourant(
+                                                  image: arguments.data.image,
+                                                  name: arguments.data.name,
+                                                  id: arguments.data.id))));
+                                });
+                              }
                             },
                             child: Container(
                                 decoration: BoxDecoration(

@@ -1,3 +1,5 @@
+import 'package:ari/business_logic/models/checkout.dart';
+import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/models/user.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
@@ -8,12 +10,17 @@ import 'package:ari/services/services/profile.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/profile/login.dart';
 import 'package:ari/utils/sharedpref_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+
 class LoginViewModel extends HookWidget {
+  RouteArguments<Checkout> arguments;
+
   @override
   Widget build(BuildContext context) {
+    arguments = ModalRoute.of(context).settings.arguments;
     final loginController = useTextEditingController(text: '');
     final passController = useTextEditingController(text: '');
     var login = useState<String>('');
@@ -27,7 +34,12 @@ class LoginViewModel extends HookWidget {
     useSideEffect(() {
       if (apiResponse?.data?.token != null) {
         SpUtil.putString(SpUtil.token, apiResponse?.data?.token);
-        pushReplaceRouteWithName(ROUTE_PROFILE);
+        if(SpUtil.getString(SpUtil.IsFromMap).isNotEmpty){
+          pushReplaceRouteWithName(ROUTE_MAP,arguments:arguments );
+        }else {
+          pushReplaceRouteWithName(ROUTE_PROFILE);
+        }
+
 
       }
       return () {};
