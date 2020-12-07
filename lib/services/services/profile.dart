@@ -21,10 +21,15 @@ ApiResponse<User> useLogin(User user,UniqueKey uniqueKey) {
   return apiResponse;
 }
 
-ApiResponse<User> useRegister(User user) {
+ApiResponse<User> useRegister(User user,UniqueKey uniqueKey) {
   ApiConfig apiConfig = useApiConfig();
-  DioConfig dioConfig = DioConfig(
-      path: apiConfig.REGISTER_URL(user),
-      transformResponse: (Response response) => response.data);
-  return useDioRequest(dioConfig);
+  DioConfig dioConfig = useMemoized(() {
+    if (user.login.isEmpty && user.pass.isEmpty) return null;
+    return DioConfig<User>(
+        path: apiConfig.REGISTER_URL(user),
+        transformResponse: (Response response) => User.fromJson(response.data));
+  },[user,uniqueKey]);
+  ApiResponse<User> apiResponse=useDioRequest(dioConfig);
+
+  return apiResponse;
 }
