@@ -120,6 +120,10 @@ class PaymentViewModel extends HookWidget {
                               ),
                               Expanded(
                                 child: WebView(
+                                  javascriptMode: JavascriptMode.unrestricted,
+                                  javascriptChannels: <JavascriptChannel>[
+                                    _toasterJavascriptChannel(context),
+                                  ].toSet(),
                                   initialUrl: apiResponse.data.urltogo ??
                                       'https://bees.az//payment//',
                                 ),
@@ -179,5 +183,15 @@ class PaymentViewModel extends HookWidget {
             child: Loading(),
             margin: EdgeInsets.only(bottom: 8.toHeight),
           );
+  }
+  JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
+    return JavascriptChannel(
+        name: 'Toaster',
+        onMessageReceived: (JavascriptMessage message) {
+          // ignore: deprecated_member_use
+          Scaffold.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        });
   }
 }
