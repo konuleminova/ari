@@ -1,3 +1,5 @@
+import 'package:ari/business_logic/models/user.dart';
+
 class ApiConfig {
   final String BASE_URl = 'http://bees.az/api/?action=';
 
@@ -17,4 +19,11 @@ class ApiConfig {
   String ADD_TO_BAG(String address, String coords, String jsonString,
           String restId, String token) =>
       '${BASE_URl}addtobag&&lang=ru&token=${token}&address=${address}&coords=${coords}&jsonString=${jsonString}&restid=${restId}';
+
+  String LOGIN_URL(User user) =>
+      '${BASE_URl}login&username=${user.login}&password=${user.pass}&lang=ru&devicetoken=${user.device_token}';
+
+  String REGISTER_URL(User user) =>
+      '${BASE_URl}register&lang=ru&login=${user.login}&password=${user.pass}&name=${user.name}'
+      '&surname=${user.surname}&number=${user.number}&rules=1&email=${user.email}';
 }

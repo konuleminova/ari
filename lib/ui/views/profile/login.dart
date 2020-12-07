@@ -6,6 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
+  var loginController;
+  var passController;
+  var loginCallBack;
+
+  LoginView({this.loginController, this.passController, this.loginCallBack});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -57,6 +63,7 @@ class LoginView extends StatelessWidget {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
+                      controller: loginController,
                     ),
                   ),
                   SizedBox(
@@ -75,6 +82,7 @@ class LoginView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      controller: passController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -83,21 +91,29 @@ class LoginView extends StatelessWidget {
                   SizedBox(
                     height: 16.toHeight,
                   ),
-                  Container(
-                    height: 44.toHeight,
-                    width: SizeConfig().screenWidth,
-                    decoration: BoxDecoration(color: ThemeColor().yellowColor),
-                    child: Center(
-                      child: Text('Войти в систему'),
+                  InkWell(
+                    child: Container(
+                      height: 44.toHeight,
+                      width: SizeConfig().screenWidth,
+                      decoration:
+                          BoxDecoration(color: ThemeColor().yellowColor),
+                      child: Center(
+                        child: Text('Войти в систему'),
+                      ),
                     ),
+                    onTap: () {
+                      loginCallBack();
+                    },
                   ),
                   InkWell(
                     child: Center(
-                      child:Padding(child:  Text(
+                        child: Padding(
+                      child: Text(
                         'Зарегистрироватся',
                         style: TextStyle(color: Color(0xFF6ED34A)),
-                      ),padding: EdgeInsets.only(top: 16.toHeight),)
-                    ),
+                      ),
+                      padding: EdgeInsets.only(top: 16.toHeight),
+                    )),
                     onTap: () {
                       pushRouteWithName(ROUTE_REGISTER);
                     },
