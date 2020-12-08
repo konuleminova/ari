@@ -10,9 +10,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class ComponentA extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final Store<CounterState, CounterAction> counterStore = useCounterStore();
-    useProviderRegistration(counterStore);
-    useProviderRegistration(counterStore, 'Store_2');
+    final CounterStore store = useCounterStore();
+    useProviderRegistration(store);
+
 
 
 
@@ -23,34 +23,32 @@ class ComponentA extends HookWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            counterStore.state.counter.toString(),
+            store.counter.toString(),
           ),
           Text(
-            counterStore.state.owner,
+            store.owner,
           ),
           RaisedButton(
             onPressed: () {
-              counterStore.dispatch(
-                  ChangeCounterAction(counterStore.state.counter + 1));
+              store.setCounter(store.counter + 1);
             },
             child: Text('Increment counter'),
           ),
           RaisedButton(
             onPressed: () {
-              counterStore.dispatch(
-                  ChangeCounterAction(counterStore.state.counter - 1));
+              store.setCounter(store.counter - 1);
             },
             child: Text('Decrement counter'),
           ),
           RaisedButton(
             onPressed: () {
-              counterStore.dispatch(ChangeOwnerAction('Konul Eminova'));
+              store.setOwner('Konull');
             },
             child: Text('Change owner'),
           ),
           //Provider ile register edir map-e keye yazir counterStoru
-          Provider<Store<CounterState, CounterAction>>(
-              value: counterStore, child: ComponentB())
+          Provider<CounterStore>(
+              value: store, child: ComponentB())
         ],
       ),
     );

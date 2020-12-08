@@ -1,5 +1,44 @@
+import 'package:ari/services/hooks/use_callback.dart';
 import 'package:ari/ui/provider_components/counter_action.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
+
+class CounterStore {
+  final int counter;
+  final void Function(int) setCounter;
+  final String owner;
+  final void Function(String) setOwner;
+
+  CounterStore({
+    this.counter,
+    this.setCounter,
+    this.owner,
+    this.setOwner
+  });
+}
+
+
+CounterStore useCounterStore() {
+  final counter = useState(0);
+  final owner = useState('Ali');
+
+  final setCounter = useCallback((int value) {
+    counter.value = value;
+  }, []);
+
+  final setOwner = useCallback((String value) {
+    owner.value = value;
+  }, []);
+
+  return CounterStore(
+    counter: counter.value,
+    owner: owner.value,
+    setCounter: setCounter,
+    setOwner: setOwner
+  );
+}
+
+
 
 class CounterState {
   final int counter;
@@ -26,8 +65,8 @@ CounterState _reducer(CounterState state, CounterAction action) {
   return state;
 }
 
-Store<CounterState, CounterAction> useCounterStore() {
-  Store<CounterState, CounterAction> store =
-      useReducer(_reducer, initialState: initialCounterState);
-  return store;
-}
+//Store<CounterState, CounterAction> useCounterStore() {
+//  Store<CounterState, CounterAction> store =
+//      useReducer(_reducer, initialState: initialCounterState);
+//  return store;
+//}
