@@ -27,12 +27,15 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
         if (!isCancel) {
           print('IsCanceled: $isCancel');
           print('REQUESTED REsponse: ${value}');
-          if (value.data['error'] == '1') {
-            _state.value =
-                ApiResponse.error(AppException(message: value.data['message']));
-          } else
-            _state.value =
-                ApiResponse.completed(config.transformResponse(value));
+//          if (value.data['error'] == '1') {
+//            _state.value =
+//                ApiResponse.error(AppException(message: value.data['message']));
+//          } else
+//            _state.value =
+//                ApiResponse.completed(config.transformResponse(value));
+
+          _state.value =
+              ApiResponse.completed(config.transformResponse(value));
         }
       }).catchError((error) {
         if (!isCancel) {

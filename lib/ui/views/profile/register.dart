@@ -194,7 +194,7 @@ class RegisterView extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      registerCallBack();
+                      //registerCallBack();
                     },
                   )
                 ],
