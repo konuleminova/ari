@@ -10,7 +10,8 @@ class FoodItemExpanded extends StatelessWidget {
   final Food food;
   Function(Food food) addtoCartCallBack;
   Function(Food food) dropDownCallBack;
-  FoodItemExpanded({this.food, this.addtoCartCallBack,this.dropDownCallBack});
+
+  FoodItemExpanded({this.food, this.addtoCartCallBack, this.dropDownCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +67,17 @@ class FoodItemExpanded extends StatelessWidget {
                         onPressed: () {
                           if (food.count == 1) {
                             food.selected = false;
+                            food.expanded=false;
                           } else {
-                            food.selected=true;
+                            food.selected = true;
                             food.count = food.count - 1;
-                            if(food.adds.length>0){
-                              if (food.adds[1].type == 1 &&
-                                  food.adds[1].count > food.count) {
-                                food.adds[1].count = food.count;
-                              }
+                            if (food.adds.length > 0) {
+                              food.adds.forEach((element) {
+                                if (element.type == 1 &&
+                                    element.count > food.count) {
+                                  element.count = food.count;
+                                }
+                              });
                             }
 
                             print('CLICKED ${food.count}');
@@ -197,10 +201,13 @@ class FoodItemExpanded extends StatelessWidget {
                                                             double.parse(food
                                                                 .adds[index]
                                                                 .price);
-                                              }if(food.adds[index].count>0){
-                                                food.adds[index].selected=true;
-                                              }else{
-                                                food.adds[index].selected=false;
+                                              }
+                                              if (food.adds[index].count > 0) {
+                                                food.adds[index].selected =
+                                                    true;
+                                              } else {
+                                                food.adds[index].selected =
+                                                    false;
                                               }
                                               addtoCartCallBack(food);
                                             },
@@ -229,7 +236,7 @@ class FoodItemExpanded extends StatelessWidget {
                                                 food.count =
                                                     food.adds[index].count;
                                               }
-                                              food.adds[index].selected=true;
+                                              food.adds[index].selected = true;
                                               addtoCartCallBack(food);
                                             },
                                           ),
@@ -265,8 +272,8 @@ class FoodItemExpanded extends StatelessWidget {
                         child: CustomDropDown(
                           items: food.addsType2,
                           initialItemText: food.addsType2[0].name,
-                          selectedFunction:(v){
-                            food.addsType2[0].name=v;
+                          selectedFunction: (v) {
+                            food.addsType2[0].name = v;
                             dropDownCallBack(food);
                           },
                         ),
@@ -298,15 +305,15 @@ class FoodItemExpanded extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   if (food.addsType2[0].count > 0) {
-                                    food.addsType2[0].selected=true;
+                                    food.addsType2[0].selected = true;
                                     food.addsType2[0].count =
                                         food.addsType2[0].count - 1;
                                     food.totalPrice = food.totalPrice -
                                         food.addsType2[0].count *
                                             double.parse(
                                                 food.addsType2[0].price);
-                                  }else{
-                                    food.addsType2[0].selected=false;
+                                  } else {
+                                    food.addsType2[0].selected = false;
                                   }
 
                                   addtoCartCallBack(food);
@@ -326,7 +333,7 @@ class FoodItemExpanded extends StatelessWidget {
                                   food.totalPrice = food.totalPrice +
                                       food.addsType2[0].count *
                                           double.parse(food.addsType2[0].price);
-                                  food.addsType2[0].selected=true;
+                                  food.addsType2[0].selected = true;
                                   addtoCartCallBack(food);
                                 },
                               ),

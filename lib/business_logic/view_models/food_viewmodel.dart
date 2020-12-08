@@ -1,10 +1,12 @@
 import 'package:ari/business_logic/models/food.dart';
+import 'package:ari/business_logic/models/menu.dart';
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/hooks/use_callback.dart';
 import 'package:ari/services/services/food_service.dart';
+import 'package:ari/services/services/menu_service.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/food/food.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,10 @@ class FoodViewModel extends HookWidget {
     var apiResponseData = useState<List<GroupFood>>();
     ValueNotifier<List<GroupFood>> addedFoodList =
         useState<List<GroupFood>>([]);
+    ValueNotifier<List<Food>> foods = useState<List<Food>>([]);
     arguments = ModalRoute.of(context).settings.arguments;
+    var apiResponseMenu = useState<ApiResponse<List<Menu>>>();
+    apiResponseMenu.value = useFetchMenu(arguments.data.id);
 
     //Vertical Scrolling hide sliver Appbar
     useEffect(() {
@@ -33,11 +38,16 @@ class FoodViewModel extends HookWidget {
         var isElement = itemPositionsListener.itemPositions.value
             .firstWhere((element) => element != null, orElse: () => null);
         if (isElement != null) {
-          maxScrollExtent.value = itemPositionsListener
-                  ?.itemPositions?.value.first.itemLeadingEdge
-                  .toDouble() -
-              itemPositionsListener?.itemPositions?.value.first.index
-                  .toDouble();
+          if(foods.value[0].expanded){
+            maxScrollExtent.value=-1;
+          }else{
+            maxScrollExtent.value = itemPositionsListener
+                ?.itemPositions?.value.first.itemLeadingEdge
+                .toDouble() -
+                itemPositionsListener?.itemPositions?.value.first.index
+                    .toDouble();
+          }
+
         }
       });
       return () {};
@@ -47,14 +57,35 @@ class FoodViewModel extends HookWidget {
     ApiResponse<List<GroupFood>> apiResponse = useFetchFoods(arguments.data.id);
     useSideEffect(() {
       if (apiResponse.status == Status.Done) {
+        foods.value.clear();
+        apiResponse.data.forEach((element) {
+          foods.value.addAll(element.foods);
+        });
         apiResponseData.value = apiResponse.data;
+        if (apiResponseMenu.value.status == Status.Done) {
+          for (int j = 0; j < apiResponseMenu.value.data.length; j++) {
+            for (int i = 0; i < foods.value.length; i++) {
+              if (apiResponseMenu.value.data[j].id == foods.value[i].menu_id) {
+                foods.value[i].groupName = apiResponseMenu.value.data[j].name;
+                break;
+              }
+            }
+            continue;
+          }
+        }
       }
       return () {};
-    }, [apiResponse, apiResponseData.value]);
+    }, [apiResponse, apiResponseData.value, apiResponseMenu.value]);
 
     //Add to cart callBack
-
     final addToCartCallBack = useCallback((Food food) {
+      if(food.expanded){
+        maxScrollExtent.value=-1;
+        verticalScrollController.jumpTo(
+          index: foods.value.indexOf(food),
+        );
+
+      }
       foodState.value = food;
       addedFoodList.value = [];
       atLeastOneItemSelected.value = false;
@@ -68,14 +99,15 @@ class FoodViewModel extends HookWidget {
         });
         apiResponseData.notifyListeners();
 
-        //Add items Status Calculation
+        //At least one  item selected Calculation
         apiResponseData.value.forEach((element) {
           if ((element.foods.firstWhere((it) => it.selected == true,
                   orElse: () => null)) !=
               null) {
             atLeastOneItemSelected.value = true;
           }
-          //get Total Price formula
+
+          //geet Total Price formula
           apiResponse.data.forEach((element1) {
             element1.foods.forEach((element2) {
               element2.totalPrice = 0;
@@ -106,39 +138,21 @@ class FoodViewModel extends HookWidget {
     }, [foodState.value, apiResponseData.value]);
 
     //Go to payment callback
-
     final goToPaymentCallBack = useCallback(() {
-
       addedFoodList.value.clear();
-      print('HERE GROUP LIST');
-      //Final selected items add to bag
-     apiResponseData.value.forEach((element) {
+      apiResponseData.value.forEach((element) {
         element.foods.forEach((element1) {
           if (element1.selected) {
-//            if (element1.adds.length > 0) {
-//              element1.adds.forEach((element3) {
-//                if (element3.selected) {
-//                  if (element3.type != 2) {
-//                    element1.adds.add(element3);
-//                  }
-//                }
-//              });
-//              if (element1.addsType2.length > 0) {
-//                if (element1.addsType2[0].selected) {
-//                  element1.adds.add(element1.addsType2[0]);
-//                }
-//              }
-//            }
             addedFoodList.value
                 .add(GroupFood(foods: List<Food>()..add(element1)));
           }
         });
       });
-     // addedFoodList.value=groupFoods;
-    },[]);
+    }, []);
 
-    final dropDownCallBack =useCallback((Food food){
-      foodState.value=food;
+    //DropDown select item callback
+    final dropDownCallBack = useCallback((Food food) {
+      foodState.value = food;
     });
 
     return CustomErrorHandler(
@@ -149,11 +163,11 @@ class FoodViewModel extends HookWidget {
           apiResponse.error
         ],
         child: FoodView(
-            goToPaymentCallBack:goToPaymentCallBack,
+            goToPaymentCallBack: goToPaymentCallBack,
             addedFoodList: addedFoodList.value,
             maxExtentValue: maxScrollExtent.value,
-            foodList: apiResponseData.value,
-            dropDownCallBack:dropDownCallBack ,
+            foods: foods.value,
+            dropDownCallBack: dropDownCallBack,
             itemPositionsListener: itemPositionsListener,
             verticalScrollController: verticalScrollController,
             addtoCartCallback: addToCartCallBack,

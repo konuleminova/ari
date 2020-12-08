@@ -4,6 +4,21 @@ import 'package:ari/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatelessWidget {
+  var loginController;
+  var passController;
+  var nameController;
+  var emailController;
+  var phoneController;
+  var registerCallBack;
+
+  RegisterView(
+      {this.loginController,
+      this.passController,
+      this.nameController,
+      this.emailController,
+      this.phoneController,
+      this.registerCallBack});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -54,6 +69,7 @@ class RegisterView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      controller: loginController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -75,6 +91,7 @@ class RegisterView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      controller: passController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -96,6 +113,7 @@ class RegisterView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      controller: nameController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -117,6 +135,7 @@ class RegisterView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -138,6 +157,7 @@ class RegisterView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      controller: phoneController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -163,19 +183,27 @@ class RegisterView extends StatelessWidget {
                   SizedBox(
                     height: 8.toHeight,
                   ),
-                  Container(
-                    height: 44.toHeight,
-                    width: SizeConfig().screenWidth,
-                    decoration: BoxDecoration(color: ThemeColor().yellowColor),
-                    child: Center(
-                      child: Text('Войти в систему'),
+                  InkWell(
+                    child: Container(
+                      height: 44.toHeight,
+                      width: SizeConfig().screenWidth,
+                      decoration:
+                          BoxDecoration(color: ThemeColor().yellowColor),
+                      child: Center(
+                        child: Text('Войти в систему'),
+                      ),
                     ),
-                  ),
+                    onTap: () {
+                      registerCallBack();
+                    },
+                  )
                 ],
               ),
             ),
           ),
-          SizedBox(height: 24.toHeight,)
+          SizedBox(
+            height: 24.toHeight,
+          )
         ],
       )),
     );

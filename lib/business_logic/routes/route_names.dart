@@ -1,6 +1,7 @@
 import 'package:ari/business_logic/view_models/checkout_viewmodel.dart';
 import 'package:ari/business_logic/view_models/food_viewmodel.dart';
 import 'package:ari/business_logic/view_models/login_viewmodel.dart';
+import 'package:ari/business_logic/view_models/register_viewmodel.dart';
 import 'package:ari/business_logic/view_models/restourant_viewmodel.dart';
 import 'package:ari/business_logic/view_models/search_viewmodel.dart';
 import 'package:ari/ui/views/init.dart';
@@ -24,6 +25,6 @@ final routeNames = {
   ROUTE_MAP:(context)=>CheckoutViewModel(),
   ROUTE_INIT:(context)=>InitPage(),
   ROUTE_LOGIN:(context)=>LoginViewModel(),
-  ROUTE_REGISTER:(context)=>RegisterView()
+  ROUTE_REGISTER:(context)=>RegisterViewModel()
 };
 
