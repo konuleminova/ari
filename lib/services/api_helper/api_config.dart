@@ -26,4 +26,6 @@ class ApiConfig {
   String REGISTER_URL(User user) =>
       '${BASE_URl}register&lang=ru&login=${user.login}&password=${user.pass}&name=${user.name}'
       '&surname=${user.surname}&number=${user.number}&rules=1&email=${user.email}';
+
+  String STATUS(String token) => '${BASE_URl}status&token=${token}&lang=ru';
 }

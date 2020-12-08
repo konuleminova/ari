@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/nested_root.dart';
+import 'package:ari/business_logic/view_models/status_viewmodel.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
 import 'package:ari/ui/views/menu/menu_view.dart';
 import 'package:ari/utils/size_config.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 
 class InitPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -37,7 +39,8 @@ class InitPage extends StatelessWidget {
                 )),
               ],
             ),
-            MenuView()
+            MenuView(),
+            StatusViewModel()
           ],
         ));
   }
