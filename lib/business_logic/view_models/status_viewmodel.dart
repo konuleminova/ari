@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
@@ -13,12 +16,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
 
 class StatusViewModel extends HookWidget {
+  Timer timer;
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     //get user status
-    ApiResponse<StatusModel> apiResponse = useStatus();
+    ApiResponse<StatusModel> apiResponse= useStatus();
     var offset = useState<List<Offset>>([]);
+    var isOpen = useState<bool>(false);
     useEffect(() {
       if (apiResponse.status == Status.Done) {
         offset.value.clear();
@@ -31,6 +38,15 @@ class StatusViewModel extends HookWidget {
       return () {};
     }, [apiResponse.status]);
 
+//    useEffect(() {
+//      timer = Timer.periodic(Duration(seconds: 5), (timer) {
+//        if (Platform.isAndroid) {
+//
+//        }
+//      });
+//      return () {};
+//    });
+
     //dragable widget offset
 
     return SpUtil.getString(SpUtil.token).isNotEmpty && apiResponse.data != null
@@ -38,56 +54,40 @@ class StatusViewModel extends HookWidget {
             errors: [apiResponse.error],
             statuses: [apiResponse.status],
             child: Positioned(
-                top: 0,
-                left: 0,
+                left: offset.value[0].dx + 10,
+                top: offset.value[0].dy + 100,
                 right: 0,
-                child: Container(
-                    height: SizeConfig().screenHeight,
-                    child: ListView.builder(
-                        itemCount: apiResponse.data.order.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return
-                            Stack(
-                            children: [
-                              Positioned(
-                                  left: offset.value[index].dx + 10,
-                                  top: offset.value[index].dy + 100,
-                                  right: 0,
-                                  child: GestureDetector(
-                                      onPanUpdate: (details) {
-                                        offset.value[index] = Offset(
-                                            offset.value[index].dx +
-                                                details.delta.dx,
-                                            offset.value[index].dy +
-                                                details.delta.dy);
-                                        offset.notifyListeners();
-                                      },
-                                      child: InkWell(
-                                        child: Container(
-                                            width: 70.toWidth,
-                                            height: 70.toWidth,
-                                            decoration: new BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    color: ThemeColor()
-                                                        .yellowColor,
-                                                    width: 2.toHeight),
-                                                image: new DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: new NetworkImage(
-                                                        apiResponse
-                                                            .data
-                                                            .order[0]
-                                                            .restourant
-                                                            .image)))),
-                                        onTap: () {
-                                          //  pushRouteWithName(ROUTE_STATUS);
-                                        },
-                                      )))
-                            ],
-                          );
-                        }))))
+                child: GestureDetector(
+                    onPanUpdate: (details) {
+                      offset.value[0] = Offset(
+                          offset.value[0].dx + details.delta.dx,
+                          offset.value[0].dy + details.delta.dy);
+                      offset.notifyListeners();
+                    },
+                    child: InkWell(
+                      child: Container(
+                          width: 70.toWidth,
+                          height: 70.toWidth,
+                          decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: ThemeColor().yellowColor,
+                                  width: 2.toHeight),
+                              image: new DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: new NetworkImage(apiResponse
+                                      .data.order[0].restourant.image)))),
+                      onTap: () {
+                        isOpen.value = !isOpen.value;
+                        if (isOpen.value) {
+                          pushRouteWithName(ROUTE_STATUS,
+                              arguments: RouteArguments<Order>(
+                                  data: apiResponse.data.order[0]));
+                        } else {
+                          navigationKey.currentState.pop(context);
+                        }
+                      },
+                    ))))
         : SizedBox();
   }
 }
