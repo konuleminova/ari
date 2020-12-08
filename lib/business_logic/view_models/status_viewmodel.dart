@@ -18,48 +18,76 @@ class StatusViewModel extends HookWidget {
     // TODO: implement build
     //get user status
     ApiResponse<StatusModel> apiResponse = useStatus();
+    var offset = useState<List<Offset>>([]);
     useEffect(() {
+      if (apiResponse.status == Status.Done) {
+        offset.value.clear();
+        for (int i = 0; i < apiResponse.data.found; i++) {
+          offset.value.add(Offset.zero);
+          offset.notifyListeners();
+        }
+      }
       //   print('API REAPONSE ${apiResponse.data}');
       return () {};
     }, [apiResponse.status]);
 
     //dragable widget offset
-    var offset = useState<Offset>(Offset.zero);
 
     return SpUtil.getString(SpUtil.token).isNotEmpty && apiResponse.data != null
         ? CustomErrorHandler(
             errors: [apiResponse.error],
             statuses: [apiResponse.status],
-            child: ListView.builder(
-                itemCount: apiResponse.data.order.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Positioned(
-                      left: offset.value.dx + 10 + index,
-                      top: offset.value.dy + 100 + index,
-                      child: GestureDetector(
-                          onPanUpdate: (details) {
-                            offset.value = Offset(
-                                offset.value.dx + details.delta.dx,
-                                offset.value.dy + details.delta.dy);
-                          },
-                          child: InkWell(
-                            child: Container(
-                                width: 70.toWidth,
-                                height: 70.toWidth,
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: ThemeColor().yellowColor,
-                                        width: 2.toHeight),
-                                    image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new NetworkImage(apiResponse.data
-                                            .order[index].restourant.image)))),
-                            onTap: () {
-                              //  pushRouteWithName(ROUTE_STATUS);
-                            },
-                          )));
-                }))
+            child: Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                    height: SizeConfig().screenHeight,
+                    child: ListView.builder(
+                        itemCount: apiResponse.data.order.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return
+                            Stack(
+                            children: [
+                              Positioned(
+                                  left: offset.value[index].dx + 10,
+                                  top: offset.value[index].dy + 100,
+                                  right: 0,
+                                  child: GestureDetector(
+                                      onPanUpdate: (details) {
+                                        offset.value[index] = Offset(
+                                            offset.value[index].dx +
+                                                details.delta.dx,
+                                            offset.value[index].dy +
+                                                details.delta.dy);
+                                        offset.notifyListeners();
+                                      },
+                                      child: InkWell(
+                                        child: Container(
+                                            width: 70.toWidth,
+                                            height: 70.toWidth,
+                                            decoration: new BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    color: ThemeColor()
+                                                        .yellowColor,
+                                                    width: 2.toHeight),
+                                                image: new DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image: new NetworkImage(
+                                                        apiResponse
+                                                            .data
+                                                            .order[0]
+                                                            .restourant
+                                                            .image)))),
+                                        onTap: () {
+                                          //  pushRouteWithName(ROUTE_STATUS);
+                                        },
+                                      )))
+                            ],
+                          );
+                        }))))
         : SizedBox();
   }
 }
