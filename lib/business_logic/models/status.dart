@@ -9,6 +9,11 @@ class StatusModel {
     found = json['found'];
     order = listOrderFromJson(json['order']);
   }
+
+  @override
+  String toString() {
+    return 'StatusModel{found: $found}';
+  }
 }
 
 class Order {
@@ -29,9 +34,11 @@ class Order {
     orderid = json['orderid'];
     address = json['address'];
     coords = json['coords'];
-    restourant = Restourant.fromJson(json['restourant']);
-    curyer = Curyer.fromJson(json['curyer']);
-    foods = listFoodsFromJson(json['food']['data']);
+    restourant = json['restourant'] != null
+        ? Restourant.fromJson(json['restourant'])
+        : null;
+    curyer = json['curyer'] != null ? Curyer.fromJson(json['curyer']) : null;
+    foods = listFoodsFromJson(json['foods']);
   }
 }
 
@@ -49,5 +56,10 @@ class Curyer {
     name = json['name'];
     coords = json['coords'];
     mobile = json['mobile'];
+  }
+
+  @override
+  String toString() {
+    return 'Curyer{id: $id, name: $name, coords: $coords, mobile: $mobile}';
   }
 }
