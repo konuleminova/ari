@@ -1,6 +1,7 @@
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/utils/size_config.dart';
+import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -76,10 +77,10 @@ class StatusView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
               Container(
-                //color: ThemeColor().grey1,
+                color: ThemeColor().grey1.withOpacity(0.6),
                 width: SizeConfig().screenWidth,
-                height: 55.toHeight,
-                margin: EdgeInsets.all(24.toWidth),
+                height: 80.toHeight,
+               padding: EdgeInsets.all(24.toWidth),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
