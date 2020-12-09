@@ -40,7 +40,7 @@ class InitPage extends StatelessWidget {
               ],
             ),
             MenuView(),
-            //StatusViewModel()
+            StatusViewModel()
           ],
         ));
   }

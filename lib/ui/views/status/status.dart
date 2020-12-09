@@ -1,7 +1,6 @@
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/utils/size_config.dart';
-import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -18,16 +17,55 @@ class StatusView extends StatelessWidget {
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
-    final position =order.restourant.coords;
-    final split=position.trim().split(',');
-   double lat =double.parse(split[0]);
-   double lng=double.parse(split[1]);
-    final _lastMapPosition =  LatLng(lat, lng);
+    Set<Marker> markers = Set();
+    var _lastMapPosition2;
 
-    final split2=order.coords.trim().split(',');
-    double lat2 =double.parse(split2[0]);
-    double lng2=double.parse(split2[1]);
-    final _lastMapPosition2 =  LatLng(lat2, lng2);
+    //Restourant Coords
+    if (order.restourant != null) {
+      final position = order.restourant.coords;
+      final split = position.trim().split(',');
+      double lat = double.parse(split[0]);
+      double lng = double.parse(split[1]);
+      final _lastMapPosition = LatLng(lat, lng);
+      final marker = Marker(
+          draggable: true,
+          markerId: MarkerId(_lastMapPosition.toString()),
+          position: _lastMapPosition,
+          infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
+          icon: BitmapDescriptor.defaultMarker);
+      markers.add(marker);
+    }
+
+    //User coords
+    if (order.coords != null) {
+      final split2 = order.coords.trim().split(',');
+      double lat2 = double.parse(split2[0]);
+      double lng2 = double.parse(split2[1]);
+      _lastMapPosition2 = LatLng(lat2, lng2);
+      final marker2 = Marker(
+          draggable: true,
+          markerId: MarkerId(_lastMapPosition2.toString()),
+          position: _lastMapPosition2,
+          infoWindow: InfoWindow(title: order.address, snippet: ""),
+          icon: BitmapDescriptor.defaultMarker);
+      markers.add(marker2);
+    }
+
+    //Curyer Coords
+    if (order.curyer != null) {
+      final split3 = order.curyer?.coords?.trim()?.split(',');
+      double lat3 = double.parse(split3[0]);
+      double lng3 = double.parse(split3[1]);
+      final _lastMapPosition3 = LatLng(lat3, lng3);
+      final marker3 = Marker(
+          draggable: true,
+          markerId: MarkerId(_lastMapPosition3.toString()),
+          position: _lastMapPosition3,
+          infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
+          icon: BitmapDescriptor.defaultMarker);
+      markers.add(marker3);
+    }
+
     // TODO: implement build
     return Container(
         height: SizeConfig().screenHeight,
@@ -76,21 +114,11 @@ class StatusView extends StatelessWidget {
                   tiltGesturesEnabled: true,
                   scrollGesturesEnabled: true,
                   zoomGesturesEnabled: true,
-                   markers: Set<Marker>()..add(Marker(
-                       draggable: true,
-                       markerId: MarkerId(_lastMapPosition.toString()),
-                       position: _lastMapPosition,
-                       infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
-                       icon: BitmapDescriptor.defaultMarker))..add(Marker(
-                       draggable: true,
-                       markerId: MarkerId(_lastMapPosition2.toString()),
-                       position: _lastMapPosition2,
-                       infoWindow: InfoWindow(title: order.address, snippet: ""),
-                       icon: BitmapDescriptor.defaultMarker)),
+                  markers: markers,
                   onCameraMove: _onCameraMove,
                   onMapCreated: _onMapCreated,
                   initialCameraPosition:
-                      CameraPosition(target: _lastMapPosition, zoom: 11.00),
+                      CameraPosition(target: _lastMapPosition2, zoom: 11.00),
                 ),
               ),
               Container(
@@ -145,7 +173,6 @@ class StatusView extends StatelessWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
-
   }
 
   void _onCameraMove(CameraPosition position) {}
