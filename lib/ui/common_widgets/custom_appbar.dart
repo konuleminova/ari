@@ -22,7 +22,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
     return Stack(
       children: <Widget>[
         AppBar(
-         actions: <Widget>[SizedBox()],
+          actions: <Widget>[SizedBox()],
           elevation: 0,
           backgroundColor: ThemeColor().greenColor,
           title: Row(
@@ -49,10 +49,13 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                     Expanded(
                       child: YellowClipper(onClickIndex, PERSON_ASSET, 2,
                           onClick: () {
-                            SpUtil.putString(SpUtil.IsFromMap, '').then((value){
-                              navigationKey.currentState.pushNamed(ROUTE_LOGIN);
-                            });
-
+                        SpUtil.putString(SpUtil.IsFromMap, '').then((value) {
+                          if (SpUtil.getString(SpUtil.token).isEmpty) {
+                            navigationKey.currentState.pushNamed(ROUTE_LOGIN);
+                          } else {
+                            navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                          }
+                        });
                       }),
                     )
                   ],
@@ -98,10 +101,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
               )),
         ),
         Positioned(
-          child: Container(
-            height: 4,
-            color: ThemeColor().yellowColor
-          ),
+          child: Container(height: 4, color: ThemeColor().yellowColor),
           bottom: 0,
           left: 0,
           right: 0,
