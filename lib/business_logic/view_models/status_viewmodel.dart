@@ -80,7 +80,7 @@ class StatusViewModel extends HookWidget {
                         if (isOpen.value) {
                           pushRouteWithName(ROUTE_STATUS,
                               arguments: RouteArguments<Order>(
-                                  data: apiResponse.data.order[0]));
+                                  data: apiResponse.data.order[1]));
                         } else {
                           navigationKey.currentState.pop(context);
                         }

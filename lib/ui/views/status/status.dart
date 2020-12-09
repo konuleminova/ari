@@ -125,7 +125,7 @@ class StatusView extends StatelessWidget {
                   height: 250.toHeight,
                   width: SizeConfig().screenWidth,
                   child: Container(
-                      padding: EdgeInsets.all(16.toWidth),
+                      padding: EdgeInsets.all(24.toWidth),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: Colors.white),
