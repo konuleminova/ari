@@ -9,22 +9,23 @@ import 'package:flutter/material.dart';
 final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 
 class InitPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     // TODO: implement build
-    return Stack(children: [Scaffold(
-        resizeToAvoidBottomInset: false,
-        resizeToAvoidBottomPadding: false,
-        appBar: CustomAppBar(),
-        backgroundColor: Color(0xfffccd13),
-        body: Stack(
-          children: <Widget>[
-            Column(
+    return Stack(
+      children: [
+        Scaffold(
+            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomPadding: false,
+            appBar: CustomAppBar(),
+            backgroundColor: Color(0xfffccd13),
+            body: Stack(
               children: <Widget>[
-                Expanded(
-                    child: Container(
+                Column(
+                  children: <Widget>[
+                    Expanded(
+                        child: Container(
                       width: SizeConfig().screenWidth,
                       height: SizeConfig().screenHeight,
                       child: NestedNavigator(
@@ -37,11 +38,14 @@ class InitPage extends StatelessWidget {
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20))),
                     )),
+                  ],
+                ),
+                MenuView(),
               ],
-            ),
-            MenuView(),
-            StatusViewModel(),
-          ],
-        ))],);
+            )),
+        StatusViewModel(),
+      ],
+
+    );
   }
 }
