@@ -24,6 +24,7 @@ class InitPage extends HookWidget {
   Widget build(BuildContext context) {
     var uniqueKey = useState<UniqueKey>();
     var uniqueKey2 = useState<UniqueKey>();
+    var isEqual = useState<bool>(false);
     ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
     ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
@@ -80,24 +81,35 @@ class InitPage extends HookWidget {
       }
       return () {};
     }, [apiResponse.status]);
-    useEffect(() {
-      //Adding circle status Widgets
-      if (apiResponse2.status == Status.Done) {
-        if (SpUtil.getString(SpUtil.token).isNotEmpty &&
-            apiResponse2.data != null) {
-          print('API RESPONSE2 ${apiResponse2.data.hashCode}');
-          print('API RESPONSE ${apiResponse.data.hashCode}');
-          if (apiResponse2.data== apiResponse.data) {
-            print('EQUAL ${apiResponse2.data}');
-            for (int i = 0; i < apiResponse.data.found; i++) {
-              widgets.value.add(StatusViewModel(i, apiResponse));
-            }
-          }
-        }
-      }
-      ;
-      return () {};
-    }, [apiResponse2.status]);
+//    useEffect(() {
+//      //Adding circle status Widgets
+//      if (apiResponse2.status == Status.Done) {
+//        if (SpUtil.getString(SpUtil.token).isNotEmpty &&
+//            apiResponse2.data != null) {
+//          print('API RESPONSE2 ${apiResponse2.data.hashCode}');
+//          print('API RESPONSE ${apiResponse.data.hashCode}');
+//
+//          for (int i = 0; i < apiResponse.data.found; i++) {
+//            if (apiResponse2.data.order[i].curyer != null) {
+//              if (apiResponse2.data.order[i].curyer.coords ==
+//                  apiResponse.data.order[i].curyer.coords) {
+//                isEqual.value = true;
+//                break;
+//              }
+//            }
+//          }
+//          if (isEqual.value) {
+//            widgets.value.clear();
+//            for (int i = 0; i < apiResponse.data.found; i++) {
+//              widgets.value.add(StatusViewModel(i, apiResponse));
+//            }
+//          }
+//
+//        }
+//      }
+//      ;
+//      return () {};
+//    }, [apiResponse2.status]);
 
     SizeConfig().init(context);
     // TODO: implement build
