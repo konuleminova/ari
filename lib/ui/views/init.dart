@@ -8,6 +8,7 @@ import 'package:ari/ui/common_widgets/custom_appbar.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
 import 'package:ari/ui/views/menu/menu_view.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -53,8 +54,11 @@ class InitPage extends HookWidget {
             )),
       );
       if (apiResponse.status == Status.Done) {
-        for (int i = 0; i < apiResponse.data.found; i++) {
-          widgets.value.add(StatusViewModel(i, apiResponse));
+        if (SpUtil.getString(SpUtil.token).isNotEmpty &&
+            apiResponse.data != null) {
+          for (int i = 0; i < apiResponse.data.found; i++) {
+            widgets.value.add(StatusViewModel(i, apiResponse));
+          }
         }
       }
       return () {};

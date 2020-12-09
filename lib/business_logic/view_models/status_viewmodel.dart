@@ -39,46 +39,40 @@ class StatusViewModel extends HookWidget {
       return () {};
     }, [apiResponse.status]);
 
-    return SpUtil.getString(SpUtil.token).isNotEmpty && apiResponse.data != null
-        ? CustomErrorHandler(
-            errors: [apiResponse.error],
-            statuses: [apiResponse.status],
-            child: Positioned(
-                left: offset.value[index].dx + 10,
-                top: offset.value[index].dy + 100,
-                right: 0,
-                child: GestureDetector(
-                  onPanUpdate: (details) {
-                    offset.value[index] = Offset(
-                        offset.value[index].dx + details.delta.dx,
-                        offset.value[index].dy + details.delta.dy);
-                    offset.notifyListeners();
-                  },
-                  onTap: () {
-                    isOpen.value[index] = !isOpen.value[index];
-                    if (isOpen.value[index]) {
-                      pushRouteWithName(ROUTE_STATUS,
-                          arguments: RouteArguments<Order>(
-                              data: apiResponse.data.order[index]));
-                    } else {
-                      navigationKey.currentState.pop(context);
-                    }
-                  },
-                  child: Container(
-                      width: 70.toWidth,
-                      height: 70.toWidth,
-                      margin: EdgeInsets.only(top: 16),
-                      decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: ThemeColor().yellowColor,
-                              width: 2.toHeight),
-                          image: new DecorationImage(
-                              fit: BoxFit.contain,
-                              image: new NetworkImage(apiResponse
-                                  .data.order[index].restourant.image)))),
-                )))
-        : SizedBox();
+    return Positioned(
+        left: offset.value[index].dx + 10,
+        top: offset.value[index].dy + 100,
+        right: 0,
+        child: GestureDetector(
+          onPanUpdate: (details) {
+            offset.value[index] = Offset(
+                offset.value[index].dx + details.delta.dx,
+                offset.value[index].dy + details.delta.dy);
+            offset.notifyListeners();
+          },
+          onTap: () {
+            isOpen.value[index] = !isOpen.value[index];
+            if (isOpen.value[index]) {
+              pushRouteWithName(ROUTE_STATUS,
+                  arguments: RouteArguments<Order>(
+                      data: apiResponse.data.order[index]));
+            } else {
+              navigationKey.currentState.pop(context);
+            }
+          },
+          child: Container(
+              width: 70.toWidth,
+              height: 70.toWidth,
+              margin: EdgeInsets.only(top: 16),
+              decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: ThemeColor().yellowColor, width: 2.toHeight),
+                  image: new DecorationImage(
+                      fit: BoxFit.contain,
+                      image: new NetworkImage(
+                          apiResponse.data.order[index].restourant.image)))),
+        ));
   }
 }
 
