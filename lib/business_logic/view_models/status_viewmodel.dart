@@ -16,12 +16,11 @@ import 'package:ari/utils/size_config.dart';
 class StatusViewModel extends HookWidget {
   Timer timer;
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     //get user status
-    ApiResponse<StatusModel> apiResponse= useStatus();
+    ApiResponse<StatusModel> apiResponse = useStatus();
     var offset = useState<List<Offset>>([]);
     var isOpen = useState<bool>(false);
     useEffect(() {
@@ -56,36 +55,35 @@ class StatusViewModel extends HookWidget {
                 top: offset.value[0].dy + 100,
                 right: 0,
                 child: GestureDetector(
-                    onPanUpdate: (details) {
-                      offset.value[0] = Offset(
-                          offset.value[0].dx + details.delta.dx,
-                          offset.value[0].dy + details.delta.dy);
-                      offset.notifyListeners();
-                    },
-                    child: InkWell(
-                      child: Container(
-                          width: 70.toWidth,
-                          height: 70.toWidth,
-                          decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: ThemeColor().yellowColor,
-                                  width: 2.toHeight),
-                              image: new DecorationImage(
-                                  fit: BoxFit.contain,
-                                  image: new NetworkImage(apiResponse
-                                      .data.order[0].restourant.image)))),
-                      onTap: () {
-                        isOpen.value = !isOpen.value;
-                        if (isOpen.value) {
-                          pushRouteWithName(ROUTE_STATUS,
-                              arguments: RouteArguments<Order>(
-                                  data: apiResponse.data.order[1]));
-                        } else {
-                          navigationKey.currentState.pop(context);
-                        }
-                      },
-                    ))))
+                  onPanUpdate: (details) {
+                    offset.value[0] = Offset(
+                        offset.value[0].dx + details.delta.dx,
+                        offset.value[0].dy + details.delta.dy);
+                    offset.notifyListeners();
+                  },
+                  onTap: () {
+                    isOpen.value = !isOpen.value;
+                    if (isOpen.value) {
+                      pushRouteWithName(ROUTE_STATUS,
+                          arguments: RouteArguments<Order>(
+                              data: apiResponse.data.order[1]));
+                    } else {
+                      navigationKey.currentState.pop(context);
+                    }
+                  },
+                  child: Container(
+                      width: 70.toWidth,
+                      height: 70.toWidth,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: ThemeColor().yellowColor,
+                              width: 2.toHeight),
+                          image: new DecorationImage(
+                              fit: BoxFit.contain,
+                              image: new NetworkImage(apiResponse
+                                  .data.order[0].restourant.image)))),
+                )))
         : SizedBox();
   }
 }
