@@ -16,7 +16,7 @@ class MenuItem extends StatelessWidget {
         height: 40.toHeight,
         decoration: BoxDecoration(
             color: menu.selected
-                ? ThemeColor().yellowColor.withOpacity(0.8)
+                ? ThemeColor().grey1.withOpacity(0.4)
                 : Colors.white,
             borderRadius: BorderRadius.circular(30)),
         padding: EdgeInsets.all(8.toWidth),
