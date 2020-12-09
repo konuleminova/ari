@@ -81,12 +81,8 @@ class InitPage extends HookWidget {
 
     SizeConfig().init(context);
     // TODO: implement build
-    return apiResponse.status == Status.Done
-        ? Stack(
-            children: widgets.value,
-          )
-        : Scaffold(
-            body: Loading(),
-          );
+    return Stack(
+      children: widgets.value,
+    );
   }
 }
