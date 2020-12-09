@@ -28,12 +28,61 @@ class StatusViewModel extends HookWidget {
         offset.value.clear();
         for (int i = 0; i < apiResponse.data.found; i++) {
           offset.value.add(Offset.zero);
+          print('OFFSEt ${offset}');
           offset.notifyListeners();
         }
       }
-      //   print('API REAPONSE ${apiResponse.data}');
       return () {};
     }, [apiResponse.status]);
+
+    return SpUtil.getString(SpUtil.token).isNotEmpty && apiResponse.data != null
+        ? CustomErrorHandler(
+            errors: [apiResponse.error],
+            statuses: [apiResponse.status],
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: offset.value.length,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return Positioned(
+                      left: offset.value[index].dx + 10,
+                      top: offset.value[index].dy + 100,
+                      right: 0,
+                      child: GestureDetector(
+                        onPanUpdate: (details) {
+                          offset.value[index] = Offset(
+                              offset.value[index].dx + details.delta.dx,
+                              offset.value[index].dy + details.delta.dy);
+                          //offset.notifyListeners();
+                        },
+                        onTap: () {
+                          isOpen.value = !isOpen.value;
+                          if (isOpen.value) {
+                            pushRouteWithName(ROUTE_STATUS,
+                                arguments: RouteArguments<Order>(
+                                    data: apiResponse.data.order[index]));
+                          } else {
+                            navigationKey.currentState.pop(context);
+                          }
+                        },
+                        child: Container(
+                            width: 70.toWidth,
+                            height: 70.toWidth,
+                            margin: EdgeInsets.only(top: 16),
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: ThemeColor().yellowColor,
+                                    width: 2.toHeight),
+                                image: new DecorationImage(
+                                    fit: BoxFit.contain,
+                                    image: new NetworkImage(apiResponse
+                                        .data.order[index].restourant.image)))),
+                      ));
+                }))
+        : SizedBox();
+  }
+}
 
 //    useEffect(() {
 //      timer = Timer.periodic(Duration(seconds: 5), (timer) {
@@ -44,46 +93,4 @@ class StatusViewModel extends HookWidget {
 //      return () {};
 //    });
 
-    //dragable widget offset
-
-    return SpUtil.getString(SpUtil.token).isNotEmpty && apiResponse.data != null
-        ? CustomErrorHandler(
-            errors: [apiResponse.error],
-            statuses: [apiResponse.status],
-            child: Positioned(
-                left: offset.value[0].dx + 10,
-                top: offset.value[0].dy + 100,
-                right: 0,
-                child: GestureDetector(
-                  onPanUpdate: (details) {
-                    offset.value[0] = Offset(
-                        offset.value[0].dx + details.delta.dx,
-                        offset.value[0].dy + details.delta.dy);
-                    offset.notifyListeners();
-                  },
-                  onTap: () {
-                    isOpen.value = !isOpen.value;
-                    if (isOpen.value) {
-                      pushRouteWithName(ROUTE_STATUS,
-                          arguments: RouteArguments<Order>(
-                              data: apiResponse.data.order[1]));
-                    } else {
-                      navigationKey.currentState.pop(context);
-                    }
-                  },
-                  child: Container(
-                      width: 70.toWidth,
-                      height: 70.toWidth,
-                      decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: ThemeColor().yellowColor,
-                              width: 2.toHeight),
-                          image: new DecorationImage(
-                              fit: BoxFit.contain,
-                              image: new NetworkImage(apiResponse
-                                  .data.order[0].restourant.image)))),
-                )))
-        : SizedBox();
-  }
-}
+//dragable widget offset
