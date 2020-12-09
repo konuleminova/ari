@@ -26,11 +26,14 @@ class StatusViewModel extends HookWidget {
     // TODO: implement build
     //get user status
     var offset = useState<List<Offset>>([]);
-    var isOpen = useState<bool>(false);
+    var isOpen = useState<List<bool>>([]);
     useEffect(() {
       offset.value.clear();
+      isOpen.value.clear();
       for (int i = 0; i < apiResponse.data.found; i++) {
         offset.value.add(Offset(0.0, 0.0 + i * 100));
+        isOpen.value.add(false);
+        isOpen.notifyListeners();
         offset.notifyListeners();
       }
       return () {};
@@ -52,8 +55,8 @@ class StatusViewModel extends HookWidget {
                     offset.notifyListeners();
                   },
                   onTap: () {
-                    isOpen.value = !isOpen.value;
-                    if (isOpen.value) {
+                    isOpen.value[index] = !isOpen.value[index];
+                    if (isOpen.value[index]) {
                       pushRouteWithName(ROUTE_STATUS,
                           arguments: RouteArguments<Order>(
                               data: apiResponse.data.order[index]));
