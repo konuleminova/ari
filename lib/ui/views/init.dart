@@ -40,7 +40,7 @@ class InitPage extends StatelessWidget {
               ],
             ),
             MenuView(),
-          Align(child:   StatusViewModel(),alignment: Alignment.center,)
+            StatusViewModel(),
           ],
         ));
   }
