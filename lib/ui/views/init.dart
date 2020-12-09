@@ -29,7 +29,7 @@ class InitPage extends HookWidget {
     useEffect(() {
       timer = Timer.periodic(Duration(seconds: 5), (timer) {
         if (Platform.isAndroid) {
-          uniqueKey.value=new UniqueKey();
+         // uniqueKey.value=new UniqueKey();
         }
       });
       return () {};
