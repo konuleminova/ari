@@ -1,14 +1,16 @@
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/utils/map_utils/marker_icon.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class StatusView extends StatelessWidget {
+class StatusView extends HookWidget {
   RouteArguments<Order> orderArguments;
   Order order;
 
@@ -18,7 +20,7 @@ class StatusView extends StatelessWidget {
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
-    Set<Marker> markers = Set();
+ ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
     var _lastMapPosition2;
 
     //Restourant Coords
@@ -28,8 +30,8 @@ class StatusView extends StatelessWidget {
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
       final _lastMapPosition = LatLng(lat, lng);
-      BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
-              'assets/images/restourant.png')
+      BitmapDescriptor.fromAssetImage(
+          ImageConfiguration(size: Size(160, 160)), 'assets/images/restourant.png')
           .then((value) {
         final marker = Marker(
             draggable: true,
@@ -37,7 +39,8 @@ class StatusView extends StatelessWidget {
             position: _lastMapPosition,
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
             icon: value);
-        markers.add(marker);
+        markers.value.add(marker);
+        markers.notifyListeners();
       });
     }
 
@@ -47,8 +50,8 @@ class StatusView extends StatelessWidget {
       double lat2 = double.parse(split2[0]);
       double lng2 = double.parse(split2[1]);
       _lastMapPosition2 = LatLng(lat2, lng2);
-      BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
-              'assets/images/user.png')
+      BitmapDescriptor.fromAssetImage(
+          ImageConfiguration(size: Size(255, 255)), 'assets/images/user.png')
           .then((value) {
         final marker2 = Marker(
             draggable: true,
@@ -56,7 +59,8 @@ class StatusView extends StatelessWidget {
             position: _lastMapPosition2,
             infoWindow: InfoWindow(title: order.address, snippet: ""),
             icon: value);
-        markers.add(marker2);
+        markers.value.add(marker2);
+        markers.notifyListeners();
       });
     }
 
@@ -75,9 +79,11 @@ class StatusView extends StatelessWidget {
             position: _lastMapPosition3,
             infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
             icon: value);
-        markers.add(marker3);
+        markers.value.add(marker3);
+        markers.notifyListeners();
       });
     }
+
 
     // TODO: implement build
     return Container(
@@ -127,7 +133,7 @@ class StatusView extends StatelessWidget {
                   tiltGesturesEnabled: true,
                   scrollGesturesEnabled: true,
                   zoomGesturesEnabled: true,
-                  markers: markers,
+                  markers: markers.value,
                   onCameraMove: _onCameraMove,
                   onMapCreated: _onMapCreated,
                   initialCameraPosition:
