@@ -1,3 +1,5 @@
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -23,23 +25,23 @@ class CustomMenuDrawer extends HookWidget {
           children: <Widget>[
             menuPositionLeft.value
                 ? GestureDetector(
-              child: Container(
-                alignment: Alignment.bottomRight,
-                margin: EdgeInsets.only(bottom: 70.toHeight),
-                child: Image.asset(
-                  'assets/images/menu.png',
-                  height: 80.toWidth,
-                  width: 80.toWidth,
-                  alignment: Alignment.bottomRight,
-                ),
-              ),
-              onTap: () {
-                onClose();
-              },
-              onHorizontalDragStart: (v) {
-                onClose();
-              },
-            )
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.only(bottom: 70.toHeight),
+                      child: Image.asset(
+                        'assets/images/menu.png',
+                        height: 80.toWidth,
+                        width: 80.toWidth,
+                        alignment: Alignment.bottomRight,
+                      ),
+                    ),
+                    onTap: () {
+                      onClose();
+                    },
+                    onHorizontalDragStart: (v) {
+                      onClose();
+                    },
+                  )
                 : SizedBox(),
             Container(
               height: SizeConfig().screenHeight -
@@ -57,34 +59,58 @@ class CustomMenuDrawer extends HookWidget {
                   SizedBox(
                     height: 8.toHeight,
                   ),
-                  Text(
-                    'О нас',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                  InkWell(
+                    child: Text(
+                      'О нас',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      pushRouteWithName(ROUTE_ABOUT);
+                    },
                   ),
                   SizedBox(
                     height: 8.toHeight,
                   ),
-                  Text(
-                    'Акции',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                  InkWell(
+                    child: Text(
+                      'Акции',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      pushRouteWithName(ROUTE_SHARE);
+                    },
                   ),
                   SizedBox(
                     height: 8.toHeight,
                   ),
-                  Text(
-                    'Вакансии',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                  InkWell(
+                    child: Text(
+                      'Вакансии',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      pushRouteWithName(ROUTE_VACANCY);
+                    },
                   ),
                   SizedBox(
                     height: 8.toHeight,
                   ),
-                  Text(
-                    'Контакты',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                  InkWell(
+                    child: Text(
+                      'Контакты',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22.toFont),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      pushRouteWithName(ROUTE_CONTACT);
+                    },
                   ),
                   SizedBox(
                     height: 24.toHeight,
@@ -167,23 +193,23 @@ class CustomMenuDrawer extends HookWidget {
             Expanded(
               child: !menuPositionLeft.value
                   ? GestureDetector(
-                child: Container(
-                  alignment: Alignment.bottomLeft,
-                  margin: EdgeInsets.only(bottom: 70.toHeight),
-                  child: Image.asset(
-                    'assets/images/menu_left.png',
-                    height: 80.toWidth,
-                    width: 80.toWidth,
-                    alignment: Alignment.bottomLeft,
-                  ),
-                ),
-                onTap: () {
-                  onClose();
-                },
-                onHorizontalDragStart: (v) {
-                  onClose();
-                },
-              )
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        margin: EdgeInsets.only(bottom: 70.toHeight),
+                        child: Image.asset(
+                          'assets/images/menu_left.png',
+                          height: 80.toWidth,
+                          width: 80.toWidth,
+                          alignment: Alignment.bottomLeft,
+                        ),
+                      ),
+                      onTap: () {
+                        onClose();
+                      },
+                      onHorizontalDragStart: (v) {
+                        onClose();
+                      },
+                    )
                   : SizedBox(),
             )
           ],

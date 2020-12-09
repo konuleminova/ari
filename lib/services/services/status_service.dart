@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 ApiResponse<StatusModel> useStatus() {
+  print('STATUS AAPI');
   ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() {
     if (SpUtil.getString(SpUtil.token).isEmpty) return null;
