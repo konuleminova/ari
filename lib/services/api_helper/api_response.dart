@@ -35,6 +35,7 @@ class ApiResponse<T> {
   String toString() {
     return 'ApiResponse{data: $data, status: $status, error: $error}';
   }
+
 }
 
 class AppException implements Exception {

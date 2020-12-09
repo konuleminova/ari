@@ -22,18 +22,20 @@ class InitPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var uniqueKey=useState<UniqueKey>();
+    var uniqueKey = useState<UniqueKey>();
+    var uniqueKey2 = useState<UniqueKey>();
     ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
+    ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
     useEffect(() {
       timer = Timer.periodic(Duration(seconds: 5), (timer) {
         if (Platform.isAndroid) {
-         // uniqueKey.value=new UniqueKey();
+          uniqueKey2.value = new UniqueKey();
         }
       });
       return () {};
-    },[uniqueKey.value]);
+    }, [uniqueKey2.value]);
     useEffect(() {
       widgets.value.clear();
       //Adding Main widget
@@ -78,6 +80,24 @@ class InitPage extends HookWidget {
       }
       return () {};
     }, [apiResponse.status]);
+    useEffect(() {
+      //Adding circle status Widgets
+      if (apiResponse2.status == Status.Done) {
+        if (SpUtil.getString(SpUtil.token).isNotEmpty &&
+            apiResponse2.data != null) {
+          print('API RESPONSE2 ${apiResponse2.data.hashCode}');
+          print('API RESPONSE ${apiResponse.data.hashCode}');
+          if (apiResponse2.data== apiResponse.data) {
+            print('EQUAL ${apiResponse2.data}');
+            for (int i = 0; i < apiResponse.data.found; i++) {
+              widgets.value.add(StatusViewModel(i, apiResponse));
+            }
+          }
+        }
+      }
+      ;
+      return () {};
+    }, [apiResponse2.status]);
 
     SizeConfig().init(context);
     // TODO: implement build
