@@ -14,7 +14,7 @@ class InitPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     // TODO: implement build
-    return Scaffold(
+    return Stack(children: [Scaffold(
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         appBar: CustomAppBar(),
@@ -25,23 +25,23 @@ class InitPage extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                     child: Container(
-                  width: SizeConfig().screenWidth,
-                  height: SizeConfig().screenHeight,
-                  child: NestedNavigator(
-                      navigationKey: navigationKey,
-                      initialRoute: '/',
-                      routes: routeNames),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20))),
-                )),
+                      width: SizeConfig().screenWidth,
+                      height: SizeConfig().screenHeight,
+                      child: NestedNavigator(
+                          navigationKey: navigationKey,
+                          initialRoute: '/',
+                          routes: routeNames),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20))),
+                    )),
               ],
             ),
             MenuView(),
             StatusViewModel(),
           ],
-        ));
+        ))],);
   }
 }

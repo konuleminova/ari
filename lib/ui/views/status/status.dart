@@ -43,13 +43,17 @@ class StatusView extends StatelessWidget {
       double lat2 = double.parse(split2[0]);
       double lng2 = double.parse(split2[1]);
       _lastMapPosition2 = LatLng(lat2, lng2);
-      final marker2 = Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPosition2.toString()),
-          position: _lastMapPosition2,
-          infoWindow: InfoWindow(title: order.address, snippet: ""),
-          icon: BitmapDescriptor.defaultMarker);
-      markers.add(marker2);
+      BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
+              'assets/images/curyer.png')
+          .then((value) {
+        final marker2 = Marker(
+            draggable: true,
+            markerId: MarkerId(_lastMapPosition2.toString()),
+            position: _lastMapPosition2,
+            infoWindow: InfoWindow(title: order.address, snippet: ""),
+            icon: value);
+        markers.add(marker2);
+      });
     }
 
     //Curyer Coords
@@ -80,7 +84,7 @@ class StatusView extends StatelessWidget {
                 color: ThemeColor().grey1.withOpacity(0.6),
                 width: SizeConfig().screenWidth,
                 height: 80.toHeight,
-               padding: EdgeInsets.all(24.toWidth),
+                padding: EdgeInsets.all(24.toWidth),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -148,7 +152,7 @@ class StatusView extends StatelessWidget {
                                   ),
                                   Container(
                                     child: ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
+                                        physics: NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount:
                                             order.foods[index].adds.length,
