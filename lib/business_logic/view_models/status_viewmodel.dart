@@ -15,7 +15,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ari/utils/size_config.dart';
 
 class StatusViewModel extends HookWidget {
-  Timer timer;
   int index;
   ApiResponse<StatusModel> apiResponse;
 
@@ -76,13 +75,3 @@ class StatusViewModel extends HookWidget {
   }
 }
 
-//    useEffect(() {
-//      timer = Timer.periodic(Duration(seconds: 5), (timer) {
-//        if (Platform.isAndroid) {
-//
-//        }
-//      });
-//      return () {};
-//    });
-
-//dragable widget offset

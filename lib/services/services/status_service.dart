@@ -6,10 +6,10 @@ import 'package:ari/services/hooks/useApiConfig.dart';
 import 'package:ari/services/hooks/useDioRequest.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-ApiResponse<StatusModel> useStatus() {
-  print('STATUS AAPI');
+ApiResponse<StatusModel> useStatus(UniqueKey uniqueKey) {
   ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() {
     if (SpUtil.getString(SpUtil.token).isEmpty) return null;
@@ -17,8 +17,8 @@ ApiResponse<StatusModel> useStatus() {
         path: apiConfig.STATUS(SpUtil.getString(SpUtil.token)),
         transformResponse: (Response response) {
           return StatusModel.fromJson(response.data);
-        });
-  });
+        },);
+  },[uniqueKey]);
 
   ApiResponse<StatusModel> apiResponse = useDioRequest(dioConfig);
   return apiResponse;

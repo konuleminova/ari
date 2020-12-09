@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/nested_root.dart';
@@ -5,7 +8,6 @@ import 'package:ari/business_logic/view_models/status_viewmodel.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
-import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
 import 'package:ari/ui/views/menu/menu_view.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -16,13 +18,25 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 
 class InitPage extends HookWidget {
+  Timer timer;
+
   @override
   Widget build(BuildContext context) {
-    ApiResponse<StatusModel> apiResponse = useStatus();
+    var uniqueKey=useState<UniqueKey>();
+    ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
-
+    //Timer for getting status
+    useEffect(() {
+      timer = Timer.periodic(Duration(seconds: 5), (timer) {
+        if (Platform.isAndroid) {
+          uniqueKey.value=new UniqueKey();
+        }
+      });
+      return () {};
+    },[uniqueKey.value]);
     useEffect(() {
       widgets.value.clear();
+      //Adding Main widget
       widgets.value.add(
         Scaffold(
             resizeToAvoidBottomInset: false,
@@ -53,6 +67,7 @@ class InitPage extends HookWidget {
               ],
             )),
       );
+      //Adding circle status Widgets
       if (apiResponse.status == Status.Done) {
         if (SpUtil.getString(SpUtil.token).isNotEmpty &&
             apiResponse.data != null) {
