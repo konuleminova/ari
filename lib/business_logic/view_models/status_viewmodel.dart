@@ -16,22 +16,22 @@ import 'package:ari/utils/size_config.dart';
 
 class StatusViewModel extends HookWidget {
   Timer timer;
+  int index;
+  ApiResponse<StatusModel> apiResponse;
+
+  StatusViewModel(this.index, this.apiResponse);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     //get user status
-    ApiResponse<StatusModel> apiResponse = useStatus();
     var offset = useState<List<Offset>>([]);
     var isOpen = useState<bool>(false);
     useEffect(() {
-      if (apiResponse.status == Status.Done) {
-        offset.value.clear();
-        for (int i = 0; i < apiResponse.data.found; i++) {
-          offset.value.add(Offset.zero);
-          print('OFFSEt ${offset}');
-          offset.notifyListeners();
-        }
+      offset.value.clear();
+      for (int i = 0; i < apiResponse.data.found; i++) {
+        offset.value.add(Offset(0.0, 0.0 + i * 100));
+        offset.notifyListeners();
       }
       return () {};
     }, [apiResponse.status]);
@@ -41,14 +41,14 @@ class StatusViewModel extends HookWidget {
             errors: [apiResponse.error],
             statuses: [apiResponse.status],
             child: Positioned(
-                left: offset.value[0].dx + 10,
-                top: offset.value[0].dy + 100,
+                left: offset.value[index].dx + 10,
+                top: offset.value[index].dy + 100,
                 right: 0,
                 child: GestureDetector(
                   onPanUpdate: (details) {
-                    offset.value[0] = Offset(
-                        offset.value[0].dx + details.delta.dx,
-                        offset.value[0].dy + details.delta.dy);
+                    offset.value[index] = Offset(
+                        offset.value[index].dx + details.delta.dx,
+                        offset.value[index].dy + details.delta.dy);
                     offset.notifyListeners();
                   },
                   onTap: () {
@@ -56,7 +56,7 @@ class StatusViewModel extends HookWidget {
                     if (isOpen.value) {
                       pushRouteWithName(ROUTE_STATUS,
                           arguments: RouteArguments<Order>(
-                              data: apiResponse.data.order[0]));
+                              data: apiResponse.data.order[index]));
                     } else {
                       navigationKey.currentState.pop(context);
                     }
@@ -73,7 +73,7 @@ class StatusViewModel extends HookWidget {
                           image: new DecorationImage(
                               fit: BoxFit.contain,
                               image: new NetworkImage(apiResponse
-                                  .data.order[0].restourant.image)))),
+                                  .data.order[index].restourant.image)))),
                 )))
         : SizedBox();
   }
