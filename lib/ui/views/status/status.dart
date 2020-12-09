@@ -142,22 +142,22 @@ class StatusView extends StatelessWidget {
                                   Text(
                                     '${order.foods[index].count}  ${order.foods[index].name}',
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16.toFont),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14.toFont),
                                   ),
                                   Container(
                                     child: ListView.builder(
                                       physics: NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount:
-                                            order.foods.length,
+                                            order.foods[index].adds.length,
                                         itemBuilder:
                                             (BuildContext context, int i) {
                                           return Container(
                                             child: Text(
-                                              '${order.foods[0].count} ',
+                                              '${order.foods[index].adds[i].count} ${order.foods[index].adds[i].name}',
                                               style: TextStyle(
-                                                  fontSize: 13.toFont),
+                                                  fontSize: 12.toFont),
                                             ),
                                             margin: EdgeInsets.only(
                                                 bottom: 4.toHeight,
