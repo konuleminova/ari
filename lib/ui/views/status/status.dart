@@ -131,6 +131,7 @@ class StatusView extends StatelessWidget {
                           color: Colors.white),
                       child: ListView.builder(
                         shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                               margin: EdgeInsets.only(bottom: 4.toHeight),
@@ -146,14 +147,15 @@ class StatusView extends StatelessWidget {
                                   ),
                                   Container(
                                     child: ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount:
-                                            order.foods[index].adds.length,
+                                            order.foods.length,
                                         itemBuilder:
                                             (BuildContext context, int i) {
                                           return Container(
                                             child: Text(
-                                              '${order.foods[index].adds[i].count} ${order.foods[index].adds[i].name}',
+                                              '${order.foods[0].count} ',
                                               style: TextStyle(
                                                   fontSize: 13.toFont),
                                             ),
