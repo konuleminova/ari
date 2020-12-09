@@ -28,13 +28,17 @@ class StatusView extends StatelessWidget {
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
       final _lastMapPosition = LatLng(lat, lng);
-      final marker = Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPosition.toString()),
-          position: _lastMapPosition,
-          infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
-          icon: BitmapDescriptor.defaultMarker);
-      markers.add(marker);
+      BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
+              'assets/images/restourant.png')
+          .then((value) {
+        final marker = Marker(
+            draggable: true,
+            markerId: MarkerId(_lastMapPosition.toString()),
+            position: _lastMapPosition,
+            infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
+            icon: value);
+        markers.add(marker);
+      });
     }
 
     //User coords
@@ -44,7 +48,7 @@ class StatusView extends StatelessWidget {
       double lng2 = double.parse(split2[1]);
       _lastMapPosition2 = LatLng(lat2, lng2);
       BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
-              'assets/images/curyer.png')
+              'assets/images/user.png')
           .then((value) {
         final marker2 = Marker(
             draggable: true,
@@ -62,13 +66,17 @@ class StatusView extends StatelessWidget {
       double lat3 = double.parse(split3[0]);
       double lng3 = double.parse(split3[1]);
       final _lastMapPosition3 = LatLng(lat3, lng3);
-      final marker3 = Marker(
-          draggable: true,
-          markerId: MarkerId(_lastMapPosition3.toString()),
-          position: _lastMapPosition3,
-          infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
-          icon: BitmapDescriptor.defaultMarker);
-      markers.add(marker3);
+      BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
+              'assets/images/curyer.png')
+          .then((value) {
+        final marker3 = Marker(
+            draggable: true,
+            markerId: MarkerId(_lastMapPosition3.toString()),
+            position: _lastMapPosition3,
+            infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
+            icon: value);
+        markers.add(marker3);
+      });
     }
 
     // TODO: implement build
