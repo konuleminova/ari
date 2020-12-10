@@ -1,4 +1,6 @@
 import 'package:ari/business_logic/models/status.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,6 +39,10 @@ class ProfileView extends StatelessWidget {
                     width: 90.toWidth,
                     height: 28.toHeight,
                   ),
+                  onTap: (){
+                    SpUtil.remove(SpUtil.token);
+                    pushReplaceRouteWithName('/');
+                  },
                 )
               ],
             ),
