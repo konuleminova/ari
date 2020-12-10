@@ -26,7 +26,7 @@ class InitPage extends HookWidget {
     var uniqueKey2 = useState<UniqueKey>();
     var isEqual = useState<bool>(false);
     ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
-    ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
+   // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
     useEffect(() {

@@ -7,7 +7,7 @@ class StatusModel {
 
   StatusModel.fromJson(Map<String, dynamic> json) {
     found = json['found'];
-    order = listOrderFromJson(json['order']);
+    order = listOrderFromJson(json['data']);
   }
 
   @override
@@ -18,18 +18,13 @@ class StatusModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is StatusModel &&
-              runtimeType == other.runtimeType &&
-              found == other.found &&
-              order == other.order;
+      other is StatusModel &&
+          runtimeType == other.runtimeType &&
+          found == other.found &&
+          order == other.order;
 
   @override
-  int get hashCode =>
-      found.hashCode ^
-      order.hashCode;
-
-
-
+  int get hashCode => found.hashCode ^ order.hashCode;
 }
 
 class Order {
@@ -42,6 +37,7 @@ class Order {
   Restourant restourant;
   Curyer curyer;
   List<Food> foods;
+  var final_price;
 
   Order.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -55,6 +51,7 @@ class Order {
         : null;
     curyer = json['curyer'] != null ? Curyer.fromJson(json['curyer']) : null;
     foods = listFoodsFromJson(json['foods']);
+    final_price = json['final_price'];
   }
 }
 

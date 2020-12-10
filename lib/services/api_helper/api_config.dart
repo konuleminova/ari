@@ -28,4 +28,5 @@ class ApiConfig {
       '&surname=${user.surname}&number=${user.number}&rules=1&email=${user.email}';
 
   String STATUS(String token) => '${BASE_URl}status&token=${token}&lang=ru';
+  String PROFILE_URL (String token)=>'${BASE_URl}userpage&token=${token}&lang=ru';
 }

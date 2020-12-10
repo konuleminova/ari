@@ -38,7 +38,7 @@ class CheckoutView extends StatelessWidget {
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
-                                    new Container(
+                                     Container(
                                         width: 40.toWidth,
                                         height: 40.toWidth,
                                         decoration: new BoxDecoration(
