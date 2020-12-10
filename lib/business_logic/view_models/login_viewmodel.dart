@@ -14,7 +14,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-
 class LoginViewModel extends HookWidget {
   RouteArguments<Checkout> arguments;
 
@@ -26,22 +25,24 @@ class LoginViewModel extends HookWidget {
     var login = useState<String>('');
     var password = useState<String>('');
     var loginKey = useState<UniqueKey>();
-    final user =useState<User>(User(login: login.value,pass: password.value,));
-    ApiResponse<User> apiResponse =
-        useLogin(user.value,loginKey.value);
+    final user = useState<User>(User(
+      login: login.value,
+      pass: password.value,
+    ));
+    ApiResponse<User> apiResponse = useLogin(user.value, loginKey.value);
 
     //GET TOKEN STATUS
     useSideEffect(() {
       print('Api response ${apiResponse.data}');
       if (apiResponse?.data?.token != null) {
         SpUtil.putString(SpUtil.token, apiResponse?.data?.token);
-        if(SpUtil.getString(SpUtil.IsFromMap).isNotEmpty){
-          pushReplaceRouteWithName(ROUTE_MAP,arguments:arguments );
-        }else {
+        SpUtil.putString(SpUtil.name,
+            apiResponse?.data?.name??'' + ' ' + apiResponse?.data?.surname??'');
+        if (SpUtil.getString(SpUtil.IsFromMap).isNotEmpty) {
+          pushReplaceRouteWithName(ROUTE_MAP, arguments: arguments);
+        } else {
           pushReplaceRouteWithName(ROUTE_PROFILE);
         }
-
-
       }
       return () {};
     }, [apiResponse]);
@@ -54,7 +55,10 @@ class LoginViewModel extends HookWidget {
           passController.text.isNotEmpty) {
         login.value = loginController.text;
         password.value = passController.text;
-        user.value=User(login: login.value,pass: password.value,device_token: '%7BDEVICE_TOKEN%7D');
+        user.value = User(
+            login: login.value,
+            pass: password.value,
+            device_token: '%7BDEVICE_TOKEN%7D');
         // loginKey.value = UniqueKey();
       }
     }, [login.value, password.value]);

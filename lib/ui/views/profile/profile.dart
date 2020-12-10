@@ -25,7 +25,7 @@ class ProfileView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Name Surname',
+                 SpUtil.getString(SpUtil.name),
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
                 InkWell(
