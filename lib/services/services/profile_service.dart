@@ -8,15 +8,19 @@ import 'package:ari/utils/sharedpref_util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-ApiResponse<StatusModel> useUserPage() {
+ApiResponse<dynamic> useUserPage() {
   ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() {
-    return DioConfig<StatusModel>(
+    return DioConfig<dynamic>(
         path: apiConfig.PROFILE_URL(SpUtil.getString(SpUtil.token)),
         transformResponse: (Response response) {
-          return StatusModel.fromJson(response.data);
+          if(response.data['found']>0){
+            return StatusModel.fromJson(response.data);
+          }
+          return AppException(message: response.data['message']);
+
         });
   });
-  ApiResponse<StatusModel> apiResponse = useDioRequest(dioConfig);
+  ApiResponse<dynamic> apiResponse = useDioRequest(dioConfig);
   return apiResponse;
 }
