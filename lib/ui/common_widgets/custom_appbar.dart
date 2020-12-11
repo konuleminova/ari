@@ -35,29 +35,27 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Expanded(
-                      child: YellowClipper(onClickIndex, BASKET_ASSET, 0,
-                          onClick: () {
-                        navigationKey.currentState.pushNamed('/');
-                      }),
-                    ),
-                    Expanded(
                       child: YellowClipper(onClickIndex, SEARCH_ASSET, 1,
                           onClick: () {
-                        navigationKey.currentState.pushNamed(ROUTE_SEARCH);
-                      }),
+                            navigationKey.currentState.pushNamed(ROUTE_SEARCH);
+                          }),
                     ),
                     Expanded(
                       child: YellowClipper(onClickIndex, PERSON_ASSET, 2,
                           onClick: () {
-                        SpUtil.putString(SpUtil.IsFromMap, '').then((value) {
-                          if (SpUtil.getString(SpUtil.token).isEmpty) {
-                            navigationKey.currentState.pushNamed(ROUTE_LOGIN);
-                          } else {
-                            navigationKey.currentState.pushNamed(ROUTE_PROFILE);
-                          }
-                        });
-                      }),
-                    )
+                            SpUtil.putString(SpUtil.IsFromMap, '').then((value) {
+                              if (SpUtil.getString(SpUtil.token).isEmpty) {
+                                navigationKey.currentState.pushNamed(ROUTE_LOGIN);
+                              } else {
+                                navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                              }
+                            });
+                          }),
+                    ),
+                    Expanded(
+                      child: Container()
+                    ),
+
                   ],
                 ),
                 width: 200,
@@ -71,11 +69,14 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                 ),
               ),
               Expanded(
-                  child: ImageAssetWidget(
-                path: LOGO_ASSET,
-                width: 40.toHeight,
-                height: 40.toHeight,
-              ))
+                  child: InkWell(child: ImageAssetWidget(
+                    path: LOGO_ASSET,
+                    width: 40.toHeight,
+                    height: 40.toHeight,
+                  ),onTap: (){
+                    navigationKey.currentState.pushNamed('/');
+                  },)
+              )
             ],
           ),
         ),
