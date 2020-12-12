@@ -14,13 +14,11 @@ class ProfileViewModel extends HookWidget {
     // TODO: implement build
     ApiResponse<dynamic> apiResponse = useUserPage();
     return CustomErrorHandler(
-      child:apiResponse.status!=Status.Loading ?apiResponse is StatusModel
+      child: apiResponse.status != Status.Loading
           ? ProfileView(
-              order: apiResponse.data,
+              apiResponse: apiResponse,
             )
-          : Center(
-              child: Text(apiResponse?.data?.message)
-            ):Loading(),
+          : Loading(),
       statuses: [apiResponse.status],
       errors: [apiResponse.error],
     );
