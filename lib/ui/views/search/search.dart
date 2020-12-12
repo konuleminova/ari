@@ -94,6 +94,7 @@ class SearchView extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return RestourantItem(
                                     restourant: Restourant(
+                                      id: search.results[index].id ,
                                         image: search.results[index].image,
                                         name: search.results[index].name,
                                         information:
