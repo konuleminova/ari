@@ -91,13 +91,14 @@ class ErrorDialog extends StatelessWidget {
                     size: 28.toFont,
                   ),
                   SizedBox(
-                    height: 8.toHeight,
+                    height: 16.toHeight,
                   ),
                   // Text('Something Went wrong'),
                   Expanded(
                     child: Text(
                       errorMessage ?? 'Some Unkown Error Occured.',
                       style: TextStyle(fontSize: 16.toFont),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(

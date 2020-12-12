@@ -11,12 +11,23 @@ class RegisterView extends StatelessWidget {
   var phoneController;
   var registerCallBack;
 
+  var loginerror;
+  var passworderror;
+  var nameerror;
+  var emailerror;
+  var phoneerror;
+
   RegisterView(
       {this.loginController,
       this.passController,
       this.nameController,
       this.emailController,
       this.phoneController,
+      this.loginerror,
+      this.passworderror,
+      this.nameerror,
+      this.emailerror,
+      this.phoneerror,
       this.registerCallBack});
 
   @override
@@ -71,8 +82,7 @@ class RegisterView extends StatelessWidget {
                     child: TextField(
                       controller: loginController,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
+                          border: InputBorder.none, errorText: loginerror),
                     ),
                   ),
                   SizedBox(
@@ -93,8 +103,7 @@ class RegisterView extends StatelessWidget {
                     child: TextField(
                       controller: passController,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
+                          border: InputBorder.none, errorText: passworderror),
                     ),
                   ),
                   SizedBox(
@@ -115,8 +124,7 @@ class RegisterView extends StatelessWidget {
                     child: TextField(
                       controller: nameController,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
+                          border: InputBorder.none, errorText: nameerror),
                     ),
                   ),
                   SizedBox(
@@ -137,8 +145,7 @@ class RegisterView extends StatelessWidget {
                     child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
+                          border: InputBorder.none, errorText: emailerror),
                     ),
                   ),
                   SizedBox(
@@ -159,8 +166,7 @@ class RegisterView extends StatelessWidget {
                     child: TextField(
                       controller: phoneController,
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
+                          border: InputBorder.none, errorText: phoneerror),
                     ),
                   ),
                   SizedBox(
@@ -194,7 +200,7 @@ class RegisterView extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      //registerCallBack();
+                      registerCallBack();
                     },
                   )
                 ],
