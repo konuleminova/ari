@@ -104,12 +104,19 @@ class RegisterViewModel extends HookWidget {
         } else {
           phoneerror.value = null;
         }
+        if (radioValue.value) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => ErrorDialog(
+                    errorMessage: 'Please accept the rules',
+                  ));
+        }
 
         if (login.value.isNotEmpty &&
             password.value.isNotEmpty &&
             email.value.isNotEmpty &&
             name.value.isNotEmpty &&
-            phone.value.isNotEmpty) {
+            phone.value.isNotEmpty&&!radioValue.value) {
           user.value = User(
               login: login.value,
               pass: password.value,

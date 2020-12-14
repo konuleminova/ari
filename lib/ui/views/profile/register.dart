@@ -37,14 +37,14 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
+    return SingleChildScrollView(
+      child: Container(
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/login_background.png'))),
       height: SizeConfig().screenHeight,
       width: SizeConfig().screenWidth,
-      child: SingleChildScrollView(
-          child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
