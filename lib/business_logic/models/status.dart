@@ -7,7 +7,9 @@ class StatusModel {
 
   StatusModel.fromJson(Map<String, dynamic> json) {
     found = json['found'];
-    order = json['found']>0?listOrderFromJson(json['data']):[];
+    order = json['found'] > 0
+        ? listOrderFromJson(json['data'] == null ? json['order'] : json['data'])
+        : [];
   }
 
   @override

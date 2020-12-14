@@ -30,15 +30,14 @@ class StatusView extends HookWidget {
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
       final _lastMapPosition = LatLng(lat, lng);
-      BitmapDescriptor.fromAssetImage(
-          ImageConfiguration(size: Size(160, 160)), 'assets/images/restourant.png')
+      getBytesFromAsset( 'assets/images/restourant.png',130)
           .then((value) {
         final marker = Marker(
             draggable: true,
             markerId: MarkerId(_lastMapPosition.toString()),
             position: _lastMapPosition,
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
-            icon: value);
+            icon:  BitmapDescriptor.fromBytes(value));
         markers.value.add(marker);
         markers.notifyListeners();
       });
@@ -50,15 +49,14 @@ class StatusView extends HookWidget {
       double lat2 = double.parse(split2[0]);
       double lng2 = double.parse(split2[1]);
       _lastMapPosition2 = LatLng(lat2, lng2);
-      BitmapDescriptor.fromAssetImage(
-          ImageConfiguration(size: Size(255, 255)), 'assets/images/user.png')
+      getBytesFromAsset( 'assets/images/user.png',130)
           .then((value) {
         final marker2 = Marker(
             draggable: true,
             markerId: MarkerId(_lastMapPosition2.toString()),
             position: _lastMapPosition2,
             infoWindow: InfoWindow(title: order.address, snippet: ""),
-            icon: value);
+            icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker2);
         markers.notifyListeners();
       });
@@ -70,15 +68,14 @@ class StatusView extends HookWidget {
       double lat3 = double.parse(split3[0]);
       double lng3 = double.parse(split3[1]);
       final _lastMapPosition3 = LatLng(lat3, lng3);
-      BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5),
-              'assets/images/curyer.png')
+      getBytesFromAsset('assets/images/curyer.png',130)
           .then((value) {
         final marker3 = Marker(
             draggable: true,
             markerId: MarkerId(_lastMapPosition3.toString()),
             position: _lastMapPosition3,
             infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
-            icon: value);
+            icon:  BitmapDescriptor.fromBytes(value));
         markers.value.add(marker3);
         markers.notifyListeners();
       });
