@@ -102,6 +102,7 @@ class RegisterView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
                       controller: passController,
+                      obscureText: true,
                       decoration: InputDecoration(
                           border: InputBorder.none, errorText: passworderror),
                     ),
@@ -144,6 +145,7 @@ class RegisterView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           border: InputBorder.none, errorText: emailerror),
                     ),
@@ -164,6 +166,7 @@ class RegisterView extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
+                      keyboardType: TextInputType.phone,
                       controller: phoneController,
                       decoration: InputDecoration(
                           border: InputBorder.none, errorText: phoneerror),

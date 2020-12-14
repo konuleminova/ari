@@ -83,8 +83,10 @@ class LoginView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4)),
                     child: TextField(
                       controller: passController,
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
+
                       ),
                     ),
                   ),
