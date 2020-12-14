@@ -15,12 +15,13 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
+    return SingleChildScrollView(
+      child:Container(
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/login_background.png'))),
       height: SizeConfig().screenHeight,
-      child: Column(
+      child:  Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
@@ -86,7 +87,6 @@ class LoginView extends StatelessWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-
                       ),
                     ),
                   ),
@@ -125,7 +125,7 @@ class LoginView extends StatelessWidget {
             ),
           )
         ],
-      ),
+      )),
     );
   }
 }

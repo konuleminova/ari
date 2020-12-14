@@ -42,8 +42,7 @@ class InitPage extends HookWidget {
       //Adding Main widget
       widgets.value.add(
         Scaffold(
-            resizeToAvoidBottomInset: false,
-            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomPadding: true,
             appBar: CustomAppBar(),
             backgroundColor: Color(0xfffccd13),
             body: Stack(
@@ -114,6 +113,7 @@ class InitPage extends HookWidget {
     SizeConfig().init(context);
     // TODO: implement build
     return Stack(
+
       children: widgets.value,
     );
   }
