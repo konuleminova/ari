@@ -63,7 +63,7 @@ List<GroupFood> listGroupFoodFromJson(List<dynamic> groupFoods) =>
 
 class Adds {
   String name;
-  int type;
+  String type;
   String price;
   int count=0;
   bool selected=false;

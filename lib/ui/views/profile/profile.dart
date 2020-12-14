@@ -16,14 +16,14 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (apiResponse is StatusModel) {
+    if (apiResponse.data is StatusModel) {
       order = apiResponse.data;
     }
 
     // TODO: implement build
     return Container(
         height: SizeConfig().screenHeight,
-        child: apiResponse is StatusModel && order.found > 0
+        child: apiResponse.data is StatusModel && order.found > 0
             ? ListView(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

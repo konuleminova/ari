@@ -8,15 +8,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-ApiResponse<User> useLogin(User user, UniqueKey uniqueKey) {
+ApiResponse<dynamic> useLogin(User user, UniqueKey uniqueKey) {
   ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() {
     if (user.login.isEmpty && user.pass.isEmpty) return null;
-    return DioConfig<User>(
+    return DioConfig<dynamic>(
         path: apiConfig.LOGIN_URL(user),
-        transformResponse: (Response response) => User.fromJson(response.data));
+        transformResponse: (Response response){
+          if(response.data['error']=='1'){
+            return AppException(message: response.data['message']);
+          }
+          return User.fromJson(response.data);
+        });
   }, [user, uniqueKey]);
-  ApiResponse<User> apiResponse = useDioRequest(dioConfig);
+  ApiResponse<dynamic> apiResponse = useDioRequest(dioConfig);
 
   return apiResponse;
 }

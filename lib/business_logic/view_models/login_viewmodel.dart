@@ -11,6 +11,7 @@ import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/profile/login.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -29,21 +30,37 @@ class LoginViewModel extends HookWidget {
       login: login.value,
       pass: password.value,
     ));
-    ApiResponse<User> apiResponse = useLogin(user.value, loginKey.value);
+    ApiResponse<dynamic> apiResponse = useLogin(user.value, loginKey.value);
 
     //GET TOKEN STATUS
     useSideEffect(() {
-      print('Api response ${apiResponse.data}');
-      if (apiResponse?.data?.token != null) {
-        SpUtil.putString(SpUtil.token, apiResponse?.data?.token);
-        SpUtil.putString(SpUtil.name,
-            apiResponse?.data?.name??'' + ' ' + apiResponse?.data?.surname??'');
-        if (SpUtil.getString(SpUtil.IsFromMap).isNotEmpty) {
-          pushReplaceRouteWithName(ROUTE_MAP, arguments: arguments);
+      if (apiResponse.status == Status.Done) {
+        print('Api response ${apiResponse.data}');
+        if (apiResponse.data is User) {
+          if (apiResponse?.data?.token != null) {
+            SpUtil.putString(SpUtil.token, apiResponse?.data?.token);
+            SpUtil.putString(
+                SpUtil.name,
+                apiResponse?.data?.name ??
+                    '' + ' ' + apiResponse?.data?.surname ??
+                    '');
+            if (SpUtil.getString(SpUtil.IsFromMap).isNotEmpty) {
+              pushReplaceRouteWithName(ROUTE_MAP, arguments: arguments);
+            } else {
+              pushReplaceRouteWithName(ROUTE_PROFILE);
+            }
+          }
         } else {
-          pushReplaceRouteWithName(ROUTE_PROFILE);
+          AppException appException = apiResponse.data;
+          apiResponse.error = appException;
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => ErrorDialog(
+                    errorMessage: appException.message,
+                  ));
         }
       }
+
       return () {};
     }, [apiResponse]);
 
