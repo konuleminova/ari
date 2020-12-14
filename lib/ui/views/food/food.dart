@@ -168,7 +168,7 @@ class FoodView extends StatelessWidget {
               itemScrollController: verticalScrollController,
               physics: BouncingScrollPhysics(),
               itemPositionsListener: itemPositionsListener,
-              padding: EdgeInsets.only(top: 2.toHeight, bottom: 16.toHeight),
+              padding: EdgeInsets.only(top: 2.toHeight, bottom: atLeastOneItemSelected?56.toHeight:16.toHeight),
               itemBuilder: (BuildContext context, int index) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
