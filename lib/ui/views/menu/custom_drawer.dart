@@ -67,7 +67,8 @@ class CustomMenuDrawer extends HookWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      pushRouteWithName(ROUTE_ABOUT);
+                      pushRouteWithName(ROUTE_HTML,
+                          arguments: RouteArguments<String>(data: 'aboutus'));
                     },
                   ),
                   SizedBox(
@@ -81,7 +82,8 @@ class CustomMenuDrawer extends HookWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      pushRouteWithName(ROUTE_SHARE);
+                      pushRouteWithName(ROUTE_HTML,
+                          arguments: RouteArguments<String>(data: 'promotions'));
                     },
                   ),
                   SizedBox(
@@ -95,7 +97,8 @@ class CustomMenuDrawer extends HookWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      pushRouteWithName(ROUTE_VACANCY);
+                      pushRouteWithName(ROUTE_HTML,
+                          arguments: RouteArguments<String>(data: 'vacancy'));
                     },
                   ),
                   SizedBox(
@@ -109,7 +112,8 @@ class CustomMenuDrawer extends HookWidget {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      pushRouteWithName(ROUTE_CONTACT);
+                      pushRouteWithName(ROUTE_HTML,
+                          arguments: RouteArguments<String>(data: 'contacts'));
                     },
                   ),
                   SizedBox(
