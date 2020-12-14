@@ -79,36 +79,41 @@ class RegisterViewModel extends HookWidget {
         email.value = emailController.text;
         phone.value = phoneController.text;
         if (login.value.isEmpty) {
-          loginerror.value = 'Login bos ola bilmez';
+          loginerror.value = 'Login is required.';
         } else {
           loginerror.value = null;
         }
         if (password.value.isEmpty) {
-          passworderror.value = 'Pass bos ola bilmez';
+          passworderror.value = 'Password is required.';
         } else {
           passworderror.value = null;
         }
         if (name.value.isEmpty) {
-          nameerror.value = 'Ad bos ola bilmez';
+          nameerror.value = 'Name is required.';
         } else {
           nameerror.value = null;
         }
 
         if (email.value.isEmpty) {
-          emailerror.value = 'Email bos ola bilmez';
+          emailerror.value = 'Email is required.';
         } else {
           emailerror.value = null;
         }
         if (phone.value.isEmpty) {
-          phoneerror.value = 'Nomre bos ola bilmez';
+          phoneerror.value = 'Phone number is required.';
         } else {
           phoneerror.value = null;
         }
-        if (radioValue.value) {
+         if (login.value.isNotEmpty &&
+             password.value.isNotEmpty &&
+             email.value.isNotEmpty &&
+             name.value.isNotEmpty &&
+             phone.value.isNotEmpty &&
+             radioValue.value) {
           showDialog(
               context: context,
               builder: (BuildContext context) => ErrorDialog(
-                    errorMessage: 'Please accept the rules',
+                    errorMessage: 'Please accept the rules.',
                   ));
         }
 
@@ -116,7 +121,8 @@ class RegisterViewModel extends HookWidget {
             password.value.isNotEmpty &&
             email.value.isNotEmpty &&
             name.value.isNotEmpty &&
-            phone.value.isNotEmpty&&!radioValue.value) {
+            phone.value.isNotEmpty &&
+            !radioValue.value) {
           user.value = User(
               login: login.value,
               pass: password.value,

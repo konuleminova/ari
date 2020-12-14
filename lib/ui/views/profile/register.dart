@@ -42,8 +42,8 @@ class RegisterView extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/login_background.png'))),
-      height: SizeConfig().screenHeight,
-      width: SizeConfig().screenWidth,
+     // height: SizeConfig().screenHeight,
+     // width: SizeConfig().screenWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
