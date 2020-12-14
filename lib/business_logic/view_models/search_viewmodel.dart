@@ -22,7 +22,7 @@ class SearchViewModel extends HookWidget {
 
     ApiResponse<Search> apiResponse = useSearchList(
         (text1.value==null||text1?.value?.isEmpty)? 'a':text1.value,
-        (text2.value==null||text2.value.isEmpty)? '':text2.value);
+        (text2.value==null||text2.value.isEmpty)? '10':text2.value);
 
     // TODO: implement build
     return CustomErrorHandler(
