@@ -6,8 +6,7 @@ class ApiConfig {
   String FOOD_URl(String id) =>
       '${BASE_URl}food&lang=ru&restourant_id=${id}&gr=1';
 
-  String RESTOURANT_URl(String id) =>
-      '${BASE_URl}mainpage&lang=ru&text=${id}';
+  String RESTOURANT_URl(String id) => '${BASE_URl}mainpage&lang=ru&text=${id}';
 
   String MENU_URL(String id) => '${BASE_URl}menu&lang=ru&restourant_id=${id}';
 
@@ -28,5 +27,11 @@ class ApiConfig {
       '&surname=${user.surname}&number=${user.number}&rules=1&email=${user.email}';
 
   String STATUS(String token) => '${BASE_URl}status&token=${token}&lang=ru';
-  String PROFILE_URL (String token)=>'${BASE_URl}userpage&token=${token}&lang=ru';
+
+  String PROFILE_URL(String token) =>
+      '${BASE_URl}userpage&token=${token}&lang=ru';
+
+  //get curyer price
+  String GET_CURYER_PRICE(String token, String restId) =>
+      '${BASE_URl}getcuryerprice&lang=ru&token=${token}&restid=${restId}';
 }

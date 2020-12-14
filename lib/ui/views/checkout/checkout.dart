@@ -11,8 +11,9 @@ class CheckoutView extends StatelessWidget {
   final List<LatLng> mapPoints;
   Checkout checkout;
   var store;
+  String deliveryPrice;
 
-  CheckoutView({this.mapPoints, this.checkout, this.store});
+  CheckoutView({this.mapPoints, this.checkout, this.store, this.deliveryPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class CheckoutView extends StatelessWidget {
                               children: <Widget>[
                                 Row(
                                   children: <Widget>[
-                                     Container(
+                                    Container(
                                         width: 40.toWidth,
                                         height: 40.toWidth,
                                         decoration: new BoxDecoration(
@@ -267,8 +268,25 @@ class CheckoutView extends StatelessWidget {
                               ],
                             )),
                         SizedBox(
-                          height: 8.toHeight,
+                          height: 26.toHeight,
                         ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 16.toWidth,
+                            ),
+                            Text(
+                              '${deliveryPrice}  ₼' ?? '',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.toFont),
+                            ),
+                            SizedBox(
+                              width: 16.toWidth,
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.end,
+                        )
                       ],
                     ))),
             Positioned(

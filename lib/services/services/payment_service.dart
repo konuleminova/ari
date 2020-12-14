@@ -21,15 +21,32 @@ ApiResponse<PaymentResponse> useAddtoBag(
     print('ADD to bag');
     if (uniqueKey != null) {
       return DioConfig<PaymentResponse>(
-        path: apiConfig.ADD_TO_BAG(
-            address, coords, jsonString, restId, SpUtil.getString(SpUtil.token)),
+        path: apiConfig.ADD_TO_BAG(address, coords, jsonString, restId,
+            SpUtil.getString(SpUtil.token)),
         transformResponse: (Response response) {
           return PaymentResponse.fromJsom(response.data);
-        },);
+        },
+      );
     }
     return null;
-  },[uniqueKey]);
+  }, [uniqueKey]);
   ApiResponse<PaymentResponse> apiResponse =
       useDioRequest<PaymentResponse>(dioConfig);
+  return apiResponse;
+}
+
+//Delivery price
+
+ApiResponse<String> useGetCuryerPrice(String restId) {
+  ApiConfig apiConfig = useApiConfig();
+  DioConfig dioConfig = useMemoized(() {
+    return DioConfig<String>(
+        path:
+            apiConfig.GET_CURYER_PRICE(SpUtil.getString(SpUtil.token), restId),
+        transformResponse: (Response response) {
+          return response.data['deliveryprice'].toStringAsFixed(2);
+        });
+  });
+  ApiResponse<String> apiResponse = useDioRequest(dioConfig);
   return apiResponse;
 }
