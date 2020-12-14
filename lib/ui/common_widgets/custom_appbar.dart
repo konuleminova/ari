@@ -43,13 +43,11 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                     Expanded(
                       child: YellowClipper(onClickIndex, PERSON_ASSET, 2,
                           onClick: () {
-                            SpUtil.putString(SpUtil.IsFromMap, '').then((value) {
-                              if (SpUtil.getString(SpUtil.token).isEmpty) {
-                                navigationKey.currentState.pushNamed(ROUTE_LOGIN);
-                              } else {
-                                navigationKey.currentState.pushNamed(ROUTE_PROFILE);
-                              }
-                            });
+                            if (SpUtil.getString(SpUtil.token).isEmpty) {
+                              navigationKey.currentState.pushNamed(ROUTE_LOGIN);
+                            } else {
+                              navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                            }
                           }),
                     ),
                     Expanded(

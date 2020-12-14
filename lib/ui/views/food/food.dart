@@ -6,6 +6,7 @@ import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +24,17 @@ class FoodView extends StatelessWidget {
   var goToPaymentCallBack;
   List<Food> foods;
 
-  FoodView(
-      {this.verticalScrollController,
-      this.maxExtentValue,
-      this.itemPositionsListener,
-      this.addtoCartCallback,
-      this.atLeastOneItemSelected,
-      this.addedFoodList,
-      this.goToPaymentCallBack,
-      this.dropDownCallBack,
-      this.foods,});
+  FoodView({
+    this.verticalScrollController,
+    this.maxExtentValue,
+    this.itemPositionsListener,
+    this.addtoCartCallback,
+    this.atLeastOneItemSelected,
+    this.addedFoodList,
+    this.goToPaymentCallBack,
+    this.dropDownCallBack,
+    this.foods,
+  });
 
   RouteArguments<Restourant> arguments;
 
@@ -216,15 +218,29 @@ class FoodView extends StatelessWidget {
                   ? InkWell(
                       onTap: () {
                         goToPaymentCallBack();
-                        pushRouteWithName(ROUTE_MAP,
-                            arguments: RouteArguments<Checkout>(
-                                data: Checkout(
-                                    totalPrice: getTotalPrice(),
-                                    foodList: addedFoodList,
-                                    restourant: Restourant(
-                                        image: arguments.data.image,
-                                        name: arguments.data.name,
-                                        id: arguments.data.id))));
+                        if (SpUtil.getString(SpUtil.token).isNotEmpty) {
+                          pushRouteWithName(ROUTE_MAP,
+                              arguments: RouteArguments<Checkout>(
+                                  data: Checkout(
+                                      totalPrice: getTotalPrice(),
+                                      foodList: addedFoodList,
+                                      isFroMap: true,
+                                      restourant: Restourant(
+                                          image: arguments.data.image,
+                                          name: arguments.data.name,
+                                          id: arguments.data.id))));
+                        } else {
+                          pushRouteWithName(ROUTE_LOGIN,
+                              arguments: RouteArguments<Checkout>(
+                                  data: Checkout(
+                                      totalPrice: getTotalPrice(),
+                                      foodList: addedFoodList,
+                                      isFroMap: true,
+                                      restourant: Restourant(
+                                          image: arguments.data.image,
+                                          name: arguments.data.name,
+                                          id: arguments.data.id))));
+                        }
                       },
                       child: Container(
                           decoration: BoxDecoration(

@@ -8,6 +8,7 @@ class Checkout {
   String totalPrice;
   String address;
   String coords;
+  bool isFroMap;
 
   @override
   String toString() {
@@ -19,5 +20,5 @@ class Checkout {
       this.restourant,
       this.totalPrice,
       this.address,
-      this.coords});
+      this.coords,this.isFroMap=false});
 }

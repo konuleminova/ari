@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
                     horizontal: 16.toWidth,
                   ),
                   child: Text(
-                    restourantList1.text,
+                    restourantList1.text??"",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),

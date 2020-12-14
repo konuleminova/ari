@@ -44,7 +44,7 @@ class LoginViewModel extends HookWidget {
                 apiResponse?.data?.name ??
                     '' + ' ' + apiResponse?.data?.surname ??
                     '');
-            if (SpUtil.getString(SpUtil.IsFromMap).isNotEmpty) {
+            if (arguments!=null) {
               pushReplaceRouteWithName(ROUTE_MAP, arguments: arguments);
             } else {
               pushReplaceRouteWithName(ROUTE_PROFILE);
