@@ -217,7 +217,7 @@ class ProfileView extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: ThemeColor().greenLightColor,
                     borderRadius: BorderRadius.circular(20)),
-                child: Text('Cixis'),
+                child: Text('Log out'),
                 width: 90.toWidth,
                 height: 28.toHeight,
               ),
