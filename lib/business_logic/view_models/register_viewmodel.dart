@@ -15,6 +15,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class RegisterViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final radioValue = useState<bool>(true);
     final loginController = useTextEditingController(text: '');
     final passController = useTextEditingController(text: '');
     final nameController = useTextEditingController(text: '');
@@ -62,6 +63,12 @@ class RegisterViewModel extends HookWidget {
 
       return () {};
     }, [apiResponse]);
+
+    //Change Radio Valu callback
+    final onChangeRadioValueCallBack = useCallback((bool value) {
+      radioValue.value = value;
+      print('ON VALUE ${value}');
+    }, [radioValue.value]);
 
     //LOGIN CALLBACK
     final registerCallBack = useCallback(() {
@@ -119,17 +126,20 @@ class RegisterViewModel extends HookWidget {
       errors: [apiResponse.error],
       statuses: [apiResponse.status],
       child: RegisterView(
-          loginController: loginController,
-          passController: passController,
-          nameController: nameController,
-          emailController: emailController,
-          phoneController: phoneController,
-          registerCallBack: registerCallBack,
-          loginerror: loginerror.value,
-          passworderror: passworderror.value,
-          nameerror: nameerror.value,
-          emailerror: emailerror.value,
-          phoneerror: phoneerror.value),
+        loginController: loginController,
+        passController: passController,
+        nameController: nameController,
+        emailController: emailController,
+        phoneController: phoneController,
+        registerCallBack: registerCallBack,
+        loginerror: loginerror.value,
+        passworderror: passworderror.value,
+        nameerror: nameerror.value,
+        emailerror: emailerror.value,
+        phoneerror: phoneerror.value,
+        radioValue: radioValue.value,
+        onChangeRadioValueCallBack: onChangeRadioValueCallBack,
+      ),
     );
   }
 }

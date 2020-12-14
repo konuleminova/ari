@@ -10,6 +10,8 @@ class RegisterView extends StatelessWidget {
   var emailController;
   var phoneController;
   var registerCallBack;
+  var onChangeRadioValueCallBack;
+  var radioValue;
 
   var loginerror;
   var passworderror;
@@ -28,7 +30,9 @@ class RegisterView extends StatelessWidget {
       this.nameerror,
       this.emailerror,
       this.phoneerror,
-      this.registerCallBack});
+      this.registerCallBack,
+      this.radioValue,
+      this.onChangeRadioValueCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -177,10 +181,13 @@ class RegisterView extends StatelessWidget {
                   ),
                   Container(
                     child: RadioListTile(
-                      value: false,
+                      value: radioValue,
                       groupValue: false,
                       dense: false,
-                      onChanged: (v) {},
+                      onChanged: (v) {
+                        //radioValue=!v;
+                        onChangeRadioValueCallBack(!v);
+                      },
                       title: Text(
                         'Согласен с условиями',
                         style: TextStyle(fontSize: 12.toFont),
