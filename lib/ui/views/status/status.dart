@@ -20,7 +20,7 @@ class StatusView extends HookWidget {
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
- ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
+    ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
     var _lastMapPosition2;
 
     //Restourant Coords
@@ -30,14 +30,13 @@ class StatusView extends HookWidget {
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
       final _lastMapPosition = LatLng(lat, lng);
-      getBytesFromAsset( 'assets/images/restourant.png',130)
-          .then((value) {
+      getBytesFromAsset('assets/images/restourant.png', 130).then((value) {
         final marker = Marker(
             draggable: true,
             markerId: MarkerId(_lastMapPosition.toString()),
             position: _lastMapPosition,
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
-            icon:  BitmapDescriptor.fromBytes(value));
+            icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker);
         markers.notifyListeners();
       });
@@ -49,8 +48,7 @@ class StatusView extends HookWidget {
       double lat2 = double.parse(split2[0]);
       double lng2 = double.parse(split2[1]);
       _lastMapPosition2 = LatLng(lat2, lng2);
-      getBytesFromAsset( 'assets/images/user.png',130)
-          .then((value) {
+      getBytesFromAsset('assets/images/user.png', 130).then((value) {
         final marker2 = Marker(
             draggable: true,
             markerId: MarkerId(_lastMapPosition2.toString()),
@@ -68,19 +66,17 @@ class StatusView extends HookWidget {
       double lat3 = double.parse(split3[0]);
       double lng3 = double.parse(split3[1]);
       final _lastMapPosition3 = LatLng(lat3, lng3);
-      getBytesFromAsset('assets/images/curyer.png',130)
-          .then((value) {
+      getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
         final marker3 = Marker(
             draggable: true,
             markerId: MarkerId(_lastMapPosition3.toString()),
             position: _lastMapPosition3,
             infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
-            icon:  BitmapDescriptor.fromBytes(value));
+            icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker3);
         markers.notifyListeners();
       });
     }
-
 
     // TODO: implement build
     return Container(
@@ -156,7 +152,7 @@ class StatusView extends HookWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${order.foods[index].count}  ${order.foods[index].name}',
+                                    '${order.foods[index].count}. ${order.foods[index].name}             ${order.foods[index].count * double.parse(order.foods[index].price)} ₼ ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 14.toFont),

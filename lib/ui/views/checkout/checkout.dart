@@ -98,6 +98,7 @@ class CheckoutView extends StatelessWidget {
                                                               .spaceBetween,
                                                       children: <Widget>[
                                                         Expanded(
+                                                          flex:3,
                                                           child: Text(
                                                             '${checkout.foodList[index].foods[innerIndex].name}',
                                                             style: TextStyle(
@@ -107,7 +108,6 @@ class CheckoutView extends StatelessWidget {
                                                                     FontWeight
                                                                         .w500),
                                                           ),
-                                                          flex: 2,
                                                         ),
                                                         SizedBox(
                                                           width: 4.toWidth,
@@ -115,6 +115,17 @@ class CheckoutView extends StatelessWidget {
                                                         Expanded(
                                                           child: Text(
                                                             '${checkout.foodList[index].foods[innerIndex].count}',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    11.toFont,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            '${double.parse(checkout.foodList[index].foods[innerIndex].price) * checkout.foodList[index].foods[innerIndex].count} ₼',
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     11.toFont,
@@ -194,7 +205,14 @@ class CheckoutView extends StatelessWidget {
                                                                           SizedBox(
                                                                             width:
                                                                                 4.toWidth,
-                                                                          )
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              '${double.parse(checkout.foodList[index].foods[innerIndex].adds[i].price) * checkout.foodList[index].foods[innerIndex].adds[i].count} ₼',
+                                                                              style: TextStyle(fontSize: 11.toFont, fontWeight: FontWeight.w500),
+                                                                            ),
+                                                                          ),
                                                                         ],
                                                                       ),
                                                                       padding: EdgeInsets.only(
@@ -252,7 +270,17 @@ class CheckoutView extends StatelessWidget {
                                                                 SizedBox(
                                                                   width:
                                                                       3.toWidth,
-                                                                )
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${double.parse(checkout.foodList[index].foods[innerIndex].addsType2[0].price) * checkout.foodList[index].foods[innerIndex].addsType2[0].count} ₼',
+                                                                    style: TextStyle(
+                                                                        fontSize: 11
+                                                                            .toFont,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                  ),
+                                                                ),
                                                               ],
                                                             ))
                                                         : SizedBox()
@@ -275,7 +303,9 @@ class CheckoutView extends StatelessWidget {
                             SizedBox(
                               width: 16.toWidth,
                             ),
-                            Text('Delivery price: ',),
+                            Text(
+                              'Delivery price: ',
+                            ),
                             SizedBox(
                               width: 8.toWidth,
                             ),

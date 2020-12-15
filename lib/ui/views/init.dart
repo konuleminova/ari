@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/nested_root.dart';
@@ -32,7 +33,7 @@ class InitPage extends HookWidget {
     // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
 
     final ValueNotifier<UniqueKey> uniqueKey3 = useState<UniqueKey>();
-    ApiResponse apiResponse1 = useFetchRestourants('1', key: uniqueKey3.value);
+    ApiResponse<RestourantList> apiResponse1 = useFetchRestourants('1', key: uniqueKey3.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
     useEffect(() {
