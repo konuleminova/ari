@@ -72,6 +72,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                     width: 40.toHeight,
                     height: 40.toHeight,
                   ),onTap: (){
+                    onClickIndex.value = 0;
                     navigationKey.currentState.pushNamed('/');
                   },)
               )

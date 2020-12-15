@@ -32,6 +32,7 @@ CheckoutState _reducer(CheckoutState state, CheckoutAction action) {
 
   return state;
 }
+
 //Store data from reducer
 
 Store<CheckoutState, CheckoutAction> useCheckoutStore() {
