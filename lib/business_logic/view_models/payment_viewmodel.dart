@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:ari/services/provider/provider.dart';
-import 'package:ari/ui/provider_components/checkout_action.dart';
-import 'package:ari/ui/provider_components/checkout_state.dart';
+import 'package:ari/ui/provider/checkout/checkout_action.dart';
+import 'package:ari/ui/provider/checkout/checkout_state.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ari/business_logic/models/checkout.dart';

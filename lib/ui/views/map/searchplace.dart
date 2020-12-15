@@ -1,4 +1,4 @@
-import 'package:ari/ui/provider_components/checkout_action.dart';
+import 'package:ari/ui/provider/checkout/checkout_action.dart';
 import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
 import 'package:ari/utils/map_utils/flutter_google_places.dart';
 import 'package:ari/utils/map_utils/point_inpolygon.dart';

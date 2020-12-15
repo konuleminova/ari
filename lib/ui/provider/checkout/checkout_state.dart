@@ -1,5 +1,5 @@
 import 'package:ari/business_logic/models/checkout.dart';
-import 'package:ari/ui/provider_components/checkout_action.dart';
+import 'package:ari/ui/provider/checkout/checkout_action.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CheckoutState {
