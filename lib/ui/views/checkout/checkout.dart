@@ -275,6 +275,10 @@ class CheckoutView extends StatelessWidget {
                             SizedBox(
                               width: 16.toWidth,
                             ),
+                            Text('Delivery price: ',),
+                            SizedBox(
+                              width: 8.toWidth,
+                            ),
                             Text(
                               '${deliveryPrice}  ₼' ?? '',
                               style: TextStyle(
