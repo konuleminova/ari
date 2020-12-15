@@ -5,11 +5,10 @@ class NestedNavigator extends StatelessWidget {
   final String initialRoute;
   final Map<String, WidgetBuilder> routes;
 
-  NestedNavigator({
-    @required this.navigationKey,
-    @required this.initialRoute,
-    @required this.routes,
-  });
+  NestedNavigator(
+      {@required this.navigationKey,
+      @required this.initialRoute,
+      @required this.routes,});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +25,7 @@ class NestedNavigator extends StatelessWidget {
         },
       ),
       onWillPop: () {
-
-        if(navigationKey.currentState.canPop()) {
+        if (navigationKey.currentState.canPop()) {
           navigationKey.currentState.pop();
           return Future<bool>.value(false);
         }
