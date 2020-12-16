@@ -33,7 +33,7 @@ class InitPage extends HookWidget {
     // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
 
     final ValueNotifier<UniqueKey> uniqueKey3 = useState<UniqueKey>();
-    ApiResponse<RestourantList> apiResponse1 = useFetchRestourants('1', key: uniqueKey3.value);
+    //ApiResponse<RestourantList> apiResponse1 = useFetchRestourants('1', key: uniqueKey3.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
     useEffect(() {
@@ -55,9 +55,8 @@ class InitPage extends HookWidget {
         Scaffold(
             resizeToAvoidBottomPadding: true,
             appBar: CustomAppBar(
-                text: apiResponse1.status == Status.Done
-                    ? apiResponse1.data.message
-                    : '',),
+              text: '',
+            ),
             backgroundColor: Color(0xfffccd13),
             body: Stack(
               children: <Widget>[
@@ -68,9 +67,10 @@ class InitPage extends HookWidget {
                       width: SizeConfig().screenWidth,
                       height: SizeConfig().screenHeight,
                       child: NestedNavigator(
-                          navigationKey: navigationKey,
-                          initialRoute: '/',
-                          routes: routeNames,),
+                        navigationKey: navigationKey,
+                        initialRoute: '/',
+                        routes: routeNames,
+                      ),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(

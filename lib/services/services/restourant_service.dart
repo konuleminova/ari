@@ -8,13 +8,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-ApiResponse<RestourantList> useFetchRestourants(String id,{UniqueKey key}) {
+ApiResponse<RestourantList> useFetchRestourants(String id,{UniqueKey key,String lang}) {
   ApiConfig apiConfig = useApiConfig();
   //print(apiConfig.RESTOURANT_URl(id));
   final DioConfig dioConfig = useMemoized(() => DioConfig<RestourantList>(
-      path: apiConfig.RESTOURANT_URl(id),
+      path: apiConfig.RESTOURANT_URl(id,lang),
       transformResponse: (Response response) =>
-          RestourantList.fromJson(response.data),),[key]);
+          RestourantList.fromJson(response.data),),[key,lang]);
   ApiResponse<RestourantList> apiResponse =
       useDioRequest<RestourantList>(dioConfig);
   return apiResponse;

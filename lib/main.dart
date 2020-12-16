@@ -23,7 +23,7 @@ void main() {
 class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final changeLangStore = useChangeLangStore();
+  final changeLangStore = useChangeLangStore();
     useProviderRegistration(changeLangStore);
 
     return MaterialApp(
