@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/models/search.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/views/home/widgets/restourant_item.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -107,7 +108,7 @@ class SearchView extends StatelessWidget {
                   ),
                 )
               : Center(
-                  child: Text('No data'),
+                  child: Text(AppLocalizations.of(context).translate("No data")??"No data"),
                 )
         ],
       ),

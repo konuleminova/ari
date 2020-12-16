@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -55,13 +56,15 @@ class CustomMenuDrawer extends HookWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Меню'),
+                  Text(
+                      AppLocalizations.of(context).translate('Меню') ?? 'Меню'),
                   SizedBox(
                     height: 8.toHeight,
                   ),
                   InkWell(
                     child: Text(
-                      'О нас',
+                      AppLocalizations.of(context).translate('О нас') ??
+                          'О нас',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22.toFont),
                     ),
@@ -76,14 +79,16 @@ class CustomMenuDrawer extends HookWidget {
                   ),
                   InkWell(
                     child: Text(
-                      'Акции',
+                      AppLocalizations.of(context).translate('Акции') ??
+                          'Акции',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22.toFont),
                     ),
                     onTap: () {
                       Navigator.pop(context);
                       pushRouteWithName(ROUTE_HTML,
-                          arguments: RouteArguments<String>(data: 'promotions'));
+                          arguments:
+                              RouteArguments<String>(data: 'promotions'));
                     },
                   ),
                   SizedBox(
@@ -91,7 +96,8 @@ class CustomMenuDrawer extends HookWidget {
                   ),
                   InkWell(
                     child: Text(
-                      'Вакансии',
+                      AppLocalizations.of(context).translate('Вакансии') ??
+                          'Вакансии',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22.toFont),
                     ),
@@ -106,7 +112,8 @@ class CustomMenuDrawer extends HookWidget {
                   ),
                   InkWell(
                     child: Text(
-                      'Контакты',
+                      AppLocalizations.of(context).translate('Контакты') ??
+                          'Контакты',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22.toFont),
                     ),
@@ -120,7 +127,7 @@ class CustomMenuDrawer extends HookWidget {
                     height: 24.toHeight,
                   ),
                   Text(
-                    'Язык',
+                    AppLocalizations.of(context).translate('Язык') ?? 'Язык',
                   ),
                   SizedBox(
                     height: 4.toHeight,
@@ -155,7 +162,8 @@ class CustomMenuDrawer extends HookWidget {
                   SizedBox(
                     height: 24.toWidth,
                   ),
-                  Text('Кнопка меню'),
+                  Text(AppLocalizations.of(context).translate('Кнопка меню') ??
+                      'Кнопка меню'),
                   SizedBox(
                     height: 8.toHeight,
                   ),
@@ -164,7 +172,8 @@ class CustomMenuDrawer extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Слева',
+                          AppLocalizations.of(context).translate('Слева') ??
+                              'Слева',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18.toFont),
                         ),
@@ -181,7 +190,7 @@ class CustomMenuDrawer extends HookWidget {
                           inactiveThumbColor: Colors.white,
                         ),
                         Text(
-                          'Справа',
+                          AppLocalizations.of(context).translate('Справа')??'Справа',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18.toFont),
                         )

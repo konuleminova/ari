@@ -1,6 +1,7 @@
 import 'package:ari/business_logic/models/user.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/hooks/use_callback.dart';
@@ -79,41 +80,45 @@ class RegisterViewModel extends HookWidget {
         email.value = emailController.text;
         phone.value = phoneController.text;
         if (login.value.isEmpty) {
-          loginerror.value = 'Login is required.';
+          loginerror.value =
+              AppLocalizations.of(context).translate("Login is required.") ??
+                  "Login is required.";
         } else {
           loginerror.value = null;
         }
         if (password.value.isEmpty) {
-          passworderror.value = 'Password is required.';
+          passworderror.value =
+              AppLocalizations.of(context).translate("Password is required.") ??
+                  "Password is required.";
         } else {
           passworderror.value = null;
         }
         if (name.value.isEmpty) {
-          nameerror.value = 'Name is required.';
+          nameerror.value = AppLocalizations.of(context).translate("Name is required.")??"Name is required.";
         } else {
           nameerror.value = null;
         }
 
         if (email.value.isEmpty) {
-          emailerror.value = 'Email is required.';
+          emailerror.value = AppLocalizations.of(context).translate("Email is required.")??"Email is required.";
         } else {
           emailerror.value = null;
         }
         if (phone.value.isEmpty) {
-          phoneerror.value = 'Phone number is required.';
+          phoneerror.value = AppLocalizations.of(context).translate("Phone number is required.")??"Phone number is required.";
         } else {
           phoneerror.value = null;
         }
-         if (login.value.isNotEmpty &&
-             password.value.isNotEmpty &&
-             email.value.isNotEmpty &&
-             name.value.isNotEmpty &&
-             phone.value.isNotEmpty &&
-             radioValue.value) {
+        if (login.value.isNotEmpty &&
+            password.value.isNotEmpty &&
+            email.value.isNotEmpty &&
+            name.value.isNotEmpty &&
+            phone.value.isNotEmpty &&
+            radioValue.value) {
           showDialog(
               context: context,
               builder: (BuildContext context) => ErrorDialog(
-                    errorMessage: 'Please accept the rules.',
+                    errorMessage: AppLocalizations.of(context).translate('Please accept the rules.')??'Please accept the rules.',
                   ));
         }
 

@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/size_config.dart';
@@ -27,12 +28,13 @@ class ProfileView extends StatelessWidget {
             ? ListView(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _header(),
+                  _header(context),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 16.toWidth, vertical: 4.toHeight),
                     child: Text(
-                      'My Address',
+                      AppLocalizations.of(context).translate('My Address') ??
+                          'My Address',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -65,7 +67,8 @@ class ProfileView extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: 16.toWidth, vertical: 4.toHeight),
                     child: Text(
-                      'My Orders',
+                      AppLocalizations.of(context).translate('My Orders') ??
+                          'My Orders',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -188,11 +191,11 @@ class ProfileView extends StatelessWidget {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _header(),
+                  _header(context),
                   Expanded(
                     child: Center(
                       child: Text(
-                        apiResponse.data.message??'',
+                        apiResponse.data.message ?? '',
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -201,7 +204,7 @@ class ProfileView extends StatelessWidget {
               ));
   }
 
-  _header() => Container(
+  _header(BuildContext context) => Container(
         padding: EdgeInsets.all(16.toWidth),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,7 +220,9 @@ class ProfileView extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: ThemeColor().greenLightColor,
                     borderRadius: BorderRadius.circular(20)),
-                child: Text('Log out'),
+                child: Text(
+                    AppLocalizations.of(context).translate('Войти в систему') ??
+                        'Войти в систему'),
                 width: 90.toWidth,
                 height: 28.toHeight,
               ),

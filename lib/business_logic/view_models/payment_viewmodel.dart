@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/provider/provider.dart';
 import 'package:ari/ui/provider/checkout/checkout_action.dart';
 import 'package:ari/ui/provider/checkout/checkout_state.dart';
@@ -169,7 +170,8 @@ class PaymentViewModel extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Go to payment',
+                      AppLocalizations.of(context).translate('Go to payment') ??
+                          'Go to payment',
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 19.toFont),
                     ),
@@ -185,6 +187,7 @@ class PaymentViewModel extends HookWidget {
             margin: EdgeInsets.only(bottom: 8.toHeight),
           );
   }
+
   JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
     return JavascriptChannel(
         name: 'Toaster',

@@ -1,5 +1,7 @@
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/view_models/payment_viewmodel.dart';
+import 'package:ari/localization/app_localization.dart';
+import 'package:ari/localization/app_localization_delegate.dart';
 import 'package:ari/ui/views/map/searchplace.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -98,7 +100,7 @@ class CheckoutView extends StatelessWidget {
                                                               .spaceBetween,
                                                       children: <Widget>[
                                                         Expanded(
-                                                          flex:3,
+                                                          flex: 3,
                                                           child: Text(
                                                             '${checkout.foodList[index].foods[innerIndex].name}',
                                                             style: TextStyle(
@@ -303,9 +305,9 @@ class CheckoutView extends StatelessWidget {
                             SizedBox(
                               width: 16.toWidth,
                             ),
-                            Text(
-                              'Delivery price: ',
-                            ),
+                            Text(AppLocalizations.of(context)
+                                    .translate('Delivery price: ') ??
+                                'Delivery price: '),
                             SizedBox(
                               width: 8.toWidth,
                             ),

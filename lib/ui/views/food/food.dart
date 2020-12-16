@@ -4,6 +4,7 @@ import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -168,7 +169,9 @@ class FoodView extends StatelessWidget {
               itemScrollController: verticalScrollController,
               physics: BouncingScrollPhysics(),
               itemPositionsListener: itemPositionsListener,
-              padding: EdgeInsets.only(top: 2.toHeight, bottom: atLeastOneItemSelected?56.toHeight:16.toHeight),
+              padding: EdgeInsets.only(
+                  top: 2.toHeight,
+                  bottom: atLeastOneItemSelected ? 56.toHeight : 16.toHeight),
               itemBuilder: (BuildContext context, int index) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +257,9 @@ class FoodView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                'Go to checkout',
+                                AppLocalizations.of(context)
+                                        .translate('Go to checkout') ??
+                                    'Go to checkout',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 19.toFont),

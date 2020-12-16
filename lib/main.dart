@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           Locale('ru', '')
         ],
         localizationsDelegates: [
-          ApplicationLocalizations.delegate,
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,

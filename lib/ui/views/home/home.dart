@@ -2,6 +2,7 @@ import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/views/home/widgets/restourant_item.dart';
 import 'package:ari/ui/views/home/widgets/product_partner_item.dart';
 import 'package:ari/ui/views/init.dart';
@@ -154,7 +155,7 @@ class HomeView extends StatelessWidget {
                 height: 44.toHeight,
                 child: Center(
                   child: Text(
-                    '© Ari 2020 by Delivery Group',
+                    AppLocalizations.of(context).translate('© Ari 2020 by Delivery Group')??'© Ari 2020 by Delivery Group',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 12.toFont),
                   ),

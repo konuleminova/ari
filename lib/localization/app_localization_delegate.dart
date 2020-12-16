@@ -2,7 +2,7 @@ import 'package:ari/localization/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class AppLocalizationsDelegate
-    extends LocalizationsDelegate<ApplicationLocalizations> {
+    extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
@@ -12,17 +12,17 @@ class AppLocalizationsDelegate
   }
 
   @override
-  Future<ApplicationLocalizations> load(Locale locale) async {
+  Future<AppLocalizations> load(Locale locale) async {
     // TODO: implement load
-    ApplicationLocalizations applicationLocalizations =
-        new ApplicationLocalizations(locale);
+    AppLocalizations applicationLocalizations =
+        new AppLocalizations(locale);
     await applicationLocalizations.load();
     return applicationLocalizations;
   }
 
   @override
   bool shouldReload(
-      covariant LocalizationsDelegate<ApplicationLocalizations> old) {
+      covariant LocalizationsDelegate<AppLocalizations> old) {
     // TODO: implement shouldReload
     return false;
   }

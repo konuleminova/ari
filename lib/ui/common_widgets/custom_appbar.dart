@@ -108,7 +108,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
             alignment: Alignment.centerLeft,
             child: Text(
-              ApplicationLocalizations.of(context).translate('hello'),
+              AppLocalizations.of(context).translate('hello'),
               textAlign: TextAlign.start,
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontSize: 11.toFont),
