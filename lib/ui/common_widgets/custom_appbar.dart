@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/services/restourant_service.dart';
 import 'package:ari/ui/common_widgets/yellow_clipper.dart';
@@ -107,7 +108,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
             alignment: Alignment.centerLeft,
             child: Text(
-              text ?? '',
+              ApplicationLocalizations.of(context).translate('hello'),
               textAlign: TextAlign.start,
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontSize: 11.toFont),
