@@ -1,6 +1,9 @@
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/localization/app_localization.dart';
+import 'package:ari/services/provider/provider.dart';
+import 'package:ari/ui/provider/change_language/change_language_action.dart';
+import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -17,6 +20,7 @@ class CustomMenuDrawer extends HookWidget {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<bool> menuPositionLeft = useState<bool>(value);
+    final store = useProvider<Store<ChangeLangState, ChangeLangAction>>();
     // TODO: implement build
     return Material(
         color: Colors.transparent,
@@ -136,23 +140,53 @@ class CustomMenuDrawer extends HookWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          'AZ',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Text(
-                          'EN',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(8.toWidth),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: ThemeColor().greenColor.withOpacity(0.4)),
-                          child: Text(
-                            'RU',
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                        InkWell(
+                          child: Container(
+                            padding: EdgeInsets.all(8.toWidth),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ThemeColor().greenColor.withOpacity(
+                                    store.state.lang == 'az' ? 0.4 : 0)),
+                            child: Text(
+                              'AZ',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
                           ),
+                          onTap: () {
+                            store.dispatch(ChangeLangAction(langugae: 'az'));
+                          },
+                        ),
+                        InkWell(
+                          child: Container(
+                            padding: EdgeInsets.all(8.toWidth),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ThemeColor().greenColor.withOpacity(
+                                    store.state.lang == 'en' ? 0.4 : 0)),
+                            child: Text(
+                              'EN',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          onTap: () {
+                            store.dispatch(ChangeLangAction(langugae: 'en'));
+                          },
+                        ),
+                        InkWell(
+                          child: Container(
+                            padding: EdgeInsets.all(8.toWidth),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ThemeColor().greenColor.withOpacity(
+                                    store.state.lang == 'ru' ? 0.4 : 0)),
+                            child: Text(
+                              'RU',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          onTap: () {
+                            store.dispatch(ChangeLangAction(langugae: 'ru'));
+                          },
                         )
                       ],
                     ),
@@ -190,7 +224,8 @@ class CustomMenuDrawer extends HookWidget {
                           inactiveThumbColor: Colors.white,
                         ),
                         Text(
-                          AppLocalizations.of(context).translate('Справа')??'Справа',
+                          AppLocalizations.of(context).translate('Справа') ??
+                              'Справа',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18.toFont),
                         )
