@@ -15,14 +15,14 @@ class RestourantViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<UniqueKey> uniqueKey = useState<UniqueKey>();
-    final changeLangStore=useProvider<Store<ChangeLangState,ChangeLangAction>>();
-    print('STORE STTT ${ changeLangStore.state.lang}');
+    final localizationStore=useProvider<Store<ChangeLangState,ChangeLangAction>>();
+    print('STORE STTT ${ localizationStore.state.lang}');
     ApiResponse apiResponse1 = useFetchRestourants('1',
-        key: uniqueKey.value, lang:changeLangStore.state.lang ?? 'az');
+        key: uniqueKey.value, lang:localizationStore.state.lang ?? 'az');
     ApiResponse apiResponse2 = useFetchRestourants('2',
-        key: uniqueKey.value, lang: changeLangStore.state.lang ?? 'az');
+        key: uniqueKey.value, lang: localizationStore.state.lang ?? 'az');
     ApiResponse apiResponse3 = useFetchRestourants('3',
-        key: uniqueKey.value, lang:changeLangStore.state.lang ?? 'az');
+        key: uniqueKey.value, lang:localizationStore.state.lang ?? 'az');
 
     return CustomErrorHandler(
       statuses: [apiResponse1.status, apiResponse2.status, apiResponse3.status],
