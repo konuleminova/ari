@@ -26,7 +26,7 @@ class MyApp extends HookWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        locale: Locale(changeLangStore.state.lang ?? "en"),
+        locale: Locale(changeLangStore.state.lang ?? "az"),
         supportedLocales: [
           Locale('az', ''),
           Locale('en', ''),
