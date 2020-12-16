@@ -23,14 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
     _controller =
         VideoPlayerController.asset('assets/videos/splash_animation.mp4')
           ..initialize().then((_) {
-            setState(() {
-
-            });
+            setState(() {});
             _controller.play().then((value) {
               _controller.addListener(() {
                 if (!_controller.value.isPlaying) {
                   if (context != null) {
-                    setInstance();
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -61,8 +58,5 @@ class _SplashScreenState extends State<SplashScreen> {
   void dispose() {
     super.dispose();
     _controller.dispose();
-  }
-  void setInstance() async {
-    await SpUtil.getInstance();
   }
 }

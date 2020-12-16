@@ -1,19 +1,22 @@
 import 'package:ari/services/provider/provider.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/splash.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'localization/app_localization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(MyApp());
+    SpUtil.getInstance().then((value) {
+      runApp(MyApp());
+    });
+
   });
 }
 
