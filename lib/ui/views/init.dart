@@ -8,10 +8,12 @@ import 'package:ari/business_logic/routes/nested_root.dart';
 import 'package:ari/business_logic/view_models/status_viewmodel.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/use_callback.dart';
+import 'package:ari/services/provider/provider.dart';
 import 'package:ari/services/services/restourant_service.dart';
 import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
+import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/menu/menu_view.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/size_config.dart';
@@ -36,6 +38,10 @@ class InitPage extends HookWidget {
     //ApiResponse<RestourantList> apiResponse1 = useFetchRestourants('1', key: uniqueKey3.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
+
+    final store = findLanguageStore();
+    print('CURRENT LANG FROM STORE: ${store.state.lang}');
+
     useEffect(() {
       timer = Timer.periodic(Duration(seconds: 5), (timer) {
         if (Platform.isAndroid) {
@@ -93,7 +99,7 @@ class InitPage extends HookWidget {
         }
       }
       return () {};
-    }, [apiResponse.status]);
+    }, [apiResponse.status,store.state.lang]);
 //    useEffect(() {
 //      //Adding circle status Widgets
 //      if (apiResponse2.status == Status.Done) {

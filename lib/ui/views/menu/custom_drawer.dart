@@ -154,6 +154,7 @@ class CustomMenuDrawer extends HookWidget {
                           ),
                           onTap: () {
                             store.dispatch(ChangeLangAction(langugae: 'az'));
+                            Navigator.of(context).pop();
                           },
                         ),
                         InkWell(
@@ -170,6 +171,7 @@ class CustomMenuDrawer extends HookWidget {
                           ),
                           onTap: () {
                             store.dispatch(ChangeLangAction(langugae: 'en'));
+                            Navigator.of(context).pop();
                           },
                         ),
                         InkWell(
@@ -186,6 +188,7 @@ class CustomMenuDrawer extends HookWidget {
                           ),
                           onTap: () {
                             store.dispatch(ChangeLangAction(langugae: 'ru'));
+                            Navigator.of(context).pop();
                           },
                         )
                       ],

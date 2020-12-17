@@ -1,3 +1,4 @@
+import 'package:ari/services/provider/provider.dart';
 import 'package:ari/ui/provider/change_language/change_language_action.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,8 +22,9 @@ final ChangeLangState initState = ChangeLangState(
 ChangeLangState _reducer(ChangeLangState state, ChangeLangAction action) {
   if (action is ChangeLangAction) {
     SpUtil.putString(SpUtil.lang, action.langugae).then((value) {
-      print('LANG VALUE ${value}');
+      //print('LANG VALUE ${value}');
     });
+    print('LANG VALUE ${action.langugae}');
     return state.copyWith(lang: action.langugae);
   }
   return state;
@@ -33,4 +35,8 @@ Store<ChangeLangState, ChangeLangAction> useChangeLangStore() {
   Store<ChangeLangState, ChangeLangAction> store =
       useReducer(_reducer, initialState: initState);
   return store;
+}
+
+Store<ChangeLangState, ChangeLangAction> findLanguageStore() {
+  return useProvider<Store<ChangeLangState, ChangeLangAction>>();
 }

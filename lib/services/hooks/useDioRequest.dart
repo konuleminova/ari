@@ -1,10 +1,13 @@
 import 'package:ari/services/api_helper/dio_config.dart';
 import 'package:ari/services/api_helper/api_response.dart';
+import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
+  final langStore = findLanguageStore();
+
   final ValueNotifier<ApiResponse<T>> _state =
       useState<ApiResponse<T>>(ApiResponse.initial());
   Dio dio = useMemoized(() => Dio());
@@ -15,10 +18,12 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       print('REQUESTED URL: ${config.path}');
       _state.value = ApiResponse.loading();
       cancelToken = CancelToken();
+      final queryParams = config.queryParamaters ?? {};
+      queryParams['lang'] = langStore.state.lang;
       dio
           .request(config.path,
               data: config.data,
-              queryParameters: config.queryParamaters,
+              queryParameters: queryParams,
               options: config.options,
               onSendProgress: config.onSendProgress,
               onReceiveProgress: config.onReceiveProgress,
@@ -54,7 +59,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
         cancelToken = null;
       }
     };
-  }, [config]);
+  }, [config, langStore.state.lang]);
   //print('STATEB VALUE ${_state.value}');
   return _state.value;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class NestedNavigator extends StatelessWidget {
+class NestedNavigator extends HookWidget {
   final GlobalKey<NavigatorState> navigationKey;
   final String initialRoute;
   final Map<String, WidgetBuilder> routes;
@@ -12,6 +13,9 @@ class NestedNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('IN NAVIGATOR STORE ');
+
+
     return WillPopScope(
       child: Navigator(
         key: navigationKey,

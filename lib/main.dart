@@ -25,6 +25,7 @@ class MyApp extends HookWidget {
   Widget build(BuildContext context) {
   final changeLangStore = useChangeLangStore();
     useProviderRegistration(changeLangStore);
+    print('CURRENT LANGUAGE: ${changeLangStore.state.lang}');
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
