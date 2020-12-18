@@ -6,6 +6,7 @@ import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/services/restourant_service.dart';
 import 'package:ari/ui/common_widgets/yellow_clipper.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/image_config.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -17,13 +18,12 @@ import 'package:ari/utils/size_config.dart';
 import 'image_asset.dart';
 
 class CustomAppBar extends HookWidget implements PreferredSizeWidget {
-  String text;
-
-  CustomAppBar({this.text});
+  CustomAppBar();
 
   @override
   Widget build(BuildContext context) {
     var onClickIndex = useState<int>();
+    final store = getAppBarStore();
 
     useEffect(() {
       onClickIndex.value = 0;
@@ -108,7 +108,8 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
             alignment: Alignment.centerLeft,
             child: Text(
-              AppLocalizations.of(context).translate('hello'),
+              store.state.message ??
+                  AppLocalizations.of(context).translate('hello'),
               textAlign: TextAlign.start,
               style:
                   TextStyle(fontWeight: FontWeight.bold, fontSize: 11.toFont),

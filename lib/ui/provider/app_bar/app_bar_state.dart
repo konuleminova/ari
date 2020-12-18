@@ -1,29 +1,40 @@
-import 'package:ari/services/hooks/use_callback.dart';
+import 'package:ari/services/provider/provider.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_action.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AppBarStrore {
+class AppBarState {
   final int index;
   final String message;
-  final Function(String) setMessage;
-  final Function(int) setIndex;
 
-  AppBarStrore({this.index, this.message, this.setIndex, this.setMessage});
+  AppBarState({this.index, this.message});
+
+  AppBarState copyWith({String message, int index}) {
+    return AppBarState(message: message, index: index);
+  }
 }
 
-AppBarStrore useAppBarStore() {
-  final index = useState<int>(0);
-  final message = useState<String>('');
+//init state
+final AppBarState initState = AppBarState(message: '', index: 0);
 
-  final setIndex = useCallback((int value) {
-    index.value = value;
-  }, []);
-  final setMessage = useCallback((String value) {
-    message.value = value;
-  }, []);
+//reducer
+AppBarState _reducer(AppBarState state, AppBarAction action) {
+  if (action is AppBarAction) {
+    return state.copyWith(message: action.message, index: action.index);
+  }
+  return state;
+}
+//store
 
-  return AppBarStrore(
-      index: index.value,
-      message: message.value,
-      setIndex: setIndex,
-      setMessage: setMessage);
+Store<AppBarState, AppBarAction> useAppBarStore() {
+  Store<AppBarState, AppBarAction> store =
+      useReducer(_reducer, initialState: initState);
+  return store;
+}
+
+void registerAppBarStore() {
+  useProviderRegistration(useAppBarStore());
+}
+
+Store<AppBarState, AppBarAction> getAppBarStore() {
+  return useProvider<Store<AppBarState, AppBarAction>>();
 }

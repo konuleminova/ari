@@ -37,6 +37,6 @@ Store<ChangeLangState, ChangeLangAction> useChangeLangStore() {
   return store;
 }
 
-Store<ChangeLangState, ChangeLangAction> findLanguageStore() {
+Store<ChangeLangState, ChangeLangAction> getLanguageStore() {
   return useProvider<Store<ChangeLangState, ChangeLangAction>>();
 }

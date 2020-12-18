@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
-  final langStore = findLanguageStore();
+  final langStore = getLanguageStore();
 
   final ValueNotifier<ApiResponse<T>> _state =
       useState<ApiResponse<T>>(ApiResponse.initial());

@@ -1,4 +1,5 @@
 import 'package:ari/services/provider/provider.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/splash.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -16,15 +17,15 @@ void main() {
     SpUtil.getInstance().then((value) {
       runApp(MyApp());
     });
-
   });
 }
 
 class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
-  final changeLangStore = useChangeLangStore();
+    final changeLangStore = useChangeLangStore();
     useProviderRegistration(changeLangStore);
+    registerAppBarStore();
     print('CURRENT LANGUAGE: ${changeLangStore.state.lang}');
 
     return MaterialApp(

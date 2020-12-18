@@ -13,6 +13,7 @@ import 'package:ari/services/services/restourant_service.dart';
 import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/menu/menu_view.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -34,13 +35,12 @@ class InitPage extends HookWidget {
     ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
     // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
 
-    final ValueNotifier<UniqueKey> uniqueKey3 = useState<UniqueKey>();
-    //ApiResponse<RestourantList> apiResponse1 = useFetchRestourants('1', key: uniqueKey3.value);
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
 
-    final store = findLanguageStore();
-    print('CURRENT LANG FROM STORE: ${store.state.lang}');
+    final langStore = getLanguageStore();
+    final appBarStore = getAppBarStore();
+    print('CURRENT LANG FROM STORE: ${langStore.state.lang}');
 
     useEffect(() {
       timer = Timer.periodic(Duration(seconds: 5), (timer) {
@@ -61,7 +61,6 @@ class InitPage extends HookWidget {
         Scaffold(
             resizeToAvoidBottomPadding: true,
             appBar: CustomAppBar(
-              text: '',
             ),
             backgroundColor: Color(0xfffccd13),
             body: Stack(
@@ -99,7 +98,7 @@ class InitPage extends HookWidget {
         }
       }
       return () {};
-    }, [apiResponse.status,store.state.lang]);
+    }, [apiResponse.status,langStore.state.lang,appBarStore.state]);
 //    useEffect(() {
 //      //Adding circle status Widgets
 //      if (apiResponse2.status == Status.Done) {
