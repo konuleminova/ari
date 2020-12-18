@@ -30,9 +30,6 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
       return () {};
     }, [onClickIndex]);
 
-//    ApiResponse<RestourantList> apiResponse1 =
-//        useFetchRestourants('1', key: UniqueKey());
-//    print('API RESPONSE1 ${apiResponse1}');
     // TODO: implement build
     return Stack(
       children: <Widget>[
