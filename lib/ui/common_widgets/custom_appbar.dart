@@ -44,8 +44,10 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                       child: YellowClipper(
                         SEARCH_ASSET,
                         onClick: () {
-                          store.dispatch(AppBarAction(index: 1));
-                          navigationKey.currentState.pushNamed(ROUTE_SEARCH);
+                          if (store.state.index != 1) {
+                            store.dispatch(AppBarAction(index: 1));
+                            navigationKey.currentState.pushNamed(ROUTE_SEARCH);
+                          }
                         },
                         isClicked: store.state.index == 1 ? true : false,
                       ),
@@ -54,11 +56,14 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                       child: YellowClipper(
                         PERSON_ASSET,
                         onClick: () {
-                          store.dispatch(AppBarAction(index: 2));
-                          if (SpUtil.getString(SpUtil.token).isEmpty) {
-                            navigationKey.currentState.pushNamed(ROUTE_LOGIN);
-                          } else {
-                            navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                          if (store.state.index != 2) {
+                            store.dispatch(AppBarAction(index: 2));
+                            if (SpUtil.getString(SpUtil.token).isEmpty) {
+                              navigationKey.currentState.pushNamed(ROUTE_LOGIN);
+                            } else {
+                              navigationKey.currentState
+                                  .pushNamed(ROUTE_PROFILE);
+                            }
                           }
                         },
                         isClicked: store.state.index == 2 ? true : false,
