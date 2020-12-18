@@ -21,6 +21,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       final queryParams = config.queryParamaters ?? {};
       queryParams['lang'] =
           langStore.state.lang ?? SpUtil.getString(SpUtil.lang);
+      print('REQUESTED URL: ${config.path}&lang=${ langStore.state.lang}');
       dio
           .request(config.path,
               data: config.data,
@@ -31,7 +32,6 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
               cancelToken: cancelToken)
           .then((value) {
         if (!isCancel) {
-          print('REQUESTED URL: ${config.path}');
           print('IsCanceled: $isCancel');
           print('REQUESTED REsponse: ${value}');
 //          if (value.data['error'] == '1') {
