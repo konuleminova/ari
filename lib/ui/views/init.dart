@@ -45,7 +45,7 @@ class InitPage extends HookWidget {
     useEffect(() {
       timer = Timer.periodic(Duration(seconds: 5), (timer) {
         if (Platform.isAndroid) {
-          uniqueKey2.value = new UniqueKey();
+         // uniqueKey2.value = new UniqueKey();
         }
       });
       return () {};

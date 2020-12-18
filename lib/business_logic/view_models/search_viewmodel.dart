@@ -1,8 +1,11 @@
 import 'package:ari/business_logic/models/search.dart';
 import 'package:ari/services/api_helper/api_response.dart';
+import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/hooks/use_callback.dart';
 import 'package:ari/services/services/search_service.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_action.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/views/search/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +24,13 @@ class SearchViewModel extends HookWidget {
     }, []);
 
     ApiResponse<Search> apiResponse = useSearchList(
-        (text1.value==null||text1?.value?.isEmpty)? 'a':text1.value,
-        (text2.value==null||text2.value.isEmpty)? '10':text2.value);
+        (text1.value == null || text1?.value?.isEmpty) ? 'a' : text1.value,
+        (text2.value == null || text2.value.isEmpty) ? '10' : text2.value);
+
+    useSideEffect(() {
+      return () => WidgetsBinding.instance.addPostFrameCallback(
+          (_) => getAppBarStore().dispatch(AppBarAction(index: 0)));
+    }, []);
 
     // TODO: implement build
     return CustomErrorHandler(

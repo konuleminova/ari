@@ -6,6 +6,7 @@ import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/services/restourant_service.dart';
 import 'package:ari/ui/common_widgets/yellow_clipper.dart';
+import 'package:ari/ui/provider/app_bar/app_bar_action.dart';
 import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/image_config.dart';
@@ -22,14 +23,7 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    var onClickIndex = useState<int>();
     final store = getAppBarStore();
-
-    useEffect(() {
-      onClickIndex.value = 0;
-      return () {};
-    }, [onClickIndex]);
-
     // TODO: implement build
     return Stack(
       children: <Widget>[
@@ -47,20 +41,28 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Expanded(
-                      child: YellowClipper(onClickIndex, SEARCH_ASSET, 1,
-                          onClick: () {
-                        navigationKey.currentState.pushNamed(ROUTE_SEARCH);
-                      }),
+                      child: YellowClipper(
+                        SEARCH_ASSET,
+                        onClick: () {
+                          store.dispatch(AppBarAction(index: 1));
+                          navigationKey.currentState.pushNamed(ROUTE_SEARCH);
+                        },
+                        isClicked: store.state.index == 1 ? true : false,
+                      ),
                     ),
                     Expanded(
-                      child: YellowClipper(onClickIndex, PERSON_ASSET, 2,
-                          onClick: () {
-                        if (SpUtil.getString(SpUtil.token).isEmpty) {
-                          navigationKey.currentState.pushNamed(ROUTE_LOGIN);
-                        } else {
-                          navigationKey.currentState.pushNamed(ROUTE_PROFILE);
-                        }
-                      }),
+                      child: YellowClipper(
+                        PERSON_ASSET,
+                        onClick: () {
+                          store.dispatch(AppBarAction(index: 2));
+                          if (SpUtil.getString(SpUtil.token).isEmpty) {
+                            navigationKey.currentState.pushNamed(ROUTE_LOGIN);
+                          } else {
+                            navigationKey.currentState.pushNamed(ROUTE_PROFILE);
+                          }
+                        },
+                        isClicked: store.state.index == 2 ? true : false,
+                      ),
                     ),
                     Expanded(child: Container()),
                   ],
@@ -83,7 +85,6 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
                   height: 40.toHeight,
                 ),
                 onTap: () {
-                  onClickIndex.value = 0;
                   navigationKey.currentState.pushNamed('/');
                 },
               ))
