@@ -1,6 +1,7 @@
 import 'package:ari/services/api_helper/dio_config.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,11 +16,11 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
     bool isCancel = false;
     CancelToken cancelToken;
     if (config != null) {
-      print('REQUESTED URL: ${config.path}');
       _state.value = ApiResponse.loading();
       cancelToken = CancelToken();
       final queryParams = config.queryParamaters ?? {};
-      queryParams['lang'] = langStore.state.lang;
+      queryParams['lang'] =
+          langStore.state.lang ?? SpUtil.getString(SpUtil.lang);
       dio
           .request(config.path,
               data: config.data,
@@ -30,6 +31,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
               cancelToken: cancelToken)
           .then((value) {
         if (!isCancel) {
+          print('REQUESTED URL: ${config.path}');
           print('IsCanceled: $isCancel');
           print('REQUESTED REsponse: ${value}');
 //          if (value.data['error'] == '1') {
@@ -39,8 +41,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
 //            _state.value =
 //                ApiResponse.completed(config.transformResponse(value));
 
-          _state.value =
-              ApiResponse.completed(config.transformResponse(value));
+          _state.value = ApiResponse.completed(config.transformResponse(value));
         }
       }).catchError((error) {
         if (!isCancel) {
