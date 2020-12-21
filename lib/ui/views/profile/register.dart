@@ -177,7 +177,7 @@ class RegisterView extends StatelessWidget {
                           Expanded(
                             child: Text(
                               AppLocalizations.of(context)
-                                  .translate('mobile_title'),
+                                  .translate('email_title'),
                               style: TextStyle(
                                   color: ThemeColor().greyColor,
                                   fontSize: 10.toFont),
