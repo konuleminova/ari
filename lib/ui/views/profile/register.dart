@@ -191,20 +191,30 @@ class RegisterView extends StatelessWidget {
                         height: 8.toHeight,
                       ),
                       Container(
-                        child: RadioListTile(
-                          value: radioValue,
-                          groupValue: false,
-                          dense: false,
-                          onChanged: (v) {
-                            //radioValue=!v;
-                            onChangeRadioValueCallBack(!v);
-                          },
-                          title: Text(
-                            AppLocalizations.of(context)
-                                    .translate("Согласен с условиями") ??
-                                "Согласен с условиями",
-                            style: TextStyle(fontSize: 12.toFont),
-                          ),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                              value: radioValue,
+                              // controlAffinity: ListTileControlAffinity.leading,
+                              onChanged: (v) {
+                                onChangeRadioValueCallBack(v);
+                              },
+                            ),
+                            InkWell(
+                              child: Container(
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                          .translate("Согласен с условиями") ??
+                                      "Согласен с условиями",
+                                  style: TextStyle(fontSize: 12.toFont),
+                                ),
+                                padding: EdgeInsets.all(16),
+                              ),
+                              onTap: () {
+
+                              },
+                            )
+                          ],
                         ),
                         width: SizeConfig().screenWidth,
                         alignment: Alignment.topLeft,
