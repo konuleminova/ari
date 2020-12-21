@@ -163,12 +163,41 @@ class RegisterView extends StatelessWidget {
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                              border: InputBorder.none, errorText: emailerror),
+                            border: InputBorder.none,
+                          ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 8.toHeight,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('mobile_title'),
+                              style: TextStyle(
+                                  color: ThemeColor().greyColor,
+                                  fontSize: 10.toFont),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.toWidth,
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: ThemeColor().grey1,
+                          )
+                        ],
                       ),
                       SizedBox(
                         height: 16.toHeight,
                       ),
+
                       Text(
                         AppLocalizations.of(context)
                                 .translate("Номер телефона") ??
@@ -192,6 +221,30 @@ class RegisterView extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 8.toHeight,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('mobile_title'),
+                              style: TextStyle(
+                                  color: ThemeColor().greyColor,
+                                  fontSize: 10.toFont),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.toWidth,
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: ThemeColor().grey1,
+                          )
+                        ],
                       ),
                       Container(
                         child: Row(
