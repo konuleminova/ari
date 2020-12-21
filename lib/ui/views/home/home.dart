@@ -64,6 +64,7 @@ class HomeView extends StatelessWidget {
                             },
                             itemCount: restourantList1.results.length,
                             scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
                           ),
                         ),
                         SizedBox(
@@ -88,6 +89,7 @@ class HomeView extends StatelessWidget {
                           ),
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.25,
+                          alignment: Alignment.center,
                           child: ListView.builder(
                             padding: EdgeInsets.all(0),
                             itemBuilder: (BuildContext context, int index) {
@@ -96,6 +98,7 @@ class HomeView extends StatelessWidget {
                                 restourant: restourantList3.adv[index],
                               );
                             },
+                            shrinkWrap: true,
                             itemCount: restourantList3.adv.length,
                             scrollDirection: Axis.horizontal,
                           ),
