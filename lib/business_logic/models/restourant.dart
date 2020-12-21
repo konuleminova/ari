@@ -2,11 +2,14 @@ class RestourantList {
   String text;
   String message;
   List<Restourant> results;
+  List<Restourant> adv;
 
   RestourantList.fromJson(Map<String, dynamic> json) {
-    text = json['text']??'';
-    message=json['message_text']??'';
-    results = resourantListFromJson(json['results']);
+    text = json['text'] ?? '';
+    message = json['message_text'] ?? '';
+    results =
+        json['results'] == null ? resourantListFromJson(json['results']) : [];
+    adv = json['adv'] == null ? resourantListFromJson(json['adv']) : [];
   }
 }
 
