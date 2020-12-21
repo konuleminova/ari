@@ -68,7 +68,7 @@ class FoodView extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     child: Image.network(
-                      arguments.data.image,
+                      arguments.data.image??'',
                       width: SizeConfig().screenWidth,
                       height: SizeConfig().screenHeight,
                       fit: BoxFit.cover,
@@ -90,7 +90,7 @@ class FoodView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    arguments.data.name,
+                                    arguments.data.name??'',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -107,7 +107,7 @@ class FoodView extends StatelessWidget {
                                     height: 4.toHeight,
                                   ),
                                   Text(
-                                    arguments.data.information,
+                                    arguments.data.information??'',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.white.withOpacity(0.55),
@@ -147,7 +147,7 @@ class FoodView extends StatelessWidget {
                         color: Colors.white,
                         child: MenuViewModel(
                             foodList: foods,
-                            id: arguments.data.id,
+                            id: arguments.data.id??'',
                             verticalScrollController: verticalScrollController,
                             itemPositionsListener: itemPositionsListener),
                         width: SizeConfig().screenWidth,

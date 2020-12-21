@@ -1,24 +1,26 @@
+import 'package:ari/business_logic/models/restourant.dart';
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 class PartnerItem extends StatelessWidget {
-  final index;
+  Restourant restourant;
+  int index;
 
-  PartnerItem(this.index);
+  PartnerItem({this.restourant, this.index});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      width: SizeConfig().screenWidth / 2,
+    return InkWell(child:Container(
+      width: SizeConfig().screenWidth / 2.1,
       padding: EdgeInsets.symmetric(horizontal: 3.toWidth),
       child: Stack(
         children: <Widget>[
           Container(
               child: ClipRRect(
-                  child: Image.network(
-                      'https://bees.az/___entcpanel/uploads/ef4534a27895456ef72f5acd7703ec9f_331778.png',
-                      fit: BoxFit.cover),
+                  child: Image.network(restourant.image, fit: BoxFit.cover),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(4),
                       topRight: Radius.circular(4)))),
@@ -27,7 +29,11 @@ class PartnerItem extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-                padding: EdgeInsets.all(10.toHeight),
+                padding: EdgeInsets.only(
+                    bottom: 10.toHeight,
+                    top: 10.toHeight,
+                    right: index % 2 == 0?4.toWidth:36.toWidth,
+                    left: index % 2 == 0 ? 36.toWidth : 0),
                 width: SizeConfig().screenWidth,
                 alignment: index % 2 == 0
                     ? Alignment.centerRight
@@ -44,13 +50,23 @@ class PartnerItem extends StatelessWidget {
                             : AssetImage('assets/images/3-0.jpg'),
                         fit: BoxFit.cover)),
                 child: Text(
-                  'Cup Cup Coffie',
+                  restourant.name ?? 'https://bees.az/___entcpanel/uploads/b06ec8c2148a83cc53dfe7e062e42572_1199.png',
                   textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )),
           )
         ],
-      ),
+      ),),
+      onTap: (){
+        pushRouteWithName(ROUTE_RESTAURANT,
+            arguments: RouteArguments<Restourant>(
+                data: Restourant(
+                    image: restourant.image,
+                    id: restourant.id,
+                    name: restourant.name,
+                    information: restourant.information)));
+      },
     );
   }
 }

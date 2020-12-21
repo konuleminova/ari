@@ -8,8 +8,8 @@ class RestourantList {
     text = json['text'] ?? '';
     message = json['message_text'] ?? '';
     results =
-        json['results'] == null ? resourantListFromJson(json['results']) : [];
-    adv = json['adv'] == null ? resourantListFromJson(json['adv']) : [];
+        json['results'] != null ? resourantListFromJson(json['results']) : [];
+    adv = json['adv'] != null ? resourantListFromJson(json['adv']) : [];
   }
 }
 
