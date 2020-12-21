@@ -92,9 +92,9 @@ class PaymentViewModel extends HookWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      height: SizeConfig().screenHeight - 180.toHeight,
+                      height: SizeConfig().screenHeight - 44.toHeight,
                       alignment: Alignment.bottomCenter,
-                      margin: EdgeInsets.only(bottom: 0, left: 12, right: 12),
+                      margin: EdgeInsets.only(bottom: 0, left: 8.toWidth, right: 8.toWidth),
                       // color: Colors.white,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
