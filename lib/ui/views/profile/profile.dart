@@ -220,9 +220,9 @@ class ProfileView extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: ThemeColor().greenLightColor,
                     borderRadius: BorderRadius.circular(20)),
-                child: Text(
-                    AppLocalizations.of(context).translate('Войти в систему') ??
-                        'Войти в систему'),
+                child: Text(AppLocalizations.of(context)
+                        .translate('logoutButtonText') ??
+                    'Logout'),
                 width: 90.toWidth,
                 height: 28.toHeight,
               ),
