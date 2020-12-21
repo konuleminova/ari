@@ -3,10 +3,10 @@ import 'package:ari/business_logic/models/user.dart';
 class ApiConfig {
   final String BASE_URl = 'http://bees.az/api/?action=';
 
-  String FOOD_URl(String id) =>
-      '${BASE_URl}food&restourant_id=${id}&gr=1';
+  String FOOD_URl(String id) => '${BASE_URl}food&restourant_id=${id}&gr=1';
 
-  String RESTOURANT_URl(String id,String lang) => '${BASE_URl}mainpage&text=${id}';
+  String RESTOURANT_URl(String id, String lang) =>
+      '${BASE_URl}mainpage&text=${id}';
 
   String MENU_URL(String id) => '${BASE_URl}menu&restourant_id=${id}';
 
@@ -28,10 +28,13 @@ class ApiConfig {
 
   String STATUS(String token) => '${BASE_URl}status&token=${token}';
 
-  String PROFILE_URL(String token) =>
-      '${BASE_URl}userpage&token=${token}';
+  String PROFILE_URL(String token) => '${BASE_URl}userpage&token=${token}';
 
   //get curyer price
   String GET_CURYER_PRICE(String token, String restId) =>
       '${BASE_URl}getcuryerprice&token=${token}&restid=${restId}';
+
+  //html
+  String HTML_URL(String url) =>
+      'https://bees.az/api/?action=stat&lang=ru&page=${url}';
 }

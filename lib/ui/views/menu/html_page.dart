@@ -16,8 +16,7 @@ class HtmlViewmModel extends HookWidget {
   Widget build(BuildContext context) {
     url = ModalRoute.of(context).settings.arguments;
 
-    ApiResponse<HtmlModel> apiResponse = useFetchHtml(
-        'https://bees.az/api/?action=stat&lang=ru&page=${url.data}');
+    ApiResponse<HtmlModel> apiResponse = useFetchHtml(url.data);
     // TODO: implement build
     return apiResponse.status == Status.Done
         ? HtmlView(apiResponse.data)

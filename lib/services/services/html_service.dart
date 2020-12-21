@@ -8,9 +8,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 ApiResponse<HtmlModel> useFetchHtml(String url) {
-  //ApiConfig apiConfig=useApiConfig();
+  ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() => DioConfig<HtmlModel>(
-      path: url,
+      path: apiConfig.HTML_URL(url),
       transformResponse: (Response response) {
         return HtmlModel.fromJson(response.data);
       }));

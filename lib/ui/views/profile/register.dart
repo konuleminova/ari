@@ -1,4 +1,7 @@
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/localization/app_localization.dart';
+import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ari/utils/size_config.dart';
@@ -195,7 +198,6 @@ class RegisterView extends StatelessWidget {
                           children: [
                             Checkbox(
                               value: radioValue,
-                              // controlAffinity: ListTileControlAffinity.leading,
                               onChanged: (v) {
                                 onChangeRadioValueCallBack(v);
                               },
@@ -211,7 +213,9 @@ class RegisterView extends StatelessWidget {
                                 padding: EdgeInsets.all(16),
                               ),
                               onTap: () {
-
+                                pushRouteWithName(ROUTE_HTML,
+                                    arguments: RouteArguments<String>(
+                                        data: 'confidential'));
                               },
                             )
                           ],

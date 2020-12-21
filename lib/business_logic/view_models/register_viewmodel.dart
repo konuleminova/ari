@@ -16,7 +16,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class RegisterViewModel extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final radioValue = useState<bool>(true);
+    final radioValue = useState<bool>(false);
     final loginController = useTextEditingController(text: '');
     final passController = useTextEditingController(text: '');
     final nameController = useTextEditingController(text: '');
@@ -94,18 +94,24 @@ class RegisterViewModel extends HookWidget {
           passworderror.value = null;
         }
         if (name.value.isEmpty) {
-          nameerror.value = AppLocalizations.of(context).translate("Name is required.")??"Name is required.";
+          nameerror.value =
+              AppLocalizations.of(context).translate("Name is required.") ??
+                  "Name is required.";
         } else {
           nameerror.value = null;
         }
 
         if (email.value.isEmpty) {
-          emailerror.value = AppLocalizations.of(context).translate("Email is required.")??"Email is required.";
+          emailerror.value =
+              AppLocalizations.of(context).translate("Email is required.") ??
+                  "Email is required.";
         } else {
           emailerror.value = null;
         }
         if (phone.value.isEmpty) {
-          phoneerror.value = AppLocalizations.of(context).translate("Phone number is required.")??"Phone number is required.";
+          phoneerror.value = AppLocalizations.of(context)
+                  .translate("Phone number is required.") ??
+              "Phone number is required.";
         } else {
           phoneerror.value = null;
         }
@@ -114,11 +120,13 @@ class RegisterViewModel extends HookWidget {
             email.value.isNotEmpty &&
             name.value.isNotEmpty &&
             phone.value.isNotEmpty &&
-            radioValue.value) {
+            !radioValue.value) {
           showDialog(
               context: context,
               builder: (BuildContext context) => ErrorDialog(
-                    errorMessage: AppLocalizations.of(context).translate('Please accept the rules.')??'Please accept the rules.',
+                    errorMessage: AppLocalizations.of(context)
+                            .translate('Please accept the rules.') ??
+                        'Please accept the rules.',
                   ));
         }
 
@@ -127,7 +135,7 @@ class RegisterViewModel extends HookWidget {
             email.value.isNotEmpty &&
             name.value.isNotEmpty &&
             phone.value.isNotEmpty &&
-            !radioValue.value) {
+            radioValue.value) {
           user.value = User(
               login: login.value,
               pass: password.value,

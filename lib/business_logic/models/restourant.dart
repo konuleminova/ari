@@ -4,7 +4,7 @@ class RestourantList {
   List<Restourant> results;
 
   RestourantList.fromJson(Map<String, dynamic> json) {
-    text = json['text'];
+    text = json['text']??'';
     message=json['message_text']??'';
     results = resourantListFromJson(json['results']);
   }
