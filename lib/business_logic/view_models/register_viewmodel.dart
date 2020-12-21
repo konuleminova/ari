@@ -46,7 +46,7 @@ class RegisterViewModel extends HookWidget {
     useSideEffect(() {
       print('Api response ${apiResponse.data}');
       if (apiResponse.status == Status.Done) {
-        if (apiResponse is User) {
+        if (apiResponse.data is User) {
           if (apiResponse?.data?.token != null) {
             SpUtil.putString(SpUtil.token, apiResponse?.data?.token);
             pushReplaceRouteWithName(ROUTE_PROFILE);
