@@ -5,6 +5,7 @@ import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/localization/app_localization.dart';
+import 'package:ari/ui/views/food/widgets/food_item/animation_bee.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
 import 'package:ari/utils/sharedpref_util.dart';
@@ -68,7 +69,7 @@ class FoodView extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     child: Image.network(
-                      arguments.data.image??'',
+                      arguments.data.image ?? '',
                       width: SizeConfig().screenWidth,
                       height: SizeConfig().screenHeight,
                       fit: BoxFit.cover,
@@ -90,7 +91,7 @@ class FoodView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    arguments.data.name??'',
+                                    arguments.data.name ?? '',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -107,7 +108,7 @@ class FoodView extends StatelessWidget {
                                     height: 4.toHeight,
                                   ),
                                   Text(
-                                    arguments.data.information??'',
+                                    arguments.data.information ?? '',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.white.withOpacity(0.55),
@@ -147,7 +148,7 @@ class FoodView extends StatelessWidget {
                         color: Colors.white,
                         child: MenuViewModel(
                             foodList: foods,
-                            id: arguments.data.id??'',
+                            id: arguments.data.id ?? '',
                             verticalScrollController: verticalScrollController,
                             itemPositionsListener: itemPositionsListener),
                         width: SizeConfig().screenWidth,
@@ -191,20 +192,25 @@ class FoodView extends StatelessWidget {
                             ),
                           )
                         : SizedBox(),
-                    AnimatedCrossFade(
-                      duration: Duration(milliseconds: 400),
-                      firstChild: FoodItem(
-                        addtoCartCallBack: addtoCartCallback,
-                        item: foods[index],
+                    AnimationBeeWidget(
+                      child: AnimatedCrossFade(
+                        duration: Duration(milliseconds: 400),
+                        firstChild: FoodItem(
+                          addtoCartCallBack: (v) {
+                            addtoCartCallback(v);
+                            onTapAnimate();
+                          },
+                          item: foods[index],
+                        ),
+                        secondChild: FoodItemExpanded(
+                          addtoCartCallBack: addtoCartCallback,
+                          food: foods[index],
+                          dropDownCallBack: dropDownCallBack,
+                        ),
+                        crossFadeState: foods[index].selected
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
                       ),
-                      secondChild: FoodItemExpanded(
-                        addtoCartCallBack: addtoCartCallback,
-                        food: foods[index],
-                        dropDownCallBack: dropDownCallBack,
-                      ),
-                      crossFadeState: foods[index].selected
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
                     )
                   ],
                 );
