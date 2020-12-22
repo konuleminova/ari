@@ -59,7 +59,7 @@ class AnimationBee extends HookWidget {
           alignment: Alignment.topLeft,
         ),
         Positioned(
-          top: 44.toHeight,
+         bottom: 54.toHeight,
           left: 0,
           right: 0,
           child: isBeeStartAnimate.value? AlignTransition(
