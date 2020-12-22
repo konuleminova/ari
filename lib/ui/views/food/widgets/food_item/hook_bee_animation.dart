@@ -19,8 +19,9 @@ class AnimationBee extends HookWidget {
   @override
   Widget build(BuildContext context) {
     var isBeeStartAnimate = useState<bool>(false);
+    var isBeeWithBasket = useState<bool>(false);
     animationController =
-        useAnimationController(duration: Duration(seconds: 3));
+        useAnimationController(duration: Duration(seconds: 4));
     _tween = AlignmentGeometryTween(
       begin: Alignment.bottomLeft,
       end: Alignment.bottomRight,
@@ -38,11 +39,15 @@ class AnimationBee extends HookWidget {
                   if (animationController.value == 0) {
                     isBeeStartAnimate.value = true;
                     v.selected = false;
-                  } else if (animationController.value > 0.8) {
+                  }
+                  else if (animationController.value >0.8) {
                     isBeeStartAnimate.value = false;
                     v.selected = true;
                     addtoCartCallback(v);
                   }
+                   if(animationController.value>0.36){
+                     isBeeWithBasket.value = true;
+                   }
                 });
               },
               item: food,
@@ -59,20 +64,24 @@ class AnimationBee extends HookWidget {
           alignment: Alignment.topLeft,
         ),
         Positioned(
-         bottom: 54.toHeight,
+        bottom: 54.toHeight,
           left: 0,
           right: 0,
-          child: isBeeStartAnimate.value? AlignTransition(
-              alignment: _tween.animate(animationController),
-              child: Container(
-                width: 40,
-                child: Image.asset(
-                  'assets/images/curyer.png',
-                  width: 40,
-                  height: 40,
-                ),
-                // color: Colors.red,
-              )):SizedBox(),
+          child: isBeeStartAnimate.value
+              ? AlignTransition(
+                  alignment: _tween.animate(animationController),
+                  child: Container(
+                    width: 40,
+                    child: Image.asset(
+                      isBeeWithBasket.value
+                          ? 'assets/images/ari_with_basket.jpg'
+                          : 'assets/images/curyer.png',
+                      width: 40,
+                      height: 40,
+                    ),
+                    // color: Colors.red,
+                  ))
+              : SizedBox(),
         )
       ],
     );
