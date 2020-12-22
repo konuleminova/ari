@@ -193,24 +193,9 @@ class FoodView extends StatelessWidget {
                           )
                         : SizedBox(),
                     AnimationBeeWidget(
-                      child: AnimatedCrossFade(
-                        duration: Duration(milliseconds: 400),
-                        firstChild: FoodItem(
-                          addtoCartCallBack: (v) {
-                            addtoCartCallback(v);
-                            onTapAnimate();
-                          },
-                          item: foods[index],
-                        ),
-                        secondChild: FoodItemExpanded(
-                          addtoCartCallBack: addtoCartCallback,
-                          food: foods[index],
-                          dropDownCallBack: dropDownCallBack,
-                        ),
-                        crossFadeState: foods[index].selected
-                            ? CrossFadeState.showSecond
-                            : CrossFadeState.showFirst,
-                      ),
+                      food: foods[index],
+                      addtoCartCallback: addtoCartCallback,
+                      dropDownCallBack: dropDownCallBack,
                     )
                   ],
                 );

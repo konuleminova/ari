@@ -1,11 +1,17 @@
+import 'package:ari/business_logic/models/food.dart';
+import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:flutter/material.dart';
 
-AnimationController animationController;
+import 'food_item_expanded.dart';
 
 class AnimationBeeWidget extends StatefulWidget {
   Widget child;
+  var addtoCartCallback;
+  var dropDownCallBack;
+   Food food;
 
-  AnimationBeeWidget({this.child});
+  AnimationBeeWidget(
+      {this.child, this.food, this.addtoCartCallback, this.dropDownCallBack});
 
   @override
   State<StatefulWidget> createState() {
@@ -15,21 +21,50 @@ class AnimationBeeWidget extends StatefulWidget {
 }
 
 class _AnimationBee extends State<AnimationBeeWidget>
-    with SingleTickerProviderStateMixin {
-  Animation<Offset> offset;
+    with TickerProviderStateMixin {
+  AlignmentGeometryTween _tween;
+
+  AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Stack(
       children: [
-        SlideTransition(
-          child: Image.asset('assets/images/curyer.png',width: 40,height: 40,),
-          position: offset,
+        AnimatedCrossFade(
+          duration: Duration(seconds: 1),
+          firstChild: FoodItem(
+            addtoCartCallBack: (v) {
+              widget.addtoCartCallback(v);
+              _play();
+            },
+            item: widget.food,
+          ),
+          secondChild: FoodItemExpanded(
+            addtoCartCallBack: widget.addtoCartCallback,
+            food: widget.food,
+            dropDownCallBack: widget.dropDownCallBack,
+          ),
+          crossFadeState: widget.food.selected
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
         ),
-        widget.child
+        AlignTransition(
+          alignment: _tween.animate(animationController),
+          child: Image.asset(
+            'assets/images/curyer.png',
+            width: 40,
+            height: 40,
+          ),
+        ),
       ],
     );
+  }
+
+  @override
+  dispose() {
+    animationController.dispose(); // you need this
+    super.dispose();
   }
 
   @override
@@ -37,13 +72,17 @@ class _AnimationBee extends State<AnimationBeeWidget>
     super.initState();
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 3));
-    offset = Tween<Offset>(begin: Offset.zero, end: Offset.infinite)
-        .animate(animationController);
+    _tween = AlignmentGeometryTween(
+      begin: Alignment.topLeft,
+      end: Alignment.topRight,
+    );
   }
-}
 
-void onTapAnimate() {
-  if (animationController != null) {
-    animationController.forward();
+  TickerFuture _play() {
+    animationController.reset();
+    return animationController.animateTo(
+      1.0,
+      curve: Curves.easeInOut,
+    );
   }
 }
