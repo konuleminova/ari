@@ -1,14 +1,15 @@
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ari/utils/size_config.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'food_item_expanded.dart';
 
 class AnimationBeeWidget extends StatefulWidget {
   Widget child;
   var addtoCartCallback;
   var dropDownCallBack;
-   Food food;
+  Food food;
 
   AnimationBeeWidget(
       {this.child, this.food, this.addtoCartCallback, this.dropDownCallBack});
@@ -35,8 +36,14 @@ class _AnimationBee extends State<AnimationBeeWidget>
           duration: Duration(seconds: 1),
           firstChild: FoodItem(
             addtoCartCallBack: (v) {
-              widget.addtoCartCallback(v);
               _play();
+              animationController.addListener(() {
+                print('ANIATION CONTROLLER ${animationController.value}');
+                if (animationController.value > 0.09) {
+                 // animationController.removeListener(() { });
+                  widget.addtoCartCallback(v);
+                }
+              });
             },
             item: widget.food,
           ),
@@ -49,6 +56,11 @@ class _AnimationBee extends State<AnimationBeeWidget>
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
         ),
+//        Positioned(
+//          bottom: 60.toHeight,
+//          left: 0,
+//          child: ,
+//        )
         AlignTransition(
           alignment: _tween.animate(animationController),
           child: Image.asset(
@@ -56,13 +68,14 @@ class _AnimationBee extends State<AnimationBeeWidget>
             width: 40,
             height: 40,
           ),
-        ),
+        )
       ],
     );
   }
 
   @override
   dispose() {
+    print('DISPOSE');
     animationController.dispose(); // you need this
     super.dispose();
   }
@@ -70,16 +83,17 @@ class _AnimationBee extends State<AnimationBeeWidget>
   @override
   void initState() {
     super.initState();
+    print('INIT STATE');
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 3));
     _tween = AlignmentGeometryTween(
-      begin: Alignment.topLeft,
-      end: Alignment.topRight,
+      begin: Alignment.bottomLeft,
+      end: Alignment.bottomRight,
     );
   }
 
   TickerFuture _play() {
-    animationController.reset();
+   // animationController.reset();
     return animationController.animateTo(
       1.0,
       curve: Curves.easeInOut,
