@@ -38,7 +38,7 @@ class AnimationBee extends HookWidget {
                   if (animationController.value == 0) {
                     isBeeStartAnimate.value = true;
                     v.selected = false;
-                  } else if (animationController.value >0.8) {
+                  } else if (animationController.value > 0.8) {
                     isBeeStartAnimate.value = false;
                     v.selected = true;
                     addtoCartCallback(v);
@@ -62,21 +62,17 @@ class AnimationBee extends HookWidget {
           top: 44.toHeight,
           left: 0,
           right: 0,
-          child: isBeeStartAnimate.value
-              ? AlignTransition(
-                  alignment: _tween.animate(animationController),
-                  child: Container(
-//                  height: 140.toHeight,
-                    width: 40,
-                    // alignment: Alignment.bottomCenter,
-                    child: Image.asset(
-                      'assets/images/curyer.png',
-                      width: 40,
-                      height: 40,
-                    ),
-                    // color: Colors.red,
-                  ))
-              : SizedBox(),
+          child: isBeeStartAnimate.value? AlignTransition(
+              alignment: _tween.animate(animationController),
+              child: Container(
+                width: 40,
+                child: Image.asset(
+                  'assets/images/curyer.png',
+                  width: 40,
+                  height: 40,
+                ),
+                // color: Colors.red,
+              )):SizedBox(),
         )
       ],
     );
