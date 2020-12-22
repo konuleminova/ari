@@ -8,6 +8,7 @@ import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/views/food/widgets/food_item/animation_bee.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item_expanded.dart';
+import 'package:ari/ui/views/food/widgets/food_item/hook_bee_animation.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
@@ -192,7 +193,7 @@ class FoodView extends StatelessWidget {
                             ),
                           )
                         : SizedBox(),
-                    AnimationBeeWidget(
+                    AnimationBee(
                       food: foods[index],
                       addtoCartCallback: addtoCartCallback,
                       dropDownCallBack: dropDownCallBack,
