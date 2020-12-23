@@ -35,7 +35,6 @@ class LoginViewModel extends HookWidget {
     //GET TOKEN STATUS
     useSideEffect(() {
       if (apiResponse.status == Status.Done) {
-        print('Api response ${apiResponse.data}');
         if (apiResponse.data is User) {
           if (apiResponse?.data?.token != null) {
             SpUtil.putString(SpUtil.token, apiResponse?.data?.token);

@@ -1,4 +1,4 @@
-package sinam.com.ari;
+package ari.com.ari;
 
 import io.flutter.embedding.android.FlutterActivity;
 

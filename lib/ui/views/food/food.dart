@@ -145,7 +145,7 @@ class FoodView extends StatelessWidget {
                   preferredSize: Size.fromHeight(48.toHeight + 6),
                   child: Column(
                     children: <Widget>[
-                      foods.length>0?Container(
+                     Container(
                         color: Colors.white,
                         child: MenuViewModel(
                             foodList: foods,
@@ -156,7 +156,7 @@ class FoodView extends StatelessWidget {
                         height: 48.toHeight,
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.toWidth, vertical: 2),
-                      ):SizedBox(),
+                      ),
                       Container(color: ThemeColor().grey1, height: 2),
                     ],
                   ))),
