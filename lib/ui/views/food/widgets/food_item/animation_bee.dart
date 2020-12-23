@@ -1,99 +1,99 @@
 import 'package:ari/business_logic/models/food.dart';
+import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/views/food/widgets/food_item/food_item.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'food_item_expanded.dart';
 
-class AnimationBeeWidget extends StatefulWidget {
-  Widget child;
+class AnimationBee extends HookWidget {
+  AlignmentGeometryTween _tween;
   var addtoCartCallback;
   var dropDownCallBack;
   Food food;
+  bool working;
 
-  AnimationBeeWidget(
-      {this.child, this.food, this.addtoCartCallback, this.dropDownCallBack});
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _AnimationBee();
-  }
-}
-
-class _AnimationBee extends State<AnimationBeeWidget>
-    with TickerProviderStateMixin {
-  AlignmentGeometryTween _tween;
+  AnimationBee(
+      {this.food, this.addtoCartCallback, this.dropDownCallBack, this.working,});
 
   AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
+    var isBeeStartAnimate = useState<bool>(false);
+    var isBeeWithBasket = useState<bool>(false);
+    animationController =
+        useAnimationController(duration: Duration(seconds: 3));
+    _tween = AlignmentGeometryTween(
+      begin: Alignment.bottomLeft,
+      end: Alignment.bottomRight,
+    );
     // TODO: implement build
     return Stack(
       children: [
-        AnimatedCrossFade(
-          duration: Duration(seconds: 1),
-          firstChild: FoodItem(
-            addtoCartCallBack: (v) {
-              _play();
-              animationController.addListener(() {
-                print('ANIATION CONTROLLER ${animationController.value}');
-                if (animationController.value > 0.09) {
-                 // animationController.removeListener(() { });
-                  widget.addtoCartCallback(v);
+        Align(
+          child: AnimatedCrossFade(
+            duration: Duration(seconds: 1),
+            firstChild: FoodItem(
+              addtoCartCallBack: (v) {
+                if(working) {
+                  _play();
+                  animationController.addListener(() {
+                    if (animationController.value == 0) {
+                      isBeeStartAnimate.value = true;
+                      v.selected = false;
+                    } else if (animationController.value > 0.8) {
+                      isBeeStartAnimate.value = false;
+                      v.selected = true;
+                      addtoCartCallback(v);
+                    }
+                    if (animationController.value > 0.3) {
+                      isBeeWithBasket.value = true;
+                    }
+                  });
+                }else{
+                  v.selected=false;
+                  addtoCartCallback(v);
                 }
-              });
-            },
-            item: widget.food,
+              },
+              item: food,
+            ),
+            secondChild: FoodItemExpanded(
+              addtoCartCallBack: addtoCartCallback,
+              food: food,
+              dropDownCallBack: dropDownCallBack,
+            ),
+            crossFadeState: food.selected
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
           ),
-          secondChild: FoodItemExpanded(
-            addtoCartCallBack: widget.addtoCartCallback,
-            food: widget.food,
-            dropDownCallBack: widget.dropDownCallBack,
-          ),
-          crossFadeState: widget.food.selected
-              ? CrossFadeState.showSecond
-              : CrossFadeState.showFirst,
+          alignment: Alignment.topLeft,
         ),
-//        Positioned(
-//          bottom: 60.toHeight,
-//          left: 0,
-//          child: ,
-//        )
-        AlignTransition(
-          alignment: _tween.animate(animationController),
-          child: Image.asset(
-            'assets/images/curyer.png',
-            width: 40,
-            height: 40,
-          ),
+        Positioned(
+          bottom: 46.toHeight,
+          left: 0,
+          right: 0,
+          child: isBeeStartAnimate.value
+              ? AlignTransition(
+                  alignment: _tween.animate(animationController),
+                  child: Container(
+                    width: 50.toWidth,
+                    height: 50.toWidth,
+                    child: Image.asset(
+                      isBeeWithBasket.value
+                          ? 'assets/images/ari_with_basket.png'
+                          : 'assets/images/bee.png',
+                    ),
+                    // color: Colors.red,
+                  ))
+              : SizedBox(),
         )
       ],
     );
   }
 
-  @override
-  dispose() {
-    print('DISPOSE');
-    animationController.dispose(); // you need this
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print('INIT STATE');
-    animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
-    _tween = AlignmentGeometryTween(
-      begin: Alignment.bottomLeft,
-      end: Alignment.bottomRight,
-    );
-  }
-
   TickerFuture _play() {
-   // animationController.reset();
+    animationController.reset();
     return animationController.animateTo(
       1.0,
       curve: Curves.easeInOut,
