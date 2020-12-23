@@ -21,7 +21,7 @@ class AnimationBee extends HookWidget {
     var isBeeStartAnimate = useState<bool>(false);
     var isBeeWithBasket = useState<bool>(false);
     animationController =
-        useAnimationController(duration: Duration(seconds: 4));
+        useAnimationController(duration: Duration(seconds: 3));
     _tween = AlignmentGeometryTween(
       begin: Alignment.bottomLeft,
       end: Alignment.bottomRight,
@@ -45,7 +45,7 @@ class AnimationBee extends HookWidget {
                     v.selected = true;
                     addtoCartCallback(v);
                   }
-                   if(animationController.value>0.36){
+                   if(animationController.value>0.3){
                      isBeeWithBasket.value = true;
                    }
                 });
@@ -64,20 +64,19 @@ class AnimationBee extends HookWidget {
           alignment: Alignment.topLeft,
         ),
         Positioned(
-        bottom: 54.toHeight,
+        bottom: 46.toHeight,
           left: 0,
           right: 0,
           child: isBeeStartAnimate.value
               ? AlignTransition(
                   alignment: _tween.animate(animationController),
                   child: Container(
-                    width: 40,
+                    width: 50.toWidth,
+                    height: 50.toWidth,
                     child: Image.asset(
                       isBeeWithBasket.value
-                          ? 'assets/images/ari_with_basket.jpg'
-                          : 'assets/images/curyer.png',
-                      width: 40,
-                      height: 40,
+                          ? 'assets/images/ari_with_basket.png'
+                          : 'assets/images/bee.png',
                     ),
                     // color: Colors.red,
                   ))
