@@ -1,5 +1,5 @@
 {
-  "hello": "Привет",
+  "hello": "Здравствуйте",
   "Delivery price: ": "Доставка: ",
   "Go to checkout": "Перейти к оплате",
   "© Ari 2020 by Delivery Group": "© Ari 2020 by Delivery Group",
@@ -30,6 +30,7 @@
   "No data": "Нет данных",
   "Go to payment": "К оплате",
   "email_title": "Для отправки квитанций",
-  "mobile_title": "Чтоб курьер мог Вам позвонить",
-  "logoutButtonText": "Выйти"
+  "mobile_title": "Чтоб курьер мог Вам позвонить", 
+  "logoutButtonText": "Выйти",
+  "rest_not_working": "В данный момент не работает"
 }

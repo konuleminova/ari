@@ -1,7 +1,7 @@
 {
   "hello": "Salam",
   "Delivery price: ": "Çatdırılma: ",
-  "Go to checkout": "Ödənişə keçin",
+  "Go to checkout": "Ödənişə keçın",
   "© Ari 2020 by Delivery Group": "© Ari 2020 by Delivery Group",
   "Меню": "Menu",
   "О нас": "Haqqımızda",
@@ -11,7 +11,7 @@
   "Кнопка меню": "Menu düyməsi",
   "Справа": "Soldan",
   "Слева": "Sağdan",
-  "Войти в систему": "Giriş",
+  "Войти в систему": "Qiriş",
   "Логин": "İstifadəçi adı",
   "Пароль": "Şifrə",
   "Зарегистрироватся": "Qeydiyyat",
@@ -30,6 +30,7 @@
   "No data": "Məlumat tapılmadı",
   "Go to payment": "Ödənişə keçın",
   "email_title": "Ödəniş qəbzləri üçün",
-  "mobile_title": "Kuryerin Sizə zəng etməsi üçün",
-  "logoutButtonText": "Çıxış"
+  "mobile_title": "Kuryerin Sizə zəng etməsi üçün", 
+  "logoutButtonText": "Çıxış",
+  "rest_not_working": "Hal hazırda fəaliyyət gostərmir"
 }

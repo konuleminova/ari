@@ -30,6 +30,7 @@
   "No data": "No data",
   "Go to payment": "Go to payment",
   "email_title": "For payment receipts",
-  "mobile_title": "For courier to call you",
-  "logoutButtonText": "Log out"
+  "mobile_title": "For courier to call you", 
+  "logoutButtonText": "Log out",
+  "rest_not_working": "Not working now"
 }
