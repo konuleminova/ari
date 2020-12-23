@@ -27,7 +27,7 @@ class CustomErrorHandler extends HookWidget {
         null;
     final ctx = useContext();
     useSideEffect(() {
-      if (hasError) {
+      if (hasError && onRefresh == null) {
         showDialog(
             context: ctx,
             builder: (BuildContext context) => ErrorDialog(
@@ -37,31 +37,33 @@ class CustomErrorHandler extends HookWidget {
 
       return () {};
     }, [hasError, error]);
-//hasError
-//        ? Container(
-//            child: InkWell(
-//                child: Column(
-//                  crossAxisAlignment: CrossAxisAlignment.center,
-//                  mainAxisAlignment: MainAxisAlignment.center,
-//                  children: <Widget>[
-//                    Icon(
-//                      Icons.refresh,
-//                      color: ThemeColor().greenColor,
-//                      size: 24.toFont,
-//                    ),
-//                    SizedBox(
-//                      height: 8.toHeight,
-//                    ),
-//                    Text(
-//                      'Tap to refresh',
-//                      style: TextStyle(
-//                          color: ThemeColor().greenColor, fontSize: 16.toFont),
-//                    )
-//                  ],
-//                ),
-//                onTap: onRefresh))
-//        :
-    return  isLoading ? Loading() : child;
+    return isLoading
+        ? Loading()
+        : hasError
+            ? Container(
+                child: InkWell(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.refresh,
+                          color: Colors.red,
+                          size: 24.toFont,
+                        ),
+                        SizedBox(
+                          height: 8.toHeight,
+                        ),
+                        Text(
+                          'Something went wrong. \n Try again',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14.toFont,),
+                        ),
+                      ],
+                    ),
+                    onTap: onRefresh))
+            : child;
   }
 }
 
@@ -82,47 +84,47 @@ class ErrorDialog extends StatelessWidget {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.info_outline,
-                    color: Colors.red,
-                    size: 28.toFont,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.info_outline,
+                color: Colors.red,
+                size: 28.toFont,
+              ),
+              SizedBox(
+                height: 16.toHeight,
+              ),
+              // Text('Something Went wrong'),
+              Expanded(
+                child: Text(
+                  errorMessage ?? 'Some Unkown Error Occured.',
+                  style: TextStyle(fontSize: 16.toFont),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: 16.toHeight,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.toWidth),
+                height: 34.toHeight,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                  color: Colors.red,
+                  child: Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.white),
                   ),
-                  SizedBox(
-                    height: 16.toHeight,
-                  ),
-                  // Text('Something Went wrong'),
-                  Expanded(
-                    child: Text(
-                      errorMessage ?? 'Some Unkown Error Occured.',
-                      style: TextStyle(fontSize: 16.toFont),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16.toHeight,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16.toWidth),
-                    height: 34.toHeight,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4)),
-                      color: Colors.red,
-                      child: Text(
-                        'Ok',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    width: SizeConfig().screenWidth,
-                  )
-                ],
-              )),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                width: SizeConfig().screenWidth,
+              )
+            ],
+          )),
         ));
   }
 }

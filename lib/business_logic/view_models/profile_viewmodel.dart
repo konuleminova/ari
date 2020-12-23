@@ -29,6 +29,9 @@ class ProfileViewModel extends HookWidget {
           : Loading(),
       statuses: [apiResponse.status],
       errors: [apiResponse.error],
+      onRefresh: () {
+
+      },
     );
   }
 }

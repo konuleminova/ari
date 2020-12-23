@@ -42,6 +42,10 @@ class SearchViewModel extends HookWidget {
       ),
       statuses: [apiResponse.status],
       errors: [apiResponse.error],
+      onRefresh: (){
+        text1.value='a';
+        text2.value='10';
+      },
     );
   }
 }
