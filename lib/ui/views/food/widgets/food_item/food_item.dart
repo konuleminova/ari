@@ -38,10 +38,16 @@ class FoodItem extends StatelessWidget {
                         SizedBox(
                           height: 4.toHeight,
                         ),
-                        Text(
-                          item.information ?? 'No description',
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.w600),
+                        Container(
+                          child: Text(
+                            item.information ?? 'No description',
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600,),
+                          ),
+                          height: item.information.isEmpty?30.toHeight: 50.toHeight,
                         ),
                         SizedBox(
                           height: 16.toHeight,
@@ -75,7 +81,7 @@ class FoodItem extends StatelessWidget {
                             ),
                             onTap: () {
                               item.selected = true;
-                              item.expanded = true;
+                              // item.expanded = true;
                               addtoCartCallBack(item);
                             })
                       ],

@@ -33,7 +33,7 @@ class AnimationBee extends HookWidget {
       children: [
         Align(
           child: AnimatedCrossFade(
-            duration: Duration(seconds: 1),
+            duration: Duration(milliseconds: 600),
             firstChild: FoodItem(
               addtoCartCallBack: (v) {
                 if(working) {
@@ -42,13 +42,16 @@ class AnimationBee extends HookWidget {
                     if (animationController.value == 0) {
                       isBeeStartAnimate.value = true;
                       v.selected = false;
-                    } else if (animationController.value > 0.8) {
+                    } else if (animationController.value > 0.99) {
                       isBeeStartAnimate.value = false;
-                      v.selected = true;
-                      addtoCartCallback(v);
+                      //v.selected = true;
+                     // addtoCartCallback(v);
                     }
-                    if (animationController.value > 0.3) {
+                    if (animationController.value > 0.33) {
                       isBeeWithBasket.value = true;
+                      v.expanded=true;
+                      v.selected=true;
+                      addtoCartCallback(v);
                     }
                   });
                 }else{
@@ -70,7 +73,7 @@ class AnimationBee extends HookWidget {
           alignment: Alignment.topLeft,
         ),
         Positioned(
-          bottom: 46.toHeight,
+         top: food.information.isEmpty?38.toHeight:58.toHeight,
           left: 0,
           right: 0,
           child: isBeeStartAnimate.value

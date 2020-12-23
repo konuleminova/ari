@@ -79,12 +79,12 @@ class FoodViewModel extends HookWidget {
     //Add to cart callBack
     final addToCartCallBack = useCallback((Food food) {
       if (arguments.data.working) {
-        if (food.expanded) {
-          maxScrollExtent.value = -1;
-          verticalScrollController.jumpTo(
-            index: foods.value.indexOf(food),
-          );
-        }
+//        if (food.expanded) {
+//          maxScrollExtent.value = -1;
+//          verticalScrollController.jumpTo(
+//            index: foods.value.indexOf(food),
+//          );
+//        }
         foodState.value = food;
         addedFoodList.value = [];
         atLeastOneItemSelected.value = false;
@@ -96,7 +96,7 @@ class FoodViewModel extends HookWidget {
               }
             });
           });
-          apiResponseData.notifyListeners();
+          //apiResponseData.notifyListeners();
 
           //At least one  item selected Calculation
           apiResponseData.value.forEach((element) {
