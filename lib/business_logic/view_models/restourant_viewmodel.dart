@@ -10,10 +10,7 @@ import 'package:ari/ui/provider/change_language/change_language_action.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/home/home.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-import '../../main.dart';
 
 class RestourantViewModel extends HookWidget {
   @override
@@ -21,7 +18,6 @@ class RestourantViewModel extends HookWidget {
     final ValueNotifier<UniqueKey> uniqueKey = useState<UniqueKey>();
     final localizationStore =
         useProvider<Store<ChangeLangState, ChangeLangAction>>();
-    print('STORE STTT ${localizationStore.state.lang}');
     ApiResponse<RestourantList> apiResponse1 = useFetchRestourants('1',
         key: uniqueKey.value, lang: localizationStore.state.lang ?? 'az');
     ApiResponse apiResponse2 = useFetchRestourants('2',
@@ -31,7 +27,6 @@ class RestourantViewModel extends HookWidget {
 
     useSideEffect(() {
       if (apiResponse1.status == Status.Done) {
-        print('API RESPONSE SRTATA ${apiResponse1.data.message}');
         final store = getAppBarStore();
         store.dispatch(AppBarAction(message: apiResponse1.data.message ?? ''));
       }
