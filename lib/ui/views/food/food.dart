@@ -145,7 +145,7 @@ class FoodView extends StatelessWidget {
                   preferredSize: Size.fromHeight(48.toHeight + 6),
                   child: Column(
                     children: <Widget>[
-                      Container(
+                      foods.length>0?Container(
                         color: Colors.white,
                         child: MenuViewModel(
                             foodList: foods,
@@ -156,7 +156,7 @@ class FoodView extends StatelessWidget {
                         height: 48.toHeight,
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.toWidth, vertical: 2),
-                      ),
+                      ):SizedBox(),
                       Container(color: ThemeColor().grey1, height: 2),
                     ],
                   ))),
@@ -197,6 +197,7 @@ class FoodView extends StatelessWidget {
                       food: foods[index],
                       addtoCartCallback: addtoCartCallback,
                       dropDownCallBack: dropDownCallBack,
+                      working: arguments.data.working,
                     )
                   ],
                 );
@@ -212,35 +213,39 @@ class FoodView extends StatelessWidget {
               child: atLeastOneItemSelected
                   ? InkWell(
                       onTap: () {
-                        goToPaymentCallBack();
-                        if (SpUtil.getString(SpUtil.token).isNotEmpty) {
-                          pushRouteWithName(ROUTE_MAP,
-                              arguments: RouteArguments<Checkout>(
-                                  data: Checkout(
-                                      totalPrice: getTotalPrice(),
-                                      foodList: addedFoodList,
-                                      isFroMap: true,
-                                      restourant: Restourant(
-                                          image: arguments.data.image,
-                                          name: arguments.data.name,
-                                          id: arguments.data.id))));
-                        } else {
-                          pushRouteWithName(ROUTE_LOGIN,
-                              arguments: RouteArguments<Checkout>(
-                                  data: Checkout(
-                                      totalPrice: getTotalPrice(),
-                                      foodList: addedFoodList,
-                                      isFroMap: true,
-                                      restourant: Restourant(
-                                          image: arguments.data.image,
-                                          name: arguments.data.name,
-                                          id: arguments.data.id))));
+                        if (arguments.data.working) {
+                          goToPaymentCallBack();
+                          if (SpUtil.getString(SpUtil.token).isNotEmpty) {
+                            pushRouteWithName(ROUTE_MAP,
+                                arguments: RouteArguments<Checkout>(
+                                    data: Checkout(
+                                        totalPrice: getTotalPrice(),
+                                        foodList: addedFoodList,
+                                        isFroMap: true,
+                                        restourant: Restourant(
+                                            image: arguments.data.image,
+                                            name: arguments.data.name,
+                                            id: arguments.data.id))));
+                          } else {
+                            pushRouteWithName(ROUTE_LOGIN,
+                                arguments: RouteArguments<Checkout>(
+                                    data: Checkout(
+                                        totalPrice: getTotalPrice(),
+                                        foodList: addedFoodList,
+                                        isFroMap: true,
+                                        restourant: Restourant(
+                                            image: arguments.data.image,
+                                            name: arguments.data.name,
+                                            id: arguments.data.id))));
+                          }
                         }
                       },
                       child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: ThemeColor().grey1),
-                            color: ThemeColor().yellowColor,
+                            color: arguments.data.working
+                                ? ThemeColor().yellowColor
+                                : Colors.red,
                           ),
                           padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
                           height: 56.toHeight,
@@ -249,19 +254,23 @@ class FoodView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                AppLocalizations.of(context)
-                                        .translate('Go to checkout') ??
+                                AppLocalizations.of(context).translate(
+                                        arguments.data.working
+                                            ? 'Go to checkout'
+                                            : "rest_not_working") ??
                                     'Go to checkout',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 19.toFont),
                               ),
-                              Text(
-                                '${getTotalPrice()} ₼',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 19.toFont),
-                              )
+                              arguments.data.working
+                                  ? Text(
+                                      '${getTotalPrice()} ₼',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 19.toFont),
+                                    )
+                                  : SizedBox()
                             ],
                           )))
                   : SizedBox(),

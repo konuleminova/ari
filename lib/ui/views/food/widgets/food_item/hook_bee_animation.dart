@@ -11,8 +11,10 @@ class AnimationBee extends HookWidget {
   var addtoCartCallback;
   var dropDownCallBack;
   Food food;
+  bool working;
 
-  AnimationBee({this.food, this.addtoCartCallback, this.dropDownCallBack});
+  AnimationBee(
+      {this.food, this.addtoCartCallback, this.dropDownCallBack, this.working,});
 
   AnimationController animationController;
 
@@ -34,21 +36,25 @@ class AnimationBee extends HookWidget {
             duration: Duration(seconds: 1),
             firstChild: FoodItem(
               addtoCartCallBack: (v) {
-                _play();
-                animationController.addListener(() {
-                  if (animationController.value == 0) {
-                    isBeeStartAnimate.value = true;
-                    v.selected = false;
-                  }
-                  else if (animationController.value >0.8) {
-                    isBeeStartAnimate.value = false;
-                    v.selected = true;
-                    addtoCartCallback(v);
-                  }
-                   if(animationController.value>0.3){
-                     isBeeWithBasket.value = true;
-                   }
-                });
+                if(working) {
+                  _play();
+                  animationController.addListener(() {
+                    if (animationController.value == 0) {
+                      isBeeStartAnimate.value = true;
+                      v.selected = false;
+                    } else if (animationController.value > 0.8) {
+                      isBeeStartAnimate.value = false;
+                      v.selected = true;
+                      addtoCartCallback(v);
+                    }
+                    if (animationController.value > 0.3) {
+                      isBeeWithBasket.value = true;
+                    }
+                  });
+                }else{
+                  v.selected=false;
+                  addtoCartCallback(v);
+                }
               },
               item: food,
             ),
@@ -64,7 +70,7 @@ class AnimationBee extends HookWidget {
           alignment: Alignment.topLeft,
         ),
         Positioned(
-        bottom: 46.toHeight,
+          bottom: 46.toHeight,
           left: 0,
           right: 0,
           child: isBeeStartAnimate.value

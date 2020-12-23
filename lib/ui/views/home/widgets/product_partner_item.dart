@@ -65,6 +65,7 @@ class PartnerItem extends StatelessWidget {
                     image: restourant.image,
                     id: restourant.id,
                     name: restourant.name,
+                    working: restourant.working,
                     information: restourant.information)));
       },
     );

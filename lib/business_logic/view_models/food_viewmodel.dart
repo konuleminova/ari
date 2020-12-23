@@ -38,16 +38,15 @@ class FoodViewModel extends HookWidget {
         var isElement = itemPositionsListener.itemPositions.value
             .firstWhere((element) => element != null, orElse: () => null);
         if (isElement != null) {
-          if(foods.value[0].expanded){
-            maxScrollExtent.value=-1;
-          }else{
+          if (foods.value[0].expanded) {
+            maxScrollExtent.value = -1;
+          } else {
             maxScrollExtent.value = itemPositionsListener
-                ?.itemPositions?.value.first.itemLeadingEdge
-                .toDouble() -
+                    ?.itemPositions?.value.first.itemLeadingEdge
+                    .toDouble() -
                 itemPositionsListener?.itemPositions?.value.first.index
                     .toDouble();
           }
-
         }
       });
       return () {};
@@ -79,61 +78,64 @@ class FoodViewModel extends HookWidget {
 
     //Add to cart callBack
     final addToCartCallBack = useCallback((Food food) {
-      if(food.expanded){
-        maxScrollExtent.value=-1;
-        verticalScrollController.jumpTo(
-          index: foods.value.indexOf(food),
-        );
-
-      }
-      foodState.value = food;
-      addedFoodList.value = [];
-      atLeastOneItemSelected.value = false;
-      if (apiResponse.status == Status.Done) {
-        apiResponseData.value.forEach((element) {
-          element.foods.forEach((element) {
-            if (element.id == food.id) {
-              element.selected = food.selected;
-            }
-          });
-        });
-        apiResponseData.notifyListeners();
-
-        //At least one  item selected Calculation
-        apiResponseData.value.forEach((element) {
-          if ((element.foods.firstWhere((it) => it.selected == true,
-                  orElse: () => null)) !=
-              null) {
-            atLeastOneItemSelected.value = true;
-          }
-
-          //geet Total Price formula
-          apiResponse.data.forEach((element1) {
-            element1.foods.forEach((element2) {
-              element2.totalPrice = 0;
-              element2.totalPrice = element2.totalPrice +
-                  element2.count * double.parse(element2.price);
-              for (int i = 0; i < element2.adds.length; i++) {
-                if (element2.adds[i].type == 2) {
-                  element2.addsType2.add(element2.adds[i]);
-                } else {
-                  element2.totalPrice = element2.totalPrice +
-                      element2.adds[i].count *
-                          double.parse(element2.adds[i].price);
-                }
-              }
-              if (element2.addsType2.length > 0) {
-                for (int i = 0; i < element2.addsType2.length; i++) {
-                  if (i == 0) {
-                    element2.totalPrice = element2.totalPrice +
-                        element2.addsType2[0].count *
-                            double.parse(element2.addsType2[0].price);
-                  }
-                }
+      if (arguments.data.working) {
+        if (food.expanded) {
+          maxScrollExtent.value = -1;
+          verticalScrollController.jumpTo(
+            index: foods.value.indexOf(food),
+          );
+        }
+        foodState.value = food;
+        addedFoodList.value = [];
+        atLeastOneItemSelected.value = false;
+        if (apiResponse.status == Status.Done) {
+          apiResponseData.value.forEach((element) {
+            element.foods.forEach((element) {
+              if (element.id == food.id) {
+                element.selected = food.selected;
               }
             });
           });
-        });
+          apiResponseData.notifyListeners();
+
+          //At least one  item selected Calculation
+          apiResponseData.value.forEach((element) {
+            if ((element.foods.firstWhere((it) => it.selected == true,
+                    orElse: () => null)) !=
+                null) {
+              atLeastOneItemSelected.value = true;
+            }
+
+            //geet Total Price formula
+            apiResponse.data.forEach((element1) {
+              element1.foods.forEach((element2) {
+                element2.totalPrice = 0;
+                element2.totalPrice = element2.totalPrice +
+                    element2.count * double.parse(element2.price);
+                for (int i = 0; i < element2.adds.length; i++) {
+                  if (element2.adds[i].type == 2) {
+                    element2.addsType2.add(element2.adds[i]);
+                  } else {
+                    element2.totalPrice = element2.totalPrice +
+                        element2.adds[i].count *
+                            double.parse(element2.adds[i].price);
+                  }
+                }
+                if (element2.addsType2.length > 0) {
+                  for (int i = 0; i < element2.addsType2.length; i++) {
+                    if (i == 0) {
+                      element2.totalPrice = element2.totalPrice +
+                          element2.addsType2[0].count *
+                              double.parse(element2.addsType2[0].price);
+                    }
+                  }
+                }
+              });
+            });
+          });
+        }
+      }else {
+        atLeastOneItemSelected.value=true;
       }
     }, [foodState.value, apiResponseData.value]);
 
