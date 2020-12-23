@@ -31,7 +31,7 @@ class RestourantViewModel extends HookWidget {
         store.dispatch(AppBarAction(message: apiResponse1.data.message ?? ''));
       }
       return () {};
-    },[apiResponse1.status]);
+    }, [apiResponse1.status]);
     return CustomErrorHandler(
       statuses: [apiResponse1.status, apiResponse2.status, apiResponse3.status],
       errors: [apiResponse1.error, apiResponse2.error, apiResponse3.error],

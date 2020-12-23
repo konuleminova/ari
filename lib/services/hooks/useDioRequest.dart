@@ -21,7 +21,7 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       final queryParams = config.queryParamaters ?? {};
       queryParams['lang'] =
           langStore.state.lang ?? SpUtil.getString(SpUtil.lang);
-      print('REQUESTED URL: ${config.path}&lang=${ langStore.state.lang}');
+      print('REQUESTED URL: ${config.path}&lang=${langStore.state.lang}');
       dio
           .request(config.path,
               data: config.data,
@@ -32,21 +32,16 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
               cancelToken: cancelToken)
           .then((value) {
         if (!isCancel) {
-          print('IsCanceled: $isCancel');
-          print('REQUESTED REsponse: ${value}');
-//          if (value.data['error'] == '1') {
-//            _state.value =
-//                ApiResponse.error(AppException(message: value.data['message']));
-//          } else
-//            _state.value =
-//                ApiResponse.completed(config.transformResponse(value));
-
           _state.value = ApiResponse.completed(config.transformResponse(value));
         }
       }).catchError((error) {
         if (!isCancel) {
-          _state.value =
-              ApiResponse.error(AppException(message: error.toString()));
+          if (DioErrorType.DEFAULT == error.type) {
+            _state.value =
+                ApiResponse.error(AppException(message: "No internet Connection"));
+          } else
+            _state.value =
+                ApiResponse.error(AppException(message: error.toString()));
         }
       });
     } else {

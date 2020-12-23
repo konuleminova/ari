@@ -55,10 +55,13 @@ class CustomErrorHandler extends HookWidget {
                           height: 8.toHeight,
                         ),
                         Text(
-                          'Something went wrong. \n Try again',
+                          error.message == 'No internet Connection'
+                              ? 'No internet Connection  \n Try again'
+                              : 'Something went wrong. \n Try again',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 14.toFont,),
+                            fontSize: 14.toFont,
+                          ),
                         ),
                       ],
                     ),
