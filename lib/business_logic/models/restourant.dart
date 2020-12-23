@@ -3,13 +3,15 @@ class RestourantList {
   String message;
   List<Restourant> results;
   List<Restourant> adv;
+  String our_partners;
 
   RestourantList.fromJson(Map<String, dynamic> json) {
     text = json['text'] ?? '';
     message = json['message_text'] ?? '';
     results =
-        json['results'] != null ? resourantListFromJson(json['results']) : [];
+    json['results'] != null ? resourantListFromJson(json['results']) : [];
     adv = json['adv'] != null ? resourantListFromJson(json['adv']) : [];
+    our_partners = json['our_partners'] ?? '';
   }
 }
 
@@ -25,17 +27,16 @@ class Restourant {
   String delivery_time;
   String categories;
 
-  Restourant(
-      {this.id,
-      this.name,
-      this.sm_name,
-      this.information,
-      this.image,
-      this.priceRange,
-      this.coords,
-      this.working_time,
-      this.delivery_time,
-      this.categories});
+  Restourant({this.id,
+    this.name,
+    this.sm_name,
+    this.information,
+    this.image,
+    this.priceRange,
+    this.coords,
+    this.working_time,
+    this.delivery_time,
+    this.categories});
 
   Restourant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
