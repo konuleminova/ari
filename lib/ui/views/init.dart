@@ -18,7 +18,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 
 class InitPage extends HookWidget {
-  Timer timer;
+  //Timer timer;
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ class InitPage extends HookWidget {
     final appBarStore = getAppBarStore();
     print('CURRENT LANG FROM STORE: ${langStore.state.lang}');
 
-    useEffect(() {
-      timer = Timer.periodic(Duration(seconds: 5), (timer) {
-        if (Platform.isAndroid) {
-         // uniqueKey2.value = new UniqueKey();
-        }
-      });
-      return () {};
-    }, [uniqueKey2.value]);
+//    useEffect(() {
+//      timer = Timer.periodic(Duration(seconds: 5), (timer) {
+//        if (Platform.isAndroid) {
+//         // uniqueKey2.value = new UniqueKey();
+//        }
+//      });
+//      return () {};
+//    }, [uniqueKey2.value]);
 
     useEffect(() {
       widgets.value.clear();

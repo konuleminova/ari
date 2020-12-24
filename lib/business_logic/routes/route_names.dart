@@ -9,6 +9,7 @@ import 'package:ari/business_logic/view_models/status_viewmodel.dart';
 import 'package:ari/ui/views/init.dart';
 import 'package:ari/ui/views/menu/html_page.dart';
 import 'package:ari/ui/views/profile/profile.dart';
+import 'package:ari/ui/views/splash.dart';
 import 'package:ari/ui/views/status/status.dart';
 
 const ROUTE_SEARCH = '/search';
@@ -23,6 +24,7 @@ const ROUTE_HTML = '/about';
 const ROUTE_CONTACT = '/contact';
 const ROUTE_VACANCY = '/vacancy';
 const ROUTE_SHARE = '/share';
+const ROUTE_SPLASH = '/splash';
 final routeNames = {
 // default rout as '/' is necessary!
   '/': (context) => RestourantViewModel(),
@@ -34,5 +36,6 @@ final routeNames = {
   ROUTE_LOGIN: (context) => LoginViewModel(),
   ROUTE_REGISTER: (context) => RegisterViewModel(),
   ROUTE_STATUS: (context) => StatusView(),
-  ROUTE_HTML:(context)=>HtmlViewmModel(),
+  ROUTE_HTML: (context) => HtmlViewmModel(),
+  ROUTE_SPLASH:(context)=>SplashScreen()
 };

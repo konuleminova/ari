@@ -1,9 +1,15 @@
 import 'dart:convert';
+import 'package:ari/business_logic/models/status.dart';
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/provider/provider.dart';
+import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/provider/checkout/checkout_action.dart';
 import 'package:ari/ui/provider/checkout/checkout_state.dart';
+import 'package:ari/ui/views/init.dart';
 import 'package:ari/utils/sharedpref_util.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:ari/business_logic/models/checkout.dart';
 import 'package:ari/business_logic/models/payment_request.dart';
@@ -35,6 +41,7 @@ class PaymentViewModel extends HookWidget {
         useState<List<PaymentItem>>([]);
     var restId = useState<String>();
     ValueNotifier<List<Add>> adds = useState<List<Add>>();
+
     useEffect(() {
       print('USE EFFECt ${checkout.foodList}');
       paymentItems.value.clear();
@@ -93,7 +100,8 @@ class PaymentViewModel extends HookWidget {
                     child: Container(
                       height: SizeConfig().screenHeight - 44.toHeight,
                       alignment: Alignment.bottomCenter,
-                      margin: EdgeInsets.only(bottom: 0, left: 8.toWidth, right: 8.toWidth),
+                      margin: EdgeInsets.only(
+                          bottom: 0, left: 8.toWidth, right: 8.toWidth),
                       // color: Colors.white,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -116,7 +124,11 @@ class PaymentViewModel extends HookWidget {
                                 ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  // navigationKey.currentState.pop();
+                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                    // fetch data
+                               pushRouteWithName('/');
+                                  });
+                                  //navigationKey.currentState.pushNamedAndRemoveUntil(ROUTE_INIT,(Route<dynamic> route) => false);
                                 },
                               ),
                               Expanded(
