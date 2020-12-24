@@ -22,19 +22,20 @@ class InitPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    //STORES
+    final langStore = getLanguageStore();
+    final appBarStore = getAppBarStore();
     //var index = useState<int>(0);
-    var uniqueKey = useState<UniqueKey>();
     var uniqueKey2 = useState<UniqueKey>();
 
     var isEqual = useState<bool>(false);
-    ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
+    ApiResponse<StatusModel> apiResponse =
+        useStatus(appBarStore.state.uniqueKey);
     // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
 
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
 
-    final langStore = getLanguageStore();
-    final appBarStore = getAppBarStore();
     print('CURRENT LANG FROM STORE: ${langStore.state.lang}');
 
 //    useEffect(() {
@@ -52,8 +53,7 @@ class InitPage extends HookWidget {
       widgets.value.add(
         Scaffold(
             resizeToAvoidBottomPadding: true,
-            appBar: CustomAppBar(
-            ),
+            appBar: CustomAppBar(),
             backgroundColor: Color(0xfffccd13),
             body: Stack(
               children: <Widget>[
@@ -90,7 +90,7 @@ class InitPage extends HookWidget {
         }
       }
       return () {};
-    }, [apiResponse.status,langStore.state.lang,appBarStore.state]);
+    }, [apiResponse.status, langStore.state.lang, appBarStore.state]);
 //    useEffect(() {
 //      //Adding circle status Widgets
 //      if (apiResponse2.status == Status.Done) {

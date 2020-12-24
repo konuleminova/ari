@@ -12,13 +12,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 ApiResponse<StatusModel> useStatus(UniqueKey uniqueKey) {
   ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() {
-    if (SpUtil.getString(SpUtil.token).isEmpty) return null;
+    if (SpUtil.getString(SpUtil.token).isEmpty || uniqueKey == null)
+      return null;
     return DioConfig<StatusModel>(
-        path: apiConfig.STATUS(SpUtil.getString(SpUtil.token)),
-        transformResponse: (Response response) {
-          return StatusModel.fromJson(response.data);
-        },);
-  },[uniqueKey]);
+      path: apiConfig.STATUS(SpUtil.getString(SpUtil.token)),
+      transformResponse: (Response response) {
+        return StatusModel.fromJson(response.data);
+      },
+    );
+  }, [uniqueKey]);
 
   ApiResponse<StatusModel> apiResponse = useDioRequest(dioConfig);
   return apiResponse;

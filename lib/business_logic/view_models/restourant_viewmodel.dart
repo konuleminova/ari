@@ -28,7 +28,8 @@ class RestourantViewModel extends HookWidget {
     useSideEffect(() {
       if (apiResponse1.status == Status.Done) {
         final store = getAppBarStore();
-        store.dispatch(AppBarAction(message: apiResponse1.data.message ?? ''));
+        store.dispatch(AppBarAction(
+            message: apiResponse1.data.message ?? '', uniqueKey: UniqueKey()));
       }
       return () {};
     }, [apiResponse1.status]);
