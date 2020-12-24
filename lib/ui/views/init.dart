@@ -1,18 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:ari/business_logic/models/restourant.dart';
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/nested_root.dart';
 import 'package:ari/business_logic/view_models/status_viewmodel.dart';
 import 'package:ari/services/api_helper/api_response.dart';
-import 'package:ari/services/hooks/use_callback.dart';
-import 'package:ari/services/provider/provider.dart';
-import 'package:ari/services/services/restourant_service.dart';
 import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
-import 'package:ari/ui/common_widgets/loading.dart';
 import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/menu/menu_view.dart';
