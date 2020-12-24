@@ -24,7 +24,6 @@ const ROUTE_HTML = '/about';
 const ROUTE_CONTACT = '/contact';
 const ROUTE_VACANCY = '/vacancy';
 const ROUTE_SHARE = '/share';
-const ROUTE_SPLASH = '/splash';
 final routeNames = {
 // default rout as '/' is necessary!
   '/': (context) => RestourantViewModel(),
@@ -37,5 +36,4 @@ final routeNames = {
   ROUTE_REGISTER: (context) => RegisterViewModel(),
   ROUTE_STATUS: (context) => StatusView(),
   ROUTE_HTML: (context) => HtmlViewmModel(),
-  ROUTE_SPLASH:(context)=>SplashScreen()
 };

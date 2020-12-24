@@ -124,9 +124,17 @@ class PaymentViewModel extends HookWidget {
                                 ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                                  SchedulerBinding.instance
+                                      .addPostFrameCallback((_) {
                                     // fetch data
-                               pushRouteWithName('/');
+
+                                    SpUtil.putString(
+                                            SpUtil.isFromMap, 'isFromMap')
+                                        .then((value) {
+                                      pushRouteWithName('/',
+                                          arguments:
+                                              RouteArguments<bool>(data: true));
+                                    });
                                   });
                                   //navigationKey.currentState.pushNamedAndRemoveUntil(ROUTE_INIT,(Route<dynamic> route) => false);
                                 },

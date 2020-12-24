@@ -28,10 +28,13 @@ class _SplashScreenState extends State<SplashScreen> {
               _controller.addListener(() {
                 if (!_controller.value.isPlaying) {
                   if (context != null) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => InitPage()));
+                    SpUtil.putString(SpUtil.isFromMap, '').then((value){
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => InitPage()));
+                    });
+
                   }
                 }
               });

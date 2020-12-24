@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_names.dart';
 import 'package:ari/business_logic/routes/nested_root.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/status_viewmodel.dart';
 import 'package:ari/services/api_helper/api_response.dart';
+import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/common_widgets/custom_appbar.dart';
 import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
@@ -26,7 +28,7 @@ class InitPage extends HookWidget {
     final langStore = getLanguageStore();
     final appBarStore = getAppBarStore();
     //var index = useState<int>(0);
-    var uniqueKey2 = useState<UniqueKey>();
+    var uniqueKey = useState<UniqueKey>(appBarStore.state.uniqueKey);
 
     var isEqual = useState<bool>(false);
     ApiResponse<StatusModel> apiResponse =
@@ -35,7 +37,6 @@ class InitPage extends HookWidget {
 
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
     //Timer for getting status
-
     print('CURRENT LANG FROM STORE: ${langStore.state.lang}');
 
 //    useEffect(() {
@@ -80,17 +81,31 @@ class InitPage extends HookWidget {
               ],
             )),
       );
-      //Adding circle status Widgets
       if (apiResponse.status == Status.Done) {
         if (SpUtil.getString(SpUtil.token).isNotEmpty &&
             apiResponse.data != null) {
           for (int i = 0; i < apiResponse.data.found; i++) {
             widgets.value.add(StatusViewModel(i, apiResponse));
           }
+//          if (SpUtil.getString(SpUtil.isFromMap).isNotEmpty) {
+//            if (apiResponse.data.order.length > 0) {
+//              navigationKey.currentState.pushNamed(ROUTE_STATUS,
+//                arguments: RouteArguments<Order>(data: apiResponse.data.order[0]),);
+//              //(Route<dynamic> route) => false,
+//            }
+//          }
         }
       }
       return () {};
     }, [apiResponse.status, langStore.state.lang, appBarStore.state]);
+
+//    useSideEffect((){
+//      //Adding circle status Widgets
+//
+//      return (){
+//
+//      };
+//    },[apiResponse.status, langStore.state.lang, appBarStore.state]);
 //    useEffect(() {
 //      //Adding circle status Widgets
 //      if (apiResponse2.status == Status.Done) {

@@ -17,7 +17,7 @@ class AppBarState {
 
 //init state
 final AppBarState initState =
-    AppBarState(message: '', index: 0, uniqueKey: null);
+    AppBarState(message: '', index: 0, uniqueKey: new UniqueKey());
 
 //reducer
 AppBarState _reducer(AppBarState state, AppBarAction action) {
