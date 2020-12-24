@@ -32,5 +32,8 @@
   "email_title": "Ödəniş qəbzləri üçün",
   "mobile_title": "Kuryerin Sizə zəng etməsi üçün", 
   "logoutButtonText": "Çıxış",
-  "rest_not_working": "Hal hazırda fəaliyyət gostərmir"
+  "rest_not_working": "Hal hazırda fəaliyyət gostərmir",
+  "Contacts": "Əlaqə",
+  "no_delivery": "Seçdiyiniz əraziyə çatdırılma mövcud deyil",
+  "rules_btn": "Şərtlərlə razıyam"
 }

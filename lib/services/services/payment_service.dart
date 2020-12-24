@@ -44,7 +44,7 @@ ApiResponse<String> useGetCuryerPrice(String restId) {
         path:
             apiConfig.GET_CURYER_PRICE(SpUtil.getString(SpUtil.token), restId),
         transformResponse: (Response response) {
-          return response.data['deliveryprice'].toStringAsFixed(2);
+          return response.data['deliveryprice'].toString();
         });
   });
   ApiResponse<String> apiResponse = useDioRequest(dioConfig);

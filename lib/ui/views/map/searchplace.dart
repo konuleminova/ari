@@ -1,3 +1,4 @@
+import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/provider/checkout/checkout_action.dart';
 import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
 import 'package:ari/utils/map_utils/flutter_google_places.dart';
@@ -234,7 +235,8 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
       store.dispatch(CheckoutAction('', '', false));
       print('It is not in polygon');
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Seçdiyiniz əraziyə çcatdırılma mövcud deyil.')));
+          content: Text(AppLocalizations.of(context).translate('no_delivery') ??
+              'Seçdiyiniz əraziyə çatdırılma mövcud deyil')));
       await SpUtil.putBool(SpUtil.isPointInPolygon, false);
     }
 

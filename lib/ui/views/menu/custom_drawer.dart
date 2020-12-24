@@ -116,8 +116,8 @@ class CustomMenuDrawer extends HookWidget {
                   ),
                   InkWell(
                     child: Text(
-                      AppLocalizations.of(context).translate('Контакты') ??
-                          'Контакты',
+                      AppLocalizations.of(context).translate('Contacts') ??
+                          'Contacts',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22.toFont),
                     ),

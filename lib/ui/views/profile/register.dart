@@ -259,7 +259,7 @@ class RegisterView extends StatelessWidget {
                               child: Container(
                                 child: Text(
                                   AppLocalizations.of(context)
-                                          .translate("Согласен с условиями") ??
+                                          .translate("rules_btn") ??
                                       "Согласен с условиями",
                                   style: TextStyle(fontSize: 12.toFont),
                                 ),

@@ -3,7 +3,7 @@
   "Delivery price: ": "Delivery price: ",
   "Go to checkout": "Go to checkout",
   "© Ari 2020 by Delivery Group": "© Ari 2020 by Delivery Group",
-  "Меню": "Menu",
+  "Меню": "Meni",
   "О нас": "About us",
   "Акции": "Promotions",
   "Вакансии": "Vacancies",
@@ -32,5 +32,8 @@
   "email_title": "For payment receipts",
   "mobile_title": "For courier to call you", 
   "logoutButtonText": "Log out",
-  "rest_not_working": "Not working now"
+  "rest_not_working": "Not working now",
+  "Contacts": "Contacts",
+  "no_delivery": "Delivery is not available yet",
+  "rules_btn": "I agree with the terms"
 }
