@@ -31,6 +31,7 @@ class InitPage extends HookWidget {
     //var index = useState<int>(0);
     var uniqueKey = useState<UniqueKey>();
     var uniqueKey2 = useState<UniqueKey>();
+
     var isEqual = useState<bool>(false);
     ApiResponse<StatusModel> apiResponse = useStatus(uniqueKey.value);
     // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
@@ -51,9 +52,6 @@ class InitPage extends HookWidget {
       return () {};
     }, [uniqueKey2.value]);
 
-//    final changeIndex = useCallback((int indexx) {
-//      index.value = indexx;
-//    }, [index.value]);
     useEffect(() {
       widgets.value.clear();
       //Adding Main widget
