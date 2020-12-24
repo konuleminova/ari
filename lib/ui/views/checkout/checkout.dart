@@ -13,9 +13,9 @@ class CheckoutView extends StatelessWidget {
   final List<LatLng> mapPoints;
   Checkout checkout;
   var store;
-  String deliveryPrice;
+  String deliveryMessage;
 
-  CheckoutView({this.mapPoints, this.checkout, this.store, this.deliveryPrice});
+  CheckoutView({this.mapPoints, this.checkout, this.store, this.deliveryMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -312,7 +312,7 @@ class CheckoutView extends StatelessWidget {
                               width: 8.toWidth,
                             ),
                             Text(
-                              '${deliveryPrice}  ₼' ?? '',
+                              '${deliveryMessage??''}  ₼' ?? '',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.toFont),

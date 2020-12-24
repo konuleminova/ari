@@ -1,3 +1,4 @@
+import 'package:ari/business_logic/models/delivery.dart';
 import 'package:ari/business_logic/models/food.dart';
 import 'package:ari/business_logic/models/payment_response.dart';
 import 'package:ari/services/api_helper/api_config.dart';
@@ -37,16 +38,16 @@ ApiResponse<PaymentResponse> useAddtoBag(
 
 //Delivery price
 
-ApiResponse<String> useGetCuryerPrice(String restId) {
+ApiResponse<Delivery> useGetCuryerPrice(String restId) {
   ApiConfig apiConfig = useApiConfig();
   DioConfig dioConfig = useMemoized(() {
-    return DioConfig<String>(
+    return DioConfig<Delivery>(
         path:
             apiConfig.GET_CURYER_PRICE(SpUtil.getString(SpUtil.token), restId),
         transformResponse: (Response response) {
-          return response.data['deliveryprice'].toString();
+          return Delivery.fromJson(response.data);
         });
   });
-  ApiResponse<String> apiResponse = useDioRequest(dioConfig);
+  ApiResponse<Delivery> apiResponse = useDioRequest(dioConfig);
   return apiResponse;
 }

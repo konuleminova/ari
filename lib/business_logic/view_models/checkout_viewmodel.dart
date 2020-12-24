@@ -35,7 +35,7 @@ class CheckoutViewModel extends HookWidget {
     useEffect(() {
       if (apiResponse2.status == Status.Done) {
         double total = double.parse(checkout.data.totalPrice);
-        double delivery = double.parse(apiResponse2.data);
+        double delivery = double.parse(apiResponse2.data.delivery_price);
         total = total + delivery;
         checkout.data.totalPrice = total.toStringAsFixed(2);
       }
@@ -43,7 +43,7 @@ class CheckoutViewModel extends HookWidget {
     }, [apiResponse2]);
 
     useEffect(() {
-      apiResponse2.status=Status.Loading;
+      apiResponse2.status = Status.Loading;
       if (Platform.isAndroid) {
         Geolocator.checkPermission().then((value) {
           Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
@@ -56,7 +56,7 @@ class CheckoutViewModel extends HookWidget {
                 .then((valuex) {
               SpUtil.putString(SpUtil.address, valuex.first.addressLine ?? '');
               print("MY ADDRESS ${valuex.first.addressLine}");
-              apiResponse2.status=Status.Done;
+              apiResponse2.status = Status.Done;
             });
           });
         });
@@ -73,7 +73,7 @@ class CheckoutViewModel extends HookWidget {
           mapPoints: apiResponse.data,
           checkout: checkout.data,
           store: store,
-          deliveryPrice: apiResponse2.data,
+          deliveryMessage: apiResponse2?.data?.delivery_message??'',
         ),
       ),
     );
