@@ -9,7 +9,7 @@ class RestourantList {
     text = json['text'] ?? '';
     message = json['message_text'] ?? '';
     results =
-        json['results'] != null ? resourantListFromJson(json['results']) : [];
+    json['results'] != null ? resourantListFromJson(json['results']) : [];
     adv = json['adv'] != null ? resourantListFromJson(json['adv']) : [];
     our_partners = json['our_partners'] ?? '';
   }
@@ -30,16 +30,16 @@ class Restourant {
 
   Restourant(
       {this.id,
-      this.name,
-      this.sm_name,
-      this.information,
-      this.image,
-      this.priceRange,
-      this.coords,
-      this.working_time,
-      this.delivery_time,
-      this.categories,
-      this.working});
+        this.name,
+        this.sm_name,
+        this.information,
+        this.image,
+        this.priceRange,
+        this.coords,
+        this.working_time,
+        this.delivery_time,
+        this.categories,
+        this.working = true});
 
   Restourant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,7 +52,7 @@ class Restourant {
     working_time = json['working_time'];
     delivery_time = json['delivery_time'];
     categories = json['categories'];
-    working = json['working'] ?? false;
+    working = json['working'] == null ? true : json['working'];
   }
 
   @override
