@@ -37,17 +37,19 @@ class PaymentViewModel extends HookWidget {
     var uniqueKey = useState<UniqueKey>();
     var address = useState<String>();
     var coords = useState<String>();
+    var additionalAddress = useState<String>();
     ValueNotifier<List<PaymentItem>> paymentItems =
         useState<List<PaymentItem>>([]);
     var restId = useState<String>();
     ValueNotifier<List<Add>> adds = useState<List<Add>>();
 
     useEffect(() {
-      print('USE EFFECt ${checkout.foodList}');
+      print('USE EFFECt ${store.state.additionalAddress}');
       paymentItems.value.clear();
       address.value = store.state?.address ?? '';
       coords.value = store.state.coords ?? '';
       restId.value = checkout.restourant.id;
+      additionalAddress.value = store.state.additionalAddress ?? '';
       checkout.foodList.forEach((foodParent) {
         foodParent.foods.forEach((food) {
           if (food.adds.length > 0) {
@@ -76,6 +78,7 @@ class PaymentViewModel extends HookWidget {
         restId: restId.value,
         coords: coords.value,
         address: address.value,
+        additionalAddress: additionalAddress.value,
         jsonString: jsonEncode(paymentItems.value),
         uniqueKey: uniqueKey.value);
 

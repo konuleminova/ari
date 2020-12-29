@@ -34,6 +34,9 @@ class CheckoutView extends StatelessWidget {
                           height: 8.toHeight,
                         ),
                         CustomSearchScaffold(mapPoints, store),
+                        SizedBox(
+                          height: 12.toHeight,
+                        ),
                         Container(
                             margin:
                                 EdgeInsets.symmetric(horizontal: 16.toWidth),

@@ -16,14 +16,21 @@ ApiResponse<PaymentResponse> useAddtoBag(
     String coords,
     String jsonString,
     String restId,
+    String additionalAddress,
     UniqueKey uniqueKey}) {
   final ApiConfig apiConfig = useApiConfig();
   final DioConfig dioConfig = useMemoized(() {
     print('ADD to bag');
     if (uniqueKey != null) {
       return DioConfig<PaymentResponse>(
-        path: apiConfig.ADD_TO_BAG(address, coords, jsonString, restId,
-            SpUtil.getString(SpUtil.token)),
+        path: apiConfig.ADD_TO_BAG(
+          address,
+          coords,
+          jsonString,
+          restId,
+          additionalAddress,
+          SpUtil.getString(SpUtil.token),
+        ),
         transformResponse: (Response response) {
           return PaymentResponse.fromJsom(response.data);
         },

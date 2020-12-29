@@ -35,5 +35,6 @@
   "rest_not_working": "Not working now",
   "Contacts": "Contacts",
   "no_delivery": "Delivery is not available yet",
-  "rules_btn": "I agree with the terms"
+  "rules_btn": "I agree with the terms", 
+  "comment_field_placeholder": "Door code, floor, apartment and etc."
 }

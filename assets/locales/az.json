@@ -35,5 +35,6 @@
   "rest_not_working": "Hal hazırda fəaliyyət gostərmir",
   "Contacts": "Əlaqə",
   "no_delivery": "Seçdiyiniz əraziyə çatdırılma mövcud deyil",
-  "rules_btn": "Şərtlərlə razıyam"
+  "rules_btn": "Şərtlərlə razıyam", 
+  "comment_field_placeholder": "Qapı kodu, mərtəbə, mənzil və s."
 }

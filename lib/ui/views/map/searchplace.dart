@@ -1,5 +1,6 @@
 import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/provider/checkout/checkout_action.dart';
+import 'package:ari/ui/provider/checkout/checkout_state.dart';
 import 'package:ari/ui/views/map/polygon_points/polygon_points.dart';
 import 'package:ari/utils/map_utils/flutter_google_places.dart';
 import 'package:ari/utils/map_utils/point_inpolygon.dart';
@@ -7,6 +8,7 @@ import 'package:ari/utils/map_utils/ui_id.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
@@ -42,8 +44,9 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   LatLng _lastMapPosition;
   final List<LatLng> points;
   TextEditingController controller;
+  TextEditingController _addressController;
   String searchValue;
-  var store;
+  Store<CheckoutState, CheckoutAction> store;
 
   _CustomSearchScaffoldState(this.points, this.store);
 
@@ -92,10 +95,44 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
         children: [
           Positioned(
             child: Container(
-              child: bodyMap,
-              margin: EdgeInsets.only(top: 54.toHeight),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: 24.toHeight,
+                          left: 16.toWidth,
+                          right: 16.toWidth),
+                      padding: EdgeInsets.symmetric(horizontal: 8.toWidth),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(4)),
+                      child: TextField(
+                        controller: _addressController,
+                        onChanged: (v) {
+                          if (store != null) {
+                            store.dispatch(CheckoutAction(
+                                store.state.address ?? '',
+                                '${store.state.coords}',
+                                true,
+                                _addressController.text));
+                          }
+                        },
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintStyle:
+                                TextStyle(color: Colors.grey.withOpacity(0.7)),
+                            hintText: AppLocalizations.of(context)
+                                .translate('comment_field_placeholder')),
+                      )),
+                  Container(
+                    margin: EdgeInsets.only(top: 4.toHeight),
+                    child: bodyMap,
+                  ),
+                ],
+              ),
             ),
-            top: 0,
+            top: 40,
             left: 0,
             right: 0,
           ),
@@ -129,6 +166,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     isOpen = false;
     _lastMapPosition = const LatLng(40.3716222, 49.8555191);
     controller = new TextEditingController();
+    _addressController = new TextEditingController();
     if (SpUtil.getString(SpUtil.address).isNotEmpty) {
       displayPrediction(null, context);
     }
@@ -138,6 +176,8 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
   void dispose() {
     super.dispose();
     _mapController.dispose();
+    controller.dispose();
+    _addressController.dispose();
   }
 
   @override
@@ -225,14 +265,14 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
     }
     if (isPointInPolygon(LatLng(lat, lng), points)) {
-      print('It is in polygon');
+      print('It is in polygon ${_addressController.text}');
       if (store != null) {
-        store
-            .dispatch(CheckoutAction(description ?? '', '${lat},${lng}', true));
+        store.dispatch(CheckoutAction(
+            description ?? '', '${lat},${lng}', true, _addressController.text));
       }
       await SpUtil.putBool(SpUtil.isPointInPolygon, true);
     } else {
-      store.dispatch(CheckoutAction('', '', false));
+      store.dispatch(CheckoutAction('', '', false, ''));
       print('It is not in polygon');
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(AppLocalizations.of(context).translate('no_delivery') ??

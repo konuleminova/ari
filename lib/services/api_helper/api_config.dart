@@ -5,7 +5,7 @@ class ApiConfig {
 
   String FOOD_URl(String id) => '${BASE_URl}food&restourant_id=${id}&gr=1';
 
-  String RESTOURANT_URl(String id, String lang,String token) =>
+  String RESTOURANT_URl(String id, String lang, String token) =>
       '${BASE_URl}mainpage&text=${id}&token=${token}';
 
   String MENU_URL(String id) => '${BASE_URl}menu&restourant_id=${id}';
@@ -16,8 +16,8 @@ class ApiConfig {
   String FETCH_MAP_ZONE() => BASE_URl + 'zone';
 
   String ADD_TO_BAG(String address, String coords, String jsonString,
-          String restId, String token) =>
-      '${BASE_URl}addtobag&token=${token}&address=${address}&coords=${coords}&jsonString=${jsonString}&restid=${restId}';
+          String restId, String additionalAddress, String token) =>
+      '${BASE_URl}addtobag&token=${token}&address=${address}&comment=${additionalAddress}&coords=${coords}&jsonString=${jsonString}&restid=${restId}';
 
   String LOGIN_URL(User user) =>
       '${BASE_URl}login&username=${user.login}&password=${user.pass}&devicetoken=${user.device_token}';
