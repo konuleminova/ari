@@ -6,11 +6,13 @@ import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/business_logic/view_models/menu_viewmodel.dart';
 import 'package:ari/localization/app_localization.dart';
 import 'package:ari/ui/views/food/widgets/food_item/animation_bee.dart';
+import 'package:ari/utils/map_utils/check_loaction_permission.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/sliver_delegate.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:ari/utils/size_config.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FoodView extends StatelessWidget {
@@ -142,7 +144,7 @@ class FoodView extends StatelessWidget {
                   preferredSize: Size.fromHeight(48.toHeight + 6),
                   child: Column(
                     children: <Widget>[
-                     Container(
+                      Container(
                         color: Colors.white,
                         child: MenuViewModel(
                             foodList: foods,
@@ -213,16 +215,20 @@ class FoodView extends StatelessWidget {
                         if (arguments.data.working) {
                           goToPaymentCallBack();
                           if (SpUtil.getString(SpUtil.token).isNotEmpty) {
-                            pushRouteWithName(ROUTE_MAP,
-                                arguments: RouteArguments<Checkout>(
-                                    data: Checkout(
-                                        totalPrice: getTotalPrice(),
-                                        foodList: addedFoodList,
-                                        isFroMap: true,
-                                        restourant: Restourant(
-                                            image: arguments.data.image,
-                                            name: arguments.data.name,
-                                            id: arguments.data.id))));
+                            checkPermissionLocation(
+                                context: context,
+                                onSuccess: () {
+                                  pushRouteWithName(ROUTE_MAP,
+                                      arguments: RouteArguments<Checkout>(
+                                          data: Checkout(
+                                              totalPrice: getTotalPrice(),
+                                              foodList: addedFoodList,
+                                              isFroMap: true,
+                                              restourant: Restourant(
+                                                  image: arguments.data.image,
+                                                  name: arguments.data.name,
+                                                  id: arguments.data.id))));
+                                });
                           } else {
                             pushRouteWithName(ROUTE_LOGIN,
                                 arguments: RouteArguments<Checkout>(

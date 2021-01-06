@@ -55,7 +55,7 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
     final bodyMap = Container(
       padding: EdgeInsets.all(1),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: 200.toHeight,
       alignment: AlignmentDirectional.topCenter,
       color: Colors.white,
       child: ClipRRect(

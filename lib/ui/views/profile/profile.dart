@@ -228,6 +228,9 @@ class ProfileView extends StatelessWidget {
               ),
               onTap: () {
                 SpUtil.remove(SpUtil.token);
+                SpUtil.remove(SpUtil.address);
+                SpUtil.remove(SpUtil.lat);
+                SpUtil.remove(SpUtil.lng);
                 pushReplaceRouteWithName('/');
               },
             )

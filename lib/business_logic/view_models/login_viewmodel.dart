@@ -9,11 +9,13 @@ import 'package:ari/services/hooks/use_callback.dart';
 import 'package:ari/services/services/profile.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/profile/login.dart';
+import 'package:ari/utils/map_utils/check_loaction_permission.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LoginViewModel extends HookWidget {
   RouteArguments<Checkout> arguments;
@@ -43,8 +45,12 @@ class LoginViewModel extends HookWidget {
                 apiResponse?.data?.name ??
                     '' + ' ' + apiResponse?.data?.surname ??
                     '');
-            if (arguments!=null) {
-              pushReplaceRouteWithName(ROUTE_MAP, arguments: arguments);
+            if (arguments != null) {
+              checkPermissionLocation(
+                  context: context,
+                  onSuccess: () {
+                    pushReplaceRouteWithName(ROUTE_MAP, arguments: arguments);
+                  });
             } else {
               pushReplaceRouteWithName(ROUTE_PROFILE);
             }
