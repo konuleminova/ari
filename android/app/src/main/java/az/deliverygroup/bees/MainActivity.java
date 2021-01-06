@@ -1,4 +1,4 @@
-package ari.com.ari;
+package az.deliverygroup.bees;
 
 import io.flutter.embedding.android.FlutterActivity;
 
