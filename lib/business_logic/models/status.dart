@@ -67,10 +67,10 @@ class Curyer {
   String mobile;
 
   Curyer.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    coords = json['coords'];
-    mobile = json['mobile'];
+    id = json['id'] ?? '';
+    name = json['name'] ?? '';
+    coords = json['coords'] ?? '';
+    mobile = json['mobile'] ?? '';
   }
 
   @override

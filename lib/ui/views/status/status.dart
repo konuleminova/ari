@@ -9,7 +9,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+
 ValueNotifier<Set<Marker>> markers;
+
 class StatusView extends HookWidget {
   RouteArguments<Order> orderArguments;
   Order order;
@@ -20,7 +23,7 @@ class StatusView extends HookWidget {
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
-   markers = useState<Set<Marker>>(Set<Marker>());
+    markers = useState<Set<Marker>>(Set<Marker>());
     var _lastMapPosition2;
 
     //Restourant Coords
@@ -38,7 +41,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker);
-       // markers.notifyListeners();
+        // markers.notifyListeners();
       });
     }
 
@@ -82,107 +85,146 @@ class StatusView extends HookWidget {
     return Container(
         height: SizeConfig().screenHeight,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-              Container(
-                color: ThemeColor().grey1.withOpacity(0.6),
-                width: SizeConfig().screenWidth,
-                height: 80.toHeight,
-                padding: EdgeInsets.all(24.toWidth),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      order.message,
-                      style: TextStyle(
-                          fontSize: 16.toFont, fontWeight: FontWeight.w500),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                  Container(
+                    color: ThemeColor().grey1.withOpacity(0.6),
+                    width: SizeConfig().screenWidth,
+                    height: 80.toHeight,
+                    padding: EdgeInsets.all(24.toWidth),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          order.message,
+                          style: TextStyle(
+                              fontSize: 16.toFont, fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 4.toHeight,
+                        ),
+                        Text(
+                          order.date,
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 12.toFont),
+                        )
+                      ],
                     ),
-                    SizedBox(
-                      height: 4.toHeight,
+                  ),
+                  Container(
+                    height: 300.toHeight,
+                    child: GoogleMap(
+                      gestureRecognizers: Set()
+                        ..add(Factory<PanGestureRecognizer>(
+                            () => PanGestureRecognizer()))
+                        ..add(Factory<VerticalDragGestureRecognizer>(
+                            () => VerticalDragGestureRecognizer())),
+                      onTap: (LatLng location) {
+                        //MapDemoPage mp = new MapDemoPage();
+                        // mp.showMap();
+                      },
+                      tiltGesturesEnabled: true,
+                      scrollGesturesEnabled: true,
+                      zoomGesturesEnabled: true,
+                      markers: markers.value,
+                      onCameraMove: _onCameraMove,
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                          target: _lastMapPosition2, zoom: 11.00),
                     ),
-                    Text(
-                      order.date,
-                      style: TextStyle(color: Colors.grey, fontSize: 12.toFont),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                height: 300.toHeight,
-                child: GoogleMap(
-                  gestureRecognizers: Set()
-                    ..add(Factory<PanGestureRecognizer>(
-                        () => PanGestureRecognizer()))
-                    ..add(Factory<VerticalDragGestureRecognizer>(
-                        () => VerticalDragGestureRecognizer())),
-                  onTap: (LatLng location) {
-                    //MapDemoPage mp = new MapDemoPage();
-                    // mp.showMap();
-                  },
-                  tiltGesturesEnabled: true,
-                  scrollGesturesEnabled: true,
-                  zoomGesturesEnabled: true,
-                  markers: markers.value,
-                  onCameraMove: _onCameraMove,
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition:
-                      CameraPosition(target: _lastMapPosition2, zoom: 11.00),
-                ),
-              ),
-              Container(
-                  height: 250.toHeight,
-                  width: SizeConfig().screenWidth,
-                  child: Container(
-                      padding: EdgeInsets.all(24.toWidth),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.white),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              margin: EdgeInsets.only(bottom: 4.toHeight),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${order.foods[index].count}. ${order.foods[index].name}             ${order.foods[index].count * double.parse(order.foods[index].price)} ₼ ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14.toFont),
-                                  ),
-                                  Container(
-                                    child: ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            order.foods[index].adds.length,
-                                        itemBuilder:
-                                            (BuildContext context, int i) {
-                                          return Container(
-                                            child: Text(
-                                              '${order.foods[index].adds[i].count} ${order.foods[index].adds[i].name}',
-                                              style: TextStyle(
-                                                  fontSize: 12.toFont),
-                                            ),
-                                            margin: EdgeInsets.only(
-                                                bottom: 4.toHeight,
-                                                left: 16.toWidth),
-                                          );
-                                        }),
-                                  )
-                                ],
-                              ));
-                        },
-                        itemCount: order.foods.length,
-                      )))
-            ])));
+                  ),
+                  Container(
+                      height: 250.toHeight,
+                      width: SizeConfig().screenWidth,
+                      child: Container(
+                          padding: EdgeInsets.all(24.toWidth),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: Colors.white),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                  margin: EdgeInsets.only(bottom: 4.toHeight),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${order.foods[index].count}. ${order.foods[index].name}             ${order.foods[index].count * double.parse(order.foods[index].price)} ₼ ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14.toFont),
+                                      ),
+                                      Container(
+                                        child: ListView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount:
+                                                order.foods[index].adds.length,
+                                            itemBuilder:
+                                                (BuildContext context, int i) {
+                                              return Container(
+                                                child: Text(
+                                                  '${order.foods[index].adds[i].count} ${order.foods[index].adds[i].name}',
+                                                  style: TextStyle(
+                                                      fontSize: 12.toFont),
+                                                ),
+                                                margin: EdgeInsets.only(
+                                                    bottom: 4.toHeight,
+                                                    left: 16.toWidth),
+                                              );
+                                            }),
+                                      )
+                                    ],
+                                  ));
+                            },
+                            itemCount: order.foods.length,
+                          )))
+                ])),
+            order.curyer != null
+                ? Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: InkWell(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: ThemeColor().grey1),
+                              color: ThemeColor().yellowColor),
+                          padding: EdgeInsets.symmetric(horizontal: 16.toWidth),
+                          height: 56.toHeight,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                order.curyer.name ?? '',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.toFont),
+                              ),
+                              Image.asset(
+                                'assets/images/call.png',
+                                width: 30,
+                                height: 30,
+                              )
+                            ],
+                          )),
+                      onTap: () => UrlLauncher.launch("tel://${order.curyer.mobile}"),
+                    ))
+                : SizedBox()
+          ],
+        ));
   }
 
   _onMapCreated(GoogleMapController controller) {
