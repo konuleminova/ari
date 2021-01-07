@@ -11,8 +11,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
-ValueNotifier<Set<Marker>> markers;
-
 class StatusView extends HookWidget {
   RouteArguments<Order> orderArguments;
   Order order;
@@ -23,7 +21,8 @@ class StatusView extends HookWidget {
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
-    markers = useState<Set<Marker>>(Set<Marker>());
+
+    ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
     var _lastMapPosition2;
 
     //Restourant Coords
@@ -41,7 +40,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker);
-         markers.notifyListeners();
+        //markers.notifyListeners();
       });
     }
 
@@ -59,7 +58,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.address, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker2);
-        markers.notifyListeners();
+        // markers.notifyListeners();
       });
     }
 
@@ -77,7 +76,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker3);
-        markers.notifyListeners();
+        //markers.notifyListeners();
       });
     }
 
@@ -220,7 +219,8 @@ class StatusView extends HookWidget {
                               )
                             ],
                           )),
-                      onTap: () => UrlLauncher.launch("tel://${order.curyer.mobile}"),
+                      onTap: () =>
+                          UrlLauncher.launch("tel://${order.curyer.mobile}"),
                     ))
                 : SizedBox()
           ],
