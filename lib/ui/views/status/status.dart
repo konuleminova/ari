@@ -41,7 +41,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker);
-        // markers.notifyListeners();
+         markers.notifyListeners();
       });
     }
 
@@ -59,7 +59,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.address, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker2);
-        //markers.notifyListeners();
+        markers.notifyListeners();
       });
     }
 
@@ -77,7 +77,7 @@ class StatusView extends HookWidget {
             infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker3);
-        //markers.notifyListeners();
+        markers.notifyListeners();
       });
     }
 

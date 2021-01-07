@@ -52,11 +52,11 @@ class StatusViewModel extends HookWidget {
           onTap: () {
             isOpen.value[index] = !isOpen.value[index];
             if (isOpen.value[index]) {
-              pushRouteWithName(ROUTE_STATUS,
+              pushReplaceRouteWithName(ROUTE_STATUS,
                   arguments: RouteArguments<Order>(
                       data: apiResponse.data.order[index]));
             } else {
-              navigationKey.currentState.pop(context);
+              pushRouteWithName('/');
             }
           },
           child: Container(
