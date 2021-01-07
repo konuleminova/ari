@@ -93,7 +93,7 @@ class StatusView extends HookWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                   Container(
-                    color: ThemeColor().grey1.withOpacity(0.6),
+                    color: ThemeColor().grey1.withOpacity(0.4),
                     width: SizeConfig().screenWidth,
                     height: 80.toHeight,
                     padding: EdgeInsets.all(24.toWidth),
