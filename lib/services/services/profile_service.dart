@@ -16,8 +16,8 @@ ApiResponse<dynamic> useLogin(User user, UniqueKey uniqueKey) {
     if (user.login.isEmpty && user.pass.isEmpty) return null;
     return DioConfig<dynamic>(
         path: apiConfig.LOGIN_URL(user),
-        transformResponse: (Response response){
-          if(response.data['error']=='1'){
+        transformResponse: (Response response) {
+          if (response.data['error'] == '1') {
             return AppException(message: response.data['message']);
           }
           return User.fromJson(response.data);
@@ -52,11 +52,12 @@ ApiResponse<dynamic> useUserPage() {
     return DioConfig<dynamic>(
         path: apiConfig.PROFILE_URL(SpUtil.getString(SpUtil.token)),
         transformResponse: (Response response) {
-          if(response.data['found']>0){
-            return StatusModel.fromJson(response.data);
+          if (response.data['found'] != null) {
+            if (response.data['found'] > 0) {
+              return StatusModel.fromJson(response.data);
+            }
           }
           return AppException(message: response.data['message']);
-
         });
   });
   ApiResponse<dynamic> apiResponse = useDioRequest(dioConfig);
