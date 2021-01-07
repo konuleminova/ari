@@ -19,8 +19,10 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       _state.value = ApiResponse.loading();
       cancelToken = CancelToken();
       final queryParams = config.queryParamaters ?? {};
+
       queryParams['lang'] =
           langStore.state.lang ?? SpUtil.getString(SpUtil.lang);
+      print('QUEY LANG ${queryParams['lang']}');
       print('REQUESTED URL: ${config.path}&lang=${langStore.state.lang}');
       dio
           .request(config.path,

@@ -15,7 +15,8 @@ class CheckoutView extends StatelessWidget {
   var store;
   String deliveryMessage;
 
-  CheckoutView({this.mapPoints, this.checkout, this.store, this.deliveryMessage});
+  CheckoutView(
+      {this.mapPoints, this.checkout, this.store, this.deliveryMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +194,7 @@ class CheckoutView extends StatelessWidget {
                                                                             Widget>[
                                                                           Expanded(
                                                                             flex:
-                                                                                2,
+                                                                                3,
                                                                             child:
                                                                                 Text(
                                                                               '${checkout.foodList[index].foods[innerIndex].adds[i].name}',
@@ -257,7 +258,7 @@ class CheckoutView extends StatelessWidget {
                                                               children: <
                                                                   Widget>[
                                                                 Expanded(
-                                                                  flex: 2,
+                                                                  flex: 3,
                                                                   child: Text(
                                                                     '${checkout.foodList[index].foods[innerIndex].addsType2[0].name}',
                                                                     style: TextStyle(
@@ -315,7 +316,7 @@ class CheckoutView extends StatelessWidget {
                               width: 8.toWidth,
                             ),
                             Text(
-                              '${deliveryMessage??''}  ₼' ?? '',
+                              '${deliveryMessage ?? ''}  ₼' ?? '',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.toFont),
