@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(16.toWidth),
+                padding: EdgeInsets.only(left: 16.toWidth,right: 16.toWidth,top: 16.toHeight),
                 width: SizeConfig().screenWidth,
                 alignment: Alignment.topLeft,
                 child: Text(
