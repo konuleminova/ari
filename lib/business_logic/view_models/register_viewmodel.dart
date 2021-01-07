@@ -5,7 +5,7 @@ import 'package:ari/localization/app_localization.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/services/hooks/use_callback.dart';
-import 'package:ari/services/services/profile.dart';
+import 'package:ari/services/services/profile_service.dart';
 import 'package:ari/ui/common_widgets/error_handler.dart';
 import 'package:ari/ui/views/profile/register.dart';
 import 'package:ari/utils/sharedpref_util.dart';
