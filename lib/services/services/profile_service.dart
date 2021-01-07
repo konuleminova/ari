@@ -60,6 +60,14 @@ ApiResponse<dynamic> useUserPage() {
           return AppException(message: response.data['message']);
         });
   });
+
   ApiResponse<dynamic> apiResponse = useDioRequest(dioConfig);
+  if (apiResponse.data is AppException) {
+    AppException exception = apiResponse.data;
+    print('EXPECPTION DATAE ${exception.message}');
+    if (exception.message.toString() == 'token not found') {
+      apiResponse.error = apiResponse.data;
+    }
+  }
   return apiResponse;
 }

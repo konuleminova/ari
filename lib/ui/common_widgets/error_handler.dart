@@ -1,6 +1,9 @@
+import 'package:ari/business_logic/routes/route_names.dart';
+import 'package:ari/business_logic/routes/route_navigation.dart';
 import 'package:ari/services/api_helper/api_response.dart';
 import 'package:ari/services/hooks/useSideEffect.dart';
 import 'package:ari/ui/common_widgets/loading.dart';
+import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +24,7 @@ class CustomErrorHandler extends HookWidget {
     final AppException error =
         errors.firstWhere((element) => element != null, orElse: () => null);
     final bool hasError = error != null;
+    print('HAS ERROR ${errors.first}');
     final bool isLoading = statuses.firstWhere(
             (element) => element == Status.Loading,
             orElse: () => null) !=
@@ -28,11 +32,16 @@ class CustomErrorHandler extends HookWidget {
     final ctx = useContext();
     useSideEffect(() {
       if (hasError && onRefresh == null) {
-        showDialog(
-            context: ctx,
-            builder: (BuildContext context) => ErrorDialog(
-                  errorMessage: error.message ?? "Some Message",
-                ));
+        if (error.message == 'token not found') {
+          SpUtil.remove(SpUtil.token);
+          pushReplaceRouteWithName('/');
+        } else {
+          showDialog(
+              context: ctx,
+              builder: (BuildContext context) => ErrorDialog(
+                    errorMessage: error.message ?? "Some Message",
+                  ));
+        }
       }
 
       return () {};
@@ -55,9 +64,11 @@ class CustomErrorHandler extends HookWidget {
                           height: 8.toHeight,
                         ),
                         Text(
-                          error.message == 'No internet Connection'
-                              ? 'No internet Connection  \n Try again'
-                              : 'Something went wrong. \n Try again',
+                          error.message == 'token not found'
+                              ? error.message
+                              : error.message == 'No internet Connection'
+                                  ? 'No internet Connection  \n Try again'
+                                  : 'Something went wrong. \n Try again',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14.toFont,

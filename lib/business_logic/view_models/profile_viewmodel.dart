@@ -21,6 +21,7 @@ class ProfileViewModel extends HookWidget {
       return () => WidgetsBinding.instance.addPostFrameCallback(
           (_) => getAppBarStore().dispatch(AppBarAction(index: 0)));
     }, []);
+    print('USER PAGE API RESPONSE ${apiResponse}');
     return CustomErrorHandler(
       child: apiResponse.status != Status.Loading
           ? ProfileView(
@@ -29,9 +30,6 @@ class ProfileViewModel extends HookWidget {
           : Loading(),
       statuses: [apiResponse.status],
       errors: [apiResponse.error],
-      onRefresh: () {
-
-      },
     );
   }
 }
