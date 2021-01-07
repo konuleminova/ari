@@ -39,8 +39,8 @@ class StatusViewModel extends HookWidget {
     }, [apiResponse.status]);
 
     return Positioned(
-        left: offset.value[index].dx + 10,
-        top: offset.value[index].dy + 100,
+        left: offset.value[index].dx+180,
+        top: offset.value[index].dy + 40,
         right: 0,
         child: GestureDetector(
           onPanUpdate: (details) {
@@ -74,4 +74,3 @@ class StatusViewModel extends HookWidget {
         ));
   }
 }
-
