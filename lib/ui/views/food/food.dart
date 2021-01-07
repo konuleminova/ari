@@ -123,11 +123,11 @@ class FoodView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Container(
-                              child: Icon(Icons.favorite_border,
-                                  size: 30,
-                                  color: Colors.white.withOpacity(0.54)),
-                            )
+//                            Container(
+//                              child: Icon(Icons.favorite_border,
+//                                  size: 30,
+//                                  color: Colors.white.withOpacity(0.54)),
+//                            )
                           ],
                         ),
                         padding: EdgeInsets.all(8.toWidth),
