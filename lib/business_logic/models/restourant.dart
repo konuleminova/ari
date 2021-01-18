@@ -9,7 +9,7 @@ class RestourantList {
     text = json['text'] ?? '';
     message = json['message_text'] ?? '';
     results =
-    json['results'] != null ? resourantListFromJson(json['results']) : [];
+        json['results'] != null ? resourantListFromJson(json['results']) : [];
     adv = json['adv'] != null ? resourantListFromJson(json['adv']) : [];
     our_partners = json['our_partners'] ?? '';
   }
@@ -27,19 +27,30 @@ class Restourant {
   String delivery_time;
   String categories;
   bool working;
+  String sticker;
+  String sticker_st_color;
+  String sticker_en_color;
+  String sticker_text;
+  String percent;
+  String minprice;
 
   Restourant(
       {this.id,
-        this.name,
-        this.sm_name,
-        this.information,
-        this.image,
-        this.priceRange,
-        this.coords,
-        this.working_time,
-        this.delivery_time,
-        this.categories,
-        this.working = true});
+      this.name,
+      this.sm_name,
+      this.information,
+      this.image,
+      this.priceRange,
+      this.coords,
+      this.working_time,
+      this.delivery_time,
+      this.categories,
+      this.working = true,
+      this.sticker,
+      this.sticker_st_color,
+      this.sticker_en_color,
+      this.percent,
+      this.minprice});
 
   Restourant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -53,6 +64,11 @@ class Restourant {
     delivery_time = json['delivery_time'];
     categories = json['categories'];
     working = json['working'] == null ? true : json['working'];
+    sticker = json['sticker'];
+    sticker_st_color = json['sticker_st_color'];
+    sticker_en_color = json['  sticker_en_color'];
+    percent = json['percent'];
+    minprice = json['minprice'];
   }
 
   @override
