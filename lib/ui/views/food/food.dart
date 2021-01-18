@@ -104,6 +104,12 @@ class FoodView extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              child: Center(
+                                child: Text(
+                                  arguments.data.sticker_text ?? '',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
                             )
                           : SizedBox()
                     ],

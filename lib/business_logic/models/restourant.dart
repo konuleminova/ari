@@ -47,6 +47,7 @@ class Restourant {
       this.categories,
       this.working = true,
       this.sticker,
+      this.sticker_text,
       this.sticker_st_color,
       this.sticker_en_color,
       this.percent,
@@ -65,6 +66,7 @@ class Restourant {
     categories = json['categories'];
     working = json['working'] == null ? true : json['working'];
     sticker = json['sticker'];
+    sticker_text = json['sticker_text'];
     sticker_st_color = json['sticker_st_color'];
     sticker_en_color = json['sticker_en_color'];
     percent = json['percent'];

@@ -90,10 +90,11 @@ class RestourantItem extends StatelessWidget {
                     working: restourant.working,
                     information: restourant.information,
                     sticker: restourant.sticker,
+                    sticker_text: restourant.sticker_text,
                     sticker_st_color: restourant.sticker_st_color,
                     sticker_en_color: restourant.sticker_en_color,
                     priceRange: restourant.priceRange,
-                    minprice: restourant.minprice)));
+                    minprice: restourant.minprice),));
       },
     );
   }
