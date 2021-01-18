@@ -265,7 +265,9 @@ class FoodView extends StatelessWidget {
                                               restourant: Restourant(
                                                   image: arguments.data.image,
                                                   name: arguments.data.name,
-                                                  id: arguments.data.id))));
+                                                  id: arguments.data.id,
+                                                  percent: arguments
+                                                      .data.percent))));
                                 });
                           } else {
                             pushRouteWithName(ROUTE_LOGIN,
@@ -277,7 +279,8 @@ class FoodView extends StatelessWidget {
                                         restourant: Restourant(
                                             image: arguments.data.image,
                                             name: arguments.data.name,
-                                            id: arguments.data.id))));
+                                            id: arguments.data.id,
+                                            percent: arguments.data.percent))));
                           }
                         }
                       },

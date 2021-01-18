@@ -131,7 +131,7 @@ class CheckoutView extends StatelessWidget {
                                                         ),
                                                         Expanded(
                                                           child: Text(
-                                                            '${double.parse(checkout.foodList[index].foods[innerIndex].price) * checkout.foodList[index].foods[innerIndex].count} ₼',
+                                                            '${double.parse(checkout.foodList[index].foods[innerIndex].disCountPrice ?? checkout.foodList[index].foods[innerIndex].price) * checkout.foodList[index].foods[innerIndex].count} ₼',
                                                             style: TextStyle(
                                                                 fontSize:
                                                                     11.toFont,
@@ -326,7 +326,39 @@ class CheckoutView extends StatelessWidget {
                             ),
                           ],
                           mainAxisAlignment: MainAxisAlignment.end,
-                        )
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        checkout.restourant.percent != null &&
+                                checkout.restourant.percent.isNotEmpty
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Скидка: ${checkout.restourant.percent} %',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12.toFont),
+                                      ),
+//                                      Text(
+//                                        'Скидка: ${(double.parse(checkout.totalPrice) + double.parse(checkout.totalPrice) * double.parse(checkout.restourant.percent) / 100).toStringAsFixed(2)}',
+//                                        textAlign: TextAlign.right,
+//                                        style: TextStyle(
+//                                            fontWeight: FontWeight.bold,
+//                                            fontSize: 12.toFont),
+//                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 16.toWidth,
+                                  ),
+                                ],
+                              )
+                            : SizedBox()
                       ],
                     ))),
             Positioned(
