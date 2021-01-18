@@ -64,6 +64,21 @@ class FoodViewModel extends HookWidget {
         if (apiResponseMenu.value.status == Status.Done) {
           for (int j = 0; j < apiResponseMenu.value.data.length; j++) {
             for (int i = 0; i < foods.value.length; i++) {
+              if (arguments.data.percent != null &&
+                  arguments.data.percent.isNotEmpty) {
+                foods.value[i].disCountPrice =
+                    (double.parse(foods.value[i].price) -
+                            (double.parse(arguments.data.percent) *
+                                double.parse(foods.value[i].price) /
+                                100))
+                        .toStringAsFixed(2);
+              }
+            }
+          }
+        }
+        if (apiResponseMenu.value.status == Status.Done) {
+          for (int j = 0; j < apiResponseMenu.value.data.length; j++) {
+            for (int i = 0; i < foods.value.length; i++) {
               if (apiResponseMenu.value.data[j].id == foods.value[i].menu_id) {
                 foods.value[i].groupName = apiResponseMenu.value.data[j].name;
                 break;
@@ -134,8 +149,8 @@ class FoodViewModel extends HookWidget {
             });
           });
         }
-      }else {
-        atLeastOneItemSelected.value=true;
+      } else {
+        atLeastOneItemSelected.value = true;
       }
     }, [foodState.value, apiResponseData.value]);
 

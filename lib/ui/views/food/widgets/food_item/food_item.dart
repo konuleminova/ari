@@ -44,40 +44,64 @@ class FoodItem extends StatelessWidget {
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w600,),
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          height: item.information.isEmpty?30.toHeight: 50.toHeight,
+                          height: item.information.isEmpty
+                              ? 30.toHeight
+                              : 50.toHeight,
                         ),
                         SizedBox(
                           height: 16.toHeight,
                         ),
                         InkWell(
-                            child: Container(
-                              width: 130.toWidth,
-                              height: 28.toHeight,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 4.toHeight, horizontal: 8.toWidth),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    '${item.price}   ₼' ?? '',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 130.toWidth,
+                                  height: 28.toHeight,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 4.toHeight,
+                                      horizontal: 8.toWidth),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        '${item.disCountPrice ?? item.price}   ₼' ??
+                                            '',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Image.asset(
+                                        'assets/images/shop.png',
+                                        height: 18.toWidth,
+                                        width: 18.toWidth,
+                                        // fit: BoxFit.cover,
+                                      )
+                                    ],
                                   ),
-                                  Image.asset(
-                                    'assets/images/shop.png',
-                                    height: 18.toWidth,
-                                    width: 18.toWidth,
-                                    // fit: BoxFit.cover,
-                                  )
-                                ],
-                              ),
-                              decoration: BoxDecoration(
-                                  color: ThemeColor().greenLightColor,
-                                  borderRadius: BorderRadius.circular(4)),
+                                  decoration: BoxDecoration(
+                                      color: ThemeColor().greenLightColor,
+                                      borderRadius: BorderRadius.circular(4)),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                item.disCountPrice != null &&
+                                        item.disCountPrice.isNotEmpty&&item.price!=item.disCountPrice
+                                    ? Text(
+                                        item.price ?? '',
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red),
+                                      )
+                                    : SizedBox(),
+                              ],
                             ),
                             onTap: () {
                               item.selected = true;

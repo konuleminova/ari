@@ -9,20 +9,31 @@ class Food {
   bool selected = false;
   int count = 1;
   List<Adds> adds;
-  List<Adds> addsType2=[];
-  double totalPrice=0;
+  List<Adds> addsType2 = [];
+  double totalPrice = 0;
   String groupName;
-  bool expanded=false;
+  bool expanded = false;
+  String disCountPrice;
 
-
-  Food({this.id, this.name, this.price, this.information, this.image,
-      this.menu_id, this.restourant_id, this.selected, this.count, this.adds,
-      this.addsType2, this.totalPrice});
+  Food(
+      {this.id,
+      this.name,
+      this.price,
+      this.information,
+      this.image,
+      this.menu_id,
+      this.restourant_id,
+      this.selected,
+      this.count,
+      this.adds,
+      this.addsType2,
+      this.totalPrice,
+      this.disCountPrice});
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    price = json['price'];
+    price = json['price'] ?? '';
     information = json['information'];
     image = json['image'];
     menu_id = json['menu_id'];
@@ -43,7 +54,6 @@ class GroupFood {
   String name;
   List<Food> foods;
 
-
   GroupFood({this.name, this.foods});
 
   GroupFood.fromJson(Map<String, dynamic> json) {
@@ -55,7 +65,6 @@ class GroupFood {
   String toString() {
     return 'GroupFood{name: $name, foods: $foods}';
   }
-
 }
 
 List<GroupFood> listGroupFoodFromJson(List<dynamic> groupFoods) =>
@@ -65,8 +74,8 @@ class Adds {
   String name;
   String type;
   String price;
-  int count=0;
-  bool selected=false;
+  int count = 0;
+  bool selected = false;
 
   Adds.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -78,7 +87,6 @@ class Adds {
   String toString() {
     return 'Adds{name: $name, type: $type, price: $price, count: $count, selected: $selected}';
   }
-
 }
 
 listAddsFromJsom(List<dynamic> listAdds) =>
