@@ -25,6 +25,7 @@ class FoodView extends StatelessWidget {
   var addedFoodList;
   var goToPaymentCallBack;
   List<Food> foods;
+  bool hasSticker = false;
 
   FoodView({
     this.verticalScrollController,
@@ -43,6 +44,10 @@ class FoodView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context).settings.arguments;
+    hasSticker = arguments.data.sticker_st_color != null &&
+        arguments.data.sticker_st_color.isNotEmpty &&
+        arguments.data.sticker_en_color != null &&
+        arguments.data.sticker_en_color.isNotEmpty;
     // TODO: implement build
     return CustomScrollView(
       slivers: <Widget>[
@@ -56,7 +61,11 @@ class FoodView extends StatelessWidget {
           floating: true,
           snap: true,
           backgroundColor: Colors.transparent,
-          expandedHeight: maxExtentValue < 0 ? 0 : 180.toHeight,
+          expandedHeight: maxExtentValue < 0
+              ? 0
+              : hasSticker
+                  ? 234.toHeight
+                  : 180.toHeight,
           flexibleSpace: AnimatedCrossFade(
               crossFadeState: maxExtentValue < 0
                   ? CrossFadeState.showSecond
@@ -67,19 +76,42 @@ class FoodView extends StatelessWidget {
               secondChild: SizedBox(),
               firstChild: Stack(
                 children: <Widget>[
-                  ClipRRect(
-                    child: Image.network(
-                      arguments.data.image ?? '',
-                      width: SizeConfig().screenWidth,
-                      height: SizeConfig().screenHeight,
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20)),
+                  Column(
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          child: Image.network(
+                            arguments.data.image ?? '',
+                            width: SizeConfig().screenWidth,
+                            height: SizeConfig().screenHeight,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                        ),
+                      ),
+                      hasSticker
+                          ? Container(
+                              height: 44.toHeight,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(int.parse(
+                                        '0xFF${arguments.data.sticker_st_color.substring(1)}')),
+                                    Color(int.parse(
+                                        '0xFF${arguments.data.sticker_en_color.substring(1)}')),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : SizedBox()
+                    ],
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                   Positioned(
-                      bottom: 0,
+                      bottom: hasSticker ? 44.toHeight : 0,
                       left: 0,
                       right: 0,
                       child: Container(

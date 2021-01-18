@@ -88,7 +88,12 @@ class RestourantItem extends StatelessWidget {
                     id: restourant.id,
                     name: restourant.name,
                     working: restourant.working,
-                    information: restourant.information)));
+                    information: restourant.information,
+                    sticker: restourant.sticker,
+                    sticker_st_color: restourant.sticker_st_color,
+                    sticker_en_color: restourant.sticker_en_color,
+                    priceRange: restourant.priceRange,
+                    minprice: restourant.minprice)));
       },
     );
   }

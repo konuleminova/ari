@@ -66,7 +66,7 @@ class Restourant {
     working = json['working'] == null ? true : json['working'];
     sticker = json['sticker'];
     sticker_st_color = json['sticker_st_color'];
-    sticker_en_color = json['  sticker_en_color'];
+    sticker_en_color = json['sticker_en_color'];
     percent = json['percent'];
     minprice = json['minprice'];
   }
