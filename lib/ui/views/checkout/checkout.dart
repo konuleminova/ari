@@ -345,7 +345,7 @@ class CheckoutView extends StatelessWidget {
                                             fontSize: 12.toFont),
                                       ),
 //                                      Text(
-//                                        'Скидка: ${(double.parse(checkout.totalPrice) + double.parse(checkout.totalPrice) * double.parse(checkout.restourant.percent) / 100).toStringAsFixed(2)}',
+//                                        'Скидка: ${checkout.totalPrice}',
 //                                        textAlign: TextAlign.right,
 //                                        style: TextStyle(
 //                                            fontWeight: FontWeight.bold,

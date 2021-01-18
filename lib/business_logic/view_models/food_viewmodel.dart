@@ -68,11 +68,11 @@ class FoodViewModel extends HookWidget {
                   arguments.data.percent.isNotEmpty) {
                 foods.value[i].disCountPrice =
                     (double.parse(foods.value[i].price) -
-                        ((double.parse(arguments.data.percent) *
+                            ((double.parse(arguments.data.percent) *
                                 double.parse(foods.value[i].price) /
                                 100)))
                         .toStringAsFixed(2);
-               // foods.value[i].price=  foods.value[i].disCountPrice;
+                // foods.value[i].price=  foods.value[i].disCountPrice;
               }
             }
           }
@@ -128,6 +128,10 @@ class FoodViewModel extends HookWidget {
                 element2.totalPrice = 0;
                 element2.totalPrice = element2.totalPrice +
                     element2.count * double.parse(element2.disCountPrice??element2.price);
+
+                element2.totalWithoutDiscount = element2.totalWithoutDiscount +
+                    element2.count * double.parse(element2.price);
+
                 for (int i = 0; i < element2.adds.length; i++) {
                   if (element2.adds[i].type == 2) {
                     element2.addsType2.add(element2.adds[i]);
