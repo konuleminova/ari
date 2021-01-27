@@ -17,7 +17,7 @@ class RestourantItem extends StatelessWidget {
         children: [
           Container(
             width: SizeConfig().screenWidth / 2.4,
-            height: SizeConfig().screenWidth / 2.4,
+            height: SizeConfig().screenHeight / 3.6,
             margin: EdgeInsets.all(4.toWidth),
             decoration: BoxDecoration(
                 color: Color(0xFF707070).withOpacity(0.21),

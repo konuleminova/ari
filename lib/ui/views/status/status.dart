@@ -174,7 +174,7 @@ class StatusView extends HookWidget {
                                                 (BuildContext context, int i) {
                                               return Container(
                                                 child: Text(
-                                                  '${order.foods[index].adds[i].count} ${order.foods[index].adds[i].name}',
+                                                  '${order.foods[index].adds[i].count}. ${order.foods[index].adds[i].name}',
                                                   style: TextStyle(
                                                       fontSize: 12.toFont),
                                                 ),
