@@ -101,7 +101,8 @@ class StatusView extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          order.message,
+                          order.message??'',
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 16.toFont, fontWeight: FontWeight.w500),
                         ),
@@ -158,7 +159,7 @@ class StatusView extends HookWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${order.foods[index].count}. ${order.foods[index].name}             ${order.foods[index].count * double.parse(order.foods[index].price)} ₼ ',
+                                        '${order.foods[index].apiCount}. ${order.foods[index].name}             ${order.foods[index].count * double.parse(order.foods[index].price)} ₼ ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 14.toFont),

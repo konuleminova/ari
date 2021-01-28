@@ -15,6 +15,7 @@ class Food {
   String groupName;
   bool expanded = false;
   String disCountPrice;
+  int apiCount;
 
   Food(
       {this.id,
@@ -30,7 +31,7 @@ class Food {
       this.addsType2,
       this.totalPrice,
       this.disCountPrice,
-      this.totalWithoutDiscount});
+      this.totalWithoutDiscount,this.apiCount});
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -41,6 +42,7 @@ class Food {
     menu_id = json['menu_id'];
     restourant_id = json['restourant_id'];
     adds = listAddsFromJsom(json['adds']);
+    apiCount=json['count'];
   }
 
   @override

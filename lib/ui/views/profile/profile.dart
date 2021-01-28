@@ -52,7 +52,7 @@ class ProfileView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(order.order[index].address ?? ''),
+                              Text(order.order[index].address ?? '',overflow: TextOverflow.ellipsis,),
                               SizedBox(
                                 height: 4.toHeight,
                               ),
@@ -122,7 +122,7 @@ class ProfileView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '${order.order[index].foods[i].count} ${order.order[index].foods[i].name}',
+                                            '${order.order[index].foods[i].apiCount} ${order.order[index].foods[i].name}',
                                             style:
                                                 TextStyle(fontSize: 14.toFont),
                                           ),
