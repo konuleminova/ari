@@ -42,7 +42,7 @@ class Food {
     menu_id = json['menu_id'];
     restourant_id = json['restourant_id'];
     adds = listAddsFromJsom(json['adds']);
-    apiCount=json['count'];
+    apiCount=int.parse(json['count'].toString());
   }
 
   @override
