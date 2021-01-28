@@ -11,7 +11,7 @@ class Food {
   List<Adds> adds;
   List<Adds> addsType2 = [];
   double totalPrice = 0;
-  double totalWithoutDiscount=0;
+  double totalWithoutDiscount = 0;
   String groupName;
   bool expanded = false;
   String disCountPrice;
@@ -29,7 +29,8 @@ class Food {
       this.adds,
       this.addsType2,
       this.totalPrice,
-      this.disCountPrice,this.totalWithoutDiscount});
+      this.disCountPrice,
+      this.totalWithoutDiscount});
 
   Food.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -73,14 +74,15 @@ List<GroupFood> listGroupFoodFromJson(List<dynamic> groupFoods) =>
 
 class Adds {
   String name;
-  String type;
+  int type;
   String price;
   int count = 0;
   bool selected = false;
+  String selectedItemName;
 
   Adds.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    type = json['type'];
+    type = int.parse(json['type'].toString());
     price = json['price'].toString().replaceAll(',', '.');
   }
 

@@ -131,7 +131,7 @@ class FoodItemExpanded extends StatelessWidget {
                       width: SizeConfig().screenWidth,
                       // padding: EdgeInsets.symmetric(vertical: 8.toWidth),
                       decoration: BoxDecoration(
-                          color: food.adds[index].type == 0||food.adds[index].count>0
+                          color: food.adds[index].selected
                               ? ThemeColor().yellowColor
                               : ThemeColor().grey1,
                           borderRadius: BorderRadius.circular(2)),
@@ -171,45 +171,55 @@ class FoodItemExpanded extends StatelessWidget {
                               Expanded(
                                 flex: 3,
                                 child: Container(
-                                    color: food.adds[index].type == 0
+                                    color: food.adds[index].selected
                                         ? ThemeColor().yellowColor
                                         : ThemeColor().greenLightColor,
                                     height: 44.toHeight,
                                     child: Row(
                                       children: <Widget>[
-                                        Expanded(
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.remove,
-                                              size: 13,
-                                            ),
-                                            onPressed: () {
-                                              if (food.adds[index].count > 0) {
-                                                food.adds[index].count =
-                                                    food.adds[index].count - 1;
-                                                food.totalPrice =
-                                                    food.totalPrice -
-                                                        food.adds[index].count *
-                                                            double.parse(food
-                                                                .adds[index]
-                                                                .price);
-                                              }
-                                              if (food.adds[index].count > 0) {
-                                                food.adds[index].selected =
-                                                    true;
-                                              } else {
-                                                food.adds[index].selected =
-                                                    false;
-                                              }
-                                              addtoCartCallBack(food);
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          food.adds[index].count.toString() ??
-                                              '0',
-                                          textAlign: TextAlign.center,
-                                        ),
+                                        food.adds[index].count > 0
+                                            ? Expanded(
+                                                child: IconButton(
+                                                  icon: Icon(
+                                                    Icons.remove,
+                                                    size: 13,
+                                                  ),
+                                                  onPressed: () {
+                                                    if (food.adds[index].count >
+                                                        0) {
+                                                      food.adds[index].count =
+                                                          food.adds[index]
+                                                                  .count -
+                                                              1;
+                                                      food.totalPrice = food
+                                                              .totalPrice -
+                                                          food.adds[index]
+                                                                  .count *
+                                                              double.parse(food
+                                                                  .adds[index]
+                                                                  .price);
+                                                    }
+                                                    if (food.adds[index].count >
+                                                        0) {
+                                                      food.adds[index]
+                                                          .selected = true;
+                                                    } else {
+                                                      food.adds[index]
+                                                          .selected = false;
+                                                    }
+                                                    addtoCartCallBack(food);
+                                                  },
+                                                ),
+                                              )
+                                            : SizedBox(),
+                                        food.adds[index].count > 0
+                                            ? Text(
+                                                food.adds[index].count
+                                                        .toString() ??
+                                                    '0',
+                                                textAlign: TextAlign.center,
+                                              )
+                                            : SizedBox(),
                                         Expanded(
                                           child: IconButton(
                                             icon: Icon(Icons.add, size: 13),
@@ -253,24 +263,27 @@ class FoodItemExpanded extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 8.toWidth),
                   width: SizeConfig().screenWidth,
                   padding: EdgeInsets.only(
-                      left: 16.toWidth, top: 4.toHeight, bottom: 4.toHeight),
+                      left: 0.toWidth, top: 0.toHeight, bottom: 0.toHeight),
                   decoration: BoxDecoration(
-                      color: ThemeColor().yellowColor,
+                      color: food.addsType2[0].selected
+                          ? ThemeColor().yellowColor
+                          : ThemeColor().grey1,
                       borderRadius: BorderRadius.circular(2)),
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: CustomDropDown(
-                          items: food.addsType2,
-                          initialItemText: food.addsType2[0].name,
-                          selectedFunction: (v) {
-                            food.addsType2[0].name = v;
-                            dropDownCallBack(food);
-                          },
-                        ),
-                        flex: 5,
-                      ),
+                          child: CustomDropDown(
+                            items: food.addsType2,
+                            initialItemText:
+                                food.addsType2[0].selectedItemName ??
+                                    food.addsType2[0].name,
+                            selectedFunction: (v) {
+                              food.addsType2[0].selectedItemName = v;
+                              dropDownCallBack(food);
+                            },
+                          ),
+                          flex: 5),
                       SizedBox(
                         width: 16.toWidth,
                       ),
@@ -279,6 +292,7 @@ class FoodItemExpanded extends StatelessWidget {
                           '${((food.addsType2[0].count == 0 ? 1 : food.addsType2[0].count) * double.tryParse(food.addsType2[0].price)).toStringAsFixed(2)}  ₼',
                           style: TextStyle(
                               fontSize: 11.toFont, fontWeight: FontWeight.w500),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         flex: 2,
                       ),
@@ -287,55 +301,72 @@ class FoodItemExpanded extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 3,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.remove,
-                                  size: 13,
-                                ),
-                                onPressed: () {
-                                  if (food.addsType2[0].count > 0) {
-                                    food.addsType2[0].selected = true;
-                                    food.addsType2[0].count =
-                                        food.addsType2[0].count - 1;
-                                    food.totalPrice = food.totalPrice -
-                                        food.addsType2[0].count *
-                                            double.parse(
-                                                food.addsType2[0].price);
-                                  } else {
-                                    food.addsType2[0].selected = false;
-                                  }
+                        child: Container(
+                            color: food.addsType2[0].selected
+                                ? ThemeColor().yellowColor
+                                : ThemeColor().greenLightColor,
+                            height: 44.toHeight,
+                            child: Row(
+                              children: <Widget>[
+                                food.addsType2[0].selected
+                                    ? Expanded(
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.remove,
+                                            size: 13,
+                                          ),
+                                          onPressed: () {
+                                            if (food.addsType2[0].count > 0) {
+                                              food.addsType2[0].selected = true;
+                                              food.addsType2[0].count =
+                                                  food.addsType2[0].count - 1;
+                                              food.totalPrice =
+                                                  food.totalPrice -
+                                                      food.addsType2[0].count *
+                                                          double.parse(food
+                                                              .addsType2[0]
+                                                              .price);
+                                            }
+                                            if (food.addsType2[0].count > 0) {
+                                              food.addsType2[0].selected = true;
+                                            } else {
+                                              food.addsType2[0].selected =
+                                                  false;
+                                            }
 
-                                  addtoCartCallBack(food);
-                                },
-                              ),
-                            ),
-                            Text(
-                              (food.addsType2[0].count).toString() ?? '0',
-                              textAlign: TextAlign.center,
-                            ),
-                            Expanded(
-                              child: IconButton(
-                                icon: Icon(Icons.add, size: 13),
-                                onPressed: () {
-                                  food.addsType2[0].count =
-                                      food.addsType2[0].count + 1;
-                                  food.totalPrice = food.totalPrice +
-                                      food.addsType2[0].count *
-                                          double.parse(food.addsType2[0].price);
-                                  food.addsType2[0].selected = true;
-                                  addtoCartCallBack(food);
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 4.toWidth,
-                            )
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ),
+                                            addtoCartCallBack(food);
+                                          },
+                                        ),
+                                      )
+                                    : SizedBox(),
+                                food.addsType2[0].selected
+                                    ? Text(
+                                        (food.addsType2[0].count).toString() ??
+                                            '0',
+                                        textAlign: TextAlign.center,
+                                      )
+                                    : SizedBox(),
+                                Expanded(
+                                  child: IconButton(
+                                    icon: Icon(Icons.add, size: 13),
+                                    onPressed: () {
+                                      food.addsType2[0].count =
+                                          food.addsType2[0].count + 1;
+                                      food.totalPrice = food.totalPrice +
+                                          food.addsType2[0].count *
+                                              double.parse(
+                                                  food.addsType2[0].price);
+                                      food.addsType2[0].selected = true;
+                                      addtoCartCallBack(food);
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 4.toWidth,
+                                )
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            )),
                       )
                     ],
                   ))

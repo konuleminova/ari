@@ -127,10 +127,12 @@ class FoodViewModel extends HookWidget {
               element1.foods.forEach((element2) {
                 element2.totalPrice = 0;
                 element2.totalPrice = element2.totalPrice +
-                    element2.count * double.parse(element2.disCountPrice??element2.price);
+                    element2.count *
+                        double.parse(element2.disCountPrice ?? element2.price);
 
                 element2.totalWithoutDiscount = element2.totalWithoutDiscount +
                     element2.count * double.parse(element2.price);
+                element2.addsType2.clear();
 
                 for (int i = 0; i < element2.adds.length; i++) {
                   if (element2.adds[i].type == 2) {
