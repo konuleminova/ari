@@ -268,7 +268,7 @@ class CheckoutView extends StatelessWidget {
                                                                 ),
                                                                 Expanded(
                                                                   child: Text(
-                                                                      '${checkout.foodList[index].foods[innerIndex].addsType2[0].count}',
+                                                                      '${checkout.foodList[index].foods[innerIndex].addsType2[0].count.toStringAsFixed(2)}',
                                                                       style: TextStyle(
                                                                           fontSize:
                                                                               11.toFont)),
@@ -279,7 +279,7 @@ class CheckoutView extends StatelessWidget {
                                                                 ),
                                                                 Expanded(
                                                                   child: Text(
-                                                                    '${double.parse(checkout.foodList[index].foods[innerIndex].addsType2[0].price) * checkout.foodList[index].foods[innerIndex].addsType2[0].count} ₼',
+                                                                    '${(double.parse(checkout.foodList[index].foods[innerIndex].addsType2[0].price) * checkout.foodList[index].foods[innerIndex].addsType2[0].count).toStringAsFixed(2)} ₼',
                                                                     style: TextStyle(
                                                                         fontSize: 11
                                                                             .toFont,
