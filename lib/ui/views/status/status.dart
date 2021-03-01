@@ -101,7 +101,7 @@ class StatusView extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          order.message??'',
+                          order.message ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 16.toFont, fontWeight: FontWeight.w500),
@@ -136,7 +136,9 @@ class StatusView extends HookWidget {
                       onCameraMove: _onCameraMove,
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
-                          target: _lastMapPosition2, zoom: 11.00),
+                          target: _lastMapPosition2 ??
+                              const LatLng(40.3716222, 49.8555191),
+                          zoom: 11.00),
                     ),
                   ),
                   Container(
