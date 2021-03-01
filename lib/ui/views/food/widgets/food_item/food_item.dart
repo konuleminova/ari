@@ -90,7 +90,8 @@ class FoodItem extends StatelessWidget {
                                   width: 8,
                                 ),
                                 item.disCountPrice != null &&
-                                        item.disCountPrice.isNotEmpty&&item.price!=item.disCountPrice
+                                        item.disCountPrice.isNotEmpty &&
+                                        item.price != item.disCountPrice
                                     ? Text(
                                         item.price ?? '',
                                         style: TextStyle(
@@ -118,17 +119,54 @@ class FoodItem extends StatelessWidget {
                   width: 16.toWidth,
                 ),
                 Expanded(
-                  flex: 2,
-                  child: ClipRRect(
-                    child: Image.network(
-                      item.image,
-                      height: 80.toHeight,
-                      width: SizeConfig().screenWidth,
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
+                    flex: 2,
+                    child: InkWell(
+                      child: ClipRRect(
+                        child: Image.network(
+                          item.image,
+                          height: 80.toHeight,
+                          width: SizeConfig().screenWidth,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => Dialog(
+                                  child: Container(
+                                    //height: 400.toHeight,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        ClipRRect(
+                                          child: Image.network(
+                                            item.image,
+                                            height: 200.toHeight,
+                                            width: SizeConfig().screenWidth,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        SizedBox(height: 16,),
+                                       Container(child:  Text(
+                                         item.information ?? 'No description',
+                                         maxLines: 8,
+                                         overflow: TextOverflow.ellipsis,
+                                         style: TextStyle(
+                                           color: Colors.white,
+                                           fontSize: 20,
+                                           fontWeight: FontWeight.bold,
+                                         ),
+                                       ),color: Colors.transparent,)
+                                      ],
+                                    ),
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                ));
+                      },
+                    )),
               ],
             ),
           );
