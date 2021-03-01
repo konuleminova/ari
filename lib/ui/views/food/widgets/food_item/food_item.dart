@@ -41,7 +41,7 @@ class FoodItem extends StatelessWidget {
                         Container(
                           child: Text(
                             item.information ?? 'No description',
-                            maxLines: 3,
+                            maxLines: 5,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: Colors.grey,
@@ -50,7 +50,7 @@ class FoodItem extends StatelessWidget {
                           ),
                           height: item.information.isEmpty
                               ? 30.toHeight
-                              : 50.toHeight,
+                              : 70.toHeight,
                         ),
                         SizedBox(
                           height: 16.toHeight,

@@ -24,8 +24,8 @@ class SearchViewModel extends HookWidget {
     }, []);
 
     ApiResponse<Search> apiResponse = useSearchList(
-        (text1.value == null || text1?.value?.isEmpty) ? 'a' : text1.value,
-        (text2.value == null || text2.value.isEmpty) ? '10' : text2.value);
+        (text1.value == null || text1?.value?.isEmpty) ? '' : text1.value,
+        (text2.value == null || text2.value.isEmpty) ? '' : text2.value);
 
     useSideEffect(() {
       return () => WidgetsBinding.instance.addPostFrameCallback(

@@ -14,6 +14,7 @@ import 'package:ari/ui/provider/checkout/checkout_action.dart';
 import 'package:ari/ui/provider/checkout/checkout_state.dart';
 import 'package:ari/ui/provider_components/counter_state.dart';
 import 'package:ari/ui/views/checkout/checkout.dart';
+import 'package:ari/ui/views/map/searchplace.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -55,7 +56,7 @@ class CheckoutViewModel extends HookWidget {
           .then((value) {
         SpUtil.putString(SpUtil.lat, value.latitude.toString());
         SpUtil.putString(SpUtil.lng, value.longitude.toString());
-        Geocoder.local
+        Geocoder.google(kGoogleApiKey)
             .findAddressesFromCoordinates(
                 Coordinates(value.latitude, value.longitude))
             .then((valuex) {
