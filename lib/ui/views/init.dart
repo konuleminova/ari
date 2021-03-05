@@ -20,33 +20,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
 
 class InitPage extends HookWidget {
-  //Timer timer;
-
   @override
   Widget build(BuildContext context) {
     //STORES
     final langStore = getLanguageStore();
     final appBarStore = getAppBarStore();
-    //var index = useState<int>(0);
-    var uniqueKey = useState<UniqueKey>(appBarStore.state.uniqueKey);
 
-    var isEqual = useState<bool>(false);
     ApiResponse<StatusModel> apiResponse =
         useStatus(appBarStore.state.uniqueKey);
-    // ApiResponse<StatusModel> apiResponse2 = useStatus(uniqueKey2.value);
-
     ValueNotifier<List<Widget>> widgets = useState<List<Widget>>([]);
-    //Timer for getting status
-    print('CURRENT LANG FROM STORE: ${langStore.state.lang}');
-
-//    useEffect(() {
-//      timer = Timer.periodic(Duration(seconds: 5), (timer) {
-//        if (Platform.isAndroid) {
-//         // uniqueKey2.value = new UniqueKey();
-//        }
-//      });
-//      return () {};
-//    }, [uniqueKey2.value]);
 
     useEffect(() {
       widgets.value.clear();
@@ -87,54 +69,10 @@ class InitPage extends HookWidget {
           for (int i = 0; i < apiResponse.data.found; i++) {
             widgets.value.add(StatusViewModel(i, apiResponse));
           }
-//          if (SpUtil.getString(SpUtil.isFromMap).isNotEmpty) {
-//            if (apiResponse.data.order.length > 0) {
-//              navigationKey.currentState.pushNamed(ROUTE_STATUS,
-//                arguments: RouteArguments<Order>(data: apiResponse.data.order[0]),);
-//              //(Route<dynamic> route) => false,
-//            }
-//          }
         }
       }
       return () {};
     }, [apiResponse.status, langStore.state.lang, appBarStore.state]);
-
-//    useSideEffect((){
-//      //Adding circle status Widgets
-//
-//      return (){
-//
-//      };
-//    },[apiResponse.status, langStore.state.lang, appBarStore.state]);
-//    useEffect(() {
-//      //Adding circle status Widgets
-//      if (apiResponse2.status == Status.Done) {
-//        if (SpUtil.getString(SpUtil.token).isNotEmpty &&
-//            apiResponse2.data != null) {
-//          print('API RESPONSE2 ${apiResponse2.data.hashCode}');
-//          print('API RESPONSE ${apiResponse.data.hashCode}');
-//
-//          for (int i = 0; i < apiResponse.data.found; i++) {
-//            if (apiResponse2.data.order[i].curyer != null) {
-//              if (apiResponse2.data.order[i].curyer.coords ==
-//                  apiResponse.data.order[i].curyer.coords) {
-//                isEqual.value = true;
-//                break;
-//              }
-//            }
-//          }
-//          if (isEqual.value) {
-//            widgets.value.clear();
-//            for (int i = 0; i < apiResponse.data.found; i++) {
-//              widgets.value.add(StatusViewModel(i, apiResponse));
-//            }
-//          }
-//
-//        }
-//      }
-//      ;
-//      return () {};
-//    }, [apiResponse2.status]);
 
     SizeConfig().init(context);
     // TODO: implement build
