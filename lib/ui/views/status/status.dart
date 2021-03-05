@@ -266,12 +266,14 @@ class StatusView extends HookWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
-    LatLngBounds bound = LatLngBounds(
-        southwest: _lastMapPosition2, northeast: _lastMapPosition);
-    CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 130);
-    this._mapController.animateCamera(u2).then((void v) {
-      check(u2, this._mapController);
-    });
+    if (_lastMapPosition2 != null && _lastMapPosition != null) {
+      LatLngBounds bound = LatLngBounds(
+          southwest: _lastMapPosition2, northeast: _lastMapPosition);
+      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 80);
+      this._mapController.animateCamera(u2).then((void v) {
+        check(u2, this._mapController);
+      });
+    }
   }
 
   void check(CameraUpdate u, GoogleMapController c) async {
