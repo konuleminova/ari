@@ -256,7 +256,7 @@ class StatusView extends HookWidget {
                             ],
                           )),
                       onTap: () =>
-                          UrlLauncher.launch("tel://${order.curyer.mobile}"),
+                          UrlLauncher.launch("tel:+${order.curyer.mobile}"),
                     ))
                 : SizedBox()
           ],
