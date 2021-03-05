@@ -132,7 +132,7 @@ class StatusView extends HookWidget {
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                width: SizeConfig().screenWidth/1.7,
+                                width: SizeConfig().screenWidth / 1.7,
                               ),
                               SizedBox(
                                 width: 16,
