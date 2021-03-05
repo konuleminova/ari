@@ -40,9 +40,11 @@ class StatusView extends HookWidget {
       timer = new Timer.periodic(Duration(seconds: 4), (timer) {
         curyerCoordsKey.value = new UniqueKey();
         if (curyerCoords.status == Status.Done) {
-          order.curyer?.coords = '40.371025, 49.840922';
-          setCuryerCoords(markers);
-          markers.notifyListeners();
+          if (curyerCoords.data != null) {
+            order.curyer?.coords = curyerCoords.data;
+            setCuryerCoords(markers);
+            markers.notifyListeners();
+          }
         }
       });
       return () {
@@ -60,7 +62,7 @@ class StatusView extends HookWidget {
       getBytesFromAsset('assets/images/restourant.png', 130).then((value) {
         final marker = Marker(
             draggable: true,
-            markerId: MarkerId(_lastMapPosition.toString()),
+            markerId: MarkerId('111'),
             position: _lastMapPosition,
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
@@ -78,7 +80,7 @@ class StatusView extends HookWidget {
       getBytesFromAsset('assets/images/user.png', 130).then((value) {
         final marker2 = Marker(
             draggable: true,
-            markerId: MarkerId(_lastMapPosition2.toString()),
+            markerId: MarkerId('112'),
             position: _lastMapPosition2,
             infoWindow: InfoWindow(title: order.address, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
@@ -300,7 +302,7 @@ class StatusView extends HookWidget {
 
   void _onCameraMove(CameraPosition position) {}
 
-  void setCuryerCoords(var markers) {
+  void setCuryerCoords(ValueNotifier<Set<Marker>> markers) {
     final split3 = order.curyer?.coords?.trim()?.split(',');
     double lat3 = double.parse(split3[0]);
     double lng3 = double.parse(split3[1]);
@@ -308,10 +310,13 @@ class StatusView extends HookWidget {
     getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
       final marker3 = Marker(
           draggable: true,
-          markerId: MarkerId(_lastMapPosition3.toString()),
+          markerId: MarkerId('113'),
           position: _lastMapPosition3,
           infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
           icon: BitmapDescriptor.fromBytes(value));
+      if (markers.value.length > 3) {
+        markers.value.removeWhere((element) => element.markerId == '113');
+      }
       markers.value.add(marker3);
     });
   }
