@@ -59,6 +59,6 @@ class MyApp extends HookWidget {
           cursorColor: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: CountDownTimer());
+        home: SplashScreen());
   }
 }

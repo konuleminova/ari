@@ -1,4 +1,5 @@
 import 'package:ari/utils/custom_timer_painter.dart';
+import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
 
 class CountDownTimer extends StatefulWidget {
@@ -35,9 +36,7 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Colors.white10,
-      body:
+    return
       AnimatedBuilder(
           animation: controller,
           builder: (context, child) {
@@ -59,8 +58,8 @@ class _CountDownTimerState extends State<CountDownTimer>
                                   child: CustomPaint(
                                       painter: CustomTimerPainter(
                                         animation: controller,
-                                        backgroundColor: Colors.white,
-                                        color: themeData.indicatorColor,
+                                        backgroundColor: Colors.black,
+                                        color:ThemeColor().yellowColor,
                                       )),
                                 ),
                                 Align(
@@ -72,16 +71,10 @@ class _CountDownTimerState extends State<CountDownTimer>
                                     CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        "Count Down Timer",
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.white),
-                                      ),
-                                      Text(
                                         timerString,
                                         style: TextStyle(
-                                            fontSize: 112.0,
-                                            color: Colors.white),
+                                            fontSize: 14.0,
+                                            color: Colors.black,),
                                       ),
                                     ],
                                   ),
@@ -96,7 +89,6 @@ class _CountDownTimerState extends State<CountDownTimer>
                 ),
               ],
             );
-          }),
-    );
+          });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/ui/views/status/widgets/countdown_timer.dart';
 import 'package:ari/utils/map_utils/marker_icon.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:ari/utils/theme_color.dart';
@@ -116,6 +117,28 @@ class StatusView extends HookWidget {
                         )
                       ],
                     ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 16),
+                          child: Text('Some text'),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 24),
+                          child: CountDownTimer(),
+                        ),
+                      ],
+                    ),
+                    color: ThemeColor().yellowColor,
+                    height: 74.toHeight,
+                    width: SizeConfig().screenWidth,
                   ),
                   Container(
                     height: 300.toHeight,
