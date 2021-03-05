@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/services/api_helper/api_response.dart';
+import 'package:ari/services/services/status_service.dart';
 import 'package:ari/ui/views/status/widgets/countdown_timer.dart';
 import 'package:ari/utils/map_utils/marker_icon.dart';
 import 'package:ari/utils/size_config.dart';
@@ -19,12 +23,27 @@ class StatusView extends HookWidget {
   GoogleMapController _mapController;
   var _lastMapPosition2;
   var _lastMapPosition;
+  Timer timer;
 
   @override
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
+    var curyerCoordsKey = useState<UniqueKey>(new UniqueKey());
     ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
+
+    //get Curyer Coords
+    ApiResponse<String> curyerCoords =
+        useGetCuryerCoords(curyerCoordsKey.value, order.curyer.id);
+    print('Curyer coords ${curyerCoords.data??''}');
+    useEffect(() {
+      timer = new Timer.periodic(Duration(seconds: 4), (timer) {
+        curyerCoordsKey.value = new UniqueKey();
+      });
+      return () {
+        timer.cancel();
+      };
+    },[curyerCoordsKey.value]);
 
     //Restourant Coords
     if (order.restourant != null) {

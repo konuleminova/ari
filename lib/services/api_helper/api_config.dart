@@ -28,6 +28,9 @@ class ApiConfig {
 
   String STATUS(String token) => '${BASE_URl}status&token=${token}';
 
+  String GET_CURYER_COORDS(String token, var cid) =>
+      '${BASE_URl}getcoords&cid=${cid}&token=${token}';
+
   String PROFILE_URL(String token) => '${BASE_URl}userpage&token=${token}';
 
   //get curyer price

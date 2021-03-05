@@ -25,3 +25,21 @@ ApiResponse<StatusModel> useStatus(UniqueKey uniqueKey) {
   ApiResponse<StatusModel> apiResponse = useDioRequest(dioConfig);
   return apiResponse;
 }
+
+ApiResponse<String> useGetCuryerCoords(UniqueKey uniqueKey, var cid) {
+  ApiConfig apiConfig = useApiConfig();
+  DioConfig dioConfig = useMemoized(() {
+    if (SpUtil.getString(SpUtil.token).isEmpty ||
+        uniqueKey == null ||
+        cid == null) return null;
+    return DioConfig<String>(
+      path: apiConfig.GET_CURYER_COORDS(SpUtil.getString(SpUtil.token), cid),
+      transformResponse: (Response response) {
+        return response.data['coords'];
+      },
+    );
+  }, [uniqueKey,cid]);
+
+  ApiResponse<String> apiResponse = useDioRequest(dioConfig);
+  return apiResponse;
+}
