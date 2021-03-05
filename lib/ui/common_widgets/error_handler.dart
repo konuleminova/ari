@@ -24,7 +24,6 @@ class CustomErrorHandler extends HookWidget {
     final AppException error =
         errors.firstWhere((element) => element != null, orElse: () => null);
     final bool hasError = error != null;
-    print('HAS ERROR ${errors.first}');
     final bool isLoading = statuses.firstWhere(
             (element) => element == Status.Loading,
             orElse: () => null) !=

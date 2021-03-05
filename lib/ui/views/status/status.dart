@@ -35,7 +35,6 @@ class StatusView extends HookWidget {
     //get Curyer Coords
     ApiResponse<String> curyerCoords =
         useGetCuryerCoords(curyerCoordsKey.value, order.curyer.id);
-    print('Curyer coords ${curyerCoords.data ?? ''}');
     useEffect(() {
       timer = new Timer.periodic(Duration(seconds: 10), (timer) {
         curyerCoordsKey.value = new UniqueKey();
@@ -294,8 +293,6 @@ class StatusView extends HookWidget {
     _mapController.animateCamera(u);
     LatLngBounds l1 = await c.getVisibleRegion();
     LatLngBounds l2 = await c.getVisibleRegion();
-    print(l1.toString());
-    print(l2.toString());
     if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90)
       check(u, c);
   }

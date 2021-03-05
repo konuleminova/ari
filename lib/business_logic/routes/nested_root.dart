@@ -27,7 +27,6 @@ class NestedNavigator extends HookWidget {
         onGenerateRoute: (RouteSettings routeSettings) {
           name.value = routeSettings.name;
           WidgetBuilder builder = routes[routeSettings.name];
-          print("CHNAGE ROUTE ${routeSettings.name}");
           if (routeSettings.name == ROUTE_SEARCH ||
               routeSettings.name == ROUTE_PROFILE ||
               routeSettings.name == ROUTE_RESTAURANT) {
@@ -42,7 +41,6 @@ class NestedNavigator extends HookWidget {
         },
       ),
       onWillPop: () {
-        print('NAMEX ${name.value} ${ROUTE_STATUS}');
         if (name.value == ROUTE_STATUS) {
           pushRouteWithName('/');
           return Future<bool>.value(false);

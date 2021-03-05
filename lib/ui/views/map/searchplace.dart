@@ -265,7 +265,6 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
           new CameraPosition(target: _lastMapPosition, zoom: 12.00)));
     }
     if (isPointInPolygon(LatLng(lat, lng), points)) {
-      print('It is in polygon ${_addressController.text}');
       if (store != null) {
         store.dispatch(CheckoutAction(
             description ?? '', '${lat},${lng}', true, _addressController.text));
@@ -273,7 +272,6 @@ class _CustomSearchScaffoldState extends PlacesAutocompleteState {
       await SpUtil.putBool(SpUtil.isPointInPolygon, true);
     } else {
       store.dispatch(CheckoutAction('', '', false, ''));
-      print('It is not in polygon');
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(AppLocalizations.of(context).translate('no_delivery') ??
               'Seçdiyiniz əraziyə çatdırılma mövcud deyil')));

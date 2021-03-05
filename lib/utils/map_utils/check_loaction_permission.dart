@@ -3,7 +3,6 @@ import 'package:geolocator/geolocator.dart';
 
 void checkPermissionLocation({BuildContext context, Function onSuccess}) {
   Geolocator.checkPermission().then((permission1) {
-    print('PERMISSION CHEDCK ${permission1}');
     if (permission1 == LocationPermission.deniedForever) {
       Scaffold.of(context).showSnackBar(
         SnackBar(

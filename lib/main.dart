@@ -27,8 +27,6 @@ class MyApp extends HookWidget {
     final changeLangStore = useChangeLangStore();
     useProviderRegistration(changeLangStore);
     registerAppBarStore();
-    print('CURRENT LANGUAGE: ${changeLangStore.state.lang}');
-
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

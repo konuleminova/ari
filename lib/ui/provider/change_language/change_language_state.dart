@@ -24,7 +24,6 @@ ChangeLangState _reducer(ChangeLangState state, ChangeLangAction action) {
     SpUtil.putString(SpUtil.lang, action.langugae).then((value) {
       //print('LANG VALUE ${value}');
     });
-    print('LANG VALUE ${action.langugae}');
     return state.copyWith(lang: action.langugae);
   }
   return state;

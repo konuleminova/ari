@@ -20,7 +20,6 @@ ApiResponse<PaymentResponse> useAddtoBag(
     UniqueKey uniqueKey}) {
   final ApiConfig apiConfig = useApiConfig();
   final DioConfig dioConfig = useMemoized(() {
-    print('ADD to bag');
     if (uniqueKey != null) {
       return DioConfig<PaymentResponse>(
         path: apiConfig.ADD_TO_BAG(

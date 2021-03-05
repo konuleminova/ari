@@ -52,7 +52,6 @@ class MenuViewModel extends HookWidget {
                       duration: Duration(milliseconds: 300));
                 }
               } catch (e) {
-                print('Horizontal scroll exception ${e}');
               }
             }
           } else {
@@ -100,7 +99,6 @@ class MenuViewModel extends HookWidget {
                             index: i == 0 ? 0 : i - 1,
                             duration: Duration(milliseconds: 10));
                       } catch (e) {
-                        print('Horizontal scroll exception ${e}');
                       }
                     }
                     break;
