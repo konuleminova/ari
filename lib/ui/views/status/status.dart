@@ -35,15 +35,20 @@ class StatusView extends HookWidget {
     //get Curyer Coords
     ApiResponse<String> curyerCoords =
         useGetCuryerCoords(curyerCoordsKey.value, order.curyer.id);
-    print('Curyer coords ${curyerCoords.data??''}');
+    print('Curyer coords ${curyerCoords.data ?? ''}');
     useEffect(() {
       timer = new Timer.periodic(Duration(seconds: 4), (timer) {
         curyerCoordsKey.value = new UniqueKey();
+        if (curyerCoords.status == Status.Done) {
+          order.curyer?.coords = '40.371025, 49.840922';
+          setCuryerCoords(markers);
+          markers.notifyListeners();
+        }
       });
       return () {
         timer.cancel();
       };
-    },[curyerCoordsKey.value]);
+    }, [curyerCoordsKey.value, curyerCoords.status]);
 
     //Restourant Coords
     if (order.restourant != null) {
@@ -84,20 +89,7 @@ class StatusView extends HookWidget {
 
     //Curyer Coords
     if (order.curyer != null) {
-      final split3 = order.curyer?.coords?.trim()?.split(',');
-      double lat3 = double.parse(split3[0]);
-      double lng3 = double.parse(split3[1]);
-      final _lastMapPosition3 = LatLng(lat3, lng3);
-      getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
-        final marker3 = Marker(
-            draggable: true,
-            markerId: MarkerId(_lastMapPosition3.toString()),
-            position: _lastMapPosition3,
-            infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
-            icon: BitmapDescriptor.fromBytes(value));
-        markers.value.add(marker3);
-        //markers.notifyListeners();
-      });
+      setCuryerCoords(markers);
     }
     //fit bounds
 
@@ -307,4 +299,20 @@ class StatusView extends HookWidget {
   }
 
   void _onCameraMove(CameraPosition position) {}
+
+  void setCuryerCoords(var markers) {
+    final split3 = order.curyer?.coords?.trim()?.split(',');
+    double lat3 = double.parse(split3[0]);
+    double lng3 = double.parse(split3[1]);
+    final _lastMapPosition3 = LatLng(lat3, lng3);
+    getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
+      final marker3 = Marker(
+          draggable: true,
+          markerId: MarkerId(_lastMapPosition3.toString()),
+          position: _lastMapPosition3,
+          infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
+          icon: BitmapDescriptor.fromBytes(value));
+      markers.value.add(marker3);
+    });
+  }
 }
