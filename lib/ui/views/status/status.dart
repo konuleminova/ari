@@ -17,14 +17,14 @@ class StatusView extends HookWidget {
   Order order;
 
   GoogleMapController _mapController;
+  var _lastMapPosition2;
+  var _lastMapPosition;
 
   @override
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
-
     ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
-    var _lastMapPosition2;
 
     //Restourant Coords
     if (order.restourant != null) {
@@ -32,7 +32,7 @@ class StatusView extends HookWidget {
       final split = position.trim().split(',');
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
-      final _lastMapPosition = LatLng(lat, lng);
+      _lastMapPosition = LatLng(lat, lng);
       getBytesFromAsset('assets/images/restourant.png', 130).then((value) {
         final marker = Marker(
             draggable: true,
@@ -80,6 +80,7 @@ class StatusView extends HookWidget {
         //markers.notifyListeners();
       });
     }
+    //fit bounds
 
     // TODO: implement build
     return Container(
@@ -265,6 +266,23 @@ class StatusView extends HookWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+    LatLngBounds bound = LatLngBounds(
+        southwest: _lastMapPosition2, northeast: _lastMapPosition);
+    CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 130);
+    this._mapController.animateCamera(u2).then((void v) {
+      check(u2, this._mapController);
+    });
+  }
+
+  void check(CameraUpdate u, GoogleMapController c) async {
+    c.animateCamera(u);
+    _mapController.animateCamera(u);
+    LatLngBounds l1 = await c.getVisibleRegion();
+    LatLngBounds l2 = await c.getVisibleRegion();
+    print(l1.toString());
+    print(l2.toString());
+    if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90)
+      check(u, c);
   }
 
   void _onCameraMove(CameraPosition position) {}
