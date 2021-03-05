@@ -118,28 +118,38 @@ class StatusView extends HookWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 16),
-                          child: Text('Some text'),
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(right: 24),
-                          child: CountDownTimer(),
-                        ),
-                      ],
-                    ),
-                    color: ThemeColor().yellowColor,
-                    height: 74.toHeight,
-                    width: SizeConfig().screenWidth,
-                  ),
+                  order.hasCountdown == '1'
+                      ? Container(
+                          padding: EdgeInsets.all(4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 16),
+                                child: Text(
+                                  '${order.countDownMessage ?? ""}',
+                                  style: TextStyle(fontSize: 13),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                width: SizeConfig().screenWidth/1.7,
+                              ),
+                              SizedBox(
+                                width: 16,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(right: 24),
+                                child: CountDownTimer(
+                                  time: order.countDownMins,
+                                ),
+                              ),
+                            ],
+                          ),
+                          color: ThemeColor().yellowColor,
+                          height: 74.toHeight,
+                          width: SizeConfig().screenWidth,
+                        )
+                      : SizedBox(),
                   Container(
                     height: 300.toHeight,
                     child: GoogleMap(
