@@ -88,6 +88,7 @@ class RestourantItem extends StatelessWidget {
                     id: restourant.id,
                     name: restourant.name,
                     working: restourant.working,
+                    sm_name: restourant.sm_name,
                     information: restourant.information,
                     sticker: restourant.sticker,
                     sticker_text: restourant.sticker_text,
