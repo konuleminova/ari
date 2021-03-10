@@ -31,7 +31,7 @@ ApiResponse<String> useGetCuryerCoords(UniqueKey uniqueKey, var cid) {
   DioConfig dioConfig = useMemoized(() {
     if (SpUtil.getString(SpUtil.token).isEmpty ||
         uniqueKey == null ||
-        cid == null) return null;
+        cid == null||cid.isEmpty) return null;
     return DioConfig<String>(
       path: apiConfig.GET_CURYER_COORDS(SpUtil.getString(SpUtil.token), cid),
       transformResponse: (Response response) {

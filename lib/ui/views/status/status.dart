@@ -34,7 +34,7 @@ class StatusView extends HookWidget {
 
     //get Curyer Coords
     ApiResponse<String> curyerCoords =
-        useGetCuryerCoords(curyerCoordsKey.value, order.curyer.id);
+        useGetCuryerCoords(curyerCoordsKey.value, order.curyer?.id ?? '');
     useEffect(() {
       timer = new Timer.periodic(Duration(seconds: 10), (timer) {
         curyerCoordsKey.value = new UniqueKey();
