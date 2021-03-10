@@ -71,7 +71,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      timerString,
+                                      timerString.split(":")[0]??'',
                                       style: TextStyle(
                                         fontSize: 14.0,
                                         color: Colors.black,
