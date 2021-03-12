@@ -68,10 +68,13 @@ class RestourantItem extends StatelessWidget {
           ),
           restourant.sticker != null && restourant.sticker.isNotEmpty
               ? Positioned(
-                  child: Image.network(
-                    restourant.sticker,
-                    width: 60,
-                    height: 60,
+                  child: InkWell(
+                    child: Image.network(
+                      restourant.sticker,
+                      width: 60,
+                      height: 60,
+                    ),
+                    onTap: () {},
                   ),
                   top: 0,
                   left: 2,
@@ -83,19 +86,21 @@ class RestourantItem extends StatelessWidget {
       onTap: () {
         pushRouteWithName(ROUTE_RESTAURANT,
             arguments: RouteArguments<Restourant>(
-                data: Restourant(
-                    image: restourant.image,
-                    id: restourant.id,
-                    name: restourant.name,
-                    working: restourant.working,
-                    sm_name: restourant.sm_name,
-                    information: restourant.information,
-                    sticker: restourant.sticker,
-                    sticker_text: restourant.sticker_text,
-                    sticker_st_color: restourant.sticker_st_color,
-                    sticker_en_color: restourant.sticker_en_color,
-                    priceRange: restourant.priceRange,
-                    minprice: restourant.minprice,percent: restourant.percent),));
+              data: Restourant(
+                  image: restourant.image,
+                  id: restourant.id,
+                  name: restourant.name,
+                  working: restourant.working,
+                  sm_name: restourant.sm_name,
+                  information: restourant.information,
+                  sticker: restourant.sticker,
+                  sticker_text: restourant.sticker_text,
+                  sticker_st_color: restourant.sticker_st_color,
+                  sticker_en_color: restourant.sticker_en_color,
+                  priceRange: restourant.priceRange,
+                  minprice: restourant.minprice,
+                  percent: restourant.percent),
+            ));
       },
     );
   }
