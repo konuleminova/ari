@@ -43,6 +43,7 @@ class Order {
   var hasCountdown;
   var countDownMins;
   var countDownMessage;
+  int index;
 
   Order.fromJson(Map<String, dynamic> json) {
     message = json['message'];

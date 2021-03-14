@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 class StatusView extends HookWidget {
   RouteArguments<Order> orderArguments;
-  Order order;
+  ValueNotifier<Order> order;
 
   GoogleMapController _mapController;
   var _lastMapPosition2;
@@ -28,32 +28,39 @@ class StatusView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
-    order = orderArguments.data;
+    order = useState<Order>();
+    order.value = orderArguments.data;
     var curyerCoordsKey = useState<UniqueKey>(new UniqueKey());
     ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
 
     //get Curyer Coords
-    ApiResponse<String> curyerCoords =
-        useGetCuryerCoords(curyerCoordsKey.value, order.curyer?.id ?? '');
+//    ApiResponse<String> curyerCoords =
+//        useGetCuryerCoords(curyerCoordsKey.value, order.value.curyer?.id ?? '');
+    ApiResponse<StatusModel> apiResponse = useStatus(curyerCoordsKey.value);
     useEffect(() {
-      timer = new Timer.periodic(Duration(seconds: 10), (timer) {
+      timer = new Timer.periodic(Duration(seconds: 30), (timer) {
         curyerCoordsKey.value = new UniqueKey();
-        if (curyerCoords.status == Status.Done) {
-          if (curyerCoords.data != null) {
-            order.curyer?.coords = curyerCoords.data;
-            setCuryerCoords(markers);
-            markers.notifyListeners();
-          }
+        if (apiResponse.status == Status.Done) {
+          order.value = apiResponse.data.order[orderArguments.data.index];
+          //getBounWith(_mapController);
+          order.notifyListeners();
         }
+//        if (curyerCoords.status == Status.Done) {
+//          if (curyerCoords.data != null) {
+//            order.value.curyer?.coords = curyerCoords.data;
+//            setCuryerCoords(markers);
+//            markers.notifyListeners();
+//          }
+//        }
       });
       return () {
         timer.cancel();
       };
-    }, [curyerCoordsKey.value, curyerCoords.status]);
+    }, [curyerCoordsKey.value, apiResponse.status]);
 
     //Restourant Coords
-    if (order.restourant != null) {
-      final position = order.restourant.coords;
+    if (order.value.restourant != null) {
+      final position = order.value.restourant.coords;
       final split = position.trim().split(',');
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
@@ -63,7 +70,8 @@ class StatusView extends HookWidget {
             draggable: true,
             markerId: MarkerId('111'),
             position: _lastMapPosition,
-            infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
+            infoWindow:
+                InfoWindow(title: order.value.restourant.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker);
         //markers.notifyListeners();
@@ -71,8 +79,8 @@ class StatusView extends HookWidget {
     }
 
     //User coords
-    if (order.coords != null) {
-      final split2 = order.coords.trim().split(',');
+    if (order.value.coords != null) {
+      final split2 = order.value.coords.trim().split(',');
       double lat2 = double.parse(split2[0]);
       double lng2 = double.parse(split2[1]);
       _lastMapPosition2 = LatLng(lat2, lng2);
@@ -81,7 +89,7 @@ class StatusView extends HookWidget {
             draggable: true,
             markerId: MarkerId('112'),
             position: _lastMapPosition2,
-            infoWindow: InfoWindow(title: order.address, snippet: ""),
+            infoWindow: InfoWindow(title: order.value.address, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
         markers.value.add(marker2);
         // markers.notifyListeners();
@@ -89,7 +97,7 @@ class StatusView extends HookWidget {
     }
 
     //Curyer Coords
-    if (order.curyer != null) {
+    if (order.value.curyer != null) {
       setCuryerCoords(markers);
     }
     //fit bounds
@@ -115,7 +123,7 @@ class StatusView extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          order.message ?? '',
+                          order.value.message ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 16.toFont, fontWeight: FontWeight.w500),
@@ -124,14 +132,14 @@ class StatusView extends HookWidget {
                           height: 4.toHeight,
                         ),
                         Text(
-                          order.date,
+                          order.value.date,
                           style: TextStyle(
                               color: Colors.grey, fontSize: 12.toFont),
                         )
                       ],
                     ),
                   ),
-                  order.hasCountdown == '1'
+                  order.value.hasCountdown == '1'
                       ? Container(
                           padding: EdgeInsets.all(4),
                           child: Row(
@@ -140,7 +148,7 @@ class StatusView extends HookWidget {
                               Container(
                                 padding: EdgeInsets.only(left: 16),
                                 child: Text(
-                                  '${order.countDownMessage ?? ""}',
+                                  '${order.value.countDownMessage ?? ""}',
                                   style: TextStyle(fontSize: 13),
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
@@ -153,7 +161,7 @@ class StatusView extends HookWidget {
                               Container(
                                 margin: EdgeInsets.only(right: 24),
                                 child: CountDownTimer(
-                                  time: order.countDownMins,
+                                  time: order.value.countDownMins,
                                 ),
                               ),
                             ],
@@ -207,7 +215,7 @@ class StatusView extends HookWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${order.foods[index].apiCount}. ${order.foods[index].name}             ${order.foods[index].count * double.parse(order.foods[index].price)} ₼ ',
+                                        '${order.value.foods[index].apiCount}. ${order.value.foods[index].name}             ${order.value.foods[index].count * double.parse(order.value.foods[index].price)} ₼ ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 14.toFont),
@@ -217,13 +225,13 @@ class StatusView extends HookWidget {
                                             physics:
                                                 NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemCount:
-                                                order.foods[index].adds.length,
+                                            itemCount: order
+                                                .value.foods[index].adds.length,
                                             itemBuilder:
                                                 (BuildContext context, int i) {
                                               return Container(
                                                 child: Text(
-                                                  '${order.foods[index].adds[i].count}. ${order.foods[index].adds[i].name}',
+                                                  '${order.value.foods[index].adds[i].count}. ${order.value.foods[index].adds[i].name}',
                                                   style: TextStyle(
                                                       fontSize: 12.toFont),
                                                 ),
@@ -236,10 +244,10 @@ class StatusView extends HookWidget {
                                     ],
                                   ));
                             },
-                            itemCount: order.foods.length,
+                            itemCount: order.value.foods.length,
                           )))
                 ])),
-            order.curyer != null
+            order.value.curyer != null
                 ? Positioned(
                     bottom: 0,
                     left: 0,
@@ -256,7 +264,7 @@ class StatusView extends HookWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                order.curyer.name ?? '',
+                                order.value.curyer.name ?? '',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16.toFont),
@@ -268,8 +276,8 @@ class StatusView extends HookWidget {
                               )
                             ],
                           )),
-                      onTap: () =>
-                          UrlLauncher.launch("tel:+${order.curyer.mobile}"),
+                      onTap: () => UrlLauncher.launch(
+                          "tel:+${order.value.curyer.mobile}"),
                     ))
                 : SizedBox()
           ],
@@ -278,10 +286,31 @@ class StatusView extends HookWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+    getBounWith(_mapController);
+  }
+
+  void getBounWith(_mapController) {
     if (_lastMapPosition2 != null && _lastMapPosition != null) {
-      LatLngBounds bound = LatLngBounds(
-          southwest: _lastMapPosition2, northeast: _lastMapPosition);
-      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 80);
+//      LatLngBounds bound = LatLngBounds(
+//          southwest: _lastMapPosition2, northeast: _lastMapPosition);
+      LatLngBounds bounds;
+      LatLng source = _lastMapPosition;
+      LatLng destination = _lastMapPosition2;
+      if (source.latitude > destination.latitude &&
+          source.longitude > destination.longitude) {
+        bounds = LatLngBounds(southwest: destination, northeast: source);
+      } else if (source.longitude > destination.longitude) {
+        bounds = LatLngBounds(
+            southwest: LatLng(source.latitude, destination.longitude),
+            northeast: LatLng(destination.latitude, source.longitude));
+      } else if (source.latitude > destination.latitude) {
+        bounds = LatLngBounds(
+            southwest: LatLng(destination.latitude, source.longitude),
+            northeast: LatLng(source.latitude, destination.longitude));
+      } else {
+        bounds = LatLngBounds(southwest: source, northeast: destination);
+      }
+      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bounds, 80);
       this._mapController.animateCamera(u2).then((void v) {
         check(u2, this._mapController);
       });
@@ -300,7 +329,7 @@ class StatusView extends HookWidget {
   void _onCameraMove(CameraPosition position) {}
 
   void setCuryerCoords(ValueNotifier<Set<Marker>> markers) {
-    final split3 = order.curyer?.coords?.trim()?.split(',');
+    final split3 = order.value.curyer?.coords?.trim()?.split(',');
     double lat3 = double.parse(split3[0]);
     double lng3 = double.parse(split3[1]);
     final _lastMapPosition3 = LatLng(lat3, lng3);
@@ -309,7 +338,7 @@ class StatusView extends HookWidget {
           draggable: true,
           markerId: MarkerId('113'),
           position: _lastMapPosition3,
-          infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
+          infoWindow: InfoWindow(title: order.value.curyer.name, snippet: ""),
           icon: BitmapDescriptor.fromBytes(value));
       if (markers.value.length > 3) {
         markers.value.removeWhere((element) => element.markerId == '113');
