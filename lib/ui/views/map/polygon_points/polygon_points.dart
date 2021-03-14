@@ -2,7 +2,6 @@ import 'package:ari/utils/theme_color.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 setPolygon(List<LatLng> points) {
-print(points);
   List<Polygon> _lines = <Polygon>[
     new Polygon(
         polygonId: new PolygonId("111"),

@@ -68,7 +68,6 @@ class RegisterViewModel extends HookWidget {
     //Change Radio Valu callback
     final onChangeRadioValueCallBack = useCallback((bool value) {
       radioValue.value = value;
-      print('ON VALUE ${value}');
     }, [radioValue.value]);
 
     //LOGIN CALLBACK

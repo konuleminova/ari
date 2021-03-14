@@ -20,7 +20,7 @@ void checkPermissionLocation({BuildContext context, Function onSuccess}) {
                       "Location permissions are denied. Please accept permission to see payment details.")),
             );
           }
-        } else if (permission == LocationPermission.whileInUse) {
+        } else if (permission == LocationPermission.whileInUse||permission==LocationPermission.always) {
           onSuccess();
         }
       });

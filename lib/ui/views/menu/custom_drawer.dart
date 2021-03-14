@@ -218,7 +218,6 @@ class CustomMenuDrawer extends HookWidget {
                           value: menuPositionLeft.value,
                           onChanged: (valueMenu) {
                             menuPositionLeft.value = valueMenu;
-                            print('VAlUE MENU ${valueMenu}');
                             changeMenuPositionCallBack(valueMenu);
                           },
                           activeTrackColor: ThemeColor().yellowColor,

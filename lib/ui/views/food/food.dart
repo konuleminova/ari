@@ -146,10 +146,10 @@ class FoodView extends StatelessWidget {
                                     height: 4.toHeight,
                                   ),
                                   Text(
-                                    arguments.data.information ?? '',
+                                    arguments.data.sm_name ?? '',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        color: Colors.white.withOpacity(0.55),
+                                        color: Colors.white,
                                         fontSize: 14.toFont,
                                         shadows: <Shadow>[
                                           Shadow(

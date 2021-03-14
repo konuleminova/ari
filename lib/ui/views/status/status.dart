@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:ari/business_logic/models/status.dart';
 import 'package:ari/business_logic/routes/route_navigation.dart';
+import 'package:ari/services/api_helper/api_response.dart';
+import 'package:ari/services/services/status_service.dart';
+import 'package:ari/ui/views/status/widgets/countdown_timer.dart';
 import 'package:ari/utils/map_utils/marker_icon.dart';
 import 'package:ari/utils/size_config.dart';
 import 'package:ari/utils/theme_color.dart';
@@ -16,14 +21,35 @@ class StatusView extends HookWidget {
   Order order;
 
   GoogleMapController _mapController;
+  var _lastMapPosition2;
+  var _lastMapPosition;
+  Timer timer;
 
   @override
   Widget build(BuildContext context) {
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = orderArguments.data;
-
+    var curyerCoordsKey = useState<UniqueKey>(new UniqueKey());
     ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
-    var _lastMapPosition2;
+
+    //get Curyer Coords
+    ApiResponse<String> curyerCoords =
+        useGetCuryerCoords(curyerCoordsKey.value, order.curyer?.id ?? '');
+    useEffect(() {
+      timer = new Timer.periodic(Duration(seconds: 10), (timer) {
+        curyerCoordsKey.value = new UniqueKey();
+        if (curyerCoords.status == Status.Done) {
+          if (curyerCoords.data != null) {
+            order.curyer?.coords = curyerCoords.data;
+            setCuryerCoords(markers);
+            markers.notifyListeners();
+          }
+        }
+      });
+      return () {
+        timer.cancel();
+      };
+    }, [curyerCoordsKey.value, curyerCoords.status]);
 
     //Restourant Coords
     if (order.restourant != null) {
@@ -31,11 +57,11 @@ class StatusView extends HookWidget {
       final split = position.trim().split(',');
       double lat = double.parse(split[0]);
       double lng = double.parse(split[1]);
-      final _lastMapPosition = LatLng(lat, lng);
+      _lastMapPosition = LatLng(lat, lng);
       getBytesFromAsset('assets/images/restourant.png', 130).then((value) {
         final marker = Marker(
             draggable: true,
-            markerId: MarkerId(_lastMapPosition.toString()),
+            markerId: MarkerId('111'),
             position: _lastMapPosition,
             infoWindow: InfoWindow(title: order.restourant.name, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
@@ -53,7 +79,7 @@ class StatusView extends HookWidget {
       getBytesFromAsset('assets/images/user.png', 130).then((value) {
         final marker2 = Marker(
             draggable: true,
-            markerId: MarkerId(_lastMapPosition2.toString()),
+            markerId: MarkerId('112'),
             position: _lastMapPosition2,
             infoWindow: InfoWindow(title: order.address, snippet: ""),
             icon: BitmapDescriptor.fromBytes(value));
@@ -64,21 +90,9 @@ class StatusView extends HookWidget {
 
     //Curyer Coords
     if (order.curyer != null) {
-      final split3 = order.curyer?.coords?.trim()?.split(',');
-      double lat3 = double.parse(split3[0]);
-      double lng3 = double.parse(split3[1]);
-      final _lastMapPosition3 = LatLng(lat3, lng3);
-      getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
-        final marker3 = Marker(
-            draggable: true,
-            markerId: MarkerId(_lastMapPosition3.toString()),
-            position: _lastMapPosition3,
-            infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
-            icon: BitmapDescriptor.fromBytes(value));
-        markers.value.add(marker3);
-        //markers.notifyListeners();
-      });
+      setCuryerCoords(markers);
     }
+    //fit bounds
 
     // TODO: implement build
     return Container(
@@ -101,7 +115,7 @@ class StatusView extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          order.message??'',
+                          order.message ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize: 16.toFont, fontWeight: FontWeight.w500),
@@ -117,6 +131,38 @@ class StatusView extends HookWidget {
                       ],
                     ),
                   ),
+                  order.hasCountdown == '1'
+                      ? Container(
+                          padding: EdgeInsets.all(4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 16),
+                                child: Text(
+                                  '${order.countDownMessage ?? ""}',
+                                  style: TextStyle(fontSize: 13),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                width: SizeConfig().screenWidth / 1.7,
+                              ),
+                              SizedBox(
+                                width: 16,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(right: 24),
+                                child: CountDownTimer(
+                                  time: order.countDownMins,
+                                ),
+                              ),
+                            ],
+                          ),
+                          color: ThemeColor().yellowColor,
+                          height: 74.toHeight,
+                          width: SizeConfig().screenWidth,
+                        )
+                      : SizedBox(),
                   Container(
                     height: 300.toHeight,
                     child: GoogleMap(
@@ -136,7 +182,9 @@ class StatusView extends HookWidget {
                       onCameraMove: _onCameraMove,
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
-                          target: _lastMapPosition2, zoom: 11.00),
+                          target: _lastMapPosition2 ??
+                              const LatLng(40.3716222, 49.8555191),
+                          zoom: 11.00),
                     ),
                   ),
                   Container(
@@ -221,7 +269,7 @@ class StatusView extends HookWidget {
                             ],
                           )),
                       onTap: () =>
-                          UrlLauncher.launch("tel://${order.curyer.mobile}"),
+                          UrlLauncher.launch("tel:+${order.curyer.mobile}"),
                     ))
                 : SizedBox()
           ],
@@ -230,7 +278,43 @@ class StatusView extends HookWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+    if (_lastMapPosition2 != null && _lastMapPosition != null) {
+      LatLngBounds bound = LatLngBounds(
+          southwest: _lastMapPosition2, northeast: _lastMapPosition);
+      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 80);
+      this._mapController.animateCamera(u2).then((void v) {
+        check(u2, this._mapController);
+      });
+    }
+  }
+
+  void check(CameraUpdate u, GoogleMapController c) async {
+    c.animateCamera(u);
+    _mapController.animateCamera(u);
+    LatLngBounds l1 = await c.getVisibleRegion();
+    LatLngBounds l2 = await c.getVisibleRegion();
+    if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90)
+      check(u, c);
   }
 
   void _onCameraMove(CameraPosition position) {}
+
+  void setCuryerCoords(ValueNotifier<Set<Marker>> markers) {
+    final split3 = order.curyer?.coords?.trim()?.split(',');
+    double lat3 = double.parse(split3[0]);
+    double lng3 = double.parse(split3[1]);
+    final _lastMapPosition3 = LatLng(lat3, lng3);
+    getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
+      final marker3 = Marker(
+          draggable: true,
+          markerId: MarkerId('113'),
+          position: _lastMapPosition3,
+          infoWindow: InfoWindow(title: order.curyer.name, snippet: ""),
+          icon: BitmapDescriptor.fromBytes(value));
+      if (markers.value.length > 3) {
+        markers.value.removeWhere((element) => element.markerId == '113');
+      }
+      markers.value.add(marker3);
+    });
+  }
 }

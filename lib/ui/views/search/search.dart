@@ -77,8 +77,7 @@ class SearchView extends StatelessWidget {
               ? Expanded(
                   child: Column(
                     children: <Widget>[
-                      Text(
-                          'Найдено ${search.found > 0 ? '${search.found}' : ''} ресторанов'),
+                      Text('${search.message ?? ''}'),
                       SizedBox(
                         height: 8.toHeight,
                       ),
@@ -95,7 +94,7 @@ class SearchView extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return RestourantItem(
                                     restourant: Restourant(
-                                      id: search.results[index].id ,
+                                        id: search.results[index].id,
                                         image: search.results[index].image,
                                         name: search.results[index].name,
                                         information:
@@ -108,7 +107,9 @@ class SearchView extends StatelessWidget {
                   ),
                 )
               : Center(
-                  child: Text(AppLocalizations.of(context).translate("No data")??"No data"),
+                  child: Text(
+                      AppLocalizations.of(context).translate("No data") ??
+                          "No data"),
                 )
         ],
       ),

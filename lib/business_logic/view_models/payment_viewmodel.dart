@@ -44,7 +44,6 @@ class PaymentViewModel extends HookWidget {
     ValueNotifier<List<Add>> adds = useState<List<Add>>();
 
     useEffect(() {
-      print('USE EFFECt ${store.state.additionalAddress}');
       paymentItems.value.clear();
       address.value = store.state?.address ?? '';
       coords.value = store.state.coords ?? '';
@@ -87,7 +86,6 @@ class PaymentViewModel extends HookWidget {
     }, [uniqueKey.value]);
     useEffect(() {
       if (apiResponse.status == Status.Done) {
-        print(apiResponse.data.urltogo);
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           showGeneralDialog(
             barrierLabel: "Label",
@@ -173,7 +171,6 @@ class PaymentViewModel extends HookWidget {
     return apiResponse.status != Status.Loading
         ? InkWell(
             onTap: () {
-              print('here callback');
               if (store.state.isInPolygon) {
                 paymentCallBack.call();
               }

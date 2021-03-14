@@ -50,7 +50,6 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
       _state.value = ApiResponse.initial();
     }
     return () {
-      print('Dispose -> Cancelled');
       isCancel = true;
       if (cancelToken != null) {
         cancelToken.cancel('Request Cancelled');

@@ -40,6 +40,9 @@ class Order {
   Curyer curyer;
   List<Food> foods;
   var final_price;
+  var hasCountdown;
+  var countDownMins;
+  var countDownMessage;
 
   Order.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -54,6 +57,9 @@ class Order {
     curyer = json['curyer'] != null ? Curyer.fromJson(json['curyer']) : null;
     foods = listFoodsFromJson(json['foods']);
     final_price = json['final_price'];
+    hasCountdown = json['hasCountdown'];
+    countDownMins = json['countDownMins'];
+    countDownMessage = json['countDownMessage'];
   }
 }
 

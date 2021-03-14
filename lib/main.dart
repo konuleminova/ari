@@ -2,6 +2,7 @@ import 'package:ari/services/provider/provider.dart';
 import 'package:ari/ui/provider/app_bar/app_bar_state.dart';
 import 'package:ari/ui/provider/change_language/change_language_state.dart';
 import 'package:ari/ui/views/splash.dart';
+import 'package:ari/ui/views/status/widgets/countdown_timer.dart';
 import 'package:ari/utils/sharedpref_util.dart';
 import 'package:ari/utils/theme_color.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +27,6 @@ class MyApp extends HookWidget {
     final changeLangStore = useChangeLangStore();
     useProviderRegistration(changeLangStore);
     registerAppBarStore();
-    print('CURRENT LANGUAGE: ${changeLangStore.state.lang}');
-
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

@@ -71,8 +71,6 @@ class FoodItemExpanded extends StatelessWidget {
                                 }
                               });
                             }
-
-                            print('CLICKED ${food.count}');
                           }
                           addtoCartCallBack(food);
                         },

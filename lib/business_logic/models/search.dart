@@ -6,10 +6,12 @@ class Search extends Restourant {
   int found;
   String type;
   List<dynamic> results;
+  var message;
 
   Search.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
     found = json['found'];
     type = json['type'];
+    message = json['message'];
     results = type == 'food'
         ? listFoodsFromJson(json['results'])
         : resourantListFromJson(json['results']);
