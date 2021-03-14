@@ -186,6 +186,9 @@ class FoodViewModel extends HookWidget {
         errors: [
           apiResponse.error
         ],
+        onRefresh: (){
+
+        },
         child: FoodView(
             goToPaymentCallBack: goToPaymentCallBack,
             addedFoodList: addedFoodList.value,

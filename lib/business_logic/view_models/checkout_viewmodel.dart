@@ -73,6 +73,9 @@ class CheckoutViewModel extends HookWidget {
         ? CustomErrorHandler(
             statuses: [apiResponse.status],
             errors: [apiResponse.error],
+            onRefresh: (){
+
+            },
             child: Provider<Store<CheckoutState, CheckoutAction>>(
               value: store,
               child: CheckoutView(

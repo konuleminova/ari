@@ -32,8 +32,8 @@ class PartnerItem extends StatelessWidget {
                 padding: EdgeInsets.only(
                     bottom: 10.toHeight,
                     top: 10.toHeight,
-                    right: index % 2 == 0?4.toWidth:36.toWidth,
-                    left: index % 2 == 0 ? 36.toWidth : 0),
+                    right: index % 2 == 0?8:36.toWidth,
+                    left: index % 2 == 0 ? 36.toWidth : 8),
                 width: SizeConfig().screenWidth,
                 alignment: index % 2 == 0
                     ? Alignment.centerRight
@@ -59,14 +59,14 @@ class PartnerItem extends StatelessWidget {
         ],
       ),),
       onTap: (){
-        pushRouteWithName(ROUTE_RESTAURANT,
-            arguments: RouteArguments<Restourant>(
-                data: Restourant(
-                    image: restourant.image,
-                    id: restourant.id,
-                    name: restourant.name,
-                    working: restourant.working,
-                    information: restourant.information)));
+//        pushRouteWithName(ROUTE_RESTAURANT,
+//            arguments: RouteArguments<Restourant>(
+//                data: Restourant(
+//                    image: restourant.image,
+//                    id: restourant.id,
+//                    name: restourant.name,
+//                    working: restourant.working,
+//                    information: restourant.information)));
       },
     );
   }

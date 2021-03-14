@@ -78,6 +78,9 @@ class MenuViewModel extends HookWidget {
 
     // TODO: implement build
     return CustomErrorHandler(
+      onRefresh: (){
+
+      },
       child: ScrollablePositionedList.builder(
         itemScrollController: horizontalScrollController.value,
         itemBuilder: (BuildContext context, int index) {

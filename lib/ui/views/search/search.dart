@@ -45,27 +45,27 @@ class SearchView extends StatelessWidget {
                       )),
                   flex: 3,
                 ),
-                VerticalDivider(
-                  width: 3,
-                  color: Colors.grey,
-                ),
-                SizedBox(
-                  width: 12.toWidth,
-                ),
-                Expanded(
-                  child: Container(
-                      child: TextField(
-                    controller: controller2,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    keyboardType: TextInputType.numberWithOptions(
-                        signed: true, decimal: true),
-                    onSubmitted: (v) {
-                      onChangeValue();
-                    },
-                  )),
-                )
+//                VerticalDivider(
+//                  width: 3,
+//                  color: Colors.grey,
+//                ),
+//                SizedBox(
+//                  width: 12.toWidth,
+//                ),
+//                Expanded(
+//                  child: Container(
+//                      child: TextField(
+//                    controller: controller2,
+//                    decoration: InputDecoration(
+//                      border: InputBorder.none,
+//                    ),
+//                    keyboardType: TextInputType.numberWithOptions(
+//                        signed: true, decimal: true),
+//                    onSubmitted: (v) {
+//                      onChangeValue();
+//                    },
+//                  )),
+//                )
               ],
             ),
             height: 40.toHeight,
@@ -97,6 +97,7 @@ class SearchView extends StatelessWidget {
                                         id: search.results[index].id,
                                         image: search.results[index].image,
                                         name: search.results[index].name,
+                                        sm_name: search.results[index].sm_name,
                                         information:
                                             search.results[index].information));
                               },

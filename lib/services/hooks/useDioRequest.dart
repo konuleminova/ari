@@ -36,12 +36,10 @@ ApiResponse<T> useDioRequest<T>(DioConfig<T> config) {
         }
       }).catchError((error) {
         if (!isCancel) {
-//          if (error.type != null) {
-//            if (DioErrorType.DEFAULT == error?.type) {
-//              _state.value = ApiResponse.error(
-//                  AppException(message: "No internet Connection"));
-//            }
-//          } else
+            if (DioErrorType.DEFAULT == error?.type) {
+              _state.value = ApiResponse.error(
+                  AppException(message: "No internet Connection"));
+            } else
             _state.value =
                 ApiResponse.error(AppException(message: error.toString()));
         }

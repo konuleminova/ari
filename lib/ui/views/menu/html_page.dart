@@ -18,9 +18,14 @@ class HtmlViewmModel extends HookWidget {
 
     ApiResponse<HtmlModel> apiResponse = useFetchHtml(url.data);
     // TODO: implement build
-    return apiResponse.status == Status.Done
-        ? HtmlView(apiResponse.data)
-        : Loading();
+    return CustomErrorHandler(
+      child: HtmlView(apiResponse.data),
+      onRefresh: (){
+
+      },
+      errors: [apiResponse.error],
+      statuses: [apiResponse.status],
+    );
   }
 }
 
