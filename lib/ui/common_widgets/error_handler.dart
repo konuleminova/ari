@@ -30,7 +30,7 @@ class CustomErrorHandler extends HookWidget {
         null;
     final ctx = useContext();
     useSideEffect(() {
-      if (error.message == 'token not found') {
+      if (error?.message == 'token not found') {
         print('Here');
         SpUtil.remove(SpUtil.token);
         pushReplaceRouteWithName('/');
