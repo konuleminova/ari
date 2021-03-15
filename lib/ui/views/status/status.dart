@@ -51,7 +51,7 @@ class StatusView extends HookWidget {
           print(
               'COUNTDOWN MESSAGE ${apiResponse.data.order[orderArguments.data.index].countDownMessage}');
           print('ORDER DATA IS ${order.value.countDownMessage}');
-          //getBounWith(_mapController);
+          getBounWith(_mapController);
           //order.value=null;
           order.notifyListeners();
         }
@@ -296,7 +296,7 @@ class StatusView extends HookWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
-    //getBounWith(_mapController);
+    getBounWith(_mapController);
   }
 
   void getBounWith(_mapController) {
