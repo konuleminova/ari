@@ -19,7 +19,8 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 class StatusView extends HookWidget {
   RouteArguments<Order> orderArguments;
   ValueNotifier<Order> order;
-
+  ValueNotifier<ApiResponse<StatusModel>> apiResponseWithoutValue;
+  ApiResponse<StatusModel> apiResponse;
   GoogleMapController _mapController;
   var _lastMapPosition2;
   var _lastMapPosition;
@@ -27,22 +28,31 @@ class StatusView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    apiResponseWithoutValue = useState<ApiResponse<StatusModel>>();
     orderArguments = ModalRoute.of(context).settings.arguments;
     order = useState<Order>();
-    order.value = orderArguments.data;
+    if (order.value == null) {
+      order.value = orderArguments.data;
+    }
+
     var curyerCoordsKey = useState<UniqueKey>(new UniqueKey());
     ValueNotifier<Set<Marker>> markers = useState<Set<Marker>>(Set<Marker>());
 
     //get Curyer Coords
 //    ApiResponse<String> curyerCoords =
 //        useGetCuryerCoords(curyerCoordsKey.value, order.value.curyer?.id ?? '');
-    ApiResponse<StatusModel> apiResponse = useStatus(curyerCoordsKey.value);
+    apiResponseWithoutValue.value = useStatus(curyerCoordsKey.value);
+    apiResponse = apiResponseWithoutValue.value;
     useEffect(() {
       timer = new Timer.periodic(Duration(seconds: 30), (timer) {
         curyerCoordsKey.value = new UniqueKey();
         if (apiResponse.status == Status.Done) {
           order.value = apiResponse.data.order[orderArguments.data.index];
+          print(
+              'COUNTDOWN MESSAGE ${apiResponse.data.order[orderArguments.data.index].countDownMessage}');
+          print('ORDER DATA IS ${order.value.countDownMessage}');
           //getBounWith(_mapController);
+          //order.value=null;
           order.notifyListeners();
         }
 //        if (curyerCoords.status == Status.Done) {
@@ -286,7 +296,7 @@ class StatusView extends HookWidget {
 
   _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
-    getBounWith(_mapController);
+    //getBounWith(_mapController);
   }
 
   void getBounWith(_mapController) {

@@ -23,6 +23,10 @@ ApiResponse<StatusModel> useStatus(UniqueKey uniqueKey) {
   }, [uniqueKey]);
 
   ApiResponse<StatusModel> apiResponse = useDioRequest(dioConfig);
+  if(apiResponse.data?.order!=null){
+    print('APIRESPONSE MESSAGE ${apiResponse.data?.order[0].countDownMessage}');
+  }
+
   return apiResponse;
 }
 

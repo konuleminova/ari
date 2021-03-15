@@ -62,6 +62,13 @@ class Order {
     countDownMins = json['countDownMins'];
     countDownMessage = json['countDownMessage'];
   }
+
+  @override
+  String toString() {
+    return 'Order{message: $message, statusNUM: $statusNUM, date: $date, orderid: $orderid, address: $address, coords: $coords, restourant: $restourant, curyer: $curyer, foods: $foods, final_price: $final_price, hasCountdown: $hasCountdown, countDownMins: $countDownMins, countDownMessage: $countDownMessage, index: $index}';
+  }
+
+
 }
 
 listOrderFromJson(List<dynamic> orderList) =>
