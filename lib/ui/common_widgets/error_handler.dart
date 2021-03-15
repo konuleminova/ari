@@ -30,17 +30,17 @@ class CustomErrorHandler extends HookWidget {
         null;
     final ctx = useContext();
     useSideEffect(() {
+      if (error.message == 'token not found') {
+        print('Here');
+        SpUtil.remove(SpUtil.token);
+        pushReplaceRouteWithName('/');
+      }
       if (hasError && onRefresh == null) {
-        if (error.message == 'token not found') {
-          SpUtil.remove(SpUtil.token);
-          pushReplaceRouteWithName('/');
-        } else {
-          showDialog(
-              context: ctx,
-              builder: (BuildContext context) => ErrorDialog(
-                    errorMessage: error.message ?? "Some Message",
-                  ));
-        }
+        showDialog(
+            context: ctx,
+            builder: (BuildContext context) => ErrorDialog(
+                  errorMessage: error.message ?? "Some Message",
+                ));
       }
 
       return () {};
