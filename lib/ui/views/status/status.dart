@@ -51,7 +51,10 @@ class StatusView extends HookWidget {
           print(
               'COUNTDOWN MESSAGE ${apiResponse.data.order[orderArguments.data.index].countDownMessage}');
           print('ORDER DATA IS ${order.value.countDownMessage}');
-          getBounWith(_mapController);
+          if (_mapController != null) {
+            getBounWith(_mapController);
+          }
+
           //order.value=null;
           order.notifyListeners();
         }
@@ -206,7 +209,7 @@ class StatusView extends HookWidget {
                     ),
                   ),
                   Container(
-                    //  height: 250.toHeight,
+                      //  height: 250.toHeight,
                       width: SizeConfig().screenWidth,
                       child: Container(
                           padding: EdgeInsets.all(24.toWidth),
@@ -256,16 +259,20 @@ class StatusView extends HookWidget {
                             },
                             itemCount: order.value.foods.length,
                           ))),
-                  SizedBox(height: 24,),
+                  SizedBox(
+                    height: 24,
+                  ),
                   Container(
-                    height:100,
+                    height: 100,
                     child: Text(
                       order.value.totalpricemessage ?? '',
                       overflow: TextOverflow.ellipsis,
                     ),
                     margin: EdgeInsets.only(left: 24, right: 24),
                   ),
-                      SizedBox(height: 16,),
+                  SizedBox(
+                    height: 16,
+                  ),
                 ])),
             order.value.curyer != null
                 ? Positioned(
@@ -349,21 +356,23 @@ class StatusView extends HookWidget {
   void _onCameraMove(CameraPosition position) {}
 
   void setCuryerCoords(ValueNotifier<Set<Marker>> markers) {
-    final split3 = order.value.curyer?.coords?.trim()?.split(',');
-    double lat3 = double.parse(split3[0]);
-    double lng3 = double.parse(split3[1]);
-    final _lastMapPosition3 = LatLng(lat3, lng3);
-    getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
-      final marker3 = Marker(
-          draggable: true,
-          markerId: MarkerId('113'),
-          position: _lastMapPosition3,
-          infoWindow: InfoWindow(title: order.value.curyer.name, snippet: ""),
-          icon: BitmapDescriptor.fromBytes(value));
-      if (markers.value.length > 3) {
-        markers.value.removeWhere((element) => element.markerId == '113');
-      }
-      markers.value.add(marker3);
-    });
+    if (order.value.curyer.coords != null) {
+      final split3 = order.value.curyer?.coords?.trim()?.split(',');
+      double lat3 = double.parse(split3[0]);
+      double lng3 = double.parse(split3[1]);
+      final _lastMapPosition3 = LatLng(lat3, lng3);
+      getBytesFromAsset('assets/images/curyer.png', 130).then((value) {
+        final marker3 = Marker(
+            draggable: true,
+            markerId: MarkerId('113'),
+            position: _lastMapPosition3,
+            infoWindow: InfoWindow(title: order.value.curyer.name, snippet: ""),
+            icon: BitmapDescriptor.fromBytes(value));
+        if (markers.value.length > 3) {
+          markers.value.removeWhere((element) => element.markerId == '113');
+        }
+        markers.value.add(marker3);
+      });
+    }
   }
 }
