@@ -44,6 +44,7 @@ class Order {
   var countDownMins;
   var countDownMessage;
   int index;
+  var totalpricemessage;
 
   Order.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -61,14 +62,13 @@ class Order {
     hasCountdown = json['hasCountdown'];
     countDownMins = json['countDownMins'];
     countDownMessage = json['countDownMessage'];
+    totalpricemessage = json['totalpricemessage'];
   }
 
   @override
   String toString() {
     return 'Order{message: $message, statusNUM: $statusNUM, date: $date, orderid: $orderid, address: $address, coords: $coords, restourant: $restourant, curyer: $curyer, foods: $foods, final_price: $final_price, hasCountdown: $hasCountdown, countDownMins: $countDownMins, countDownMessage: $countDownMessage, index: $index}';
   }
-
-
 }
 
 listOrderFromJson(List<dynamic> orderList) =>

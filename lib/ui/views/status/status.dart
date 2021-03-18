@@ -206,7 +206,7 @@ class StatusView extends HookWidget {
                     ),
                   ),
                   Container(
-                      height: 250.toHeight,
+                    //  height: 250.toHeight,
                       width: SizeConfig().screenWidth,
                       child: Container(
                           padding: EdgeInsets.all(24.toWidth),
@@ -250,12 +250,22 @@ class StatusView extends HookWidget {
                                                     left: 16.toWidth),
                                               );
                                             }),
-                                      )
+                                      ),
                                     ],
                                   ));
                             },
                             itemCount: order.value.foods.length,
-                          )))
+                          ))),
+                  SizedBox(height: 24,),
+                  Container(
+                    height:100,
+                    child: Text(
+                      order.value.totalpricemessage ?? '',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    margin: EdgeInsets.only(left: 24, right: 24),
+                  ),
+                      SizedBox(height: 16,),
                 ])),
             order.value.curyer != null
                 ? Positioned(
