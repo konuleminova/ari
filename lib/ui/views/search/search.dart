@@ -86,18 +86,25 @@ class SearchView extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8.toWidth, vertical: 8.toHeight),
                             width: MediaQuery.of(context).size.width,
-                            child:ListView.builder(
+                            child: ListView.builder(
                               itemBuilder: (BuildContext context, int index) {
-                                return RestourantItem(
-                                    restourant: Restourant(
-                                        id: search.results[index].id,
-                                        image: search.results[index].image,
-                                        name: search.results[index].name,
-                                        sm_name: search.results[index].sm_name,
-                                        information:
-                                            search.results[index].information),
-                                width:SizeConfig().screenWidth,
-                                height: 260,);
+                                return Opacity(
+                                    opacity:
+                                        search.results[index].working ? 1 : 0.3,
+                                    child: RestourantItem(
+                                      restourant: Restourant(
+                                          id: search.results[index].id,
+                                          image: search.results[index].image,
+                                          name: search.results[index].name,
+                                          sm_name:
+                                              search.results[index].sm_name,
+                                          working:
+                                              search.results[index].working,
+                                          information: search
+                                              .results[index].information),
+                                      width: SizeConfig().screenWidth,
+                                      height: 260,
+                                    ));
                               },
                               padding: EdgeInsets.all(0),
                               itemCount: search.results.length,
