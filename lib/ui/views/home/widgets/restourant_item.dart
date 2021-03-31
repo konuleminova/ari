@@ -6,8 +6,10 @@ import 'package:ari/utils/size_config.dart';
 
 class RestourantItem extends StatelessWidget {
   Restourant restourant;
+  double width;
+  double height;
 
-  RestourantItem({this.restourant});
+  RestourantItem({this.restourant,this.width,this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,8 @@ class RestourantItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: SizeConfig().screenWidth / 2.4,
-            height: SizeConfig().screenHeight / 3.6,
+            width: width??SizeConfig().screenWidth / 2.4,
+            height: height??SizeConfig().screenHeight / 3.6,
             margin: EdgeInsets.all(4.toWidth),
             decoration: BoxDecoration(
                 color: Color(0xFF707070).withOpacity(0.21),

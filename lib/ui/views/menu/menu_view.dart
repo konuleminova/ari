@@ -22,7 +22,7 @@ class MenuView extends HookWidget {
         barrierLabel: "Label",
         barrierDismissible: true,
         barrierColor: Colors.black.withOpacity(0.4),
-        transitionDuration: Duration(milliseconds: 700),
+        transitionDuration: Duration(milliseconds: 350),
         context: context,
         pageBuilder: (context, anim1, anim2) {
           return Stack(

@@ -79,18 +79,14 @@ class SearchView extends StatelessWidget {
                     children: <Widget>[
                       Text('${search.message ?? ''}'),
                       SizedBox(
-                        height: 8.toHeight,
+                        height: 4.toHeight,
                       ),
                       Expanded(
                         child: Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8.toWidth, vertical: 8.toHeight),
-                            // height: MediaQuery.of(context).size.height,
                             width: MediaQuery.of(context).size.width,
-                            child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
+                            child:ListView.builder(
                               itemBuilder: (BuildContext context, int index) {
                                 return RestourantItem(
                                     restourant: Restourant(
@@ -99,8 +95,11 @@ class SearchView extends StatelessWidget {
                                         name: search.results[index].name,
                                         sm_name: search.results[index].sm_name,
                                         information:
-                                            search.results[index].information));
+                                            search.results[index].information),
+                                width:SizeConfig().screenWidth,
+                                height: 260,);
                               },
+                              padding: EdgeInsets.all(0),
                               itemCount: search.results.length,
                             )),
                       )
