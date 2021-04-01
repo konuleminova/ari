@@ -93,6 +93,7 @@ class SearchView extends StatelessWidget {
                                         search.results[index].working ? 1 : 0.3,
                                     child: RestourantItem(
                                       restourant: Restourant(
+                                        isSearch: true,
                                           id: search.results[index].id,
                                           image: search.results[index].image,
                                           name: search.results[index].name,
@@ -101,7 +102,7 @@ class SearchView extends StatelessWidget {
                                           working:
                                               search.results[index].working,
                                           information: search
-                                              .results[index].information),
+                                              .results[index].information,),
                                       width: SizeConfig().screenWidth,
                                       height: 260,
                                     ));

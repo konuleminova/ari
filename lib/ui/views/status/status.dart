@@ -130,7 +130,7 @@ class StatusView extends HookWidget {
                     color: ThemeColor().grey1.withOpacity(0.4),
                     width: SizeConfig().screenWidth,
                     height: 80.toHeight,
-                    padding: EdgeInsets.all(24.toWidth),
+                    padding: EdgeInsets.all(16.toWidth),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -139,7 +139,7 @@ class StatusView extends HookWidget {
                           order.value.message ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 16.toFont, fontWeight: FontWeight.w500),
+                              fontSize: 14.toFont, fontWeight: FontWeight.w500),
                         ),
                         SizedBox(
                           height: 4.toHeight,

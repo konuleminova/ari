@@ -33,6 +33,7 @@ class Restourant {
   String sticker_text;
   String percent;
   String minprice;
+  bool isSearch=false;
 
   Restourant(
       {this.id,
@@ -51,7 +52,7 @@ class Restourant {
       this.sticker_st_color,
       this.sticker_en_color,
       this.percent,
-      this.minprice});
+      this.minprice,this.isSearch});
 
   Restourant.fromJson(Map<String, dynamic> json) {
     id = json['id'];

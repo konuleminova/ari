@@ -9,7 +9,7 @@ class RestourantItem extends StatelessWidget {
   double width;
   double height;
 
-  RestourantItem({this.restourant,this.width,this.height});
+  RestourantItem({this.restourant, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class RestourantItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: width??SizeConfig().screenWidth / 2.4,
-            height: height??SizeConfig().screenHeight / 3.6,
+            width: width ?? SizeConfig().screenWidth / 2.4,
+            height: height ?? SizeConfig().screenHeight / 3.6,
             margin: EdgeInsets.all(4.toWidth),
             decoration: BoxDecoration(
                 color: Color(0xFF707070).withOpacity(0.21),
@@ -27,7 +27,6 @@ class RestourantItem extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 7,
                   child: Container(
                       width: SizeConfig().screenWidth,
                       child: ClipRRect(
@@ -35,35 +34,33 @@ class RestourantItem extends StatelessWidget {
                               fit: BoxFit.cover),
                           borderRadius: BorderRadius.all(Radius.circular(8)))),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.toWidth, vertical: 8.toHeight),
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            restourant.name ?? 'No name',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 3.toHeight,
-                          ),
-                          Expanded(
-                            child: Text(
-                              restourant.information ?? 'No description',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 10.toFont),
-                            ),
-                          )
-                        ],
-                      )),
+                Container(
+                  height: restourant.isSearch ? 48.toHeight : 44.toHeight,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.toWidth, vertical: 8.toHeight),
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        restourant.name ?? 'No name',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 3.toHeight,
+                      ),
+                      Expanded(
+                        child: Text(
+                          restourant.sm_name ?? 'No description',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 10.toFont),
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
